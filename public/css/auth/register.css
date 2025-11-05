@@ -1,0 +1,116 @@
+.register-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 2rem;
+    background: #faf9ea;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.register-container h2 {
+    text-align: center;
+    color: #111014;
+    margin-bottom: 1.5rem;
+}
+
+.register-container label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #111014;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.5rem;
+    border: 1px solid #111014;
+    border-radius: 8px;
+    background: #fff;
+    color: #111014;
+}
+
+.register-container .submit-box {
+    display: flex;
+    justify-content:space-between;
+    margin-top: 20px;
+} 
+
+.register-container button {
+    width: 25%;
+    padding: 0.8rem;
+    margin-top: 1.5rem;
+    background: #ca122f;
+    border: none;
+    border-radius: 8px;
+    color: #faf9ea;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.register-container button:hover {
+    background: #a50e25;
+}
+
+.register-container p {
+    text-align: center;
+    margin-top: 1rem;
+    color: #111014;
+}
+
+.register-container a {
+    color: #ca122f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
+
+p {
+    display: flex;
+    justify-content: space-between;   
+    font-size: 14px;
+}
+
+.gender-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.gender-group label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    color: #111014;
+    cursor: pointer;
+}
+
+.gender-group input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    accent-color: #ca122f; 
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.row {
+    display: flex;
+    gap: 20px; /* khoảng cách giữa 2 ô */
+}
+
+.row .form-group {
+    flex: 1; /* chia đều 2 ô */
+    display: flex;
+    flex-direction: column;
+}
+
+.error-msg p {
+    color: #ca122f;
+    font-weight: bold;
+}

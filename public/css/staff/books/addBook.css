@@ -1,0 +1,71 @@
+.container {
+    justify-content: center;
+    align-content: center;
+    height: auto;
+    width: 100vw;
+    background-color: aliceblue;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.container-header {
+    width: 100%;
+    background-color: #a10d25;
+    padding: 20px 200px;
+    display: flex;
+    color: rgb(245, 225, 225);
+    justify-content: space-between;
+}
+
+.container-content {
+    background-color: #faf9ea;
+    padding: 40px 200px;
+}
+
+.container-content form {
+    display: grid;
+    grid-template-columns: 150px 1fr; 
+    gap: 20px 15px; 
+    align-items: center;
+    max-width: 700px;
+}
+
+.form-group {
+    display: contents; 
+}
+
+.container-content label {
+    font-weight: bold;
+    color: #333;
+}
+
+.container-content input,
+.container-content select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 700px;
+    transition: border 0.3s;
+}
+
+.container-content textarea {
+    height: 200px;
+}
+
+.submit-btn {
+    background-color: #ca122f;
+    color: white;
+}
+
+.cancel-btn {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 150px;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    padding-left: 50px;
+}

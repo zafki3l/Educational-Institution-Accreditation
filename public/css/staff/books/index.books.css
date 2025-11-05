@@ -1,0 +1,164 @@
+.content {
+    flex: 1;
+    justify-content: center;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(100vw - 400px);
+    transition: width 0.3s ease;
+}
+
+.content .book-header {
+    background-color: #a10d25;
+    padding: 10px 20px;
+    display: flex;
+    color: rgb(245, 225, 225);
+    justify-content: space-between;
+}
+
+.book-header .search-add {
+    display: flex;
+    gap: 20px;
+    padding: 4px 20px;
+    align-items: center;
+    justify-content: end;
+}
+
+.book-header .search-add input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background-color: #faf9ea;
+    width: 350px;
+    border: 1px solid #ccc;
+}
+
+.book-header .search-add button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #faf9ea;
+    cursor: pointer;
+}
+
+.book-header .search-add .addBook {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #faf9ea;
+    cursor: pointer;
+    text-decoration: none;
+    height: 34px;
+}
+
+.table-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: auto;
+    background: #faf9ea;
+}
+
+table {
+    min-width: 1000px;
+    border-collapse: collapse;
+    background: #faf9ea;
+    table-layout: fixed;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+th {
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td img {
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.action-btn {
+    display: flex;
+    padding: 12px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    gap: 20px;
+}
+
+.delete-btn {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.edit-btn {
+    color: black;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    margin: 15% auto;
+    width: 300px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+}
+
+.modal-content p {
+    margin: 10px 0 20px;
+    font-size: 14px;
+}
+
+.modal-content form {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-content button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.submit-modal {
+    background-color: #ca122f;
+    color: #fff;
+}
+
+.cancel-modal {
+    background-color: black;
+    color: #fff;
+}

@@ -1,0 +1,14 @@
+/* Error message styling */
+.error-msg {
+    grid-column: 2;
+    margin-top: 4px;
+}
+
+.error-msg p {
+    color: #ca122f;
+    font-weight: bold;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}

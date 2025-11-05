@@ -1,0 +1,126 @@
+.main-content {
+    padding-bottom: 100px;
+}
+
+.container {
+    margin: 40px auto;
+    justify-content: center;
+    align-content: center;
+    border-radius: 10px;
+    height: auto;
+    width: 1000px;
+    background-color: aliceblue;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.container-header {
+    background-color: #a10d25;
+    padding: 20px 100px;
+    display: flex;
+    color: rgb(245, 225, 225);
+    justify-content: space-between;
+}
+
+.container-content {
+    background-color: #faf9ea;
+    padding: 40px 100px;
+}
+
+.container-content form {
+    display: grid;
+    grid-template-columns: 150px 1fr; 
+    gap: 20px 15px; 
+    align-items: center;
+    max-width: 700px;
+}
+
+.form-group {
+    display: contents; 
+}
+
+.container-content label {
+    font-weight: bold;
+    color: #333;
+}
+
+.container-content input,
+.container-content select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+    transition: border 0.3s;
+}
+
+/* Gender group styling: tidy horizontal toggle-like radios */
+.gender-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.gender-group label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    color: #222;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.12s ease;
+}
+
+.gender-group input[type="radio"] {
+    /* keep native control but make it visually small; modern browsers will use accent-color */
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #ca122f; /* modern browsers */
+}
+
+/* Selected state using :has() for labels that contain a checked input (modern browsers) */
+@supports(selector(:has(*))) {
+    .gender-group label:has(input[type="radio"]:checked) {
+        background: #ca122f;
+        color: #fff;
+        border-color: #ca122f;
+        box-shadow: 0 4px 10px rgba(201,18,47,0.12);
+    }
+}
+
+/* Fallback: style the radio itself when checked (older browsers) */
+.gender-group input[type="radio"]:checked {
+    outline: 2px solid rgba(202,18,47,0.14);
+}
+
+.gender-group label:focus-within {
+    box-shadow: 0 0 0 3px rgba(202,18,47,0.12);
+}
+
+.gender-group .hint {
+    font-size: 12px;
+    color: #666;
+}
+
+.submit-btn {
+    background-color: #ca122f;
+    color: white;
+}
+
+.cancel-btn {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 150px;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    padding-left: 50px;
+}

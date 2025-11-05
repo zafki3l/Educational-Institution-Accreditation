@@ -1,0 +1,135 @@
+.main-content {
+  padding: 20px;
+}
+
+/* Dashboard Layout */
+.staff-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Card Base Styles */
+.card {
+  background: #faf9ea;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.card-header {
+  background: #9d0202;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: white;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Staff Info Card */
+.staff-info-card .profile-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #ca122f;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-details p {
+  margin: 0;
+  font-size: 14px;
+  color: #212529;
+}
+
+.profile-details strong {
+  color: #212529;
+  display: inline-block;
+  width: 80px;
+}
+
+/* Management Links */
+.management-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manage-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #ca122f;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.manage-link:hover {
+  background: #9d0202;
+  transform: translateY(-1px);
+}
+
+.manage-link i {
+  font-size: 20px;
+  color: black;
+}
+
+/* Chart Section */
+.chart-card .chart-body {
+  height: 400px;
+  padding: 20px;
+}
+
+.chart-card canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-content {
+    padding: 16px;
+  }
+  
+  .card-header {
+    padding: 12px 16px;
+  }
+  
+  .card-body {
+    padding: 16px;
+  }
+  
+  .chart-card .chart-body {
+    height: 300px;
+  }
+}
