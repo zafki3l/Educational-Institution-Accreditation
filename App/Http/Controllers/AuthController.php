@@ -34,6 +34,17 @@ class AuthController extends Controller
 
     public function login(AuthRequest $authRequest = new AuthRequest()): void
     {
+        $_SESSION['attempt_failed'] = isset($_SESSION['attempt_failed']) ? $_SESSION['attempt_failed'] : 0;
+        $_SESSION['lock_time'] = isset($_SESSION['lock_time']) ? $_SESSION['lock_time'] : 0;
+
+        // If locked
+        $isLocked = time() < $_SESSION['lock_time'];
+        if ($isLocked) {
+            $remain = $_SESSION['lock_time'] - time();
+            $_SESSION['locked'] = "Too many failed attempts. Please try again after {$remain} seconds.";
+            $this->back();
+        }
+
         // Get email & password from request
         $request = $authRequest->loginRequest();
 
@@ -44,21 +55,13 @@ class AuthController extends Controller
             $this->back();
         }
 
-        // Binding request data into user
-        $this->user->fill($request);
+        // If the user is sucessfully login
+        unset($_SESSION['attempt_failed'], $_SESSION['lock_time']);
 
-        // If the user's password typed not matching
-        $db_user = $this->user->getUserByEmail($this->user->email);
-
-        $db_password = $db_user[0]['password'];
-        if ((empty($db_user) || !password_verify($this->user->password, $db_password))) {
-            $this->back();
-        }
-
-        // Redirect user if they successfully login
+        $db_user = $this->user->getUserByEmail($request['email']);
         $_SESSION['user'] = $this->setSession($db_user);
-        $role = $_SESSION['user']['role'];
 
+        $role = $_SESSION['user']['role'];
         if (User::isAdmin($role)) {
             $this->redirect('/admin/dashboard');
         }
@@ -103,7 +106,8 @@ class AuthController extends Controller
         try {
             $userData = $this->user->getUserByEmail($request['email']);
 
-            if (!$userErrorHandler->isEmailExist($request['email'], $this->user)) {
+            $isEmailExist = $userErrorHandler->isEmailExist($request['email'], $this->user);
+            if (!$isEmailExist) {
                 $errors['email-not-existed'] = 'Email is not exist! create a new account!';
             }
 
@@ -112,13 +116,30 @@ class AuthController extends Controller
             }
 
             $user_password = $userData[0]['password'];
-            if (!$userErrorHandler->isPasswordCorrect($user_password, $request['password'])) {
+            $isPasswordCorrect = $userErrorHandler->isPasswordCorrect($user_password, $request['password']);
+            if (!$isPasswordCorrect) {
                 $errors['incorrect-password'] = 'Password incorrect!';
+                $errors['failed_login'] = $this->handleFailedAttempt();
             }
         } catch (Exception $e) {
             $errors['exception-error'] = $e->getMessage();
         }
 
         return $errors;
+    }
+
+    private function handleFailedAttempt(): string
+    {
+        $_SESSION['attempt_failed']++;
+
+        if ($_SESSION['attempt_failed'] > 5) {
+            $_SESSION['lock_time'] = time() + 10 * 60; // 10 minutes
+            $_SESSION['attempt_failed'] = 0;
+
+            return 'Too many failed attempts. Please try again in 10 minutes.';
+        } else {
+            $remain = 5 - $_SESSION['attempt_failed'];
+            return 'You have ' . $remain . ' tries left.';
+        }
     }
 }

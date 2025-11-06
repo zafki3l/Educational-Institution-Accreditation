@@ -3,12 +3,9 @@
 namespace App\Http\Middlewares;
 
 use App\Models\User;
-use Traits\HttpResponseTrait;
 
 class EnsureAdmin
 {
-    use HttpResponseTrait;
-
     public function handle(): void
     {
         $role = $_SESSION['user']['role'] ?? null;

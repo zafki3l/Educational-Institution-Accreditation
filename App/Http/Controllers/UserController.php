@@ -35,7 +35,8 @@ class UserController extends Controller
 
     public function store(UserRequest $userRequest = new UserRequest()): void
     {
-        // Get request from user
+        $user = $this->user;
+
         $request = $userRequest->addUserRequest();
 
         // Errors handling
@@ -46,9 +47,14 @@ class UserController extends Controller
         }
 
         // Create new User and store into Database
-        $this->user->fill($request);
-        $this->user->createUser();
+        $user->setFirstName($request['first_name']);
+        $user->setLastName($request['last_name']);
+        $user->setEmail($request['email']);
+        $user->setGender($request['gender']);
+        $user->setPassword($request['password']);
+        $user->setRole($request['role']);
 
+        $user->createUser();
 
         // Redirect back to dashboard if successfully
         $this->redirect('/admin/dashboard');
@@ -68,6 +74,7 @@ class UserController extends Controller
 
     public function update(int $user_id, UserRequest $userRequest = new UserRequest()): void
     {
+        $user = $this->user;
         // Get request from user
         $request = $userRequest->updateUserRequest();
 
@@ -79,9 +86,13 @@ class UserController extends Controller
         }
 
         // Update user informations
-        $this->user->fill($request);
+        $user->setFirstName($request['first_name']);
+        $user->setLastName($request['last_name']);
+        $user->setEmail($request['email']);
+        $user->setGender($request['gender']);
+        $user->setRole($request['role']);
 
-        $this->user->updateUserById($user_id);
+        $user->updateUserById($user_id);
 
         $_SESSION['edit-user-success'] = 'Edit user successfully!';
 
