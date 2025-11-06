@@ -37,7 +37,6 @@ class UserController extends Controller
     {
         $user = $this->user;
 
-        // Get request from user
         $request = $userRequest->addUserRequest();
 
         // Errors handling

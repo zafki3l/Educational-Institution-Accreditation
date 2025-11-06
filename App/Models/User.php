@@ -6,7 +6,6 @@ use Core\Model;
 use Configs\Database;
 use PDOException;
 use DateTime;
-use Traits\ModelTrait;
 
 class User extends Model
 {

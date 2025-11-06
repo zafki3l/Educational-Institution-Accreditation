@@ -38,6 +38,14 @@
                         <?php if (!empty($_SESSION['errors']['incorrect-password'])): ?>
                             <p><?= error('incorrect-password') ?></p>
                         <?php endif; ?>
+
+                        <?php if (!empty($_SESSION['errors']['failed_login'])): ?>
+                            <p><?= error('failed_login') ?></p>
+                        <?php endif; ?>
+
+                        <?php if (!empty($_SESSION['locked'])): ?>
+                            <p><?= $_SESSION['locked'] ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 
