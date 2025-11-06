@@ -44,10 +44,6 @@
                 <button type="submit">Login</button>
             </form>
 
-            <p>
-                Don't have an account?
-                <a href="/<?= PROJECT_NAME ?>/register">Register</a>
-            </p>
         </div>
     </div>
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Models\Address;
 use App\Models\User;
 use Core\Controller;
 use ErrorHandlers\UserErrorHandler;
@@ -22,14 +21,9 @@ class UserController extends Controller
     // Constructor
     public function __construct(
         private User $user,
-        private Address $address,
-        private UserErrorHandler $userErrorHandler,
+        private UserErrorHandler $userErrorHandler
     ) {}
 
-    /**
-     * Shows add user view
-     * @return mixed
-     */
     public function create(): mixed
     {
         return $this->view(
@@ -39,13 +33,6 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Handles add user
-     * Redirect back to dashboard if successfully
-     * 
-     * @param \App\Http\Requests\UserRequest $userRequest
-     * @return void
-     */
     public function store(UserRequest $userRequest = new UserRequest()): void
     {
         // Get request from user
@@ -60,23 +47,13 @@ class UserController extends Controller
 
         // Create new User and store into Database
         $this->user->fill($request);
-        $user_id = $this->user->createUser();
+        $this->user->createUser();
 
-        $this->address->fill($request);
-        $address_id = $this->address->createAddress();
-
-        // Linking User and Address relationships
-        $this->user->linkAddress($user_id, $address_id);
 
         // Redirect back to dashboard if successfully
         $this->redirect('/admin/dashboard');
     }
 
-    /**
-     * Shows edit user view
-     * @param int $user_id
-     * @return mixed
-     */
     public function edit(int $user_id): mixed
     {
         return $this->view(
@@ -89,14 +66,6 @@ class UserController extends Controller
         );
     }
 
-    /**
-     * Handles update user
-     * Redirect back to dashboard if successfully
-     * 
-     * @param int $user_id
-     * @param \App\Http\Requests\UserRequest $userRequest
-     * @return void
-     */
     public function update(int $user_id, UserRequest $userRequest = new UserRequest()): void
     {
         // Get request from user
@@ -111,10 +80,8 @@ class UserController extends Controller
 
         // Update user informations
         $this->user->fill($request);
-        $this->address->fill($request);
 
         $this->user->updateUserById($user_id);
-        $this->address->updateAddressById($this->address->address_id);
 
         $_SESSION['edit-user-success'] = 'Edit user successfully!';
 
@@ -122,25 +89,10 @@ class UserController extends Controller
         $this->redirect('/admin/dashboard');
     }
 
-    /**
-     * Delete User from Database
-     * 
-     * @param int $user_id
-     * @param \App\Http\Requests\UserRequest $userRequest
-     * @return void
-     */
-    public function destroy(int $user_id, UserRequest $userRequest = new UserRequest()): void
+    public function destroy(int $user_id): void
     {
-        // Get request
-        $request = $userRequest->deleteUserRequest();
-
-        // Delete and unlink
-        $user_id = $request['user_id'];
-        $address_id = $request['address_id'];
-
-        $this->user->unlinkUserAndAddress($user_id, $address_id);
+        // Delete
         $this->user->deleteUser($user_id);
-        $this->address->deleteAddress($address_id);
 
         $_SESSION['delete-user-success'] = 'Delete user successfully!';
 
@@ -148,13 +100,6 @@ class UserController extends Controller
         $this->redirect('/admin/dashboard');
     }
 
-    /**
-     * Handles user errors
-     * @param \ErrorHandlers\UserErrorHandler $userErrorHandler
-     * @param array $request
-     * @param bool $isUpdated
-     * @return array<array|string>
-     */
     private function handleUserError(UserErrorHandler $userErrorHandler, array $request, bool $isUpdated = false): array
     {
         $errors = [];

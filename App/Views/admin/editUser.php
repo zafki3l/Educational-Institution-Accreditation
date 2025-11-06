@@ -16,11 +16,10 @@
 
             <!-- Edit user form -->
             <div class="container-content">
-                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user[0]['user_id']) ?>" method="post">
+                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user[0]['id']) ?>" method="post">
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <input type="hidden" name="_method" value="PUT">
-                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user[0]['user_id']) ?>">
-                    <input type="hidden" name="address_id" value="<?php echo htmlspecialchars($user[0]['address_id']) ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user[0]['id']) ?>">
 
                     <div class="form-group">
                         <label for="first_name">First name: </label>
@@ -82,21 +81,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="street">Street: </label>
-                        <input type="text" id="street" name="street" value="<?php echo htmlspecialchars($user[0]['street']) ?>" placeholder="Street">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city">City: </label>
-                        <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($user[0]['city']) ?>" placeholder="City">
-                    </div>
-
-                    <div class="form-group">
                         <label for="role">Role: </label>
                         <select name="role" id="role">
-                            <option value="1" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_USER ? 'selected' : '') ?>>Customer</option>
-                            <option value="2" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_STAFF ? 'selected' : '') ?>>Staff</option>
-                            <option value="3" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_ADMIN ? 'selected' : '') ?>>Admin</option>
+                            <option value="0" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_USER ? 'selected' : '') ?>>User</option>
+                            <option value="1" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_BUSINESS_STAFF ? 'selected' : '') ?>>Business Staff</option>
+                            <option value="2" <?php echo htmlspecialchars($user[0]['role'] == App\Models\User::ROLE_ADMIN ? 'selected' : '') ?>>Admin</option>
                         </select>
                     </div>
 

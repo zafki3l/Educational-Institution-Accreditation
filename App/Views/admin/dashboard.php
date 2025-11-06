@@ -33,8 +33,6 @@
                             <th>LAST NAME</th>
                             <th>EMAIL</th>
                             <th>GENDER</th>
-                            <th>STREET</th>
-                            <th>CITY</th>
                             <th>ROLE</th>
                             <th>CREATED AT</th>
                             <th>UPDATED AT</th>
@@ -45,20 +43,17 @@
                     <tbody>
                         <?php foreach ($users as $user): ?>
                             <tr>
-                                <td><?= htmlspecialchars($user['user_id']) ?></td>
+                                <td><?= htmlspecialchars($user['id']) ?></td>
                                 <td><?= htmlspecialchars($user['first_name']) ?></td>
                                 <td><?= htmlspecialchars($user['last_name']) ?></td>
                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                 <td><?= htmlspecialchars($user['gender']) ?></td>
-                                <td><?= htmlspecialchars($user['street']) ?></td>
-                                <td><?= htmlspecialchars($user['city']) ?></td>
                                 <td>
                                     <?php 
                                     switch (htmlspecialchars($user['role'])) {
-                                        case 0: $roleName = 'Guest'; break;
-                                        case 1: $roleName = 'Customer'; break;
-                                        case 2: $roleName = 'Staff'; break;
-                                        case 3: $roleName = 'Admin'; break;
+                                        case 0: $roleName = 'User'; break;
+                                        case 1: $roleName = 'Bussiness Staff'; break;
+                                        case 2: $roleName = 'Admin'; break;
                                         default: $roleName = 'Unknown';
                                     }
                                     echo $roleName; 
@@ -68,7 +63,7 @@
                                 <td><?= htmlspecialchars($user['updated_at']) ?></td>
                                 <td>
                                     <div class="action-btn">
-                                        <a class="edit-btn" href="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user['user_id']) ?>/edit">
+                                        <a class="edit-btn" href="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user['id']) ?>/edit">
                                             <i class="fa-solid fa-pen"></i>
                                         </a>
 
@@ -82,13 +77,12 @@
                                                 <h2>Delete</h2>
                                                 <hr>
                                                 <p>Click confirm to delete</p>
-                                                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user['user_id']) ?>"
+                                                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user['id']) ?>"
                                                     method="post" id="deleteForm">
                                                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     
-                                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']) ?>">
-                                                    <input type="hidden" name="address_id" value="<?php echo htmlspecialchars($user['address_id']) ?>">
+                                                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']) ?>">
 
                                                     <button type="submit" class="submit-modal">Confirm</button>
                                                     <button type="button" class="cancel-modal" 
