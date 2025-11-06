@@ -14,7 +14,7 @@
 
         <div class="nav-right">
             <?php if(isset($_SESSION['user'])): ?>
-                <li><a href="/oop-bookstore/views/myorder/all.myorder.php">Account</a></li>
+                <li><a href="">Account</a></li>
                 <li>
                     <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
                 </li>

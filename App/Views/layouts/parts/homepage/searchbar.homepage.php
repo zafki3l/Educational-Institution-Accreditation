@@ -3,14 +3,9 @@
         <!-- Search bar -->
         <li class="search-bar">
             <form action="" method="get">
-                <input type="text" name="book" placeholder="Search books..." />
+                <input type="text" name="data" placeholder="Tìm kiếm minh chứng..." />
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
-        </li>
-
-        <!-- Cart icon -->
-        <li class="cart-icon">
-            <a href="/oop-bookstore/views/carts/mycart.carts.php?user=<?= $_SESSION['id'] ?? '' ?>"><i class="fas fa-shopping-cart"></i></a>
         </li>
     </ul>
 </div>
