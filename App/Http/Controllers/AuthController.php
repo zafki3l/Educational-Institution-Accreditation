@@ -23,10 +23,6 @@ class AuthController extends Controller
         private UserErrorHandler $userErrorHandler,
     ) {}
 
-    /**
-     * Shows login form
-     * @return mixed
-     */
     public function showLogin(): mixed
     {
         return $this->view(
@@ -36,11 +32,6 @@ class AuthController extends Controller
         );
     }
 
-    /**
-     * Handles user login
-     * @param \App\Http\Requests\AuthRequest $authRequest
-     * @return never
-     */
     public function login(AuthRequest $authRequest = new AuthRequest()): void
     {
         // Get email & password from request
@@ -53,11 +44,12 @@ class AuthController extends Controller
             $this->back();
         }
 
-        // Filling request data into user
+        // Binding request data into user
         $this->user->fill($request);
 
         // If the user's password typed not matching
         $db_user = $this->user->getUserByEmail($this->user->email);
+
         $db_password = $db_user[0]['password'];
         if ((empty($db_user) || !password_verify($this->user->password, $db_password))) {
             $this->back();
@@ -65,21 +57,19 @@ class AuthController extends Controller
 
         // Redirect user if they successfully login
         $_SESSION['user'] = $this->setSession($db_user);
-        if ($_SESSION['user']['role'] === User::ROLE_ADMIN) {
+        $role = $_SESSION['user']['role'];
+
+        if (User::isAdmin($role)) {
             $this->redirect('/admin/dashboard');
         }
 
-        if ($_SESSION['user']['role'] === User::ROLE_BUSINESS_STAFF) {
+        if (User::isStaff($role)) {
             $this->redirect('/staff/dashboard');
         }
 
         $this->redirect('/');
     }
 
-    /**
-     * Handles user logout
-     * @return void
-     */
     public function logout()
     {
         if (session_status() == PHP_SESSION_ACTIVE) {
@@ -90,7 +80,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Summary of setSession
      * Set user session when successfully login
      * @param array $db_user
      * @return array
@@ -107,11 +96,6 @@ class AuthController extends Controller
         ];
     }
 
-    /**
-     * Handles login errors
-     * @param \ErrorHandlers\UserErrorHandler $userErrorHandler
-     * @return array<array>
-     */
     private function loginErrorHandling(UserErrorHandler $userErrorHandler, array $request): array
     {
         $errors = [];
@@ -119,25 +103,19 @@ class AuthController extends Controller
         try {
             $userData = $this->user->getUserByEmail($request['email']);
 
-            // Email not exist handling
             if (!$userErrorHandler->isEmailExist($request['email'], $this->user)) {
                 $errors['email-not-existed'] = 'Email is not exist! create a new account!';
             }
 
-            // empty email handling
             if ($userErrorHandler->emptyInput($request['email'])) {
                 $errors['empty-email'] = 'Email can not be empty!';
             }
 
-            // Check password is correct
-
             $user_password = $userData[0]['password'];
-
             if (!$userErrorHandler->isPasswordCorrect($user_password, $request['password'])) {
                 $errors['incorrect-password'] = 'Password incorrect!';
             }
         } catch (Exception $e) {
-            // Exception error handling
             $errors['exception-error'] = $e->getMessage();
         }
 

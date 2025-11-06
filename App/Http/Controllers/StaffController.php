@@ -15,7 +15,7 @@ class StaffController extends Controller
      * Shows staff dashboard view
      * @return mixed
      */
-    public function dashboard(): mixed
+    public function index(): mixed
     {
         return $this->view(
             'staff/dashboard', 

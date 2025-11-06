@@ -12,7 +12,7 @@ class EnsureStaff
     public function handle(): void
     {
         $role = $_SESSION['user']['role'] ?? null;
-        if (!in_array($role, [User::ROLE_BUSINESS_STAFF, User::ROLE_ADMIN])) {
+        if (!User::isStaff($role)) {
             http_response_code(403);
             die("403 Forbidden Error! You don't have permission to visit this site!");
         }

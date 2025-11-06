@@ -18,10 +18,6 @@ class AdminController extends Controller
         private User $user
     ) {}
 
-    /**
-     * Shows admin dashboard view
-     * @return mixed
-     */
     public function index(): mixed
     {
         $user = $this->user;
