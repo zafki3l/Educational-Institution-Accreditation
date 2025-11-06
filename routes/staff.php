@@ -5,4 +5,4 @@ use App\Http\Middlewares\EnsureAuth;
 use App\Http\Middlewares\EnsureStaff;
 
 // Dashboard
-$router->middleware([EnsureAuth::class, EnsureStaff::class])->get('/staff/dashboard', [StaffController::class, 'dashboard']);
+$router->middleware([EnsureAuth::class, EnsureStaff::class])->get('/staff/dashboard', [StaffController::class, 'index']);

@@ -19,8 +19,5 @@
 
     <!-- MAIN CONTENT -->
     <?= $data['content']; ?>
-
-    <!-- FOOTER -->
-    <?php include_once VIEW_PATH . '/layouts/parts/homepage/footer.homepage.php' ?>
 </body>
 </html>

@@ -34,10 +34,6 @@ class User extends Model
         parent::__construct($db);
     }
 
-    /**
-     * Get all user
-     * @return array
-     */
     public function getAllUser($start_from, $result_per_page): array
     {
         $sql = "SELECT * FROM users
@@ -51,48 +47,32 @@ class User extends Model
         }
     }
 
-    /**
-     * Get user by email
-     * @param string $email
-     * @return array
-     */
     public function getUserByEmail(string $email): array
     {
-        $params = [$email];
         $sql = "SELECT * FROM users
                 WHERE email = ?";
 
         try {
-            return $this->getByParams($params, $sql);
+            return $this->getByParams([$email], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
         }
     }
 
-    /**
-     * Get user by id
-     * @param int $user_id
-     * @return array
-     */
     public function getUserById(int $user_id): array
     {
-        $params = [$user_id];
         $sql = "SELECT * FROM users
                 WHERE id = ?";
 
         try {
-            return $this->getByParams($params, $sql);
+            return $this->getByParams([$user_id], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
         }
     }
 
-    /**
-     * Create a user
-     * @return bool|int|string
-     */
     public function createUser(): int
     {
         try {
@@ -110,11 +90,6 @@ class User extends Model
         }
     }
 
-    /**
-     * Update user by id
-     * @param int $user_id
-     * @return void
-     */
     public function updateUserById(int $user_id): void
     {
         $params = [
@@ -141,11 +116,6 @@ class User extends Model
         }
     }
 
-    /**
-     * delete User 
-     * @param int $user_id
-     * @return void
-     */
     public function deleteUser(int $user_id): void
     {
         $params = ['user_id' => $user_id];
@@ -159,12 +129,6 @@ class User extends Model
         }
     }
 
-    /**
-     * Search users
-     * 
-     * @param mixed $search
-     * @return array
-     */
     public function searchUser(mixed $search, $start_from, $result_per_page): array
     {
         $data = "%$search%";
@@ -218,5 +182,15 @@ class User extends Model
             print $e->getMessage();
             return 0;
         }
+    }
+
+    public static function isAdmin($role): bool
+    {
+        return $role === self::ROLE_ADMIN;
+    }
+
+    public static function isStaff($role): bool
+    {
+        return in_array($role, [self::ROLE_BUSINESS_STAFF, self::ROLE_ADMIN]);
     }
 }

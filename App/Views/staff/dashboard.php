@@ -14,7 +14,7 @@
                 <!-- Staff Information Section -->
                 <section class="card staff-info-card">
                     <header class="card-header">
-                        <h3>Staff Information</h3>
+                        <h3>Thông tin nhân viên</h3>
                     </header>
                     <div class="card-body">
                         <div class="profile-avatar">
@@ -29,35 +29,38 @@
                     </div>
                 </section>
 
-                <!-- Books & Categories Section -->
                 <section class="card inventory-card">
                     <header class="card-header">
-                        <h3>Books & Categories</h3>
+                        <h3>Tiêu chuẩn, Tiêu chí, Mốc đánh giá</h3>
                     </header>
                     <div class="card-body">
                         <div class="management-links">
-                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/staff/books">
-                                <i class="fa-solid fa-book"></i>
-                                Book Management
-                            </a>
-                            <a class="manage-link" href="categories/index.categories.php">
+                            <a class="manage-link" href="">
                                 <i class="fa-solid fa-tags"></i>
-                                Category Management
+                                Quản lý tiêu chuẩn
+                            </a>
+                            <a class="manage-link" href="">
+                                <i class="fa-solid fa-tags"></i>
+                                Quản lý tiêu chí
+                            </a>
+
+                            <a class="manage-link" href="">
+                                <i class="fa-solid fa-tags"></i>
+                                Quản lý mốc đánh giá
                             </a>
                         </div>
                     </div>
                 </section>
 
-                <!-- Orders Section -->
                 <section class="card orders-card">
                     <header class="card-header">
-                        <h3>Orders</h3>
+                        <h3>Minh chứng</h3>
                     </header>
                     <div class="card-body">
                         <div class="management-links">
-                            <a class="manage-link" href="orders/index.orders.php?page_number=1">
-                                <i class="fa-solid fa-shopping-cart"></i>
-                                Order Management
+                            <a class="manage-link" href="">
+                                <i class="fa-solid fa-tags"></i>
+                                Quản lý minh chứng
                             </a>
                         </div>
                     </div>
@@ -67,7 +70,7 @@
             <!-- Chart Report Section -->
             <section class="card chart-card">
                 <header class="card-header">
-                    <h3>Sales Report</h3>
+                    <h3>Thống kê</h3>
                 </header>
                 <div class="card-body chart-body">
                     <canvas id="myChart" aria-label="Sales chart"></canvas>
