@@ -76,16 +76,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="street">Street: </label>
-                        <input type="street" id="street" name="street" placeholder="Street">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city">City: </label>
-                        <input type="city" id="city" name="city" placeholder="City">
-                    </div>
-
-                    <div class="form-group">
                         <label for="password">Password: </label>
                         <input type="password" id="password" name="password" placeholder="Password">
 
@@ -99,9 +89,9 @@
                     <div class="form-group">
                         <label for="role">Role: </label>
                         <select name="role" id="role">
-                            <option value="1">Customer</option>
-                            <option value="2">Staff</option>
-                            <option value="3">Admin</option>
+                            <option value="0">User</option>
+                            <option value="1">Business Staff</option>
+                            <option value="2">Admin</option>
                         </select>
                     </div>
 

@@ -4,7 +4,7 @@ namespace Core;
 
 class Paginator
 {
-    const RESULT_PER_PAGE = 8;
+    public const RESULT_PER_PAGE = 8;
 
     public static function paginate(int $total_records, int $result_per_page, int $current_page) : array
     {

@@ -13,13 +13,12 @@ class User extends Model
     use ModelTrait;
 
     //Constants
-    const ROLE_GUEST = 0;
-    const ROLE_USER = 1;
-    const ROLE_STAFF = 2;
-    const ROLE_ADMIN = 3;
+    public const ROLE_USER = 0;
+    public const ROLE_BUSINESS_STAFF = 1;
+    public const ROLE_ADMIN = 2;
 
     // Attributes
-    private int $user_id;
+    private string $id;
     private string $first_name;
     private string $last_name;
     private string $email;
@@ -41,10 +40,7 @@ class User extends Model
      */
     public function getAllUser($start_from, $result_per_page): array
     {
-        $sql = "SELECT *, COUNT(*) OVER() as 'total_count'
-                FROM users_address ua
-                JOIN users u ON ua.user_id = u.id
-                JOIN address a ON ua.address_id = a.id
+        $sql = "SELECT * FROM users
                 LIMIT $start_from, $result_per_page";
 
         try {
@@ -63,19 +59,7 @@ class User extends Model
     public function getUserByEmail(string $email): array
     {
         $params = [$email];
-        $sql = "SELECT u.id as 'user_id',
-                        a.id as 'address_id',
-                        u.first_name as 'first_name',
-                        u.last_name as 'last_name',
-                        u.email as 'email',
-                        u.gender as 'gender',
-                        a.street as 'street',
-                        a.city as 'city',
-                        u.password as 'password',
-                        u.role as 'role'
-                FROM users_address ua
-                JOIN users u ON ua.user_id = u.id
-                JOIN address a ON ua.address_id = a.id
+        $sql = "SELECT * FROM users
                 WHERE email = ?";
 
         try {
@@ -94,19 +78,8 @@ class User extends Model
     public function getUserById(int $user_id): array
     {
         $params = [$user_id];
-        $sql = "SELECT u.id as 'user_id',
-                        a.id as 'address_id',
-                        u.first_name as 'first_name',
-                        u.last_name as 'last_name',
-                        u.email as 'email',
-                        u.gender as 'gender',
-                        a.street as 'street',
-                        a.city as 'city',
-                        u.role as 'role'
-                FROM users_address ua
-                JOIN users u ON ua.user_id = u.id
-                JOIN address a ON ua.address_id = a.id
-                WHERE u.id = ?";
+        $sql = "SELECT * FROM users
+                WHERE id = ?";
 
         try {
             return $this->getByParams($params, $sql);
@@ -130,25 +103,6 @@ class User extends Model
                 'gender' => $this->gender,
                 'password' => password_hash($this->password, PASSWORD_DEFAULT),
                 'role' => $this->role
-            ]);
-        } catch (PDOException $e) {
-            print $e->getMessage();
-            return 0;
-        }
-    }
-
-    /**
-     * Link user to address
-     * @param int $user_id
-     * @param int $address_id
-     * @return bool|int|string
-     */
-    public function linkAddress(int $user_id, int $address_id): int
-    {
-        try {
-            return $this->insert('users_address', [
-                'user_id' => $user_id,
-                'address_id' => $address_id
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -206,28 +160,6 @@ class User extends Model
     }
 
     /**
-     * Unlink User and Address relationship
-     * @param mixed $user_id
-     * @param mixed $address_id
-     * @return void
-     */
-    public function unlinkUserAndAddress($user_id, $address_id): void
-    {
-        $params = [
-            'user_id' => $user_id,
-            'address_id' => $address_id
-        ];
-
-        $sql = "DELETE FROM users_address WHERE user_id = ? AND address_id = ?";
-
-        try {
-            $this->delete($sql, $params);
-        } catch (PDOException $e) {
-            print $e->getMessage();
-        }
-    }
-
-    /**
      * Search users
      * 
      * @param mixed $search
@@ -237,28 +169,13 @@ class User extends Model
     {
         $data = "%$search%";
 
-        $sql = "SELECT u.id as 'user_id',
-                        a.id as 'address_id',
-                        u.first_name as 'first_name',
-                        u.last_name as 'last_name',
-                        u.email as 'email',
-                        u.gender as 'gender',
-                        a.street as 'street',
-                        a.city as 'city',
-                        u.role as 'role',
-                        u.created_at as 'created_at',
-                        u.updated_at as 'updated_at'
-                FROM users_address ua
-                JOIN users u ON ua.user_id = u.id
-                JOIN address a ON ua.address_id = a.id
-                WHERE u.id = ? 
-                    OR u.first_name LIKE ?
-                    OR u.last_name LIKE ?
-                    OR a.street LIKE ?
-                    OR a.city LIKE ?
+        $sql = "SELECT * FROM users
+                WHERE id = ? 
+                    OR first_name LIKE ?
+                    OR last_name LIKE ?
                 LIMIT $start_from, $result_per_page";
 
-        $params = [$data, $data, $data, $data, $data];
+        $params = [$data, $data, $data];
 
         try {
             return $this->getByParams($params, $sql);
@@ -284,17 +201,13 @@ class User extends Model
     {
         $data = "%$search%";
 
-        $sql = "SELECT COUNT(u.id) as 'total'
-                FROM users_address ua
-                JOIN users u ON ua.user_id = u.id
-                JOIN address a ON ua.address_id = a.id
-                WHERE u.id = ? 
-                    OR u.first_name LIKE ?
-                    OR u.last_name LIKE ?
-                    OR a.street LIKE ?
-                    OR a.city LIKE ?";
+        $sql = "SELECT COUNT(id) as 'total'
+                FROM users
+                WHERE id = ? 
+                    OR first_name LIKE ?
+                    OR last_name LIKE ?";
 
-        $params = [$data, $data, $data, $data, $data];
+        $params = [$data, $data, $data];
 
         try {
             $data = $this->getByParams($params, $sql);
