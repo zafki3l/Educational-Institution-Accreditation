@@ -34,6 +34,8 @@ class AuthController extends Controller
 
     public function login(AuthRequest $authRequest = new AuthRequest()): void
     {
+        $user = $this->user;
+
         // Get email & password from request
         $request = $authRequest->loginRequest();
 
@@ -45,13 +47,14 @@ class AuthController extends Controller
         }
 
         // Binding request data into user
-        $this->user->fill($request);
+        $user->setEmail($request['email']);
+        $user->setPassword($request['password']);
 
         // If the user's password typed not matching
-        $db_user = $this->user->getUserByEmail($this->user->email);
+        $db_user = $this->user->getUserByEmail($user->getEmail());
 
         $db_password = $db_user[0]['password'];
-        if ((empty($db_user) || !password_verify($this->user->password, $db_password))) {
+        if ((empty($db_user) || !password_verify($user->getPassword(), $db_password))) {
             $this->back();
         }
 
