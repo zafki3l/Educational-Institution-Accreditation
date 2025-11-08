@@ -56,7 +56,8 @@
                                     <a href="">Xem chi tiết</a>
                                 </td>
                                 <td>
-                                    <a href="" class="edit-btn"><i class="fa-solid fa-pen"></i></a>
+                                    <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/edit" 
+                                        class="edit-btn"><i class="fa-solid fa-pen"></i></a>
                                     <button class="delete-btn">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>

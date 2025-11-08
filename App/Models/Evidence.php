@@ -5,6 +5,7 @@ namespace App\Models;
 use Configs\Database;
 use Core\Model;
 use DateTime;
+use PDO;
 use PDOException;
 
 class Evidence extends Model
@@ -72,6 +73,28 @@ class Evidence extends Model
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
+        }
+    }
+
+    public function getEvidenceById(string $evidence_id): array
+    {
+        $sql = "SELECT e.id as 'evidence_id',
+                        e.name as 'evidence_name',
+                        em.name as 'evaluation_milestone',
+                        e.decision,
+                        e.document_date,
+                        e.issue_place,
+                        e.link
+                FROM evidences e
+                JOIN evaluation_milestones em
+                    ON e.milestone_id = em.id
+                WHERE e.id = ?"; 
+        
+        try {
+            return $this->getByParams([$evidence_id], $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
         }
     }
 

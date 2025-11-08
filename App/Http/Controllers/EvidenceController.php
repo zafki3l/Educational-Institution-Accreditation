@@ -71,4 +71,28 @@ class EvidenceController extends Controller
 
         $this->redirect('/staff/evidences');
     }
+
+    public function edit(string $evidence_id)
+    {
+        $evidence = $this->evidence->getEvidenceById($evidence_id);
+
+        return $this->view(
+            'staff/evidences/edit',
+            'staff.layouts',
+            [
+                'title' => 'Chỉnh sửa minh chứng',
+                'evidence' => $evidence
+            ]
+        );
+    }
+
+    public function update(string $evidence_id)
+    {
+        // TODO:
+    }
+
+    public function destroy(string $evidence_id)
+    {
+        // TODO:
+    }
 }

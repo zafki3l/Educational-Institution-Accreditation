@@ -9,6 +9,12 @@ use App\Http\Middlewares\EnsureStaff;
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/dashboard', [StaffController::class, 'index']);
 
+// Standards
+
+// Criterias
+
+// Milestones
+
 // Evidences
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences', [EvidenceController::class, 'index']);
@@ -18,3 +24,12 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
 
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->post('/staff/evidences', [EvidenceController::class, 'store']);
+
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->get('/staff/evidences/{id}/edit', [EvidenceController::class, 'edit']);
+
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->put('/staff/evidences/{id}', [EvidenceController::class, 'update']);
+
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->delete('/staff/evidences/{id}', [EvidenceController::class, 'destroy']);

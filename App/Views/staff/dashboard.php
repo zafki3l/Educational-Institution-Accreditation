@@ -37,16 +37,16 @@
                         <div class="management-links">
                             <a class="manage-link" href="">
                                 <i class="fa-solid fa-tags"></i>
-                                Quản lý tiêu chuẩn
+                                Cập nhật tiêu chuẩn
                             </a>
                             <a class="manage-link" href="">
                                 <i class="fa-solid fa-tags"></i>
-                                Quản lý tiêu chí
+                                Cập nhật tiêu chí
                             </a>
 
                             <a class="manage-link" href="">
                                 <i class="fa-solid fa-tags"></i>
-                                Quản lý mốc đánh giá
+                                Cập nhật mốc đánh giá
                             </a>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="management-links">
                             <a class="manage-link" href="/<?= PROJECT_NAME ?>/staff/evidences">
                                 <i class="fa-solid fa-tags"></i>
-                                Quản lý minh chứng
+                                Cập nhật minh chứng
                             </a>
                         </div>
                     </div>
