@@ -16,6 +16,7 @@ use Traits\HttpResponseTrait;
 class AuthController extends Controller
 {
     use HttpResponseTrait;
+    private const LOCK_TIME = 60;
 
     // Constructor
     public function __construct(
@@ -133,7 +134,7 @@ class AuthController extends Controller
         $_SESSION['attempt_failed']++;
 
         if ($_SESSION['attempt_failed'] > 5) {
-            $_SESSION['lock_time'] = time() + 10 * 60; // 10 minutes
+            $_SESSION['lock_time'] = time() + self::LOCK_TIME;
             $_SESSION['attempt_failed'] = 0;
 
             return 'Too many failed attempts. Please try again in 10 minutes.';

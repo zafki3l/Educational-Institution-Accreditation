@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Http\Middlewares\CSRF_Authenticator;
+
 /**
  * Class Router
  * 
@@ -110,6 +112,11 @@ class Router
                 $middleware = new $middlwareClass();
                 $middleware->handle();
             }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $middleware = new CSRF_Authenticator();
+            $middleware->handle();
         }
 
         $action = $route['action'];

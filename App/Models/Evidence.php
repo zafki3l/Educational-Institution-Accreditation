@@ -5,12 +5,14 @@ namespace App\Models;
 use Configs\Database;
 use Core\Model;
 use DateTime;
+use PDOException;
 
 class Evidence extends Model
 {
     private string $id;
-    private string $evaluation_point_id;
+    private string $milestoneId;
     private string $name;
+    private string $decision;
     private string $documentDate;
     private string $issuePlace;
     private string $link;
@@ -21,17 +23,77 @@ class Evidence extends Model
     {
         parent::__construct($db);
     }
-    public function getAllEvidence($start_from, $result_per_page): array
+
+    public function getAllEvidence(int $start_from, int $result_per_page): array
+    {
+        $sql = "SELECT e.id as 'evidence_id',
+                        e.name as 'evidence_name',
+                        em.name as 'evaluation_milestone',
+                        e.decision,
+                        e.document_date,
+                        e.issue_place,
+                        e.link
+                FROM evidences e
+                JOIN evaluation_milestones em
+                    ON e.milestone_id = em.id
+                LIMIT $start_from, $result_per_page";
+        
+        try {
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function countAllEvidence(): int
+    {
+        try {
+            $data = $this->getAll("SELECT COUNT(id) as 'total' FROM evidences");
+
+            return $data[0]['total'];
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return 0;
+        }
+    }
+
+    public function createEvidence(): void
+    {
+        try {
+            $this->insert('evidences', [
+                'id' => $this->id,
+                'milestone_id' => $this->milestoneId,
+                'name' => $this->name,
+                'decision' => $this->decision,
+                'document_date' => $this->documentDate,
+                'issue_place' => $this->issuePlace,
+                'link' => $this->issuePlace
+            ]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
+    public function searchEvidence(string $search, int $start_from, int $result_per_page): array
     {
         // TODO:
         return [];
     }
 
+    public function countSearchEvidence(): int
+    {
+        // TODO:
+        return 0;
+    }
+
     public function getId(): string {return $this->id;}
 
-	public function getEvaluationPointId(): string {return $this->evaluation_point_id;}
+	public function getMilestoneId(): string {return $this->milestoneId;}
 
 	public function getName(): string {return $this->name;}
+
+	public function getDecision(): string {return $this->decision;}
 
 	public function getDocumentDate(): string {return $this->documentDate;}
 
@@ -45,9 +107,11 @@ class Evidence extends Model
 
 	public function setId(string $id): void {$this->id = $id;}
 
-	public function setEvaluationPointId(string $evaluation_point_id): void {$this->evaluation_point_id = $evaluation_point_id;}
+	public function setMilestoneId(string $milestoneId): void {$this->milestoneId = $milestoneId;}
 
 	public function setName(string $name): void {$this->name = $name;}
+
+	public function setDecision(string $decision): void {$this->decision = $decision;}
 
 	public function setDocumentDate(string $documentDate): void {$this->documentDate = $documentDate;}
 
@@ -58,4 +122,6 @@ class Evidence extends Model
 	public function setCreatedAt(DateTime $created_at): void {$this->created_at = $created_at;}
 
 	public function setUpdatedAt(DateTime $updated_at): void {$this->updated_at = $updated_at;}
+
+	
 }
