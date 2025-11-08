@@ -12,8 +12,8 @@
             <!-- DASHBOARD HEADER -->
             <div class="dashboard-header">
                 <div class="header-text">
-                    <h2>ADMIN DASHBOARD</h1>
-                    <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
+                    <h2>USER MANAGEMENT</h1>
+                    <h3>ADMIN DASHBOARD</h3>
                 </div>
 
                 <!-- Searchbar and Add User -->

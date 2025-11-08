@@ -17,10 +17,11 @@
         </div>
         <hr>
         <div class="sidebar-content">
-            <li><a href="/<?= PROJECT_NAME ?>/staff/books"><p>Book Management</p></a></li>
-            <li><a href=""><p>Category Management</p></a></li>
-            <li><a href=""><p>Order Management</p></a></li>
-            <li><a href=""><p>Sales Report</p></a></li>
+            <li><a href="/<?= PROJECT_NAME ?>/staff/evidences"><p>Quản lý minh chứng</p></a></li>
+            <li><a href=""><p>Quản lý mốc đánh giá</p></a></li>
+            <li><a href=""><p>Quản lý tiêu chí</p></a></li>
+            <li><a href=""><p>Quản lý tiêu chuẩn</p></a></li>
+            <li><a href=""><p>Thống kê</p></a></li>
         </div>
 
     </ul>
