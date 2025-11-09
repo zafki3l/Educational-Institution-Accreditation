@@ -53,18 +53,8 @@
                                 <td><?= htmlspecialchars($user['last_name']) ?></td>
                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                 <td><?= htmlspecialchars($user['gender']) ?></td>
-                                <td><?= htmlspecialchars($user['department_id']) ?></td>
-                                <td>
-                                    <?php 
-                                    switch (htmlspecialchars($user['role_id'])) {
-                                        case 1: $roleName = 'User'; break;
-                                        case 2: $roleName = 'Bussiness Staff'; break;
-                                        case 3: $roleName = 'Admin'; break;
-                                        default: $roleName = 'Unknown';
-                                    }
-                                    echo $roleName; 
-                                    ?>
-                                </td>
+                                <td><?= htmlspecialchars($user['department_name']) ?></td>
+                                <td><?= htmlspecialchars($user['role_name']) ?></td>
                                 <td><?= htmlspecialchars($user['created_at']) ?></td>
                                 <td><?= htmlspecialchars($user['updated_at']) ?></td>
                                 <td>

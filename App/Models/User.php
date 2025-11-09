@@ -34,7 +34,19 @@ class User extends Model
     public function getAllUser($start_from, $result_per_page): array
     {
         try {
-            $sql = "SELECT * FROM users
+            $sql = "SELECT u.id as 'id',
+                            u.first_name,
+                            u.last_name,
+                            u.email,
+                            u.gender,
+                            d.name as 'department_name',
+                            r.name as 'role_name',
+                            u.created_at,
+                            u.updated_at
+                    FROM users u
+                    JOIN roles r ON r.id = u.role_id
+                    LEFT JOIN departments d ON d.id = u.department_id
+                    ORDER BY u.id
                     LIMIT $start_from, $result_per_page";
 
             return $this->getAll($sql);
@@ -130,10 +142,22 @@ class User extends Model
         try {
             $data = "%$search%";
 
-            $sql = "SELECT * FROM users
-                    WHERE id = ? 
-                        OR first_name LIKE ?
-                        OR last_name LIKE ?
+            $sql = "SELECT u.id as 'id',
+                            u.first_name,
+                            u.last_name,
+                            u.email,
+                            u.gender,
+                            d.name as 'department_name',
+                            r.name as 'role_name',
+                            u.created_at,
+                            u.updated_at
+                    FROM users u
+                    JOIN roles r ON r.id = u.role_id
+                    LEFT JOIN departments d ON d.id = u.department_id
+                    WHERE u.id = ? 
+                        OR u.first_name LIKE ?
+                        OR u.last_name LIKE ?
+                    ORDER BY u.id
                     LIMIT $start_from, $result_per_page";
 
             $params = [$data, $data, $data];
