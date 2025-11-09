@@ -63,12 +63,12 @@
                                 Danh sách người dùng
                             </a>
 
-                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/users">
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/roles">
                                 <i class="fa-solid fa-tags"></i>
                                 Cập nhật quyền
                             </a>
 
-                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/users">
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/departments">
                                 <i class="fa-solid fa-tags"></i>
                                 Quản lý phòng ban
                             </a>

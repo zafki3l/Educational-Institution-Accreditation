@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Core\Controller;
-use Core\Paginator;
 use Traits\HttpResponseTrait;
 
 /**

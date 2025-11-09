@@ -112,4 +112,9 @@ class EvidenceController extends Controller
 
         $this->redirect('/staff/evidences');
     }
+
+    public function criterias(string $evidence_id)
+    {
+        // TODO
+    }
 }
