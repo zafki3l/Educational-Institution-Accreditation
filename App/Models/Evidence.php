@@ -5,7 +5,6 @@ namespace App\Models;
 use Configs\Database;
 use Core\Model;
 use DateTime;
-use PDO;
 use PDOException;
 
 class Evidence extends Model
@@ -27,19 +26,19 @@ class Evidence extends Model
 
     public function getAllEvidence(int $start_from, int $result_per_page): array
     {
-        $sql = "SELECT e.id as 'evidence_id',
+        try {
+            $sql = "SELECT e.id as 'evidence_id',
                         e.name as 'evidence_name',
                         em.name as 'evaluation_milestone',
                         e.decision,
                         e.document_date,
                         e.issue_place,
                         e.link
-                FROM evidences e
-                JOIN evaluation_milestones em
-                    ON e.milestone_id = em.id
-                LIMIT $start_from, $result_per_page";
+                    FROM evidences e
+                    JOIN evaluation_milestones em
+                        ON e.milestone_id = em.id
+                    LIMIT $start_from, $result_per_page";
         
-        try {
             return $this->getAll($sql);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -77,24 +76,42 @@ class Evidence extends Model
     }
 
     public function getEvidenceById(string $evidence_id): array
-    {
-        $sql = "SELECT e.id as 'evidence_id',
-                        e.name as 'evidence_name',
-                        em.name as 'evaluation_milestone',
-                        e.decision,
-                        e.document_date,
-                        e.issue_place,
-                        e.link
-                FROM evidences e
-                JOIN evaluation_milestones em
-                    ON e.milestone_id = em.id
-                WHERE e.id = ?"; 
-        
+    {   
         try {
+            $sql = "SELECT * FROM evidences WHERE id = ?"; 
+
             return $this->getByParams([$evidence_id], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
+        }
+    }
+
+    public function updateEvidence(string $evidence_id): void
+    {   
+        try {
+            $sql = "UPDATE evidences
+                SET id = ?,
+                    name = ?,
+                    milestone_id = ?,
+                    decision = ?,
+                    document_date = ?,
+                    issue_place,
+                    link = ?
+                WHERE id = ?";
+
+            $this->update($sql, [
+                'id' => $evidence_id,
+                'milestone_id' => $this->milestoneId,
+                'name' => $this->name,
+                'decision' => $this->decision,
+                'document_date' => $this->documentDate,
+                'issue_place' => $this->issuePlace,
+                'link' => $this->issuePlace,
+                'where' => $evidence_id
+            ]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
         }
     }
 

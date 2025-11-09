@@ -17,11 +17,10 @@
         </div>
         <hr>
         <div class="sidebar-content">
-            <li><a href=""><p>Danh sách tiêu chuẩn</p></a></li>
-            <li><a href=""><p>Danh sách tiêu chí</p></a></li>
-            <li><a href=""><p>Danh sách mốc đánh giá</p></a></li>
-            <li><a href="/<?= PROJECT_NAME ?>/staff/evidences"><p>Cập nhật minh chứng</p></a></li>
-            <li><a href=""><p>Thống kê</p></a></li>
+            <li><a href="/<?= PROJECT_NAME ?>/admin/users"><p>Quản lý người dùng</p></a></li>
+            <li><a href=""><p>Cập nhật tiêu chuẩn</p></a></li>
+            <li><a href=""><p>Cập nhật tiêu chí</p></a></li>
+            <li><a href=""><p>Cập nhật mốc đánh giá</p></a></li>
         </div>
 
     </ul>
