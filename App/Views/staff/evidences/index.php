@@ -58,9 +58,30 @@
                                 <td>
                                     <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/edit" 
                                         class="edit-btn"><i class="fa-solid fa-pen"></i></a>
-                                    <button class="delete-btn">
+
+                                    <button onclick="showConfirm('<?php echo htmlspecialchars($evidence['evidence_id']) ?>')" class="delete-btn">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
+
+                                    <!-- Delete Modal -->
+                                    <div id="confirmModal-<?php echo htmlspecialchars($evidence['evidence_id']) ?>" class="modal">
+                                        <div class="modal-content">
+                                            <h2>Delete</h2>
+                                            <hr>
+                                            <p>Click confirm to delete</p>
+                                            <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>"
+                                                method="post" id="deleteForm-<?php echo htmlspecialchars($evidence['evidence_id']) ?>">
+                                                <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                
+                                                <input type="hidden" name="evidence_id" value="<?php echo htmlspecialchars($evidence['evidence_id']) ?>">
+
+                                                <button type="submit" class="submit-modal">Confirm</button>
+                                                <button type="button" class="cancel-modal" 
+                                                onclick="closeModal('<?php echo htmlspecialchars($evidence['evidence_id']) ?>')">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -73,6 +94,8 @@
 
         </div>
     </div>
+
+    <script src="/<?= PROJECT_NAME ?>/public/js/staff/evidences/confirmDelete.js"></script>
 
 </body>
 
