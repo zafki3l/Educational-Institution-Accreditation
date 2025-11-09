@@ -37,6 +37,7 @@
                             <th>LAST NAME</th>
                             <th>EMAIL</th>
                             <th>GENDER</th>
+                            <th>DEPARTMENT</th>
                             <th>ROLE</th>
                             <th>CREATED AT</th>
                             <th>UPDATED AT</th>
@@ -52,12 +53,13 @@
                                 <td><?= htmlspecialchars($user['last_name']) ?></td>
                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                 <td><?= htmlspecialchars($user['gender']) ?></td>
+                                <td><?= htmlspecialchars($user['department_id']) ?></td>
                                 <td>
                                     <?php 
-                                    switch (htmlspecialchars($user['role'])) {
-                                        case 0: $roleName = 'User'; break;
-                                        case 1: $roleName = 'Bussiness Staff'; break;
-                                        case 2: $roleName = 'Admin'; break;
+                                    switch (htmlspecialchars($user['role_id'])) {
+                                        case 1: $roleName = 'User'; break;
+                                        case 2: $roleName = 'Bussiness Staff'; break;
+                                        case 3: $roleName = 'Admin'; break;
                                         default: $roleName = 'Unknown';
                                     }
                                     echo $roleName; 

@@ -62,12 +62,12 @@ class AuthController extends Controller
         $db_user = $this->user->getUserByEmail($request['email']);
         $_SESSION['user'] = $this->setSession($db_user);
 
-        $role = $_SESSION['user']['role'];
-        if (User::isAdmin($role)) {
+        $role_id = $_SESSION['user']['role_id'];
+        if (User::isAdmin($role_id)) {
             $this->redirect('/admin/dashboard');
         }
 
-        if (User::isStaff($role)) {
+        if (User::isStaff($role_id)) {
             $this->redirect('/staff/dashboard');
         }
 
@@ -96,7 +96,7 @@ class AuthController extends Controller
             'last_name' => $db_user[0]['last_name'],
             'email' => $db_user[0]['email'],
             'gender' => $db_user[0]['gender'],
-            'role' => $db_user[0]['role']
+            'role_id' => $db_user[0]['role_id']
         ];
     }
 
