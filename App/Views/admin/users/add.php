@@ -93,9 +93,9 @@
                     <div class="form-group">
                         <label for="role">Role: </label>
                         <select name="role" id="role">
-                            <option value="0">User</option>
-                            <option value="1">Business Staff</option>
-                            <option value="2">Admin</option>
+                            <option value="1">User</option>
+                            <option value="2">Business Staff</option>
+                            <option value="3">Admin</option>
                         </select>
                     </div>
 

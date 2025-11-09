@@ -10,9 +10,9 @@ use DateTime;
 class User extends Model
 {
     //Constants
-    public const ROLE_USER = 0;
-    public const ROLE_BUSINESS_STAFF = 1;
-    public const ROLE_ADMIN = 2;
+    public const ROLE_USER = 1;
+    public const ROLE_BUSINESS_STAFF = 2;
+    public const ROLE_ADMIN = 3;
 
     // Attributes
     private string $id;
@@ -21,7 +21,7 @@ class User extends Model
     private string $email;
     private string $gender;
     private string $password;
-    private int $role;
+    private int $role_id;
     private DateTime $created_at;
     private DateTime $updated_at;
 
@@ -34,7 +34,19 @@ class User extends Model
     public function getAllUser($start_from, $result_per_page): array
     {
         try {
-            $sql = "SELECT * FROM users
+            $sql = "SELECT u.id as 'id',
+                            u.first_name,
+                            u.last_name,
+                            u.email,
+                            u.gender,
+                            d.name as 'department_name',
+                            r.name as 'role_name',
+                            u.created_at,
+                            u.updated_at
+                    FROM users u
+                    JOIN roles r ON r.id = u.role_id
+                    LEFT JOIN departments d ON d.id = u.department_id
+                    ORDER BY u.id
                     LIMIT $start_from, $result_per_page";
 
             return $this->getAll($sql);
@@ -78,7 +90,7 @@ class User extends Model
                 'email' => $this->email,
                 'gender' => $this->gender,
                 'password' => password_hash($this->password, PASSWORD_DEFAULT),
-                'role' => $this->role
+                'role_id' => $this->role_id
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -94,7 +106,7 @@ class User extends Model
                 'last_name' => $this->last_name,
                 'email' => $this->email,
                 'gender' => $this->gender,
-                'role' => $this->role,
+                'role_id' => $this->role_id,
                 'user_id' => $user_id
             ];
 
@@ -103,7 +115,7 @@ class User extends Model
                         last_name = ?,
                         email = ?,
                         gender = ?,
-                        role = ?
+                        role_id = ?
                     WHERE id = ?";
 
             $this->update($sql, $params);
@@ -130,10 +142,22 @@ class User extends Model
         try {
             $data = "%$search%";
 
-            $sql = "SELECT * FROM users
-                    WHERE id = ? 
-                        OR first_name LIKE ?
-                        OR last_name LIKE ?
+            $sql = "SELECT u.id as 'id',
+                            u.first_name,
+                            u.last_name,
+                            u.email,
+                            u.gender,
+                            d.name as 'department_name',
+                            r.name as 'role_name',
+                            u.created_at,
+                            u.updated_at
+                    FROM users u
+                    JOIN roles r ON r.id = u.role_id
+                    LEFT JOIN departments d ON d.id = u.department_id
+                    WHERE u.id = ? 
+                        OR u.first_name LIKE ?
+                        OR u.last_name LIKE ?
+                    ORDER BY u.id
                     LIMIT $start_from, $result_per_page";
 
             $params = [$data, $data, $data];
@@ -202,7 +226,7 @@ class User extends Model
 
 	public function getPassword(): string {return $this->password;}
 
-	public function getRole(): int {return $this->role;}
+	public function getRoleId(): int {return $this->role_id;}
 
 	public function getCreatedAt(): DateTime {return $this->created_at;}
 
@@ -220,7 +244,7 @@ class User extends Model
 
 	public function setPassword(string $password): void {$this->password = $password;}
 
-	public function setRole(int $role): void {$this->role = $role;}
+	public function setRoleId(int $role_id): void {$this->role_id = $role_id;}
 
 	public function setCreatedAt(DateTime $created_at): void {$this->created_at = $created_at;}
 

@@ -81,7 +81,7 @@ class UserController extends Controller
         $user->setEmail($request['email']);
         $user->setGender($request['gender']);
         $user->setPassword($request['password']);
-        $user->setRole($request['role']);
+        $user->setRoleId($request['role']);
 
         $user->createUser();
 
@@ -119,7 +119,7 @@ class UserController extends Controller
         $user->setLastName($request['last_name']);
         $user->setEmail($request['email']);
         $user->setGender($request['gender']);
-        $user->setRole($request['role']);
+        $user->setRoleId($request['role_id']);
 
         $user->updateUserById($user_id);
 

@@ -3,10 +3,10 @@
         <div class="nav-left">
             <li><a href="/<?= PROJECT_NAME ?>">Homepage</a></li>
             <?php if (isset($_SESSION['user'])): ?>
-                <?php if ($_SESSION['user']['role'] == App\Models\User::ROLE_ADMIN): ?> <!--admin-->
+                <?php if ($_SESSION['user']['role_id'] == App\Models\User::ROLE_ADMIN): ?> <!--admin-->
                         <li><a href="/<?= PROJECT_NAME ?>/admin/dashboard">Admin Dashboard</a></li> <!--show dashboard for admin-->
                         <li><a href="/<?= PROJECT_NAME ?>/staff/dashboard">Staff Dashboard</a></li>
-                <?php elseif ($_SESSION['user']['role'] == App\Models\User::ROLE_BUSINESS_STAFF): ?>
+                <?php elseif ($_SESSION['user']['role_id'] == App\Models\User::ROLE_BUSINESS_STAFF): ?>
                         <li><a href="/<?= PROJECT_NAME ?>/staff/dashboard">Staff Dashboard</a></li> <!--Show dashboard for staff-->
                 <?php endif; ?>
             <?php endif; ?>
