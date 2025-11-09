@@ -7,7 +7,11 @@ use App\Http\Middlewares\EnsureAuth;
 
 // Dashboard
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
-    ->get('/admin/dashboard', [AdminController::class, 'index']);
+    ->get('/admin/dashboard', [AdminController::class, 'dashboard']);
+
+// Users
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/users', [UserController::class, 'index']);
 
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     ->get('/admin/users/create', [UserController::class, 'create']);

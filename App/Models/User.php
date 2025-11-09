@@ -33,10 +33,10 @@ class User extends Model
 
     public function getAllUser($start_from, $result_per_page): array
     {
-        $sql = "SELECT * FROM users
-                LIMIT $start_from, $result_per_page";
-
         try {
+            $sql = "SELECT * FROM users
+                    LIMIT $start_from, $result_per_page";
+
             return $this->getAll($sql);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -46,10 +46,9 @@ class User extends Model
 
     public function getUserByEmail(string $email): array
     {
-        $sql = "SELECT * FROM users
-                WHERE email = ?";
-
         try {
+            $sql = "SELECT * FROM users
+                    WHERE email = ?";
             return $this->getByParams([$email], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -59,10 +58,10 @@ class User extends Model
 
     public function getUserById(int $user_id): array
     {
-        $sql = "SELECT * FROM users
-                WHERE id = ?";
-
         try {
+            $sql = "SELECT * FROM users
+                    WHERE id = ?";
+
             return $this->getByParams([$user_id], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -89,24 +88,24 @@ class User extends Model
 
     public function updateUserById(int $user_id): void
     {
-        $params = [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'gender' => $this->gender,
-            'role' => $this->role,
-            'user_id' => $user_id
-        ];
-
-        $sql = "UPDATE users
-                SET first_name = ?,
-                    last_name = ?,
-                    email = ?,
-                    gender = ?,
-                    role = ?
-                WHERE id = ?";
-
         try {
+            $params = [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'email' => $this->email,
+                'gender' => $this->gender,
+                'role' => $this->role,
+                'user_id' => $user_id
+            ];
+
+            $sql = "UPDATE users
+                    SET first_name = ?,
+                        last_name = ?,
+                        email = ?,
+                        gender = ?,
+                        role = ?
+                    WHERE id = ?";
+
             $this->update($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -115,11 +114,11 @@ class User extends Model
 
     public function deleteUser(int $user_id): void
     {
-        $params = ['user_id' => $user_id];
-
-        $sql = "DELETE FROM users WHERE id = ?";
-
         try {
+            $params = ['user_id' => $user_id];
+
+            $sql = "DELETE FROM users WHERE id = ?";
+
             $this->delete($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -128,17 +127,17 @@ class User extends Model
 
     public function searchUser(mixed $search, $start_from, $result_per_page): array
     {
-        $data = "%$search%";
-
-        $sql = "SELECT * FROM users
-                WHERE id = ? 
-                    OR first_name LIKE ?
-                    OR last_name LIKE ?
-                LIMIT $start_from, $result_per_page";
-
-        $params = [$data, $data, $data];
-
         try {
+            $data = "%$search%";
+
+            $sql = "SELECT * FROM users
+                    WHERE id = ? 
+                        OR first_name LIKE ?
+                        OR last_name LIKE ?
+                    LIMIT $start_from, $result_per_page";
+
+            $params = [$data, $data, $data];
+
             return $this->getByParams($params, $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -160,17 +159,17 @@ class User extends Model
 
     public function countSearchUser(string $search): int
     {
-        $data = "%$search%";
-
-        $sql = "SELECT COUNT(id) as 'total'
-                FROM users
-                WHERE id = ? 
-                    OR first_name LIKE ?
-                    OR last_name LIKE ?";
-
-        $params = [$data, $data, $data];
-
         try {
+            $data = "%$search%";
+
+            $sql = "SELECT COUNT(id) as 'total'
+                    FROM users
+                    WHERE id = ? 
+                        OR first_name LIKE ?
+                        OR last_name LIKE ?";
+
+            $params = [$data, $data, $data];
+            
             $data = $this->getByParams($params, $sql);
             $total_records = $data[0]['total'];
 

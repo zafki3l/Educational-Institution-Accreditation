@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/staff/evidences/edit.css">
+    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/staff/edit.css">
     <title>Edit Book</title>
 </head>
 
@@ -28,19 +28,19 @@
                     <div class="form-group">
                         <label for="evidence_id">Mã minh chứng:</label>
                         <input type="text" id="evidence_id" name="evidence_id" placeholder="H1.01.01.01"
-                            value="<?= $evidence[0]['evidence_id'] ?>">
+                            value="<?= $evidence[0]['id'] ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="evidence_name">Tên minh chứng:</label>
                         <input type="text" id="evidence_name" name="evidence_name" placeholder="Tên minh chứng"
-                            value="<?= $evidence[0]['evidence_name'] ?>">
+                            value="<?= $evidence[0]['name'] ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="milestone_id">Mốc đánh giá:</label>
                         <input type="text" id="milestone_id" name="milestone_id" placeholder="TĐG"
-                            value="<?= $evidence[0]['evaluation_milestone'] ?>">
+                            value="<?= $evidence[0]['milestone_id'] ?>">
                     </div>
 
                     <div class="form-group">
