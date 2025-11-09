@@ -91,23 +91,21 @@ class Evidence extends Model
     {   
         try {
             $sql = "UPDATE evidences
-                SET id = ?,
-                    name = ?,
-                    milestone_id = ?,
-                    decision = ?,
-                    document_date = ?,
-                    issue_place,
-                    link = ?
-                WHERE id = ?";
+                    SET name = ?,
+                        milestone_id = ?,
+                        decision = ?,
+                        document_date = ?,
+                        issue_place = ?,
+                        link = ?
+                    WHERE id = ?";
 
             $this->update($sql, [
-                'id' => $evidence_id,
-                'milestone_id' => $this->milestoneId,
                 'name' => $this->name,
+                'milestone_id' => $this->milestoneId,
                 'decision' => $this->decision,
                 'document_date' => $this->documentDate,
                 'issue_place' => $this->issuePlace,
-                'link' => $this->issuePlace,
+                'link' => $this->link,
                 'where' => $evidence_id
             ]);
         } catch (PDOException $e) {

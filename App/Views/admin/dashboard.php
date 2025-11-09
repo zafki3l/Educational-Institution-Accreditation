@@ -62,6 +62,16 @@
                                 <i class="fa-solid fa-tags"></i>
                                 Danh sách người dùng
                             </a>
+
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/users">
+                                <i class="fa-solid fa-tags"></i>
+                                Cập nhật quyền
+                            </a>
+
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/users">
+                                <i class="fa-solid fa-tags"></i>
+                                Quản lý phòng ban
+                            </a>
                         </div>
                     </div>
                 </section>

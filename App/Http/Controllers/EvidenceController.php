@@ -86,9 +86,22 @@ class EvidenceController extends Controller
         );
     }
 
-    public function update(string $evidence_id)
+    public function update(string $evidence_id, EvidenceRequest $evidenceRequest = new EvidenceRequest())
     {
-        // TODO:
+        $evidence = $this->evidence;
+
+        $request = $evidenceRequest->updateRequest();
+        
+        $evidence->setName($request['evidence_name']);
+        $evidence->setMilestoneId($request['milestone_id']);
+        $evidence->setDecision($request['decision']);
+        $evidence->setDocumentDate($request['document_date']);
+        $evidence->setIssuePlace($request['issue_place']);
+        $evidence->setLink($request['link']);
+
+        $evidence->updateEvidence($evidence_id);
+
+        $this->redirect('/staff/evidences');
     }
 
     public function destroy(string $evidence_id)
