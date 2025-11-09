@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Middlewares\EnsureAdmin;
 use App\Http\Middlewares\EnsureAuth;
@@ -27,3 +28,7 @@ $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     ->delete('/admin/users/{id}', [UserController::class, 'destroy']);
+
+// Departments
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/departments', [DepartmentController::class, 'index']);

@@ -139,7 +139,7 @@ class AuthController extends Controller
 
             return 'Too many failed attempts. Please try again in 10 minutes.';
         } else {
-            $remain = 5 - $_SESSION['attempt_failed'];
+            $remain = 6 - $_SESSION['attempt_failed'];
             return 'You have ' . $remain . ' tries left.';
         }
     }
