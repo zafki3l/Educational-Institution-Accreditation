@@ -106,6 +106,10 @@ class EvidenceController extends Controller
 
     public function destroy(string $evidence_id)
     {
-        // TODO:
+        $evidence = $this->evidence;
+
+        $evidence->deleteEvidence($evidence_id);
+
+        $this->redirect('/staff/evidences');
     }
 }

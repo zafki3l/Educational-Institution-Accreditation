@@ -113,6 +113,15 @@ class Evidence extends Model
         }
     }
 
+    public function deleteEvidence(string $evidence_id): void
+    {
+        try {
+            $this->delete("DELETE FROM evidences WHERE id = ?", [$evidence_id]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
     public function searchEvidence(string $search, int $start_from, int $result_per_page): array
     {
         // TODO:

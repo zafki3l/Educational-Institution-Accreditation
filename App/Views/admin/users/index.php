@@ -64,8 +64,8 @@
                                         </a>
 
                                         <button onclick="showConfirm(<?php echo htmlspecialchars($user['id']) ?>)" class="delete-btn">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
 
                                         <!-- Delete Modal -->
                                         <div id="confirmModal-<?php echo htmlspecialchars($user['id']) ?>" class="modal">
@@ -107,7 +107,7 @@
 
     <!-- Edit user message -->
     <?php if (!empty($_SESSION['edit-user-success'])): ?>
-        <script src="/<?= PROJECT_NAME ?>/public/js/admin/editMessage.js"></script>
+        <script src="/<?= PROJECT_NAME ?>/public/js/admin/users/editMessage.js"></script>
         <?php unset($_SESSION['edit-user-success']) ?>
     <?php endif; ?>
 
@@ -119,10 +119,10 @@
 
     <!-- Delete user message -->
     <?php if (!empty($_SESSION['delete-user-success'])): ?>
-        <script src="/<?= PROJECT_NAME ?>/public/js/admin/deleteMessage.js"></script>
+        <script src="/<?= PROJECT_NAME ?>/public/js/admin/users/deleteMessage.js"></script>
         <?php unset($_SESSION['delete-user-success']) ?>
     <?php endif; ?>
 
-    <script src="/<?= PROJECT_NAME ?>/public/js/admin/confirmDelete.js"></script>
+    <script src="/<?= PROJECT_NAME ?>/public/js/admin/users/confirmDelete.js"></script>
 </body>
 </html>
