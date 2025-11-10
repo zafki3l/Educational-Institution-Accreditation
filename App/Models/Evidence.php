@@ -128,7 +128,7 @@ class Evidence extends Model
         return [];
     }
 
-    public function countSearchEvidence(): int
+    public function countSearchEvidence(string $search): int
     {
         // TODO:
         return 0;

@@ -3,41 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EvidenceRequest;
-use App\Models\Evidence;
+use App\Services\EvidenceService;
 use Core\Controller;
-use Core\Paginator;
 use Traits\HttpResponseTrait;
 
 class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private Evidence $evidence) {}
+    public function __construct(private EvidenceRequest $evidenceRequest,
+                                private EvidenceService $evidenceService) {}
 
     public function index()
     {
-        $evidence = $this->evidence;
-
-        $isSearching = isset($_GET['search']);
-        $search = $isSearching ? $_GET['search'] : null;
+        $search = $_GET['search'] ?? null;
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $total_records = $isSearching ? $evidence->countSearchEvidence() : $evidence->countAllEvidence();
-
-        $pagination = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page); // Calculate the total pages and the start page
-
-        $evidences = $isSearching ? $evidence->searchEvidence($search, $pagination['start_from'], Paginator::RESULT_PER_PAGE) : $evidence->getAllEvidence($pagination['start_from'], Paginator::RESULT_PER_PAGE);
+        $data = $this->evidenceService->getAllEvidence($search, $current_page);
 
         return $this->view(
             'staff/evidences/index',
             'staff.layouts',
             [
                 'title' => 'QUẢN LÝ MINH CHỨNG',
-                'evidences' => $evidences,
-                'current_page' => $current_page,
-                'total_pages' => $pagination['total_pages'],
-                'result_per_page' => Paginator::RESULT_PER_PAGE
+                'evidences' => $data['evidences'],
+                'current_page' => $data['current_page'],
+                'total_pages' => $data['total_pages'],
+                'result_per_page' => $data['result_per_page']
             ]
         );
     }
@@ -53,62 +46,39 @@ class EvidenceController extends Controller
         );
     }
 
-    public function store(EvidenceRequest $evidenceRequest = new EvidenceRequest()): void
+    public function store(): void
     {
-        $evidence = $this->evidence;
+        $request = $this->evidenceRequest->createRequest();
 
-        $request = $evidenceRequest->createRequest();
-
-        $evidence->setId($request['evidence_id']);
-        $evidence->setName($request['evidence_name']);
-        $evidence->setMilestoneId($request['milestone_id']);
-        $evidence->setDecision($request['decision']);
-        $evidence->setDocumentDate($request['document_date']);
-        $evidence->setIssuePlace($request['issue_place']);
-        $evidence->setLink($request['link']);
-
-        $evidence->createEvidence();
+        $this->evidenceService->createEvidence($request);
 
         $this->redirect('/staff/evidences');
     }
 
     public function edit(string $evidence_id)
     {
-        $evidence = $this->evidence->getEvidenceById($evidence_id);
-
         return $this->view(
             'staff/evidences/edit',
             'staff.layouts',
             [
                 'title' => 'Chỉnh sửa minh chứng',
-                'evidence' => $evidence
+                'evidence' => $this->evidenceService->getEvidenceById($evidence_id)
             ]
         );
     }
 
-    public function update(string $evidence_id, EvidenceRequest $evidenceRequest = new EvidenceRequest())
+    public function update(string $evidence_id)
     {
-        $evidence = $this->evidence;
-
-        $request = $evidenceRequest->updateRequest();
+        $request = $this->evidenceRequest->updateRequest();
         
-        $evidence->setName($request['evidence_name']);
-        $evidence->setMilestoneId($request['milestone_id']);
-        $evidence->setDecision($request['decision']);
-        $evidence->setDocumentDate($request['document_date']);
-        $evidence->setIssuePlace($request['issue_place']);
-        $evidence->setLink($request['link']);
-
-        $evidence->updateEvidence($evidence_id);
+        $this->evidenceService->updateEvidence($evidence_id, $request);
 
         $this->redirect('/staff/evidences');
     }
 
     public function destroy(string $evidence_id)
     {
-        $evidence = $this->evidence;
-
-        $evidence->deleteEvidence($evidence_id);
+        $this->evidenceService->deleteEvidence($evidence_id);
 
         $this->redirect('/staff/evidences');
     }
