@@ -39,7 +39,7 @@ class EvidenceService
                         ->setIssuePlace($request['issue_place'])
                         ->setLink($request['link']);
 
-        $this->evidenceRepository->createEvidence();
+        $this->evidenceRepository->createEvidence($this->evidence);
     }
 
     public function getEvidenceById(string $evidence_id): array
@@ -56,7 +56,7 @@ class EvidenceService
                         ->setIssuePlace($request['issue_place'])
                         ->setLink($request['link']);
 
-        $this->evidenceRepository->updateEvidence($evidence_id);
+        $this->evidenceRepository->updateEvidence($evidence_id, $this->evidence);
     }
 
     public function deleteEvidence(string $evidence_id): void

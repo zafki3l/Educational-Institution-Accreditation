@@ -2,15 +2,13 @@
 
 namespace App\Database\Repositories;
 
-use App\Database\Models\Department;
 use Configs\Database;
 use Core\Repository;
 use PDOException;
 
 class DepartmentRepository extends Repository
 {
-    public function __construct(Database $db,
-                                private Department $department)
+    public function __construct(Database $db)
     {
         parent::__construct($db);
     }

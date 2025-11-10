@@ -41,7 +41,7 @@ class UserService
                     ->setPassword($request['password'])
                     ->setRoleId($request['role_id']);
 
-        $this->userRepository->createUser();
+        $this->userRepository->createUser($this->user);
     }
 
     public function updateUser(int $user_id, array $request): void
@@ -53,7 +53,7 @@ class UserService
                     ->setGender($request['gender'])
                     ->setRoleId($request['role_id']);
 
-        $this->userRepository->updateUserById($user_id);
+        $this->userRepository->updateUserById($user_id, $this->user);
     }
 
     public function deleteUser(int $user_id): void

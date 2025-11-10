@@ -9,8 +9,7 @@ use PDOException;
 
 class EvidenceRepository extends Repository
 {
-    public function __construct(Database $db,
-                                private Evidence $evidence)
+    public function __construct(Database $db)
     {
         parent::__construct($db);
     }
@@ -49,17 +48,17 @@ class EvidenceRepository extends Repository
         }
     }
 
-    public function createEvidence(): void
+    public function createEvidence(Evidence $evidence): void
     {
         try {
             $this->insert('evidences', [
-                'id' => $this->evidence->getId(),
-                'milestone_id' => $this->evidence->getMilestoneId(),
-                'name' => $this->evidence->getName(),
-                'decision' => $this->evidence->getDecision(),
-                'document_date' => $this->evidence->getDocumentDate(),
-                'issue_place' => $this->evidence->getIssuePlace(),
-                'link' => $this->evidence->getLink()
+                'id' => $evidence->getId(),
+                'milestone_id' => $evidence->getMilestoneId(),
+                'name' => $evidence->getName(),
+                'decision' => $evidence->getDecision(),
+                'document_date' => $evidence->getDocumentDate(),
+                'issue_place' => $evidence->getIssuePlace(),
+                'link' => $evidence->getLink()
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -78,7 +77,7 @@ class EvidenceRepository extends Repository
         }
     }
 
-    public function updateEvidence(string $evidence_id): void
+    public function updateEvidence(string $evidence_id, Evidence $evidence): void
     {   
         try {
             $sql = "UPDATE evidences
@@ -91,12 +90,12 @@ class EvidenceRepository extends Repository
                     WHERE id = ?";
 
             $this->update($sql, [
-                'name' => $this->evidence->getName(),
-                'milestone_id' => $this->evidence->getMilestoneId(),
-                'decision' => $this->evidence->getDecision(),
-                'document_date' => $this->evidence->getDocumentDate(),
-                'issue_place' => $this->evidence->getIssuePlace(),
-                'link' => $this->evidence->getLink(),
+                'name' => $evidence->getName(),
+                'milestone_id' => $evidence->getMilestoneId(),
+                'decision' => $evidence->getDecision(),
+                'document_date' => $evidence->getDocumentDate(),
+                'issue_place' => $evidence->getIssuePlace(),
+                'link' => $evidence->getLink(),
                 'where' => $evidence_id
             ]);
         } catch (PDOException $e) {
