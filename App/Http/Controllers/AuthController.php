@@ -35,12 +35,23 @@ class AuthController extends Controller
         $_SESSION['lock_time'] = isset($_SESSION['lock_time']) ? $_SESSION['lock_time'] : 0;
 
         // If locked
-        $this->authService->handleLock();
+        $this->handleLock();
 
         // Get email & password from request
         $request = $this->authRequest->loginRequest();
 
-        $role_id = $this->authService->handleLogin($request);
+        // Handles errors
+        $errors = $this->authService->handleError($request);
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $this->back();
+        }
+
+        $db_user = $this->authService->handleLogin($request);
+
+        $_SESSION['user'] = $this->setSession($db_user);
+
+        $role_id = $_SESSION['user']['role_id'];
 
         if (User::isAdmin($role_id)) {
             $this->redirect('/admin/dashboard');
@@ -62,5 +73,27 @@ class AuthController extends Controller
 
             $this->redirect('/login');
         }
+    }
+
+    private function handleLock(): void
+    {
+        $isLocked = time() < $_SESSION['lock_time'];
+        if ($isLocked) {
+            $remain = $_SESSION['lock_time'] - time();
+            $_SESSION['locked'] = "Too many failed attempts. Please try again after {$remain} seconds.";
+            $this->back();
+        }
+    }
+
+    private function setSession(array $db_user): array
+    {
+        return [
+            'user_id' => $db_user[0]['id'],
+            'first_name' => $db_user[0]['first_name'],
+            'last_name' => $db_user[0]['last_name'],
+            'email' => $db_user[0]['email'],
+            'gender' => $db_user[0]['gender'],
+            'role_id' => $db_user[0]['role_id']
+        ];
     }
 }
