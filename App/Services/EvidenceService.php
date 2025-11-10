@@ -31,13 +31,13 @@ class EvidenceService
     
     public function createEvidence(array $request): void
     {
-        $this->evidence->setId($request['evidence_id']);
-        $this->evidence->setName($request['evidence_name']);
-        $this->evidence->setMilestoneId($request['milestone_id']);
-        $this->evidence->setDecision($request['decision']);
-        $this->evidence->setDocumentDate($request['document_date']);
-        $this->evidence->setIssuePlace($request['issue_place']);
-        $this->evidence->setLink($request['link']);
+        $this->evidence->setId($request['evidence_id'])
+                        ->setName($request['evidence_name'])
+                        ->setMilestoneId($request['milestone_id'])
+                        ->setDecision($request['decision'])
+                        ->setDocumentDate($request['document_date'])
+                        ->setIssuePlace($request['issue_place'])
+                        ->setLink($request['link']);
 
         $this->evidenceRepository->createEvidence();
     }
@@ -49,12 +49,12 @@ class EvidenceService
 
     public function updateEvidence(string $evidence_id, array $request): void
     {
-        $this->evidence->setName($request['evidence_name']);
-        $this->evidence->setMilestoneId($request['milestone_id']);
-        $this->evidence->setDecision($request['decision']);
-        $this->evidence->setDocumentDate($request['document_date']);
-        $this->evidence->setIssuePlace($request['issue_place']);
-        $this->evidence->setLink($request['link']);
+        $this->evidence->setName($request['evidence_name'])
+                        ->setMilestoneId($request['milestone_id'])
+                        ->setDecision($request['decision'])
+                        ->setDocumentDate($request['document_date'])
+                        ->setIssuePlace($request['issue_place'])
+                        ->setLink($request['link']);
 
         $this->evidenceRepository->updateEvidence($evidence_id);
     }

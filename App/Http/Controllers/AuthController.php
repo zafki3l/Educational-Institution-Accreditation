@@ -10,7 +10,7 @@ use Traits\HttpResponseTrait;
 
 /**
  * Class AuthController
- * Handles login, register and logout.
+ * Handles login and logout.
  */
 class AuthController extends Controller
 {

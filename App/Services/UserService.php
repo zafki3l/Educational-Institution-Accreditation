@@ -34,12 +34,12 @@ class UserService
 
     public function createUser(array $request): void
     {
-        $this->user->setFirstName($request['first_name']);
-        $this->user->setLastName($request['last_name']);
-        $this->user->setEmail($request['email']);
-        $this->user->setGender($request['gender']);
-        $this->user->setPassword($request['password']);
-        $this->user->setRoleId($request['role_id']);
+        $this->user->setFirstName($request['first_name'])
+                    ->setLastName($request['last_name'])
+                    ->setEmail($request['email'])
+                    ->setGender($request['gender'])
+                    ->setPassword($request['password'])
+                    ->setRoleId($request['role_id']);
 
         $this->userRepository->createUser();
     }
@@ -47,11 +47,11 @@ class UserService
     public function updateUser(int $user_id, array $request): void
     {
         // Update user informations
-        $this->user->setFirstName($request['first_name']);
-        $this->user->setLastName($request['last_name']);
-        $this->user->setEmail($request['email']);
-        $this->user->setGender($request['gender']);
-        $this->user->setRoleId($request['role_id']);
+        $this->user->setFirstName($request['first_name'])
+                    ->setLastName($request['last_name'])
+                    ->setEmail($request['email'])
+                    ->setGender($request['gender'])
+                    ->setRoleId($request['role_id']);
 
         $this->userRepository->updateUserById($user_id);
     }

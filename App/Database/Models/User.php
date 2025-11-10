@@ -50,21 +50,21 @@ class User
 
 	public function getUpdatedAt(): DateTime {return $this->updated_at;}
 
-	public function setId(string $id): void {$this->id = $id;}
+	public function setId(string $id): self {$this->id = $id; return $this;}
 
-	public function setFirstName(string $first_name): void {$this->first_name = $first_name;}
+	public function setFirstName(string $first_name): self {$this->first_name = $first_name; return $this;}
 
-	public function setLastName(string $last_name): void {$this->last_name = $last_name;}
+	public function setLastName(string $last_name): self {$this->last_name = $last_name; return $this;}
 
-	public function setEmail(string $email): void {$this->email = $email;}
+	public function setEmail(string $email): self {$this->email = $email; return $this;}
 
-	public function setGender(string $gender): void {$this->gender = $gender;}
+	public function setGender(string $gender): self {$this->gender = $gender; return $this;}
 
-	public function setPassword(string $password): void {$this->password = $password;}
+	public function setPassword(string $password): self {$this->password = $password; return $this;}
 
-	public function setRoleId(int $role_id): void {$this->role_id = $role_id;}
+	public function setRoleId(int $role_id): self {$this->role_id = $role_id; return $this;}
 
-	public function setCreatedAt(DateTime $created_at): void {$this->created_at = $created_at;}
+	public function setCreatedAt(DateTime $created_at): self {$this->created_at = $created_at; return $this;}
 
-	public function setUpdatedAt(DateTime $updated_at): void {$this->updated_at = $updated_at;}
+	public function setUpdatedAt(DateTime $updated_at): self {$this->updated_at = $updated_at; return $this;}
 }
