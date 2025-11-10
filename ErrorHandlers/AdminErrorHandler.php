@@ -4,7 +4,7 @@ namespace ErrorHandlers;
 
 class AdminErrorHandler
 {
-    public function emptyInput($name): bool
+    public function emptyInput(mixed $name): bool
     {
         return empty($name);
     }
