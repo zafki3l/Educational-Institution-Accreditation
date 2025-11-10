@@ -1,25 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Database\Repositories;
 
+use App\Database\Models\Evidence;
 use Configs\Database;
-use Core\Model;
-use DateTime;
+use Core\Repository;
 use PDOException;
 
-class Evidence extends Model
+class EvidenceRepository extends Repository
 {
-    private string $id;
-    private string $milestoneId;
-    private string $name;
-    private string $decision;
-    private string $documentDate;
-    private string $issuePlace;
-    private string $link;
-    private DateTime $created_at;
-    private DateTime $updated_at;
-
-    public function __construct(Database $db)
+    public function __construct(Database $db,
+                                private Evidence $evidence)
     {
         parent::__construct($db);
     }
@@ -62,13 +53,13 @@ class Evidence extends Model
     {
         try {
             $this->insert('evidences', [
-                'id' => $this->id,
-                'milestone_id' => $this->milestoneId,
-                'name' => $this->name,
-                'decision' => $this->decision,
-                'document_date' => $this->documentDate,
-                'issue_place' => $this->issuePlace,
-                'link' => $this->issuePlace
+                'id' => $this->evidence->getId(),
+                'milestone_id' => $this->evidence->getMilestoneId(),
+                'name' => $this->evidence->getName(),
+                'decision' => $this->evidence->getDecision(),
+                'document_date' => $this->evidence->getDocumentDate(),
+                'issue_place' => $this->evidence->getIssuePlace(),
+                'link' => $this->evidence->getLink()
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -100,12 +91,12 @@ class Evidence extends Model
                     WHERE id = ?";
 
             $this->update($sql, [
-                'name' => $this->name,
-                'milestone_id' => $this->milestoneId,
-                'decision' => $this->decision,
-                'document_date' => $this->documentDate,
-                'issue_place' => $this->issuePlace,
-                'link' => $this->link,
+                'name' => $this->evidence->getName(),
+                'milestone_id' => $this->evidence->getMilestoneId(),
+                'decision' => $this->evidence->getDecision(),
+                'document_date' => $this->evidence->getDocumentDate(),
+                'issue_place' => $this->evidence->getIssuePlace(),
+                'link' => $this->evidence->getLink(),
                 'where' => $evidence_id
             ]);
         } catch (PDOException $e) {
@@ -133,42 +124,4 @@ class Evidence extends Model
         // TODO:
         return 0;
     }
-
-    public function getId(): string {return $this->id;}
-
-	public function getMilestoneId(): string {return $this->milestoneId;}
-
-	public function getName(): string {return $this->name;}
-
-	public function getDecision(): string {return $this->decision;}
-
-	public function getDocumentDate(): string {return $this->documentDate;}
-
-	public function getIssuePlace(): string {return $this->issuePlace;}
-
-	public function getLink(): string {return $this->link;}
-
-	public function getCreatedAt(): DateTime {return $this->created_at;}
-
-	public function getUpdatedAt(): DateTime {return $this->updated_at;}
-
-	public function setId(string $id): void {$this->id = $id;}
-
-	public function setMilestoneId(string $milestoneId): void {$this->milestoneId = $milestoneId;}
-
-	public function setName(string $name): void {$this->name = $name;}
-
-	public function setDecision(string $decision): void {$this->decision = $decision;}
-
-	public function setDocumentDate(string $documentDate): void {$this->documentDate = $documentDate;}
-
-	public function setIssuePlace(string $issuePlace): void {$this->issuePlace = $issuePlace;}
-
-	public function setLink(string $link): void {$this->link = $link;}
-
-	public function setCreatedAt(DateTime $created_at): void {$this->created_at = $created_at;}
-
-	public function setUpdatedAt(DateTime $updated_at): void {$this->updated_at = $updated_at;}
-
-	
 }

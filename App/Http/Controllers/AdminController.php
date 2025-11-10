@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -13,9 +12,7 @@ class AdminController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(
-        private User $user
-    ) {}
+    public function __construct() {}
 
     public function dashboard(): mixed
     {

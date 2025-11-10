@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Core\Controller as Controller;
+use Core\Controller;
 
 /**
  * Class HomeController

@@ -6,13 +6,7 @@ use Configs\Database;
 use PDO;
 use PDOStatement;
 
-/**
- * Class Model
- * 
- * BaseModel that provides helper methods for all Model classes
- * Include: querying, inserting, updating, and deleting records
- */
-abstract class Model
+class Repository
 {
     /**
      * Model constructor
