@@ -20,7 +20,7 @@ class EvidenceController extends Controller
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->evidenceService->getAllEvidence($search, $current_page);
+        $data = $this->evidenceService->listEvidences($search, $current_page);
 
         return $this->view(
             'staff/evidences/index',

@@ -85,11 +85,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="role">Role: </label>
-                        <select name="role" id="role">
-                            <option value="1" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_USER ? 'selected' : '') ?>>User</option>
-                            <option value="2" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_BUSINESS_STAFF ? 'selected' : '') ?>>Business Staff</option>
-                            <option value="3" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_ADMIN ? 'selected' : '') ?>>Admin</option>
+                        <label for="role_id">Role: </label>
+                        <select name="role_id" id="role_id">
+                            <option value="1" <?php echo htmlspecialchars($user[0]['role_id'] == App\Database\Models\User::ROLE_USER ? 'selected' : '') ?>>User</option>
+                            <option value="2" <?php echo htmlspecialchars($user[0]['role_id'] == App\Database\Models\User::ROLE_BUSINESS_STAFF ? 'selected' : '') ?>>Business Staff</option>
+                            <option value="3" <?php echo htmlspecialchars($user[0]['role_id'] == App\Database\Models\User::ROLE_ADMIN ? 'selected' : '') ?>>Admin</option>
                         </select>
                     </div>
 

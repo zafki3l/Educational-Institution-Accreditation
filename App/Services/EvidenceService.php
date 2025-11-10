@@ -2,22 +2,24 @@
 
 namespace App\Services;
 
-use App\Models\Evidence;
+use App\Database\Models\Evidence;
+use App\Database\Repositories\EvidenceRepository;
 use Core\Paginator;
 
 class EvidenceService
 {
-    public function __construct(private Evidence $evidence) {}
+    public function __construct(private Evidence $evidence,
+                                private EvidenceRepository $evidenceRepository) {}
 
-    public function getAllEvidence(?string $search, int $current_page): array
+    public function listEvidences(?string $search, int $current_page): array
     {
-        $total_records = $search ? $this->evidence->countSearchEvidence($search) 
-                                : $this->evidence->countAllEvidence();
+        $total_records = $search ? $this->evidenceRepository->countSearchEvidence($search) 
+                                : $this->evidenceRepository->countAllEvidence();
 
         $pagination = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page); // Calculate the total pages and the start page
 
-        $evidences = $search ? $this->evidence->searchEvidence($search, $pagination['start_from'], Paginator::RESULT_PER_PAGE) 
-                            : $this->evidence->getAllEvidence($pagination['start_from'], Paginator::RESULT_PER_PAGE);
+        $evidences = $search ? $this->find($search, $pagination['start_from'], Paginator::RESULT_PER_PAGE) 
+                            : $this->findAll($pagination['start_from'], Paginator::RESULT_PER_PAGE);
 
         return [
             'evidences' => $evidences,
@@ -37,12 +39,12 @@ class EvidenceService
         $this->evidence->setIssuePlace($request['issue_place']);
         $this->evidence->setLink($request['link']);
 
-        $this->evidence->createEvidence();
+        $this->evidenceRepository->createEvidence();
     }
 
     public function getEvidenceById(string $evidence_id): array
     {
-        return $this->evidence->getEvidenceById($evidence_id);
+        return $this->evidenceRepository->getEvidenceById($evidence_id);
     }
 
     public function updateEvidence(string $evidence_id, array $request): void
@@ -54,11 +56,21 @@ class EvidenceService
         $this->evidence->setIssuePlace($request['issue_place']);
         $this->evidence->setLink($request['link']);
 
-        $this->evidence->updateEvidence($evidence_id);
+        $this->evidenceRepository->updateEvidence($evidence_id);
     }
 
     public function deleteEvidence(string $evidence_id): void
     {
-        $this->evidence->deleteEvidence($evidence_id);
+        $this->evidenceRepository->deleteEvidence($evidence_id);
+    }
+
+    private function findAll(int $start_from, int $result_per_page): array
+    {
+        return $this->evidenceRepository->getAllEvidence($start_from, $result_per_page);
+    }
+
+    private function find(string $search, int $start_from, int $result_per_page): array
+    {
+        return $this->evidenceRepository->searchEvidence($search, $start_from, $result_per_page);
     }
 }

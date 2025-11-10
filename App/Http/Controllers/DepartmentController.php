@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Services\DepartmentService;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -10,7 +10,7 @@ class DepartmentController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private Department $department){}
+    public function __construct(private DepartmentService $departmentService){}
 	
     public function index()
     {
@@ -19,7 +19,7 @@ class DepartmentController extends Controller
             'admin.layouts',
             [
                 'title' => 'Quản lý phòng ban',
-                'departments' => $this->department->getAllDepartment()
+                'departments' => $this->departmentService->findAll()
             ]
         );
     }
