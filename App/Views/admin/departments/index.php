@@ -15,14 +15,14 @@
             <!-- DASHBOARD HEADER -->
             <div class="dashboard-header">
                 <div class="header-text">
-                    <h2>QUẢN LÝ PHÒNG BAN</h1>
+                    <h2>DANH SÁCH PHÒNG BAN</h1>
                     <h3>ADMIN DASHBOARD</h3>
                 </div>
 
                 <!-- Searchbar and Add User -->
                 <div class="dashboard-search-add">
                     <?php include_once 'search.php' ?>
-                    <a href="/<?= PROJECT_NAME ?>/">Add user</a>
+                    <a href="/<?= PROJECT_NAME ?>/">Thêm phòng ban</a>
                 </div>
             </div>
 
