@@ -19,15 +19,15 @@ class UserService
         $total_records = $search ? $this->userRepository->countSearchUser($search) 
                                 : $this->userRepository->countUser();
 
-        $pagination = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page); // Calculate the total pages and the start page
+        [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
-        $users = $search ? $this->find($search, $pagination['start_from'], Paginator::RESULT_PER_PAGE) 
-                        : $this->findAll($pagination['start_from'], Paginator::RESULT_PER_PAGE);
+        $users = $search ? $this->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+                        : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'users' => $users,
             'current_page' => $current_page,
-            'total_pages' => $pagination['total_pages'],
+            'total_pages' => $total_pages,
             'result_per_page' => Paginator::RESULT_PER_PAGE
         ];
     }
@@ -61,7 +61,7 @@ class UserService
         $this->userRepository->deleteUser($user_id);
     }
 
-    public function handleError(array $request, $isUpdated = false): array
+    public function handleError(array $request, $isUpdated = false): ?array
     {
         $errors = $this->handleUserError($request, $isUpdated);
 
@@ -89,7 +89,7 @@ class UserService
 
         try {
             // Email exist error handling
-            if (!$isUpdated && $this->userErrorHandler->isEmailExist($request['email'], $this->user)) {
+            if (!$isUpdated && $this->userErrorHandler->isEmailExist($request['email'], $this->userRepository)) {
                 $errors['email-existed'] = 'Email already existed!';
             }
 

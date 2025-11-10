@@ -16,15 +16,15 @@ class EvidenceService
         $total_records = $search ? $this->evidenceRepository->countSearchEvidence($search) 
                                 : $this->evidenceRepository->countAllEvidence();
 
-        $pagination = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page); // Calculate the total pages and the start page
+        [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
-        $evidences = $search ? $this->find($search, $pagination['start_from'], Paginator::RESULT_PER_PAGE) 
-                            : $this->findAll($pagination['start_from'], Paginator::RESULT_PER_PAGE);
+        $evidences = $search ? $this->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+                            : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'evidences' => $evidences,
             'current_page' => $current_page,
-            'total_pages' => $pagination['total_pages'],
+            'total_pages' => $total_pages,
             'result_per_page' => Paginator::RESULT_PER_PAGE
         ];
     }

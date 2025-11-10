@@ -21,7 +21,7 @@ class AuthService
         return $this->userRepository->getUserByEmail($request['email']);
     }
 
-    public function handleError(array $request): array
+    public function handleError(array $request): ?array
     {
         $errors = $this->loginErrorHandling($request);
 
@@ -35,7 +35,7 @@ class AuthService
         try {
             $userData = $this->userRepository->getUserByEmail($request['email']);
 
-            $isEmailExist = $this->userErrorHandler->isEmailExist($request['email'], $this->user);
+            $isEmailExist = $this->userErrorHandler->isEmailExist($request['email'], $this->userRepository);
             if (!$isEmailExist) {
                 $errors['email-not-existed'] = 'Email is not exist! create a new account!';
             }

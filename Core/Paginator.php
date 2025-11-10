@@ -14,10 +14,6 @@ class Paginator
 
         $start_from = ($current_page - 1) * $result_per_page;
 
-        return [
-            'total_pages' => $total_pages,
-            'current_page' => $current_page,
-            'start_from' => $start_from
-        ];
+        return [$total_pages, $current_page, $start_from];
     }
 }
