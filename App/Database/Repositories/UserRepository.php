@@ -9,8 +9,7 @@ use PDOException;
 
 class UserRepository extends Repository
 {
-    public function __construct(Database $db,
-                                private User $user) 
+    public function __construct(Database $db) 
     {
         parent::__construct($db);
     }
@@ -65,16 +64,16 @@ class UserRepository extends Repository
         }
     }
 
-    public function createUser(): int
+    public function createUser(User $user): int
     {
         try {
             return $this->insert('users', [
-                'first_name' => $this->user->getFirstName(),
-                'last_name' => $this->user->getLastName(),
-                'email' => $this->user->getEmail(),
-                'gender' => $this->user->getGender(),
-                'password' => password_hash($this->user->getPassword(), PASSWORD_DEFAULT),
-                'role_id' => $this->user->getRoleId()
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
+                'email' => $user->getEmail(),
+                'gender' => $user->getGender(),
+                'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+                'role_id' => $user->getRoleId()
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
@@ -82,15 +81,15 @@ class UserRepository extends Repository
         }
     }
 
-    public function updateUserById(int $user_id): void
+    public function updateUserById(int $user_id, User $user): void
     {
         try {
             $params = [
-                'first_name' => $this->user->getFirstName(),
-                'last_name' => $this->user->getLastName(),
-                'email' => $this->user->getEmail(),
-                'gender' => $this->user->getGender(),
-                'role_id' => $this->user->getRoleId(),
+                'first_name' => $user->getFirstName(),
+                'last_name' => $user->getLastName(),
+                'email' => $user->getEmail(),
+                'gender' => $user->getGender(),
+                'role_id' => $user->getRoleId(),
                 'user_id' => $user_id
             ];
 
