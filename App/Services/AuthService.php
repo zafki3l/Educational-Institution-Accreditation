@@ -6,56 +6,26 @@ use App\Database\Models\User;
 use App\Database\Repositories\UserRepository;
 use ErrorHandlers\UserErrorHandler;
 use Exception;
-use Traits\HttpResponseTrait;
 
 class AuthService
 {
-    use HttpResponseTrait;
-
     private const LOCK_TIME = 60;
 
     public function __construct(private User $user,
                                 private UserRepository $userRepository,
                                 private UserErrorHandler $userErrorHandler) {}
 
-    public function handleLock(): void
+    public function handleLogin(array $request): array
     {
-        $isLocked = time() < $_SESSION['lock_time'];
-        if ($isLocked) {
-            $remain = $_SESSION['lock_time'] - time();
-            $_SESSION['locked'] = "Too many failed attempts. Please try again after {$remain} seconds.";
-            $this->back();
-        }
-    }
-
-    public function handleLogin(array $request)
-    {
-        // Error handling
-        $errors = $this->loginErrorHandling($request);
-        if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            $this->back();
-        }
-
         // If the user is sucessfully login
-        $db_user = $this->userRepository->getUserByEmail($request['email']);
-        $_SESSION['user'] = $this->setSession($db_user);
-
-        $role_id = $_SESSION['user']['role_id'];
-
-        return $role_id;
+        return $this->userRepository->getUserByEmail($request['email']);
     }
 
-    private function setSession(array $db_user): array
+    public function handleError(array $request): array
     {
-        return [
-            'user_id' => $db_user[0]['id'],
-            'first_name' => $db_user[0]['first_name'],
-            'last_name' => $db_user[0]['last_name'],
-            'email' => $db_user[0]['email'],
-            'gender' => $db_user[0]['gender'],
-            'role_id' => $db_user[0]['role_id']
-        ];
+        $errors = $this->loginErrorHandling($request);
+
+        return !empty($errors) ? $errors : null;
     }
 
     private function loginErrorHandling(array $request): array

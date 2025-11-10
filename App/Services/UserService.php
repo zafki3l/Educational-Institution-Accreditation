@@ -7,12 +7,9 @@ use App\Database\Repositories\UserRepository;
 use Core\Paginator;
 use ErrorHandlers\UserErrorHandler;
 use Exception;
-use Traits\HttpResponseTrait;
 
 class UserService
 {
-    use HttpResponseTrait;
-
     public function __construct(private User $user,
                                 private UserRepository $userRepository,
                                 private UserErrorHandler $userErrorHandler) {}
@@ -37,32 +34,18 @@ class UserService
 
     public function createUser(array $request): void
     {
-        // Errors handling
-        $errors = $this->handleUserError($request);
-        if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            $this->back();
-        }
-
         $this->user->setFirstName($request['first_name']);
         $this->user->setLastName($request['last_name']);
         $this->user->setEmail($request['email']);
         $this->user->setGender($request['gender']);
-    $this->user->setPassword($request['password']);
-    $this->user->setRoleId($request['role_id']);
+        $this->user->setPassword($request['password']);
+        $this->user->setRoleId($request['role_id']);
 
         $this->userRepository->createUser();
     }
 
     public function updateUser(int $user_id, array $request): void
     {
-        // Handles errors
-        $errors = $this->handleUserError($request, true);
-        if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            $this->back();
-        }
-
         // Update user informations
         $this->user->setFirstName($request['first_name']);
         $this->user->setLastName($request['last_name']);
@@ -71,15 +54,18 @@ class UserService
         $this->user->setRoleId($request['role_id']);
 
         $this->userRepository->updateUserById($user_id);
-
-        $_SESSION['edit-user-success'] = 'Edit user successfully!';
     }
 
     public function deleteUser(int $user_id): void
     {
         $this->userRepository->deleteUser($user_id);
+    }
 
-        $_SESSION['delete-user-success'] = 'Delete user successfully!';
+    public function handleError(array $request, $isUpdated = false): array
+    {
+        $errors = $this->handleUserError($request, $isUpdated);
+
+        return !empty($errors) ? $errors : null;
     }
 
     public function findById(int $user_id)
@@ -97,7 +83,7 @@ class UserService
         return $this->userRepository->searchUser($search, $start_from, $result_per_page);
     }
 
-    private function handleUserError(array $request, bool $isUpdated = false): array
+    private function handleUserError(array $request, bool $isUpdated): array
     {
         $errors = [];
 

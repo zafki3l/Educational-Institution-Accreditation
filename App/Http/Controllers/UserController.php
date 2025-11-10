@@ -60,6 +60,13 @@ class UserController extends Controller
     {
         $request = $this->userRequest->addUserRequest();
 
+        // Handles errors
+        $errors = $this->userService->handleError($request, true);
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $this->back();
+        }
+
         // Create new User and store into Database
         $this->userService->createUser($request);
 
@@ -84,7 +91,16 @@ class UserController extends Controller
         // Get request from user
         $request = $this->userRequest->updateUserRequest();
 
+        // Handles errors
+        $errors = $this->userService->handleError($request, true);
+        if (!empty($errors)) {
+            $_SESSION['errors'] = $errors;
+            $this->back();
+        }
+
         $this->userService->updateUser($user_id, $request);
+
+        $_SESSION['edit-user-success'] = 'Edit user successfully!';
 
         $this->redirect('/admin/users');
     }
@@ -92,6 +108,8 @@ class UserController extends Controller
     public function destroy(int $user_id): void
     {
         $this->userService->deleteUser($user_id);
+
+        $_SESSION['delete-user-success'] = 'Delete user successfully!';
 
         $this->redirect('/admin/users');
     }
