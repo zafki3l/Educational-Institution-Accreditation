@@ -34,21 +34,21 @@ class Evidence
 
 	public function getUpdatedAt(): DateTime {return $this->updated_at;}
 
-	public function setId(string $id): void {$this->id = $id;}
+	public function setId(string $id): self {$this->id = $id; return $this;}
 
-	public function setMilestoneId(string $milestoneId): void {$this->milestoneId = $milestoneId;}
+	public function setMilestoneId(string $milestoneId): self {$this->milestoneId = $milestoneId; return $this;}
 
-	public function setName(string $name): void {$this->name = $name;}
+	public function setName(string $name): self {$this->name = $name; return $this;}
 
-	public function setDecision(string $decision): void {$this->decision = $decision;}
+	public function setDecision(string $decision): self {$this->decision = $decision; return $this;}
 
-	public function setDocumentDate(string $documentDate): void {$this->documentDate = $documentDate;}
+	public function setDocumentDate(string $documentDate): self {$this->documentDate = $documentDate; return $this;}
 
-	public function setIssuePlace(string $issuePlace): void {$this->issuePlace = $issuePlace;}
+	public function setIssuePlace(string $issuePlace): self {$this->issuePlace = $issuePlace; return $this;}
 
-	public function setLink(string $link): void {$this->link = $link;}
+	public function setLink(string $link): self {$this->link = $link; return $this;}
 
-	public function setCreatedAt(DateTime $created_at): void {$this->created_at = $created_at;}
+	public function setCreatedAt(DateTime $created_at): self {$this->created_at = $created_at; return $this;}
 
-	public function setUpdatedAt(DateTime $updated_at): void {$this->updated_at = $updated_at;}	
+	public function setUpdatedAt(DateTime $updated_at): self {$this->updated_at = $updated_at; return $this;}	
 }

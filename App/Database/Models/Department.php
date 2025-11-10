@@ -11,7 +11,7 @@ class Department
 
 	public function getName(): string {return $this->name;}
 
-    public function setId(int $id): void {$this->id = $id;}
+    public function setId(int $id): self {$this->id = $id; return $this;}
 
-	public function setName(string $name): void {$this->name = $name;}
+	public function setName(string $name): self {$this->name = $name; return $this;}
 }
