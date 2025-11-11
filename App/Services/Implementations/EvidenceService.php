@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Implementations;
 
 use App\Database\Models\Evidence;
-use App\Database\Repositories\EvidenceRepository;
 use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Services\Interfaces\EvidenceServiceInterface as InterfacesEvidenceServiceInterface;
 use Core\Paginator;
 
-class EvidenceService
+class EvidenceService implements InterfacesEvidenceServiceInterface
 {
     public function __construct(private Evidence $evidence,
                                 private EvidenceRepositoryInterface $evidenceRepository) {}
@@ -65,12 +65,12 @@ class EvidenceService
         $this->evidenceRepository->deleteEvidence($evidence_id);
     }
 
-    private function findAll(int $start_from, int $result_per_page): array
+    public function findAll(int $start_from, int $result_per_page): array
     {
         return $this->evidenceRepository->getAllEvidence($start_from, $result_per_page);
     }
 
-    private function find(string $search, int $start_from, int $result_per_page): array
+    public function find(string $search, int $start_from, int $result_per_page): array
     {
         return $this->evidenceRepository->searchEvidence($search, $start_from, $result_per_page);
     }

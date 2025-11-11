@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Database\Models\User;
 use App\Http\Requests\AuthRequest;
 use Core\Controller;
-use App\Services\AuthService;
+use App\Services\Interfaces\AuthServiceInterface;
 use Traits\HttpResponseTrait;
 
 /**
@@ -17,7 +17,7 @@ class AuthController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private AuthService $authService,
+    public function __construct(private AuthServiceInterface $authService,
                                 private AuthRequest $authRequest) {}
 
     public function showLogin(): mixed

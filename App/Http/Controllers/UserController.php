@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Services\Interfaces\UserServiceInterface;
 use App\Services\UserService;
 use Core\Controller;
 use ErrorHandlers\UserErrorHandler;
@@ -20,7 +21,7 @@ class UserController extends Controller
     // Constructor
     public function __construct(
         private UserRequest $userRequest,
-        private UserService $userService,
+        private UserServiceInterface $userService,
         private UserErrorHandler $userErrorHandler
     ) {}
 

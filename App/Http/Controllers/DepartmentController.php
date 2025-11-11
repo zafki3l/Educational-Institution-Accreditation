@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\DepartmentService;
+use App\Services\Interfaces\DepartmentServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -10,7 +11,7 @@ class DepartmentController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private DepartmentService $departmentService){}
+    public function __construct(private DepartmentServiceInterface $departmentService){}
 	
     public function index()
     {

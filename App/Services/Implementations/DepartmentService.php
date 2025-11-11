@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Implementations;
 
 use App\Database\Models\Department;
 use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Services\Interfaces\DepartmentServiceInterface;
 
-class DepartmentService
+class DepartmentService implements DepartmentServiceInterface
 {
     public function __construct(private Department $department,
                                 private DepartmentRepositoryInterface $departmentRepository) {}
