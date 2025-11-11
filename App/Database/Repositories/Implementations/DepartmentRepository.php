@@ -3,13 +3,13 @@
 namespace App\Database\Repositories\Implementations;
 
 use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
-use Configs\Database;
+use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 
 class DepartmentRepository extends Repository implements DepartmentRepositoryInterface
 {
-    public function __construct(Database $db)
+    public function __construct(DatabaseInterface $db)
     {
         parent::__construct($db);
     }

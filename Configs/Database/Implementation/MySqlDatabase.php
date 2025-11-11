@@ -1,13 +1,14 @@
 <?php
 
-namespace Configs;
+namespace Configs\Database\Implementation;
 
 use PDO;
 use PDOException;
+use Configs\Database\Interfaces\DatabaseInterface;
 
-class Database
+class MySqlDatabase implements DatabaseInterface
 {
-    public function connect()
+    public function connect(): PDO
     {
         try {
             $dsn = 'mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE . ';charset=UTF8';
@@ -15,7 +16,7 @@ class Database
 
             return $pdo;
         } catch (PDOException $e) {
-            print $e->getMessage();
+            throw $e;
         }
     }
 }
