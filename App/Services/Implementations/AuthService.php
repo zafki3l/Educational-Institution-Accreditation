@@ -5,16 +5,15 @@ namespace App\Services\Implementations;
 use App\Database\Models\User;
 use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\AuthServiceInterface;
-use ErrorHandlers\UserErrorHandler;
-use Exception;
+use App\Validations\Interfaces\AuthValidatorInterface;
 
 class AuthService implements AuthServiceInterface
 {
-    private const LOCK_TIME = 60;
+    public const LOCK_TIME = 60;
 
     public function __construct(private User $user,
                                 private UserRepositoryInterface $userRepository,
-                                private UserErrorHandler $userErrorHandler) {}
+                                private AuthValidatorInterface $authValidator) {}
 
     public function handleLogin(array $request): array
     {
@@ -24,52 +23,8 @@ class AuthService implements AuthServiceInterface
 
     public function handleError(array $request): ?array
     {
-        $errors = $this->loginErrorHandling($request);
+        $errors = $this->authValidator->loginErrorHandling($this->userRepository, $request);
 
         return !empty($errors) ? $errors : null;
-    }
-
-    private function loginErrorHandling(array $request): array
-    {
-        $errors = [];
-
-        try {
-            $userData = $this->userRepository->getUserByEmail($request['email']);
-
-            $isEmailExist = $this->userErrorHandler->isEmailExist($request['email'], $this->userRepository);
-            if (!$isEmailExist) {
-                $errors['email-not-existed'] = 'Email is not exist! create a new account!';
-            }
-
-            if ($this->userErrorHandler->emptyInput($request['email'])) {
-                $errors['empty-email'] = 'Email can not be empty!';
-            }
-
-            $user_password = $userData[0]['password'];
-            $isPasswordCorrect = $this->userErrorHandler->isPasswordCorrect($user_password, $request['password']);
-            if (!$isPasswordCorrect) {
-                $errors['incorrect-password'] = 'Password incorrect!';
-                $errors['failed_login'] = $this->handleFailedAttempt();
-            }
-        } catch (Exception $e) {
-            $errors['exception-error'] = $e->getMessage();
-        }
-
-        return $errors;
-    }
-
-    private function handleFailedAttempt(): string
-    {
-        $_SESSION['attempt_failed']++;
-
-        if ($_SESSION['attempt_failed'] > 5) {
-            $_SESSION['lock_time'] = time() + self::LOCK_TIME;
-            $_SESSION['attempt_failed'] = 0;
-
-            return 'Too many failed attempts. Please try again in 10 minutes.';
-        } else {
-            $remain = 6 - $_SESSION['attempt_failed'];
-            return 'You have ' . $remain . ' tries left.';
-        }
     }
 }

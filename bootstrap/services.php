@@ -14,18 +14,19 @@ use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
-use ErrorHandlers\UserErrorHandler;
+use App\Validations\Interfaces\AuthValidatorInterface;
+use App\Validations\Interfaces\UserValidatorInterface;
 
 $container->bind(AuthServiceInterface::class, function ($container) {
     return new AuthService($container->resolve(User::class), 
                             $container->resolve(UserRepositoryInterface::class), 
-                            $container->resolve(UserErrorHandler::class));
+                            $container->resolve(AuthValidatorInterface::class));
 });
 
 $container->bind(UserServiceInterface::class, function ($container) {
     return new UserService($container->resolve(User::class),
                             $container->resolve(UserRepositoryInterface::class),
-                            $container->resolve(UserErrorHandler::class));
+                            $container->resolve(UserValidatorInterface::class));
 });
 
 $container->bind(DepartmentServiceInterface::class, function ($container) {

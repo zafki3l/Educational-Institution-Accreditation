@@ -5,15 +5,14 @@ namespace App\Services\Implementations;
 use App\Database\Models\User;
 use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
+use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;
-use ErrorHandlers\UserErrorHandler;
-use Exception;
 
 class UserService implements UserServiceInterface
 {
     public function __construct(private User $user,
                                 private UserRepositoryInterface $userRepository,
-                                private UserErrorHandler $userErrorHandler) {}
+                                private UserValidatorInterface $userValidator) {}
 
     public function listUsers(?string $search, int $current_page): array
     {
@@ -64,7 +63,7 @@ class UserService implements UserServiceInterface
 
     public function handleError(array $request, $isUpdated = false): ?array
     {
-        $errors = $this->handleUserError($request, $isUpdated);
+        $errors = $this->userValidator->handleUserError($this->userRepository, $request, $isUpdated);
 
         return !empty($errors) ? $errors : null;
     }
@@ -82,47 +81,5 @@ class UserService implements UserServiceInterface
     public function find(string $search, int $start_from, int $result_per_page): array
     {
         return $this->userRepository->searchUser($search, $start_from, $result_per_page);
-    }
-
-    private function handleUserError(array $request, bool $isUpdated): array
-    {
-        $errors = [];
-
-        try {
-            // Email exist error handling
-            if (!$isUpdated && $this->userErrorHandler->isEmailExist($request['email'], $this->userRepository)) {
-                $errors['email-existed'] = 'Email already existed!';
-            }
-
-            // Email validate error handling
-            if ($this->userErrorHandler->isEmailInvalid($request['email'])) {
-                $errors['email-invalid'] = 'Invalid email!';
-            }
-
-            // Empty input handling
-            if ($this->userErrorHandler->emptyInput($request['first_name'])) {
-                $errors['empty-firstname'] = 'First name can not be empty!';
-            }
-
-            if ($this->userErrorHandler->emptyInput($request['last_name'])) {
-                $errors['empty-lastname'] = 'Last name can not be empty!';
-            }
-
-            if ($this->userErrorHandler->emptyInput($request['email'])) {
-                $errors['empty-email'] = 'Email can not be empty!';
-            }
-
-            if ($this->userErrorHandler->emptyInput($request['gender'])) {
-                $errors['empty-gender'] = 'Gender can not be empty!';
-            }
-
-            if (!$isUpdated && $this->userErrorHandler->emptyInput($request['password'])) {
-                $errors['empty-password'] = 'Password can not be empty!';
-            }
-        } catch (Exception $e) {
-            $errors['exception-error'][] = $e->getMessage();
-        }
-
-        return $errors;
     }
 }
