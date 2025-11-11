@@ -50,7 +50,6 @@ class AuthController extends Controller
         $db_user = $this->authService->handleLogin($request);
 
         $_SESSION['user'] = $this->setSession($db_user);
-
         $role_id = $_SESSION['user']['role_id'];
 
         if (User::isAdmin($role_id)) {
@@ -93,7 +92,8 @@ class AuthController extends Controller
             'last_name' => $db_user[0]['last_name'],
             'email' => $db_user[0]['email'],
             'gender' => $db_user[0]['gender'],
-            'role_id' => $db_user[0]['role_id']
+            'role_id' => $db_user[0]['role_id'],
+            'department_id' => $db_user[0]['department_id']
         ];
     }
 }

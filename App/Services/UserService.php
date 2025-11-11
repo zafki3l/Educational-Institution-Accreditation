@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Database\Models\User;
-use App\Database\Repositories\UserRepository;
+use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use Core\Paginator;
 use ErrorHandlers\UserErrorHandler;
 use Exception;
@@ -11,10 +11,10 @@ use Exception;
 class UserService
 {
     public function __construct(private User $user,
-                                private UserRepository $userRepository,
+                                private UserRepositoryInterface $userRepository,
                                 private UserErrorHandler $userErrorHandler) {}
 
-    public function listUser(?string $search, int $current_page): array
+    public function listUsers(?string $search, int $current_page): array
     {
         $total_records = $search ? $this->userRepository->countSearchUser($search) 
                                 : $this->userRepository->countUser();

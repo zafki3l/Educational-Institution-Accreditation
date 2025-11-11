@@ -4,12 +4,13 @@ namespace App\Services;
 
 use App\Database\Models\Evidence;
 use App\Database\Repositories\EvidenceRepository;
+use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
 use Core\Paginator;
 
 class EvidenceService
 {
     public function __construct(private Evidence $evidence,
-                                private EvidenceRepository $evidenceRepository) {}
+                                private EvidenceRepositoryInterface $evidenceRepository) {}
 
     public function listEvidences(?string $search, int $current_page): array
     {

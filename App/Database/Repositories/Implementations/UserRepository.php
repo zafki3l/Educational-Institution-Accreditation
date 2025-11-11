@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Database\Repositories;
+namespace App\Database\Repositories\Implementations;
 
 use App\Database\Models\User;
+use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database;
 use Core\Repository;
 use PDOException;
 
-class UserRepository extends Repository
+class UserRepository extends Repository implements UserRepositoryInterface
 {
     public function __construct(Database $db) 
     {
         parent::__construct($db);
     }
 
-    public function getAllUser($start_from, $result_per_page): array
+    public function getAllUser(int $start_from, int $result_per_page): array
     {
         try {
             $sql = "SELECT u.id as 'id',

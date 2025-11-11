@@ -121,11 +121,11 @@ class Router
 
         $action = $route['action'];
         if (is_array($action)) {
-            [$controller, $action] = $action;
+            [$class, $action] = $action;
 
-            $controller = App::resolve($controller);
+            $class = App::resolve($class);
 
-            call_user_func_array([$controller, $action], $params);
+            call_user_func_array([$class, $action], $params);
             return;
         }
 

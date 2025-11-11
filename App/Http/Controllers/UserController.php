@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use Core\Controller;
-use Core\Paginator;
 use ErrorHandlers\UserErrorHandler;
-use Exception;
 use Traits\HttpResponseTrait;
 
 /**
@@ -32,7 +30,7 @@ class UserController extends Controller
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->userService->listUser($search, $current_page);
+        $data = $this->userService->listUsers($search, $current_page);
 
         return $this->view(
             'admin/users/index',

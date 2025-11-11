@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Database\Models\Department;
-use App\Database\Repositories\DepartmentRepository;
+use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
 
 class DepartmentService
 {
     public function __construct(private Department $department,
-                                private DepartmentRepository $departmentRepository) {}
+                                private DepartmentRepositoryInterface $departmentRepository) {}
 
     public function findAll(): array
     {
