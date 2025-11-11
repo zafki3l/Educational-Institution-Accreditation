@@ -4,13 +4,13 @@ namespace App\Database\Repositories\Implementations;
 
 use App\Database\Models\User;
 use App\Database\Repositories\Interfaces\UserRepositoryInterface;
-use Configs\Database;
+use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 
 class UserRepository extends Repository implements UserRepositoryInterface
 {
-    public function __construct(Database $db) 
+    public function __construct(DatabaseInterface $db) 
     {
         parent::__construct($db);
     }

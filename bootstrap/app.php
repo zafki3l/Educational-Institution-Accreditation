@@ -19,21 +19,26 @@ use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
-use Configs\Database;
+use Configs\Database\Implementation\MySqlDatabase;
+use Configs\Database\Interfaces\DatabaseInterface;
 use ErrorHandlers\UserErrorHandler;
 
 $container = new Container();
 
+$container->bind(DatabaseInterface::class, function () {
+    return new MySqlDatabase();
+});
+
 $container->bind(DepartmentRepositoryInterface::class, function ($container) {
-    return new DepartmentRepository($container->resolve(Database::class));
+    return new DepartmentRepository($container->resolve(DatabaseInterface::class));
 });
 
 $container->bind(UserRepositoryInterface::class, function ($container) {
-    return new UserRepository($container->resolve(Database::class));
+    return new UserRepository($container->resolve(DatabaseInterface::class));
 });
 
 $container->bind(EvidenceRepositoryInterface::class, function ($container) {
-    return new EvidenceRepository($container->resolve(Database::class));
+    return new EvidenceRepository($container->resolve(DatabaseInterface::class));
 });
 
 $container->bind(AuthServiceInterface::class, function ($container) {

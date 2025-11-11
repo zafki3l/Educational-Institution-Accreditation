@@ -4,13 +4,13 @@ namespace App\Database\Repositories\Implementations;
 
 use App\Database\Models\Evidence;
 use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
-use Configs\Database;
+use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 
 class EvidenceRepository extends Repository implements EvidenceRepositoryInterface
 {
-    public function __construct(Database $db)
+    public function __construct(DatabaseInterface $db)
     {
         parent::__construct($db);
     }

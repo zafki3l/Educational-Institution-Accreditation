@@ -2,18 +2,13 @@
 
 namespace Core;
 
-use Configs\Database;
+use Configs\Database\Interfaces\DatabaseInterface;
 use PDO;
 use PDOStatement;
 
 class Repository
 {
-    /**
-     * Model constructor
-     * 
-     * @param \Configs\Database $db
-     */
-    protected function __construct(protected Database $db) {}
+    protected function __construct(protected DatabaseInterface $db) {}
 
     /**
      * Fetch all records from a query
