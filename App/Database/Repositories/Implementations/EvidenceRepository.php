@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Database\Repositories;
+namespace App\Database\Repositories\Implementations;
 
 use App\Database\Models\Evidence;
+use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database;
 use Core\Repository;
 use PDOException;
 
-class EvidenceRepository extends Repository
+class EvidenceRepository extends Repository implements EvidenceRepositoryInterface
 {
     public function __construct(Database $db)
     {
@@ -23,10 +24,15 @@ class EvidenceRepository extends Repository
                         e.decision,
                         e.document_date,
                         e.issue_place,
-                        e.link
+                        e.link,
+                        c.department_id
                     FROM evidences e
+                    JOIN milestone_evidence me
+                        ON me.evidence_id = e.id
                     JOIN evaluation_milestones em
-                        ON e.milestone_id = em.id
+                        ON em.id = me.milestone_id
+                    JOIN evaluation_criterias c
+                        ON c.id = em.criteria_id
                     LIMIT $start_from, $result_per_page";
         
             return $this->getAll($sql);

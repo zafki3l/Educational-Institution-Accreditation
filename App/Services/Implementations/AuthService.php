@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Implementations;
 
 use App\Database\Models\User;
-use App\Database\Repositories\UserRepository;
+use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Services\Interfaces\AuthServiceInterface;
 use ErrorHandlers\UserErrorHandler;
 use Exception;
 
-class AuthService
+class AuthService implements AuthServiceInterface
 {
     private const LOCK_TIME = 60;
 
     public function __construct(private User $user,
-                                private UserRepository $userRepository,
+                                private UserRepositoryInterface $userRepository,
                                 private UserErrorHandler $userErrorHandler) {}
 
     public function handleLogin(array $request): array

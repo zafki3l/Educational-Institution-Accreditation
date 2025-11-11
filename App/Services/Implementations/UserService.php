@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Implementations;
 
 use App\Database\Models\User;
-use App\Database\Repositories\UserRepository;
+use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Services\Interfaces\UserServiceInterface;
 use Core\Paginator;
 use ErrorHandlers\UserErrorHandler;
 use Exception;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     public function __construct(private User $user,
-                                private UserRepository $userRepository,
+                                private UserRepositoryInterface $userRepository,
                                 private UserErrorHandler $userErrorHandler) {}
 
-    public function listUser(?string $search, int $current_page): array
+    public function listUsers(?string $search, int $current_page): array
     {
         $total_records = $search ? $this->userRepository->countSearchUser($search) 
                                 : $this->userRepository->countUser();
@@ -68,17 +69,17 @@ class UserService
         return !empty($errors) ? $errors : null;
     }
 
-    public function findById(int $user_id)
+    public function findById(int $user_id): array
     {
         return $this->userRepository->getUserById($user_id);
     }
 
-    private function findAll(int $start_from, int $result_per_page): array
+    public function findAll(int $start_from, int $result_per_page): array
     {
         return $this->userRepository->getAllUser($start_from, $result_per_page);
     }
 
-    private function find(string $search, int $start_from, int $result_per_page): array
+    public function find(string $search, int $start_from, int $result_per_page): array
     {
         return $this->userRepository->searchUser($search, $start_from, $result_per_page);
     }

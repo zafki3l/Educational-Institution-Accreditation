@@ -22,14 +22,14 @@ class User
     private DateTime $created_at;
     private DateTime $updated_at;
 
-    public static function isAdmin($role): bool
+    public static function isAdmin(int $role_id): bool
     {
-        return $role === self::ROLE_ADMIN;
+        return $role_id === self::ROLE_ADMIN;
     }
 
-    public static function isStaff($role): bool
+    public static function isStaff(int $role_id): bool
     {
-        return in_array($role, [self::ROLE_BUSINESS_STAFF, self::ROLE_ADMIN]);
+        return in_array($role_id, [self::ROLE_BUSINESS_STAFF, self::ROLE_ADMIN]);
     }
 
     public function getId(): string {return $this->id;}

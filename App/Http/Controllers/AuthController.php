@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Database\Models\User;
 use App\Http\Requests\AuthRequest;
 use Core\Controller;
-use App\Services\AuthService;
+use App\Services\Interfaces\AuthServiceInterface;
 use Traits\HttpResponseTrait;
 
 /**
@@ -17,7 +17,7 @@ class AuthController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private AuthService $authService,
+    public function __construct(private AuthServiceInterface $authService,
                                 private AuthRequest $authRequest) {}
 
     public function showLogin(): mixed
@@ -50,7 +50,6 @@ class AuthController extends Controller
         $db_user = $this->authService->handleLogin($request);
 
         $_SESSION['user'] = $this->setSession($db_user);
-
         $role_id = $_SESSION['user']['role_id'];
 
         if (User::isAdmin($role_id)) {
@@ -93,7 +92,8 @@ class AuthController extends Controller
             'last_name' => $db_user[0]['last_name'],
             'email' => $db_user[0]['email'],
             'gender' => $db_user[0]['gender'],
-            'role_id' => $db_user[0]['role_id']
+            'role_id' => $db_user[0]['role_id'],
+            'department_id' => $db_user[0]['department_id']
         ];
     }
 }

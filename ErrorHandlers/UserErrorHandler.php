@@ -2,15 +2,16 @@
 
 namespace ErrorHandlers;
 
+use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use App\Database\Repositories\UserRepository;
 use Core\ErrorHandler;
 
 class UserErrorHandler extends ErrorHandler
 {
     // Check is email exist
-    public function isEmailExist(string $email, UserRepository $userRepository): bool
+    public function isEmailExist(string $email, UserRepositoryInterface $userRepositoryInterface): bool
     {
-        $result = $userRepository->getUserByEmail($email);
+        $result = $userRepositoryInterface->getUserByEmail($email);
 
         return !empty($result);
     }

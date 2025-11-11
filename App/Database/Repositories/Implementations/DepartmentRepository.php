@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Database\Repositories;
+namespace App\Database\Repositories\Implementations;
 
+use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Configs\Database;
 use Core\Repository;
 use PDOException;
 
-class DepartmentRepository extends Repository
+class DepartmentRepository extends Repository implements DepartmentRepositoryInterface
 {
     public function __construct(Database $db)
     {
