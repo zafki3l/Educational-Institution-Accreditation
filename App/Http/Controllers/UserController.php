@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Services\Interfaces\UserServiceInterface;
-use App\Services\UserService;
 use Core\Controller;
-use ErrorHandlers\UserErrorHandler;
 use Traits\HttpResponseTrait;
 
 /**
@@ -22,7 +20,6 @@ class UserController extends Controller
     public function __construct(
         private UserRequest $userRequest,
         private UserServiceInterface $userService,
-        private UserErrorHandler $userErrorHandler
     ) {}
 
     public function index(): mixed

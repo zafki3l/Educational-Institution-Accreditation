@@ -2,12 +2,7 @@
 
 namespace Core;
 
-/**
- * Class ErrorHandler
- * 
- * Provides helper methods for all ErrorHandler classes
- */
-class ErrorHandler
+class Validator
 {
     /**
      * Check is input empty
