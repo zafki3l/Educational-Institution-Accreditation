@@ -11,7 +11,7 @@ class MySqlDatabase implements DatabaseInterface
     public function connect(): PDO
     {
         try {
-            $dsn = 'mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE . ';charset=UTF8';
+            $dsn = 'mysql:host=' . DB_SERVER . ';port=' . DB_PORT . ';dbname=' . DB_DATABASE . ';charset=UTF8';
             $pdo = new PDO($dsn, DB_USER, DB_PASSWORD);
 
             return $pdo;

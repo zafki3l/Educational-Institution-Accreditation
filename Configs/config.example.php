@@ -9,6 +9,7 @@ define('ROOT_PATH', __DIR__);
 
 // Database configuration
 define('DB_SERVER', 'YOUR_SERVER');
+define('DB_PORT', 'YOUR_PORT');
 define('DB_USER', 'YOUR_PASSWORD');
 define('DB_PASSWORD', 'YOUR_PASSWORD');
 define('DB_DATABASE', 'YOUR_DATABASE');
