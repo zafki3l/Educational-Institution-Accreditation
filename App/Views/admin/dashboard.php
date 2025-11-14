@@ -39,7 +39,7 @@
                                 <i class="fa-solid fa-tags"></i>
                                 Cập nhật tiêu chuẩn
                             </a>
-                            <a class="manage-link" href="">
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/">
                                 <i class="fa-solid fa-tags"></i>
                                 Cập nhật tiêu chí
                             </a>
