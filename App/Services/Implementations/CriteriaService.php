@@ -4,12 +4,13 @@ namespace App\Services\Implementations;
 
 use App\Database\Models\Criteria;
 use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
-use App\Services\Interfaces\CriteriaServiceInterface as InterfacesCriteriaServiceInterface;
+use App\Services\Interfaces\CriteriaServiceInterface;
 use Core\Paginator;
 
-class CriteriaService implements InterfacesCriteriaServiceInterface
+class CriteriaService implements CriteriaServiceInterface
 {
-    public function __construct(private Criteria $criteria, private CriteriaRepositoryInterface $criteriaRepository){}
+    public function __construct(private Criteria $criteria, 
+                                private CriteriaRepositoryInterface $criteriaRepository){}
 
     public function listCriterias(?string $search, int $current_page): array
     {
@@ -38,6 +39,4 @@ class CriteriaService implements InterfacesCriteriaServiceInterface
     {
         return $this->criteriaRepository->searchCriteria($search, $start_from, $result_per_page);
     }
-
 }
-?>

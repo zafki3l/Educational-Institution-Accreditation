@@ -11,7 +11,8 @@ class CriteriaController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private CriteriaRequest $criteriaRequest, private CriteriaServiceInterface $criteriaService){}
+    public function __construct(private CriteriaRequest $criteriaRequest, 
+                                private CriteriaServiceInterface $criteriaService){}
 
      public function index()
     {

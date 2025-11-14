@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Middlewares\CSRF_Authenticator;
 use App\Http\Middlewares\EnsureAuth;
 
 // Homepage

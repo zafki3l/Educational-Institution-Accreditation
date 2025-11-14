@@ -2,7 +2,6 @@
 
 namespace App\Database\Repositories\Implementations;
 
-use App\Database\Models\Criteria;
 use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
