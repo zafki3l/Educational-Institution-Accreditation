@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EvidenceController;
+use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\StaffController;
 use App\Http\Middlewares\EnsureAuth;
 use App\Http\Middlewares\EnsureStaff;
@@ -25,6 +26,7 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->post('/staff/evidences', [EvidenceController::class, 'store']);
 
+
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences/{id}/edit', [EvidenceController::class, 'edit']);
 
@@ -36,3 +38,8 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
 
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences/{id}/criterias', [EvidenceController::class, 'criterias']);
+
+//Evaluation Criterias
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->get('/staff/criterias', [CriteriaController::class, 'index']);
+
