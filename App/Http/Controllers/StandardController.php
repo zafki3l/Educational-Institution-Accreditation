@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Database\Models\User;
 use App\Http\Requests\StandardRequest;
 use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
@@ -16,11 +17,13 @@ class StandardController extends Controller
     {
         $standards = $this->standardService->listStandards();
 
+        $role = $_SESSION['user']['role_id'];
+        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
         return $this->view(
-            'admin/standards/index', 
-            'admin.layouts', 
+            (string) $redirect_to . '/standards/index', 
+            (string) $redirect_to .'.layouts', 
             [
-                'title' => 'Cập nhật tiêu chuẩn',
+                'title' => User::isAdmin($role) ? 'Cập nhật tiêu chuẩn' : 'Danh sách tiêu chuẩn',
                 'standards' => $standards
             ]
         );
@@ -38,7 +41,7 @@ class StandardController extends Controller
     public function destroy(string $id): void
     {
         $this->standardService->deleteStandard($id);
-        
+
         $this->redirect('/admin/standards');
     }
 }
