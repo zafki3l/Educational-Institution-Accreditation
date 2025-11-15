@@ -7,7 +7,7 @@
     transition: width 0.3s ease;
 }
 
-.content .evidences-header {
+.content .content-header {
     background-color: #a10d25;
     padding: 10px 20px;
     display: flex;
@@ -15,7 +15,7 @@
     justify-content: space-between;
 }
 
-.evidences-header .search-add {
+.content-header .search-add {
     display: flex;
     gap: 20px;
     padding: 4px 20px;
@@ -23,7 +23,7 @@
     justify-content: end;
 }
 
-.evidences-header .search-add input {
+.content-header .search-add input {
     flex: 1;
     padding: 8px 10px;
     border-radius: 6px;
@@ -32,7 +32,7 @@
     border: 1px solid #ccc;
 }
 
-.evidences-header .search-add button {
+.content-header .search-add button {
     padding: 8px 16px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 
-.evidences-header .search-add .addEvidence {
+.content-header .search-add .addEvidence {
     padding: 8px 16px;
     border-radius: 6px;
     border: 1px solid #ccc;
