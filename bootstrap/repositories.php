@@ -3,10 +3,12 @@
 use App\Database\Repositories\Implementations\CriteriaRepository;
 use App\Database\Repositories\Implementations\DepartmentRepository;
 use App\Database\Repositories\Implementations\EvidenceRepository;
+use App\Database\Repositories\Implementations\StandardRepository;
 use App\Database\Repositories\Implementations\UserRepository;
 use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Database\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Database\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 
@@ -24,4 +26,8 @@ $container->bind(EvidenceRepositoryInterface::class, function ($container) {
 
 $container->bind(CriteriaRepositoryInterface::class, function ($container) {
     return new CriteriaRepository($container->resolve(DatabaseInterface::class));
+});
+
+$container->bind(StandardRepositoryInterface::class, function ($container) {
+    return new StandardRepository($container->resolve(DatabaseInterface::class));
 });
