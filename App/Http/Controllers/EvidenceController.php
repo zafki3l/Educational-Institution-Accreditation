@@ -52,7 +52,7 @@ class EvidenceController extends Controller
 
         $this->evidenceService->createEvidence($request);
 
-        $this->redirect('/staff/evidences');
+        $this->redirect('/taff/evidences');
     }
 
     public function edit(string $evidence_id)
