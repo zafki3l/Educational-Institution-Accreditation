@@ -17,12 +17,16 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
     public function getAllCriteria(int $start_from, int $result_per_page): array
     {
         try{
-            $sql = "SELECT ec.id as 'eva_crit_id',
-                            es.id as 'eva_stand_id',
-                            ec.name as 'ava_crit_name'
+            $sql = "SELECT ec.id as 'criteria_id',
+                            es.id as 'standard_id',
+                            ec.name as 'criteria_name',
+                            department_id,
+                            ec.created_at,
+                            ec.updated_at
                     FROM evaluation_criterias ec
                     JOIN evaluation_standards es
                         ON ec.standard_id = es.id
+                    JOIN departments ON ec.department_id = departments.id
                     LIMIT $start_from, $result_per_page";
             
             return $this->getAll($sql);

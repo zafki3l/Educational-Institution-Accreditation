@@ -8,24 +8,21 @@ class CriteriaRequest
     {
         return [
             'criteria_id' => trim($_POST['criteria_id']),
-            'evidence_name' => trim($_POST['evidence_name']),
-            'milestone_id' => trim($_POST['milestone_id']),  
-            'decision' => trim($_POST['decision']),
-            'document_date' => trim($_POST['document_date']),
-            'issue_place' => trim($_POST['issue_place']),
-            'link' => trim($_POST['link'])
+            'criteria_name' => trim($_POST['criteria_name']),
+            'standard_id' => trim($_POST['standard_id']),  
+            'created_at' => trim($_POST['created_at']),
+            'updated_at' => trim($_POST['updated_at'])
         ];
     }
 
     public function updateRequest(): array
     {
         return [
-            'evidence_name' => trim($_POST['evidence_name']),
-            'milestone_id' => trim($_POST['milestone_id']),  
-            'decision' => trim($_POST['decision']),
-            'document_date' => trim($_POST['document_date']),
-            'issue_place' => trim($_POST['issue_place']),
-            'link' => trim($_POST['link'])
+            'criteria_id' => trim($_POST['criteria_id']),
+            'criteria_name' => trim($_POST['criteria_name']),
+            'standard_id' => trim($_POST['standard_id']),  
+            'created_at' => trim($_POST['created_at']),
+            'updated_at' => trim($_POST['updated_at'])
         ];
     }
 }
