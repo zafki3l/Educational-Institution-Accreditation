@@ -20,7 +20,6 @@
                 </div>
             </div>
 
-            <!-- DASHBOARD USER MANAGEMENT TABLE -->
             <div class="dashboard-table">
                 <table>
                     <thead>
