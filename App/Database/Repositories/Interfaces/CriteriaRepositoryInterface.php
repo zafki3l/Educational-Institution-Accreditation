@@ -5,9 +5,11 @@ use App\Database\Models\Criteria;
 
 interface CriteriaRepositoryInterface
 {
-    public function getAllCriteria(int $start_from, int $result_per_page): array;
+    public function getAllCriteria(): array;
     public function countAllCriteria(): int;
-    public function searchCriteria(string $search, int $start_from, int $result_per_page): array;
+    public function createCriteria(Criteria $criteria): void;
+    public function deleteCriteria(string $id): void;
+    public function searchCriteria(string $search): array;
     public function countSearchCriteria(string $search): int;  
 }
 ?>

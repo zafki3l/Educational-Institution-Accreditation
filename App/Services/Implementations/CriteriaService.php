@@ -5,38 +5,42 @@ namespace App\Services\Implementations;
 use App\Database\Models\Criteria;
 use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
-use Core\Paginator;
 
 class CriteriaService implements CriteriaServiceInterface
 {
     public function __construct(private Criteria $criteria, 
                                 private CriteriaRepositoryInterface $criteriaRepository){}
 
-    public function listCriterias(?string $search, int $current_page): array
+    public function listCriterias(?string $search): array
     {
-        $total_records = $search ? $this->criteriaRepository->countSearchCriteria($search) 
-                                : $this->criteriaRepository->countAllCriteria();
+        $criterias = $search ? $this->find($search) 
+                            : $this->findAll();
 
-        [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
-
-        $criterias = $search ? $this->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
-                            : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
-
-        return [
-            'criterias' => $criterias,
-            'current_page' => $current_page,
-            'total_pages' => $total_pages,
-            'result_per_page' => Paginator::RESULT_PER_PAGE
-        ];
+        return $criterias;
     }
 
-    public function findAll(int $start_from, int $result_per_page): array
+    public function createCriteria(array $request): void
     {
-        return $this->criteriaRepository->getAllCriteria($start_from, $result_per_page);
+        $this->criteria->setId($request['id'])
+                        ->setStandardId($request['standard_id'])
+                        ->setName($request['name'])
+                        ->setDepartmentId($request['department_id']);
+        
+        $this->criteriaRepository->createCriteria($this->criteria);
     }
 
-    public function find(string $search, int $start_from, int $result_per_page): array
+    public function deleteCriteria(string $id): void
     {
-        return $this->criteriaRepository->searchCriteria($search, $start_from, $result_per_page);
+        $this->criteriaRepository->deleteCriteria($id);
+    }
+
+    public function findAll(): array
+    {
+        return $this->criteriaRepository->getAllCriteria();
+    }
+
+    public function find(?string $search): array
+    {
+        return $this->criteriaRepository->searchCriteria($search);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Database\Repositories\Implementations;
 
+use App\Database\Models\Criteria;
 use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
@@ -14,7 +15,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         parent::__construct($db);
     }
 
-    public function getAllCriteria(int $start_from, int $result_per_page): array
+    public function getAllCriteria(): array
     {
         try{
             $sql = "SELECT ec.id as 'criteria_id',
@@ -26,8 +27,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
                     FROM evaluation_criterias ec
                     JOIN evaluation_standards es
                         ON ec.standard_id = es.id
-                    JOIN departments ON ec.department_id = departments.id
-                    LIMIT $start_from, $result_per_page";
+                    JOIN departments ON ec.department_id = departments.id";
             
             return $this->getAll($sql);
         } catch (PDOException $e) {
@@ -48,7 +48,30 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function searchCriteria(string $search, int $start_from, int $result_per_page): array
+    public function createCriteria(Criteria $criteria): void
+    {
+        try {
+            $this->insert('evaluation_criterias', [
+                'id' => $criteria->getId(),
+                'standard_id' => $criteria->getStandardId(),
+                'name' => $criteria->getName(),
+                'department_id' => $criteria->getDepartmentId()
+            ]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
+    public function deleteCriteria(string $id): void
+    {
+        try {
+            $this->delete("DELETE FROM evaluation_criterias WHERE id = ?", [$id]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
+    public function searchCriteria(string $search): array
     {
         // TODO:
         return [];

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Database\Models\Criteria;
+use App\Database\Models\User;
 use App\Http\Requests\CriteriaRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use Core\Controller;
@@ -14,25 +15,46 @@ class CriteriaController extends Controller
     public function __construct(private CriteriaRequest $criteriaRequest, 
                                 private CriteriaServiceInterface $criteriaService){}
 
-     public function index()
+    public function index(): mixed
     {
         $search = $_GET['search'] ?? null;
 
-        $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        $criterias = $this->criteriaService->listCriterias($search);
 
-        $data = $this->criteriaService->listCriterias($search, $current_page);
+        $role = $_SESSION['user']['role_id'];
+        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
 
         return $this->view(
-            'staff/criterias/index',
-            'staff.layouts',
+            (string) $redirect_to . '/criterias/index', 
+            (string) $redirect_to .'.layouts', 
             [
-                'title' => 'QUẢN LÝ TIÊU CHÍ',
-                'criterias' => $data['criterias'],
-                'current_page' => $data['current_page'],
-                'total_pages' => $data['total_pages'],
-                'result_per_page' => $data['result_per_page']
+                'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
+                'criterias' => $criterias
             ]
         );
     }
+
+    public function create()
+    {
+        return $this->view(
+            'admin/criterias/create',
+            'admin.layouts',
+        );
+    }
+
+    public function store(): void
+    {
+        $request = $this->criteriaRequest->createRequest();
+
+        $this->criteriaService->createCriteria($request);
+
+        $this->redirect('/admin/criterias');
+    }
+
+    public function destroy(string $id): void
+    {
+        $this->criteriaService->deleteCriteria($id);
+
+        $this->redirect('/admin/criterias');
+    }
 }
-?>
