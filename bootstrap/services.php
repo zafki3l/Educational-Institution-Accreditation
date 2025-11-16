@@ -15,7 +15,6 @@ use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
 use App\Database\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Database\Repositories\Interfaces\UserRepositoryInterface;
-use App\Http\Controllers\CriteriaController;
 use App\Services\Implementations\CriteriaService;
 use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
