@@ -15,7 +15,7 @@
         </div>
 
         <div class="content">
-            <div class="content-header">
+            <div class="evidences-header">
                 <div class="header-text">
                     <h2>QUẢN LÝ MINH CHỨNG</h2>
                     <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
