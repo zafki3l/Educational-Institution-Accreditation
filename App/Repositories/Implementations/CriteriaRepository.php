@@ -19,17 +19,38 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
     {
         try{
             $sql = "SELECT ec.id as 'criteria_id',
-                            es.id as 'standard_id',
+                            es.name as 'standard_name',
                             ec.name as 'criteria_name',
-                            department_id,
+                            d.name as 'department_name',
                             ec.created_at,
                             ec.updated_at
                     FROM evaluation_criterias ec
                     JOIN evaluation_standards es
                         ON ec.standard_id = es.id
-                    JOIN departments ON ec.department_id = departments.id";
+                    JOIN departments d 
+                        ON ec.department_id = d.id";
             
             return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function getCriteriasByStandard(string $standard_id): array
+    {
+        try{
+            $sql = "SELECT ec.id as 'criteria_id',
+                            ec.name as 'criteria_name',
+                            d.name as 'department_name',
+                            ec.created_at,
+                            ec.updated_at
+                    FROM evaluation_criterias ec
+                    JOIN departments d 
+                        ON ec.department_id = d.id
+                    WHERE ec.standard_id = ?";
+            
+            return $this->getByParams([$standard_id], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

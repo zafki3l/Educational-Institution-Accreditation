@@ -17,17 +17,17 @@
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <div class="header-text">
-                    <h2>DANH SÁCH TIÊU CHÍ</h2>
+                    <h2>DANH SÁCH MỐC ĐÁNH GIÁ</h2>
                     <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
                 </div>
 
                 <div class="dashboard-search-add">
-                    <a href="/<?= PROJECT_NAME ?>/admin/criterias/create">Thêm tiêu chí</a>
+                    <a href="/<?= PROJECT_NAME ?>/admin/milestones/create">Thêm mốc đánh giá</a>
                 </div>
             </div>
 
-            <?php foreach ($standards as $standard): ?>
-                <a href="/<?= PROJECT_NAME ?>/admin/standards/<?= $standard['id']  ?>/criterias">Tiêu chuẩn <?= $standard['id']  ?>: <?= $standard['name'] ?></a>
+            <?php foreach ($criterias as $criteria): ?>
+                <a href="/<?= PROJECT_NAME ?>/admin/criterias/<?= $criteria['criteria_id']  ?>/milestones">Tiêu chí <?= $criteria['criteria_id']  ?>: <?= $criteria['criteria_name'] ?></a>
                 <br>
             <?php endforeach; ?>
         </div>

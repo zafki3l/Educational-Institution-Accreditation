@@ -44,7 +44,7 @@
                                 Cập nhật tiêu chí
                             </a>
 
-                            <a class="manage-link" href="">
+                            <a class="manage-link" href="/<?= PROJECT_NAME ?>/admin/milestones">
                                 <i class="fa-solid fa-tags"></i>
                                 Cập nhật mốc đánh giá
                             </a>

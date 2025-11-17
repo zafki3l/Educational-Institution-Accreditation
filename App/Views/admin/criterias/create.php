@@ -27,8 +27,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="standard_id">Mã tiêu chuẩn: </label>
-                        <input type="text" id="standard_id" name="standard_id" placeholder="Mã tiêu chuẩn">
+                        <label for="standard_id">Tiêu chuẩn: </label>
+                        <select name="standard_id" id="standard_id">
+                            <?php foreach ($standards as $standard): ?>
+                                <option value="<?= $standard['id']  ?>"><p><?= $standard['name'] ?></p></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -37,8 +41,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="department_id">Mã phòng ban: </label>
-                        <input type="text" id="department_id" name="department_id" placeholder="Mã phòng ban">
+                        <label for="department_id">Phòng ban: </label>
+                        <select name="department_id" id="department_id">
+                            <?php foreach ($departments as $department): ?>
+                                <option value="<?= $department['id']  ?>"><p><?= $department['name'] ?></p></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
 
                     <div class="form-group">

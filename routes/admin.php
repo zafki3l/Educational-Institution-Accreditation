@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\StandardController;
 use App\Http\Controllers\UserController;
 use App\Http\Middlewares\EnsureAdmin;
@@ -57,3 +58,22 @@ $router->middleware([EnsureAuth::class, EnsureAdmin::class])
 
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     ->delete('/admin/criterias/{id}', [CriteriaController::class, 'destroy']);
+
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/standards/{standard_id}/criterias', [CriteriaController::class, 'getCriteriasByStandard']);
+
+// Milestones
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/milestones', [MilestoneController::class, 'index']);
+
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/criterias/{criteria_id}/milestones', [MilestoneController::class, 'getMilestonesByCriteria']);
+
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->get('/admin/milestones/create', [MilestoneController::class, 'create']);
+
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->post('/admin/milestones', [MilestoneController::class, 'store']);
+
+$router->middleware([EnsureAuth::class, EnsureAdmin::class])
+    ->delete('/admin/milestones/{id}', [MilestoneController::class, 'destroy']);

@@ -11,10 +11,10 @@ class CriteriaService implements CriteriaServiceInterface
     public function __construct(private Criteria $criteria, 
                                 private CriteriaRepositoryInterface $criteriaRepository){}
 
-    public function listCriterias(?string $search): array
+    public function listCriterias(?string $search, string $standard_id): array
     {
         $criterias = $search ? $this->find($search) 
-                            : $this->findAll();
+                            : $this->findByStandard($standard_id);
 
         return $criterias;
     }
@@ -32,6 +32,11 @@ class CriteriaService implements CriteriaServiceInterface
     public function deleteCriteria(string $id): void
     {
         $this->criteriaRepository->deleteCriteria($id);
+    }
+
+    public function findByStandard(string $standard_id): array
+    {
+        return $this->criteriaRepository->getCriteriasByStandard($standard_id);
     }
 
     public function findAll(): array
