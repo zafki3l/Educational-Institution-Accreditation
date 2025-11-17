@@ -1,8 +1,8 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Database\Models\Criteria;
-use App\Database\Models\User;
+use App\Models\Criteria;
+use App\Models\User;
 use App\Http\Requests\CriteriaRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use Core\Controller;

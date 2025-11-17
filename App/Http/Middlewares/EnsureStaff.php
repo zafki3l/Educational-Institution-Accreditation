@@ -2,7 +2,7 @@
 
 namespace App\Http\Middlewares;
 
-use App\Database\Models\User;
+use App\Models\User;
 
 class EnsureStaff
 {

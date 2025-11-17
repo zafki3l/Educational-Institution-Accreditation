@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Database\Models\User;
+use App\Models\User;
 use App\Http\Requests\AuthRequest;
 use Core\Controller;
 use App\Services\Interfaces\AuthServiceInterface;

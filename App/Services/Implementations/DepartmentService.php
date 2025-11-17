@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations;
 
-use App\Database\Models\Department;
-use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Models\Department;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 
 class DepartmentService implements DepartmentServiceInterface

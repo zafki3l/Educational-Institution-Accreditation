@@ -56,7 +56,7 @@
                                     <a href="">Xem chi tiết</a>
                                 </td>
                                 <td>
-                                    <?php if (App\Database\Models\User::isAdmin($_SESSION['user']['role_id']) ||
+                                    <?php if (App\Models\User::isAdmin($_SESSION['user']['role_id']) ||
                                             $_SESSION['user']['department_id'] == $evidence['department_id']): ?>
                                         <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/edit" 
                                             class="edit-btn"><i class="fa-solid fa-pen"></i></a>

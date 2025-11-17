@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations;
 
-use App\Database\Models\User;
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;

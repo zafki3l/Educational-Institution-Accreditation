@@ -2,7 +2,7 @@
 
 namespace App\Validations\Interfaces;
 
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 
 interface UserValidatorInterface
 {

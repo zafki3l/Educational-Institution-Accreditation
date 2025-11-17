@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database\Repositories\Implementations;
+namespace App\Repositories\Implementations;
 
-use App\Database\Models\User;
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Models\User;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;

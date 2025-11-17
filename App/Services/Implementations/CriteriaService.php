@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations;
 
-use App\Database\Models\Criteria;
-use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
+use App\Models\Criteria;
+use App\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 
 class CriteriaService implements CriteriaServiceInterface

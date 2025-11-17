@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database\Repositories\Implementations;
+namespace App\Repositories\Implementations;
 
-use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;

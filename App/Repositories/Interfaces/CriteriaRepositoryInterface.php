@@ -1,7 +1,8 @@
 <?php 
-namespace App\Database\Repositories\Interfaces;
 
-use App\Database\Models\Criteria;
+namespace App\Repositories\Interfaces;
+
+use App\Models\Criteria;
 
 interface CriteriaRepositoryInterface
 {

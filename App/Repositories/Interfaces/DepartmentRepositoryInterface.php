@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Repositories\Interfaces;
+namespace App\Repositories\Interfaces;
 
 interface DepartmentRepositoryInterface
 {
