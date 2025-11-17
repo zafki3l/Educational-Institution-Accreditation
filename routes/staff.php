@@ -16,6 +16,8 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/standards', [StandardController::class, 'index']);
 
 // Criterias
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->get('/staff/criterias', [CriteriaController::class, 'index']);
 
 // Milestones
 
@@ -41,8 +43,4 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
 
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences/{id}/criterias', [EvidenceController::class, 'criterias']);
-
-//Evaluation Criterias
-$router->middleware([EnsureAuth::class, EnsureStaff::class])
-    ->get('/staff/criterias', [CriteriaController::class, 'index']);
 

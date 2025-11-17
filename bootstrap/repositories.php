@@ -1,15 +1,17 @@
 <?php
 
-use App\Database\Repositories\Implementations\CriteriaRepository;
-use App\Database\Repositories\Implementations\DepartmentRepository;
-use App\Database\Repositories\Implementations\EvidenceRepository;
-use App\Database\Repositories\Implementations\StandardRepository;
-use App\Database\Repositories\Implementations\UserRepository;
-use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
-use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
-use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
-use App\Database\Repositories\Interfaces\StandardRepositoryInterface;
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Implementations\CriteriaRepository;
+use App\Repositories\Implementations\DepartmentRepository;
+use App\Repositories\Implementations\EvidenceRepository;
+use App\Repositories\Implementations\MilestoneRepository;
+use App\Repositories\Implementations\StandardRepository;
+use App\Repositories\Implementations\UserRepository;
+use App\Repositories\Interfaces\CriteriaRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Repositories\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 
 $container->bind(DepartmentRepositoryInterface::class, function ($container) {
@@ -30,4 +32,8 @@ $container->bind(CriteriaRepositoryInterface::class, function ($container) {
 
 $container->bind(StandardRepositoryInterface::class, function ($container) {
     return new StandardRepository($container->resolve(DatabaseInterface::class));
+});
+
+$container->bind(MilestoneRepositoryInterface::class, function ($container) {
+    return new MilestoneRepository($container->resolve(DatabaseInterface::class));
 });

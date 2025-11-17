@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations;
 
-use App\Database\Models\Evidence;
-use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Models\Evidence;
+use App\Repositories\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Interfaces\EvidenceServiceInterface as InterfacesEvidenceServiceInterface;
 use Core\Paginator;
 

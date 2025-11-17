@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Database\Models\User;
+use App\Models\User;
 use App\Http\Requests\StandardRequest;
 use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;

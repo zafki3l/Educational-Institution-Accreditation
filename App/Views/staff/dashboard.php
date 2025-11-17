@@ -24,7 +24,7 @@
                             <p><strong>User ID:</strong> <?= htmlspecialchars($_SESSION['user']['user_id'] ?? '') ?></p>
                             <p><strong>Name:</strong> <?= htmlspecialchars($_SESSION['user']['last_name'] ?? '') ?></p>
                             <p><strong>Email:</strong> <?= htmlspecialchars($_SESSION['user']['email'] ?? '') ?></p>
-                            <p><strong>Role:</strong> <?= htmlspecialchars(($_SESSION['user']['role_id'] ?? 0) == App\Database\Models\User::ROLE_BUSINESS_STAFF ? 'Staff' : 'Admin') ?></p>
+                            <p><strong>Role:</strong> <?= htmlspecialchars(($_SESSION['user']['role_id'] ?? 0) == App\Models\User::ROLE_BUSINESS_STAFF ? 'Staff' : 'Admin') ?></p>
                         </div>
                     </div>
                 </section>

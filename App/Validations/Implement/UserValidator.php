@@ -2,7 +2,7 @@
 
 namespace App\Validations\Implement;
 
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Validator;
 

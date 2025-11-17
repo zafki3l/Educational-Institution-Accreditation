@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations;
 
-use App\Database\Models\Standard;
-use App\Database\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Models\Standard;
+use App\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 
 class StandardService implements StandardServiceInterface

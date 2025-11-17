@@ -1,25 +1,29 @@
 <?php
 
-use App\Database\Models\Criteria;
-use App\Database\Models\Department;
-use App\Database\Models\Evidence;
-use App\Database\Models\Standard;
-use App\Database\Models\User;
-use App\Database\Repositories\Interfaces\CriteriaRepositoryInterface;
+use App\Models\Criteria;
+use App\Models\Department;
+use App\Models\Evidence;
+use App\Models\Milestone;
+use App\Models\Standard;
+use App\Models\User;
+use App\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Implementations\AuthService;
 use App\Services\Implementations\DepartmentService;
 use App\Services\Implementations\EvidenceService;
 use App\Services\Implementations\StandardService;
 use App\Services\Interfaces\EvidenceServiceInterface;
-use App\Database\Repositories\Interfaces\DepartmentRepositoryInterface;
-use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
-use App\Database\Repositories\Interfaces\StandardRepositoryInterface;
-use App\Database\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Repositories\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Implementations\CriteriaService;
+use App\Services\Implementations\MilestoneService;
 use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
+use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\AuthValidatorInterface;
@@ -55,4 +59,9 @@ $container->bind(CriteriaServiceInterface::class, function ($container) {
 $container->bind(StandardServiceInterface::class, function ($container) {
     return new StandardService($container->resolve(Standard::class),
                                 $container->resolve(StandardRepositoryInterface::class));
+});
+
+$container->bind(MilestoneServiceInterface::class, function ($container) {
+    return new MilestoneService($container->resolve(Milestone::class),
+                                $container->resolve(MilestoneRepositoryInterface::class));
 });

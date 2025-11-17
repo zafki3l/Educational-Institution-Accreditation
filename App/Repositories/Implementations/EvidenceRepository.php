@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database\Repositories\Implementations;
+namespace App\Repositories\Implementations;
 
-use App\Database\Models\Evidence;
-use App\Database\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Models\Evidence;
+use App\Repositories\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;

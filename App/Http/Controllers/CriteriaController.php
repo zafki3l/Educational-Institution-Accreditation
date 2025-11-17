@@ -1,9 +1,12 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Database\Models\Criteria;
+use App\Models\Criteria;
+use App\Models\User;
 use App\Http\Requests\CriteriaRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
+use App\Services\Interfaces\DepartmentServiceInterface;
+use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -12,27 +15,75 @@ class CriteriaController extends Controller
     use HttpResponseTrait;
 
     public function __construct(private CriteriaRequest $criteriaRequest, 
-                                private CriteriaServiceInterface $criteriaService){}
+                                private CriteriaServiceInterface $criteriaService,
+                                private StandardServiceInterface $standardService,
+                                private DepartmentServiceInterface $departmentService){}
 
-     public function index()
+    public function index(): mixed
     {
-        $search = $_GET['search'] ?? null;
+        $standards = $this->standardService->findAll();
 
-        $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
-
-        $data = $this->criteriaService->listCriterias($search, $current_page);
+        $role = $_SESSION['user']['role_id'];
+        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
 
         return $this->view(
-            'staff/criterias/index',
-            'staff.layouts',
+            (string) $redirect_to . '/criterias/index', 
+            (string) $redirect_to .'.layouts', 
             [
-                'title' => 'QUẢN LÝ TIÊU CHÍ',
-                'criterias' => $data['criterias'],
-                'current_page' => $data['current_page'],
-                'total_pages' => $data['total_pages'],
-                'result_per_page' => $data['result_per_page']
+                'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
+                'standards' => $standards
             ]
         );
     }
+
+    public function getCriteriasByStandard(string $standard_id): mixed
+    {
+        $search = null;
+        $criterias = $this->criteriaService->listCriterias($search, $standard_id);
+        
+        $role = $_SESSION['user']['role_id'];
+        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
+
+        return $this->view(
+            (string) $redirect_to . '/criterias/listCriterias', 
+            (string) $redirect_to .'.layouts', 
+            [
+                'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
+                'criterias' => $criterias,
+                'standard_id' => $standard_id
+            ]
+        );
+    }
+
+    public function create()
+    {
+        $standards = $this->standardService->findAll();
+        $departments = $this->departmentService->findAll();
+        
+        return $this->view(
+            'admin/criterias/create',
+            'admin.layouts',
+            [
+                'title' => 'Thêm tiêu chí',
+                'standards' => $standards,
+                'departments' => $departments
+            ]
+        );
+    }
+
+    public function store(): void
+    {
+        $request = $this->criteriaRequest->createRequest();
+
+        $this->criteriaService->createCriteria($request);
+
+        $this->redirect('/admin/criterias');
+    }
+
+    public function destroy(string $id): void
+    {
+        $this->criteriaService->deleteCriteria($id);
+
+        $this->redirect('/admin/criterias');
+    }
 }
-?>
