@@ -59,9 +59,6 @@ $router->middleware([EnsureAuth::class, EnsureAdmin::class])
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     ->delete('/admin/criterias/{id}', [CriteriaController::class, 'destroy']);
 
-$router->middleware([EnsureAuth::class, EnsureAdmin::class])
-    ->get('/admin/standards/{standard_id}/criterias', [CriteriaController::class, 'getCriteriasByStandard']);
-
 // Milestones
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])
     ->get('/admin/milestones', [MilestoneController::class, 'index']);

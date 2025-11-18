@@ -15,13 +15,39 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         parent::__construct($db);
     }
 
-    public function getMilestonesByCriteria(string $criteria_id): array
+    public function getAllMilestones(): array
     {
-        try{
-            $sql = "SELECT * FROM evaluation_milestones
-                    WHERE criteria_id = ?";
+        try {
+            $sql = "SELECT em.id as 'id',
+                            em.criteria_id as 'criteria_id',
+                            em.name as 'name',
+                            em.created_at as 'created_at',
+                            em.updated_at as 'updated_at'
+                    FROM evaluation_milestones em";
             
-            return $this->getByParams([$criteria_id], $sql);
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function filterMilestones(?string $standard_id, ?string $criteria_id): array
+    {
+        try {
+            $sql = "SELECT em.id as 'id',
+                            em.criteria_id as 'criteria_id',
+                            em.name as 'name',
+                            em.created_at as 'created_at',
+                            em.updated_at as 'updated_at'
+                    FROM evaluation_milestones em 
+                    JOIN evaluation_criterias ec 
+                        ON em.criteria_id = ec.id
+                    JOIN evaluation_standards es
+                        ON ec.standard_id = es.id
+                    WHERE ec.id = ? AND es.id = ?";
+            
+            return $this->getByParams([$criteria_id, $standard_id], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

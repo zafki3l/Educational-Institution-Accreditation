@@ -22,6 +22,10 @@ class CriteriaController extends Controller
     public function index(): mixed
     {
         $standards = $this->standardService->findAll();
+        $standard_id = $_GET['standard_id'] ?? null;
+
+        $search = null;
+        $criterias = $this->criteriaService->listCriterias($search, $standard_id);
 
         $role = $_SESSION['user']['role_id'];
         $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
@@ -31,26 +35,8 @@ class CriteriaController extends Controller
             (string) $redirect_to .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
-                'standards' => $standards
-            ]
-        );
-    }
-
-    public function getCriteriasByStandard(string $standard_id): mixed
-    {
-        $search = null;
-        $criterias = $this->criteriaService->listCriterias($search, $standard_id);
-        
-        $role = $_SESSION['user']['role_id'];
-        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
-
-        return $this->view(
-            (string) $redirect_to . '/criterias/listCriterias', 
-            (string) $redirect_to .'.layouts', 
-            [
-                'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
-                'criterias' => $criterias,
-                'standard_id' => $standard_id
+                'standards' => $standards,
+                'criterias' => $criterias
             ]
         );
     }

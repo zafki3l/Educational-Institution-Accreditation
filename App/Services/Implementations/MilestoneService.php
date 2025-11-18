@@ -11,17 +11,29 @@ class MilestoneService implements MilestoneServiceInterface
     public function __construct(private Milestone $milestone,
                                 private MilestoneRepositoryInterface $milestoneRepository) {}
 
-    public function listMilestone(?string $search, string $criteria_id): array
+    public function listMilestones(?string $search, ?string $standard_id, ?string $criteria_id): array
     {
-        $milestones = $search ? $this->find($search) 
-                            : $this->findByCriteria($criteria_id);
+        if ($search) return $this->find($search);
 
-        return $milestones;
+        if ($standard_id && $criteria_id) return $this->filterMilestones($standard_id, $criteria_id);
+
+        return $this->findAll();
     }
 
-    public function findByCriteria(string $criteria_id): array
+    public function filterMilestones(?string $standard_id, ?string $criteria_id): array
     {
-        return $this->milestoneRepository->getMilestonesByCriteria($criteria_id);
+        return $this->milestoneRepository->filterMilestones($standard_id, $criteria_id);
+    }
+
+    public function findAll(): array
+    {
+        return $this->milestoneRepository->getAllMilestones();
+    }
+
+    public function find(?string $search): array
+    {
+        // TODO:
+        return [];
     }
 
     public function createMilestone(array $request): void
@@ -36,15 +48,5 @@ class MilestoneService implements MilestoneServiceInterface
     public function deleteMilestone(string $milestone_id): void
     {
         $this->milestoneRepository->deleteMilestone($milestone_id);
-    }
-
-    public function findAll(): array
-    {
-        return [];
-    }
-
-    public function find(?string $search): array
-    {
-        return [];
     }
 }

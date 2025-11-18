@@ -37,7 +37,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function getCriteriasByStandard(string $standard_id): array
+    public function getCriteriasByStandard(?string $standard_id): array
     {
         try{
             $sql = "SELECT ec.id as 'criteria_id',
