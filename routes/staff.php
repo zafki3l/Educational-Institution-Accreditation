@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EvidenceController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\MilestoneController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StandardController;
 use App\Http\Middlewares\EnsureAuth;
@@ -20,6 +21,8 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/criterias', [CriteriaController::class, 'index']);
 
 // Milestones
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->get('/staff/milestones', [MilestoneController::class, 'index']);
 
 // Evidences
 $router->middleware([EnsureAuth::class, EnsureStaff::class])

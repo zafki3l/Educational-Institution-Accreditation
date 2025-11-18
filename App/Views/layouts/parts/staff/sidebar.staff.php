@@ -17,14 +17,10 @@
         </div>
         <hr>
         <div class="sidebar-content">
-            <li><a href=""><p>Danh sách tiêu chuẩn</p></a></li>
-            <li><a href=""><p>Danh sách tiêu chí</p></a></li>
-            <li><a href=""><p>Danh sách mốc đánh giá</p></a></li>
+            <li><a href="/<?= PROJECT_NAME ?>/staff/standards"><p>Danh sách tiêu chuẩn</p></a></li>
+            <li><a href="/<?= PROJECT_NAME ?>/staff/criterias"><p>Danh sách tiêu chí</p></a></li>
+            <li><a href="/<?= PROJECT_NAME ?>/staff/milestones"><p>Danh sách mốc đánh giá</p></a></li>
             <li><a href="/<?= PROJECT_NAME ?>/staff/evidences"><p>Cập nhật minh chứng</p></a></li>
-            <li><a href="/<?= PROJECT_NAME ?>/staff/evidences"><p>Quản lý minh chứng</p></a></li>
-            <li><a href=""><p>Quản lý mốc đánh giá</p></a></li>
-            <li><a href="/<?= PROJECT_NAME ?>/staff/criterias"><p>Quản lý tiêu chí</p></a></li>
-            <li><a href=""><p>Quản lý tiêu chuẩn</p></a></li>
             <li><a href=""><p>Thống kê</p></a></li>
         </div>
 

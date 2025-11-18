@@ -17,15 +17,21 @@
         <div class="content">
             <div class="content-header">
                 <div class="header-text">
-                    <h2>DANH SÁCH TIÊU CHÍ</h2>
+                    <h2>DANH SÁCH MỐC ĐÁNH GIÁ</h2>
                     <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
                 </div>
             </div>
 
-            <form action="?standard_id=" method="get">
+            <form action="?standard_id=&criteria_id=" method="get">
                 <select name="standard_id" id="standard_id">
                     <?php foreach ($standards as $standard): ?>
                         <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <select name="criteria_id" id="criteria_id">
+                    <?php foreach ($criterias as $criteria): ?>
+                        <option value="<?= htmlspecialchars($criteria['criteria_id']) ?>"><?= htmlspecialchars($criteria['criteria_name']) ?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -36,21 +42,19 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>MÃ TIÊU CHÍ</th>
-                            <th>TÊN TIÊU CHÍ</th>
-                            <th>PHÒNG BAN</th>
+                            <th>MÃ MỐC ĐÁNH GIÁ</th>
+                            <th>TÊN MỐC ĐÁNH GIÁ</th>
                             <th>CREATED AT</th>
                             <th>UPDATED AT</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($criterias as $criteria): ?>
+                        <?php foreach ($milestones as $milestone): ?>
                             <tr>
-                                <td><?= htmlspecialchars($criteria['criteria_id']) ?></td>
-                                <td><?= htmlspecialchars($criteria['criteria_name']) ?></td>
-                                <td><?= htmlspecialchars($criteria['department_name']) ?></td>
-                                <td><?= htmlspecialchars($criteria['created_at']) ?></td>
-                                <td><?= htmlspecialchars($criteria['updated_at']) ?></td>
+                                <td><?= htmlspecialchars($milestone['id']) ?></td>
+                                <td><?= htmlspecialchars($milestone['name']) ?></td>
+                                <td><?= htmlspecialchars($milestone['created_at']) ?></td>
+                                <td><?= htmlspecialchars($milestone['updated_at']) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
