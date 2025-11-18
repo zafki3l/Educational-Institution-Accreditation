@@ -6,7 +6,7 @@ use Configs\Database\Interfaces\DatabaseInterface;
 use PDO;
 use PDOStatement;
 
-class Repository
+abstract class Repository
 {
     protected function __construct(protected DatabaseInterface $db) {}
 
