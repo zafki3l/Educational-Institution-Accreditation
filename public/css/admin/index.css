@@ -1,3 +1,8 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 .dashboard-container {
     flex: 1;
     justify-content: center;
@@ -153,4 +158,28 @@ th {
 .cancel-modal {
     background-color: black;
     color: #fff;
+}
+
+.fill{
+    display: flex;
+    padding: 10px 0;
+    background-color: #FAF9EB;
+}
+
+.fill h3{
+    margin: auto 10px;
+    color: black;
+}
+
+.fill-standard{
+    padding: 10px;
+    margin-right: 10px ;
+    border-radius: 7px;
+}
+
+.fill input{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid;
 }
