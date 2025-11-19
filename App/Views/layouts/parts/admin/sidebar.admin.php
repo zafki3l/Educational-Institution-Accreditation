@@ -24,6 +24,8 @@
         </div>
 
     </ul>
+
+    <script src="/<?= PROJECT_NAME ?>/public/js/admin/sidebar.admin.js"></script>
 </body>
 
 </html>
