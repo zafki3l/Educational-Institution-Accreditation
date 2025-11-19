@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EvidenceRequest;
+use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
+use App\Services\Interfaces\MilestoneServiceInterface;
+use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -11,16 +14,35 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private EvidenceRequest $evidenceRequest,
-                                private EvidenceServiceInterface $evidenceService) {}
+    public function __construct(
+        private EvidenceRequest $evidenceRequest,
+        private EvidenceServiceInterface $evidenceService,
+        private StandardServiceInterface $standardService,
+        private CriteriaServiceInterface $criteriaService,
+        private MilestoneServiceInterface $milestoneService
+    ) {}
 
     public function index()
     {
+        $standard_id = $_GET['standard_id'] ?? null;
+        $criteria_id = $_GET['criteria_id'] ?? null;
+        $milestone_id = $_GET['milestone_id'] ?? null;
+
+        $filter = [
+            'standard_id' => $standard_id,
+            'criteria_id' => $criteria_id,
+            'milestone_id' => $milestone_id
+        ];
+
+        $filter = array_filter($filter, function ($value) {
+            return !empty($value);
+        });
+
         $search = $_GET['search'] ?? null;
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->evidenceService->listEvidences($search, $current_page);
+        $data = $this->evidenceService->listEvidences($search, $current_page, $filter);
 
         return $this->view(
             'staff/evidences/index',
@@ -30,7 +52,10 @@ class EvidenceController extends Controller
                 'evidences' => $data['evidences'],
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
-                'result_per_page' => $data['result_per_page']
+                'result_per_page' => $data['result_per_page'],
+                'standards' => $this->standardService->findAll(),
+                'criterias' => $this->criteriaService->findAll(),
+                'milestones' => $this->milestoneService->findAll()
             ]
         );
     }
@@ -70,7 +95,7 @@ class EvidenceController extends Controller
     public function update(string $evidence_id)
     {
         $request = $this->evidenceRequest->updateRequest();
-        
+
         $this->evidenceService->updateEvidence($evidence_id, $request);
 
         $this->redirect('/staff/evidences');

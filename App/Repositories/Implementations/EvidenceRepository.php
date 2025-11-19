@@ -42,6 +42,55 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
+    public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
+    {
+        try {
+            $where = [];
+            $params = [];
+
+            $columns = [
+                'standard_id' => 'es.id',
+                'criteria_id' => 'c.id',
+                'milestone_id' => 'em.id'
+            ];
+
+            foreach ($filter as $key => $value) {
+                if (!empty($value)) {
+                    $where[] = $columns[$key] . ' = ? ';
+                    $params[] = $value;
+                }
+            }
+
+            $sql = "SELECT e.id as 'evidence_id',
+                        e.name as 'evidence_name',
+                        em.name as 'evaluation_milestone',
+                        e.decision,
+                        e.document_date,
+                        e.issue_place,
+                        e.link,
+                        c.department_id
+                    FROM evidences e
+                    JOIN milestone_evidence me
+                        ON me.evidence_id = e.id
+                    JOIN evaluation_milestones em
+                        ON em.id = me.milestone_id
+                    JOIN evaluation_criterias c
+                        ON c.id = em.criteria_id
+                    JOIN evaluation_standards es";
+            
+            if (!empty($where)) {
+                $sql .= ' WHERE ' . implode(' AND ', $where);
+            }
+
+            $sql .= " LIMIT $start_from, $result_per_page";
+        
+            return $this->getByParams($params, $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
     public function countAllEvidence(): int
     {
         try {

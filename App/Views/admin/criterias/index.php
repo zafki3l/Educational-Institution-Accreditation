@@ -28,6 +28,7 @@
 
             <form action="?standard_id=" method="get">
                 <select name="standard_id" id="standard_id">
+                    <option value="">Chọn 1 tiêu chuẩn để lọc</option>
                     <?php foreach ($standards as $standard): ?>
                         <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
                     <?php endforeach; ?>
