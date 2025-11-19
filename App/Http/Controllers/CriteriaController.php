@@ -21,22 +21,19 @@ class CriteriaController extends Controller
 
     public function index(): mixed
     {
-        $standards = $this->standardService->findAll();
-        $standard_id = $_GET['standard_id'] ?? null;
-
-        $search = null;
-        $criterias = $this->criteriaService->listCriterias($search, $standard_id);
-
         $role = $_SESSION['user']['role_id'];
-        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
-
+        $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
+        
+        $standard_id = $_GET['standard_id'] ?? null;
+        $search = $_GET['search'] ?? null;
+        
         return $this->view(
-            (string) $redirect_to . '/criterias/index', 
-            (string) $redirect_to .'.layouts', 
+            (string) $viewPrefix . '/criterias/index', 
+            (string) $viewPrefix .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
-                'standards' => $standards,
-                'criterias' => $criterias
+                'standards' => $this->standardService->findAll(),
+                'criterias' => $this->criteriaService->listCriterias($search, $standard_id)
             ]
         );
     }

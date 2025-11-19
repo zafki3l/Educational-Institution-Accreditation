@@ -28,12 +28,14 @@
 
             <form action="?standard_id=&criteria_id=" method="get">
                 <select name="standard_id" id="standard_id">
+                    <option value="">Chọn 1 tiêu chuẩn để lọc</option>
                     <?php foreach ($standards as $standard): ?>
                         <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
 
                 <select name="criteria_id" id="criteria_id">
+                    <option value="">Chọn 1 tiêu chí để lọc</option>
                     <?php foreach ($criterias as $criteria): ?>
                         <option value="<?= htmlspecialchars($criteria['criteria_id']) ?>"><?= htmlspecialchars($criteria['criteria_name']) ?></option>
                     <?php endforeach; ?>

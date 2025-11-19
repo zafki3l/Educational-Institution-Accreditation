@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/admin/index.css">
+    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/staff/index.css">
 </head>
 <body>
     <div class="main-content">
         <!--Sidebar-->
         <div class="sidebar">
-            <?php include_once VIEW_PATH . '/layouts/parts/admin/sidebar.admin.php' ?>
+            <?php include_once VIEW_PATH . '/layouts/parts/staff/sidebar.staff.php' ?>
         </div>
-        <div class="dashboard-container">
+
+        <div class="content">
             <!-- DASHBOARD HEADER -->
-            <div class="dashboard-header">
+            <div class="content-header">
                 <div class="header-text">
-                    <h2>DANH SÁCH TIÊU CHUẨN</h1>
+                    <h2>CẬP NHẬT TIÊU CHUẨN</h1>
                     <h3>ADMIN DASHBOARD</h3>
                 </div>
             </div>
 
-            <div class="dashboard-table">
+            <!-- DASHBOARD USER MANAGEMENT TABLE -->
+            <div class="table-container">
                 <table>
                     <thead>
                         <tr>

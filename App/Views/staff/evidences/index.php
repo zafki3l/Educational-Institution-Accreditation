@@ -15,7 +15,7 @@
         </div>
 
         <div class="content">
-            <div class="evidences-header">
+            <div class="content-header">
                 <div class="header-text">
                     <h2>QUẢN LÝ MINH CHỨNG</h2>
                     <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
@@ -26,6 +26,30 @@
                     <a href="/<?= PROJECT_NAME ?>/staff/evidences/create" class="addEvidence">Thêm minh chứng</a>
                 </div>
             </div>
+
+            <form action="?standard_id=&criteria_id=&milestone_id=" method="get">
+                <select name="standard_id" id="standard_id">
+                    <option value="">Chọn 1 tiêu chuẩn để lọc</option>
+                    <?php foreach ($standards as $standard): ?>
+                        <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <select name="criteria_id" id="criteria_id">
+                    <option value="">Chọn 1 tiêu chí để lọc</option>
+                    <?php foreach ($criterias as $criteria): ?>
+                        <option value="<?= htmlspecialchars($criteria['criteria_id']) ?>"><?= htmlspecialchars($criteria['criteria_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <select name="milestone_id" id="milestone_id">
+                    <option value="">Chọn 1 mốc đánh giá để lọc</option>
+                    <?php foreach ($milestones as $milestone): ?>
+                        <option value="<?= htmlspecialchars($milestone['id']) ?>"><?= htmlspecialchars($milestone['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <input type="submit">
+            </form>
 
             <div class="table-container">
                 <table>
