@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations;
 
+use App\Exceptions\UserException\UserNotFoundException;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
@@ -70,7 +71,13 @@ class UserService implements UserServiceInterface
 
     public function findById(int $user_id): array
     {
-        return $this->userRepository->getUserById($user_id);
+        $user = $this->userRepository->getUserById($user_id);
+
+        if (!$user) {
+            throw new UserNotFoundException($user_id);
+        }
+
+        return $user;
     }
 
     public function findAll(int $start_from, int $result_per_page): array
