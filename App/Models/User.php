@@ -18,6 +18,7 @@ class User
     private string $email;
     private string $gender;
     private string $password;
+    private int $department_id;
     private int $role_id;
     private DateTime $created_at;
     private DateTime $updated_at;
@@ -44,6 +45,8 @@ class User
 
 	public function getPassword(): string {return $this->password;}
 
+    public function getDepartmentId(): int {return $this->department_id;}
+
 	public function getRoleId(): int {return $this->role_id;}
 
 	public function getCreatedAt(): DateTime {return $this->created_at;}
@@ -61,6 +64,8 @@ class User
 	public function setGender(string $gender): self {$this->gender = $gender; return $this;}
 
 	public function setPassword(string $password): self {$this->password = $password; return $this;}
+
+    public function setDepartmentId(int $department_id): self {$this->department_id = $department_id; return $this;}
 
 	public function setRoleId(int $role_id): self {$this->role_id = $role_id; return $this;}
 

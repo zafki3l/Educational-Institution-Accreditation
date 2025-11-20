@@ -40,6 +40,7 @@ class UserService implements UserServiceInterface
                     ->setEmail($request['email'])
                     ->setGender($request['gender'])
                     ->setPassword($request['password'])
+                    ->setDepartmentId($request['department_id'])
                     ->setRoleId($request['role_id']);
 
         $this->userRepository->createUser($this->user);
@@ -52,6 +53,7 @@ class UserService implements UserServiceInterface
                     ->setLastName($request['last_name'])
                     ->setEmail($request['email'])
                     ->setGender($request['gender'])
+                    ->setDepartmentId($request['department_id'])
                     ->setRoleId($request['role_id']);
 
         $this->userRepository->updateUserById($user_id, $this->user);

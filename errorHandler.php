@@ -15,7 +15,9 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($logFile) 
 
 // Exception handler
 set_exception_handler(function ($exception) use ($logFile) {
-    if ($exception instanceof \App\Exceptions\BusinessException) {
+    $isBusinessException = $exception instanceof \App\Exceptions\BusinessException;
+    
+    if ($isBusinessException) {
         error_log(
             "[BusinessException] {$exception->getErrorCode()} - {$exception->getMessage()} | meta: " . json_encode($exception->getMeta()) . PHP_EOL,
             3,
