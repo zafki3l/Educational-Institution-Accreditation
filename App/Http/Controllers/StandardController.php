@@ -18,10 +18,10 @@ class StandardController extends Controller
         $standards = $this->standardService->listStandards();
 
         $role = $_SESSION['user']['role_id'];
-        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
+        $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
         return $this->view(
-            (string) $redirect_to . '/standards/index', 
-            (string) $redirect_to .'.layouts', 
+            (string) $viewPrefix . '/standards/index', 
+            (string) $viewPrefix .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chuẩn' : 'Danh sách tiêu chuẩn',
                 'standards' => $standards

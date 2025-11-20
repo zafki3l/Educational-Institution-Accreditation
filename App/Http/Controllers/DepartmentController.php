@@ -11,7 +11,7 @@ class DepartmentController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private DepartmentServiceInterface $departmentService){}
+    public function __construct(private DepartmentServiceInterface $departmentService) {}
 	
     public function index()
     {

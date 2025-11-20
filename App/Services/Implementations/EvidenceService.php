@@ -19,16 +19,14 @@ class EvidenceService implements InterfacesEvidenceServiceInterface
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
+        $evidences = $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
+        
         if ($search) {
             $evidences = $this->find($search, $start_from, Paginator::RESULT_PER_PAGE);
-        } else {
-            $evidences = $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
         }
         
         if ($filter) {
             $evidences = $this->filterEvidences($start_from, Paginator::RESULT_PER_PAGE, $filter);
-        } else {
-            $evidences = $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
         }
 
         return [

@@ -1,7 +1,6 @@
 <?php 
 namespace App\Http\Controllers;
 
-use App\Models\Criteria;
 use App\Models\User;
 use App\Http\Requests\CriteriaRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
@@ -17,7 +16,7 @@ class CriteriaController extends Controller
     public function __construct(private CriteriaRequest $criteriaRequest, 
                                 private CriteriaServiceInterface $criteriaService,
                                 private StandardServiceInterface $standardService,
-                                private DepartmentServiceInterface $departmentService){}
+                                private DepartmentServiceInterface $departmentService) {}
 
     public function index(): mixed
     {
