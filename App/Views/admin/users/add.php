@@ -91,11 +91,22 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="department_id">Department: </label>
+
+                        <select name="department_id" id="department_id">
+                            <?php foreach ($departments as $department): ?>
+                                <option value="<?= htmlspecialchars($department['id']) ?>"><?= htmlspecialchars($department['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="role_id">Role: </label>
+
                         <select name="role_id" id="role_id">
-                            <option value="1">User</option>
-                            <option value="2">Business Staff</option>
-                            <option value="3">Admin</option>
+                            <?php foreach ($roles as $role): ?>
+                                <option value="<?= htmlspecialchars($role['id']) ?>"><?= htmlspecialchars($role['name']) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 

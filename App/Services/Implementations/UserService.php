@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations;
 
+use App\Exceptions\UserException\UserNotFoundException;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
@@ -39,6 +40,7 @@ class UserService implements UserServiceInterface
                     ->setEmail($request['email'])
                     ->setGender($request['gender'])
                     ->setPassword($request['password'])
+                    ->setDepartmentId($request['department_id'])
                     ->setRoleId($request['role_id']);
 
         $this->userRepository->createUser($this->user);
@@ -51,6 +53,7 @@ class UserService implements UserServiceInterface
                     ->setLastName($request['last_name'])
                     ->setEmail($request['email'])
                     ->setGender($request['gender'])
+                    ->setDepartmentId($request['department_id'])
                     ->setRoleId($request['role_id']);
 
         $this->userRepository->updateUserById($user_id, $this->user);
@@ -70,7 +73,13 @@ class UserService implements UserServiceInterface
 
     public function findById(int $user_id): array
     {
-        return $this->userRepository->getUserById($user_id);
+        $user = $this->userRepository->getUserById($user_id);
+
+        if (!$user) {
+            throw new UserNotFoundException($user_id);
+        }
+
+        return $user;
     }
 
     public function findAll(int $start_from, int $result_per_page): array

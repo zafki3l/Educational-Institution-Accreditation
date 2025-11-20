@@ -4,12 +4,14 @@ use App\Repositories\Implementations\CriteriaRepository;
 use App\Repositories\Implementations\DepartmentRepository;
 use App\Repositories\Implementations\EvidenceRepository;
 use App\Repositories\Implementations\MilestoneRepository;
+use App\Repositories\Implementations\RoleRepository;
 use App\Repositories\Implementations\StandardRepository;
 use App\Repositories\Implementations\UserRepository;
 use App\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Repositories\Interfaces\DepartmentRepositoryInterface;
 use App\Repositories\Interfaces\EvidenceRepositoryInterface;
 use App\Repositories\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
@@ -36,4 +38,8 @@ $container->bind(StandardRepositoryInterface::class, function ($container) {
 
 $container->bind(MilestoneRepositoryInterface::class, function ($container) {
     return new MilestoneRepository($container->resolve(DatabaseInterface::class));
+});
+
+$container->bind(RoleRepositoryInterface::class, function ($container) {
+    return new RoleRepository($container->resolve(DatabaseInterface::class));
 });

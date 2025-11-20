@@ -5,7 +5,7 @@ ini_set('display_startup_errors', '0');
 ini_set('log_errors', '1');
 error_reporting(E_ALL);
 
-$logFile = '../logs/error_log.txt';
+$logFile = '../logs/error.log';
 
 // Error handler
 set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($logFile) {
@@ -15,11 +15,26 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) use ($logFile) 
 
 // Exception handler
 set_exception_handler(function ($exception) use ($logFile) {
-    error_log(
-        "Exception: {$exception->getMessage()} in {$exception->getFile()}:{$exception->getLine()}" . PHP_EOL,
-        3,
-        $logFile
-    );
+    $isBusinessException = $exception instanceof \App\Exceptions\BusinessException;
+    
+    if ($isBusinessException) {
+        error_log(
+            "[BusinessException] {$exception->getErrorCode()} - {$exception->getMessage()} | meta: " . json_encode($exception->getMeta()) . PHP_EOL,
+            3,
+            $logFile
+        );
+
+        http_response_code($exception->getHttpStatus() ?? 400);
+        echo json_encode([
+            'error' => $exception->getMessage(),
+            'code' => $exception->getErrorCode(),
+            'meta' => $exception->getMeta()
+        ]);
+    } else {
+        error_log("[Unhandled Exception] {$exception->getMessage()}" . PHP_EOL, 3, $logFile);
+        http_response_code(500);
+        echo json_encode(['error' => 'Internal server error']);
+    }
 });
 
 // Shutdown handler

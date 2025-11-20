@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Services\Interfaces\DepartmentServiceInterface;
+use App\Services\Interfaces\RoleServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
@@ -17,10 +19,10 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(
-        private UserRequest $userRequest,
-        private UserServiceInterface $userService,
-    ) {}
+    public function __construct(private UserRequest $userRequest,
+                                private UserServiceInterface $userService,
+                                private RoleServiceInterface $roleService,
+                                private DepartmentServiceInterface $departmentService) {}
 
     public function index(): mixed
     {
@@ -45,10 +47,17 @@ class UserController extends Controller
 
     public function create(): mixed
     {
+        $departments = $this->departmentService->findAll();
+        $roles = $this->roleService->findAll();
+
         return $this->view(
             'admin/users/add',
             'admin.layouts',
-            ['title' => 'Create new user']
+            [
+                'title' => 'Create new user',
+                'departments' => $departments,
+                'roles' => $roles
+            ]
         );
     }
 
@@ -72,12 +81,18 @@ class UserController extends Controller
 
     public function edit(int $user_id): mixed
     {
+        $users = $this->userService->findById($user_id);
+        $departments = $this->departmentService->findAll();
+        $roles = $this->roleService->findAll();
+
         return $this->view(
             'admin/users/edit',
             'admin.layouts',
             [
                 'title' => 'Edit user',
-                'user' => $this->userService->findById($user_id)
+                'user' => $users,
+                'departments' => $departments,
+                'roles' => $roles
             ]
         );
     }

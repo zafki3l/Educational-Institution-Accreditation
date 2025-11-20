@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Repositories\Implementations;
+
+use App\Repositories\Interfaces\RoleRepositoryInterface;
+use Configs\Database\Interfaces\DatabaseInterface;
+use Core\Repository;
+use PDOException;
+
+class RoleRepository extends Repository implements RoleRepositoryInterface
+{
+    public function __construct(DatabaseInterface $db)
+    {
+        parent::__construct($db);
+    }
+
+    public function getAllRoles(): array
+    {
+        try {
+            return $this->getAll("SELECT * from roles");
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+}

@@ -1,0 +1,41 @@
+Error: [2] Undefined variable $undefined - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Error: [2] Undefined variable $undefined - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Error: [2] Undefined variable $undefined - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Call to undefined method App\Http\Controllers\HomeController::vieww()
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::views() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Exception: Call to undefined method App\Http\Controllers\HomeController::vieww() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+Exception: Call to undefined method App\Http\Controllers\HomeController::vieww() in C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Controllers\HomeController.php:15
+[BusinessException] USER_NOT_FOUND - User with ID 12 not found | meta: {"user_id":12}
+[BusinessException] USER_NOT_FOUND - User with ID 12 not found | meta: {"user_id":12}
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+[Unhandled Exception] Typed property App\Models\User::$department_id must not be accessed before initialization
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56

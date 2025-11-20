@@ -16,7 +16,8 @@ class UserRequest
             'email' => trim($_POST['email']) ?? '',
             'gender' => trim($_POST['gender']) ?? '',
             'password' => trim($_POST['password']) ?? '',
-            'role_id' => (int) trim($_POST['role_id']) ?? 1
+            'role_id' => (int) trim($_POST['role_id']) ?? 1,
+            'department_id' => (int) trim($_POST['department_id']) ?? ''
         ];
     }
 
@@ -27,7 +28,8 @@ class UserRequest
             'last_name' => trim($_POST['last_name']),
             'email' => trim($_POST['email']),
             'gender' => trim($_POST['gender']),
-            'role_id' => (int) trim($_POST['role_id'])
+            'role_id' => (int) trim($_POST['role_id']),
+            'department_id' => (int) trim($_POST['department_id']) ?? ''
         ];
     }
 }

@@ -74,6 +74,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
                 'email' => $user->getEmail(),
                 'gender' => $user->getGender(),
                 'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+                'department_id' => $user->getDepartmentId(),
                 'role_id' => $user->getRoleId()
             ]);
         } catch (PDOException $e) {
@@ -90,6 +91,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
                 'last_name' => $user->getLastName(),
                 'email' => $user->getEmail(),
                 'gender' => $user->getGender(),
+                'department_id' => $user->getDepartmentId(),
                 'role_id' => $user->getRoleId(),
                 'user_id' => $user_id
             ];
@@ -99,6 +101,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
                         last_name = ?,
                         email = ?,
                         gender = ?,
+                        department_id = ?,
                         role_id = ?
                     WHERE id = ?";
 

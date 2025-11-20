@@ -85,11 +85,22 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="department_id">Department: </label>
+
+                        <select name="department_id" id="department_id">
+                            <?php foreach ($departments as $department): ?>
+                                <option value="<?= htmlspecialchars($department['id']) ?>" <?= htmlspecialchars($user[0]['department_id'] === $department['id']  ? 'selected' : '') ?>><?= htmlspecialchars($department['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="role_id">Role: </label>
+
                         <select name="role_id" id="role_id">
-                            <option value="1" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_USER ? 'selected' : '') ?>>User</option>
-                            <option value="2" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_BUSINESS_STAFF ? 'selected' : '') ?>>Business Staff</option>
-                            <option value="3" <?php echo htmlspecialchars($user[0]['role_id'] == App\Models\User::ROLE_ADMIN ? 'selected' : '') ?>>Admin</option>
+                            <?php foreach ($roles as $role): ?>
+                                <option value="<?= htmlspecialchars($role['id']) ?>" <?= htmlspecialchars($user[0]['role_id'] === $role['id']  ? 'selected' : '') ?>><?= htmlspecialchars($role['name']) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
