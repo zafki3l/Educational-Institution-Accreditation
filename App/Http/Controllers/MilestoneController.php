@@ -18,6 +18,7 @@ class MilestoneController extends Controller
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService) {}
+                                
     public function index()
     {
         $standard_id = $_GET['standard_id'] ?? null;
@@ -29,11 +30,11 @@ class MilestoneController extends Controller
         $criterias = $this->criteriaService->findAll();
 
         $role = $_SESSION['user']['role_id'];
-        $redirect_to = User::isAdmin($role) ? 'admin' : 'staff';
+        $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
 
         return $this->view(
-            (string) $redirect_to . '/milestones/index', 
-            (string) $redirect_to .'.layouts', 
+            (string) $viewPrefix . '/milestones/index', 
+            (string) $viewPrefix .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
                 'criterias' => $criterias,

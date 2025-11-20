@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once '../errorHandler.php';
+
 use App\Http\Middlewares\CSRF_Authenticator;
 use Core\Router;
 
@@ -10,7 +12,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once '../helper.php';
-
 require_once '../fileLoader.php';
 require_once '../bootstrap/app.php';
 
