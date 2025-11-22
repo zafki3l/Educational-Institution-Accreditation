@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use App\Exceptions\HttpException\PageNotFoundException;
 use App\Http\Middlewares\CSRF_Authenticator;
 
 /**
@@ -101,7 +102,7 @@ class Router
         $result = $this->match($path, $method);
 
         if (!$result) {
-            die('404 Page not found!');
+            throw new PageNotFoundException();
         }
 
         [$route, $params] = $result;

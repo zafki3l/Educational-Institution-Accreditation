@@ -39,3 +39,8 @@ Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type
 Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
 Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
 Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\users\index.php:56
+[BusinessException] PERMISSION_DENIED - Permission denied! You do not have permission to visit this resource! | meta: {"role_id":1}
+[BusinessException] PERMISSION_DENIED - Permission denied! You do not have permission to visit this resource! | meta: {"role_id":1}
+[BusinessException] PERMISSION_DENIED - Permission denied! You do not have permission to visit this resource! | meta: {"role_id":1}
+[BusinessException] TOKEN_MISSING - Token is missing! | meta: []
+[BusinessException] TOKEN_MISSING - Token is missing! | meta: []
