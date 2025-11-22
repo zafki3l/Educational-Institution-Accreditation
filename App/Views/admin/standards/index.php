@@ -37,8 +37,7 @@
                         <tr>
                             <th>MÃ TIÊU CHUẨN</th>
                             <th>TÊN TIÊU CHUẨN</th>
-                            <th>CREATED AT</th>
-                            <th>UPDATED AT</th>
+                            <th>PHÒNG BAN</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -48,8 +47,7 @@
                             <tr>
                                 <td><?= htmlspecialchars($standard['id']) ?></td>
                                 <td><?= htmlspecialchars($standard['name']) ?></td>
-                                <td><?= htmlspecialchars($standard['created_at']) ?></td>
-                                <td><?= htmlspecialchars($standard['updated_at']) ?></td>
+                                <td><?= htmlspecialchars($standard['department_name']) ?></td>
                                 <td>
                                     <div class="action-btn">
                                         <button onclick="showConfirm(<?php echo htmlspecialchars($standard['id']) ?>)" class="delete-btn">
