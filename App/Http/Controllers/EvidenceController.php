@@ -22,19 +22,11 @@ class EvidenceController extends Controller
 
     public function index()
     {
-        $standard_id = $_GET['standard_id'] ?? null;
-        $criteria_id = $_GET['criteria_id'] ?? null;
-        $milestone_id = $_GET['milestone_id'] ?? null;
-
         $filter = [
-            'standard_id' => $standard_id,
-            'criteria_id' => $criteria_id,
-            'milestone_id' => $milestone_id
+            'standard_id' => $_GET['standard_id'] ?? null,
+            'criteria_id' => $_GET['criteria_id'] ?? null,
+            'milestone_id' => $_GET['milestone_id'] ?? null
         ];
-
-        $filter = array_filter($filter, function ($value) {
-            return !empty($value);
-        });
 
         $search = $_GET['search'] ?? null;
 

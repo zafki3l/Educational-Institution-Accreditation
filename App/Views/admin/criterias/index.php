@@ -26,11 +26,18 @@
                 </div>
             </div>
 
-            <form action="?standard_id=" method="get">
+            <form action="?standard_id=&department_id=" method="get">
                 <select name="standard_id" id="standard_id">
                     <option value="">Chọn 1 tiêu chuẩn để lọc</option>
                     <?php foreach ($standards as $standard): ?>
                         <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <select name="department_id" id="department_id">
+                    <option value="">Chọn phòng ban để lọc</option>
+                    <?php foreach ($departments as $department): ?>
+                        <option value="<?= htmlspecialchars($department['id']) ?>"><?= htmlspecialchars($department['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
 

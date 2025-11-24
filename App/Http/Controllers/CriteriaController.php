@@ -20,10 +20,14 @@ class CriteriaController extends Controller
 
     public function index(): mixed
     {
+        $filter = [
+            'standard_id' => $_GET['standard_id'] ?? null,
+            'department_id' => $_GET['department_id'] ?? null
+        ];
+
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
         
-        $standard_id = $_GET['standard_id'] ?? null;
         $search = $_GET['search'] ?? null;
         
         return $this->view(
@@ -31,8 +35,9 @@ class CriteriaController extends Controller
             (string) $viewPrefix .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
+                'departments' => $this->departmentService->findAll(),
                 'standards' => $this->standardService->findAll(),
-                'criterias' => $this->criteriaService->listCriterias($search, $standard_id)
+                'criterias' => $this->criteriaService->listCriterias($search, $filter)
             ]
         );
     }

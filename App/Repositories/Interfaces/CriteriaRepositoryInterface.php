@@ -7,7 +7,8 @@ use App\Models\Criteria;
 interface CriteriaRepositoryInterface
 {
     public function getAllCriteria(): array;
-    public function getCriteriasByStandard(?string $standard_id): array;
+    public function getAllCriteriaWithDepartment(): array;
+    public function getCriteriasByStandard(array $filter): array;
     public function countAllCriteria(): int;
     public function createCriteria(Criteria $criteria): void;
     public function deleteCriteria(string $id): void;
