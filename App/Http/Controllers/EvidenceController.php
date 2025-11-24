@@ -14,13 +14,11 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(
-        private EvidenceRequest $evidenceRequest,
-        private EvidenceServiceInterface $evidenceService,
-        private StandardServiceInterface $standardService,
-        private CriteriaServiceInterface $criteriaService,
-        private MilestoneServiceInterface $milestoneService
-    ) {}
+    public function __construct(private EvidenceRequest $evidenceRequest,
+                                private EvidenceServiceInterface $evidenceService,
+                                private StandardServiceInterface $standardService,
+                                private CriteriaServiceInterface $criteriaService,
+                                private MilestoneServiceInterface $milestoneService) {}
 
     public function index()
     {
@@ -106,10 +104,5 @@ class EvidenceController extends Controller
         $this->evidenceService->deleteEvidence($evidence_id);
 
         $this->redirect('/staff/evidences');
-    }
-
-    public function criterias(string $evidence_id)
-    {
-        // TODO
     }
 }
