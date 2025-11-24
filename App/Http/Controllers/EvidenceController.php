@@ -14,29 +14,19 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(
-        private EvidenceRequest $evidenceRequest,
-        private EvidenceServiceInterface $evidenceService,
-        private StandardServiceInterface $standardService,
-        private CriteriaServiceInterface $criteriaService,
-        private MilestoneServiceInterface $milestoneService
-    ) {}
+    public function __construct(private EvidenceRequest $evidenceRequest,
+                                private EvidenceServiceInterface $evidenceService,
+                                private StandardServiceInterface $standardService,
+                                private CriteriaServiceInterface $criteriaService,
+                                private MilestoneServiceInterface $milestoneService) {}
 
     public function index()
     {
-        $standard_id = $_GET['standard_id'] ?? null;
-        $criteria_id = $_GET['criteria_id'] ?? null;
-        $milestone_id = $_GET['milestone_id'] ?? null;
-
         $filter = [
-            'standard_id' => $standard_id,
-            'criteria_id' => $criteria_id,
-            'milestone_id' => $milestone_id
+            'standard_id' => $_GET['standard_id'] ?? null,
+            'criteria_id' => $_GET['criteria_id'] ?? null,
+            'milestone_id' => $_GET['milestone_id'] ?? null
         ];
-
-        $filter = array_filter($filter, function ($value) {
-            return !empty($value);
-        });
 
         $search = $_GET['search'] ?? null;
 
@@ -106,10 +96,5 @@ class EvidenceController extends Controller
         $this->evidenceService->deleteEvidence($evidence_id);
 
         $this->redirect('/staff/evidences');
-    }
-
-    public function criterias(string $evidence_id)
-    {
-        // TODO
     }
 }

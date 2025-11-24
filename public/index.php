@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-require_once '../errorHandler.php';
 
 use App\Http\Middlewares\CSRF_Authenticator;
 use Core\Router;

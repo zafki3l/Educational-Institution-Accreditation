@@ -17,7 +17,19 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
 
     public function getAllCriteria(): array
     {
-        try{
+        try {
+            $sql = "SELECT id, standard_id, name FROM evaluation_standards";
+            
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function getAllCriteriaWithDepartment(): array
+    {
+        try {
             $sql = "SELECT ec.id as 'criteria_id',
                             es.name as 'standard_name',
                             ec.name as 'criteria_name',
@@ -28,7 +40,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
                     JOIN evaluation_standards es
                         ON ec.standard_id = es.id
                     JOIN departments d 
-                        ON ec.department_id = d.id";
+                        ON es.department_id = d.id";
             
             return $this->getAll($sql);
         } catch (PDOException $e) {
@@ -37,20 +49,41 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function getCriteriasByStandard(?string $standard_id): array
+    public function getCriteriasByStandard(array $filter): array
     {
-        try{
+        try {
+            $where = [];
+            $params = [];
+
+            $columns = [
+                'standard_id' => 'es.id',
+                'department_id' => 'd.id'
+            ];
+
+            foreach ($filter as $key => $value) {
+                if (!empty($value)) {
+                    $where[] = $columns[$key] . ' = ? ';
+                    $params[] = $value;
+                }
+            }
+
             $sql = "SELECT ec.id as 'criteria_id',
+                            es.name as 'standard_name',
                             ec.name as 'criteria_name',
                             d.name as 'department_name',
                             ec.created_at,
                             ec.updated_at
                     FROM evaluation_criterias ec
+                    JOIN evaluation_standards es
+                        ON ec.standard_id = es.id
                     JOIN departments d 
-                        ON ec.department_id = d.id
-                    WHERE ec.standard_id = ?";
+                        ON es.department_id = d.id";
+
+            if (!empty($where)) {
+                $sql .= ' WHERE ' . implode(' AND ', $where);
+            }
             
-            return $this->getByParams([$standard_id], $sql);
+            return $this->getByParams($params, $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

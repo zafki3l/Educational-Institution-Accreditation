@@ -14,8 +14,9 @@ class EvidenceService implements InterfacesEvidenceServiceInterface
 
     public function listEvidences(?string $search, int $current_page, array $filter): array
     {
-        $total_records = $search ? $this->evidenceRepository->countSearchEvidence($search) 
-                                : $this->evidenceRepository->countAllEvidence();
+        $filter = $this->filterArray($filter);
+
+        $total_records = $this->count($search);
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
@@ -85,5 +86,18 @@ class EvidenceService implements InterfacesEvidenceServiceInterface
     public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
     {
         return $this->evidenceRepository->filterEvidences($start_from, $result_per_page, $filter);
+    }
+
+    private function filterArray(array $filter): array
+    {
+        return array_filter($filter, function ($value) {
+            return !empty($value);
+        });
+    }
+
+    private function count(?string $search): int
+    {
+        return $search ? $this->evidenceRepository->countSearchEvidence($search) 
+                    : $this->evidenceRepository->countAllEvidence();
     }
 }

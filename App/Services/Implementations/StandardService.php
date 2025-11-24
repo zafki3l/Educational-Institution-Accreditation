@@ -13,7 +13,7 @@ class StandardService implements StandardServiceInterface
 
     public function listStandards(): array
     {
-        return $this->findAll();
+        return $this->standardRepository->getAllStandardWithDepartment();
     }
 
     public function findAll(): array

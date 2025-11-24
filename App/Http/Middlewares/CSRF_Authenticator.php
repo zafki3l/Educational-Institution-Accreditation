@@ -2,34 +2,37 @@
 
 namespace App\Http\Middlewares;
 
+use App\Exceptions\AuthException\InvalidTokenException;
+use App\Exceptions\AuthException\MissingCsrfTokenException;
+
 class CSRF_Authenticator
 {
-    public static function generate()
-    {
-        if (empty($_SESSION['CSRF-token']) || time() >= ($_SESSION['token-expire'] ?? 0)) {
-            $_SESSION['CSRF-token'] = bin2hex(random_bytes(32));
-            $_SESSION['token-expire'] = time() + 3600;
-        }
-    }
-    
     public function handle(): void
     {
         if (!$this->isTokenSet()) {
-            exit('Missing CSRF token');
+            throw new MissingCsrfTokenException();
         }
 
         $sessionToken = (string) $_SESSION['CSRF-token'];
         $formToken = (string) $_POST['CSRF-token'];
 
         if (!$this->verifyToken($sessionToken, $formToken)) {
-            exit('405 error!');
+            throw new InvalidTokenException();
         }
 
         if ($this->isTokenExpire()) {
-            exit('token expired');
+            throw new InvalidTokenException();
         }
 
         unset($_SESSION['CSRF-token'], $_SESSION['token-expire']);
+    }
+
+    public static function generate()
+    {
+        if (empty($_SESSION['CSRF-token']) || time() >= ($_SESSION['token-expire'] ?? 0)) {
+            $_SESSION['CSRF-token'] = bin2hex(random_bytes(32));
+            $_SESSION['token-expire'] = time() + 3600;
+        }
     }
 
     private function isTokenSet(): bool

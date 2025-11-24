@@ -18,7 +18,23 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
     public function getAllStandard(): array
     {
         try {
-            return $this->getAll("SELECT * FROM evaluation_standards");
+            return $this->getAll("SELECT id, name FROM evaluation_standards");
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function getAllStandardWithDepartment(): array
+    {
+        try {
+            return $this->getAll(
+                "SELECT es.id as 'id', 
+                        es.name as 'name', 
+                        d.name as 'department_name' 
+                FROM evaluation_standards es
+                JOIN departments d 
+                    ON d.id = es.department_id");
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
