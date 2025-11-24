@@ -51,8 +51,7 @@ $container->bind(DepartmentServiceInterface::class, function ($container) {
 });
 
 $container->bind(EvidenceServiceInterface::class, function ($container) {
-    return new EvidenceService($container->resolve(Evidence::class),
-                                $container->resolve(EvidenceRepositoryInterface::class));
+    return new EvidenceService($container->resolve(EvidenceRepositoryInterface::class));
 });
 
 $container->bind(CriteriaServiceInterface::class, function ($container) {

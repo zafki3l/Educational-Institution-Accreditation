@@ -6,7 +6,7 @@ use App\Exceptions\BusinessException;
 
 class UserNotFoundException extends BusinessException
 {
-    public function __construct($user_id)
+    public function __construct(int $user_id)
     {
         parent::__construct(
             "User with ID $user_id not found",

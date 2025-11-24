@@ -73,13 +73,13 @@ class UserService implements UserServiceInterface
 
     public function findById(int $user_id): array
     {
-        $user = $this->userRepository->getUserById($user_id);
+        $found = $this->userRepository->getUserById($user_id);
 
-        if (!$user) {
+        if (!$found) {
             throw new UserNotFoundException($user_id);
         }
 
-        return $user;
+        return $found;
     }
 
     public function findAll(int $start_from, int $result_per_page): array

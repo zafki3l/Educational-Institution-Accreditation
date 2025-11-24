@@ -83,7 +83,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function updateUserById(int $user_id, User $user): void
+    public function updateUserById(int $user_id, User $user): int
     {
         try {
             $params = [
@@ -105,22 +105,24 @@ class UserRepository extends Repository implements UserRepositoryInterface
                         role_id = ?
                     WHERE id = ?";
 
-            $this->update($sql, $params);
+            return $this->update($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function deleteUser(int $user_id): void
+    public function deleteUser(int $user_id): int
     {
         try {
             $params = ['user_id' => $user_id];
 
             $sql = "DELETE FROM users WHERE id = ?";
 
-            $this->delete($sql, $params);
+            return $this->delete($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 

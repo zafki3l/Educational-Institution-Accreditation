@@ -52,3 +52,46 @@ Error: [2] Undefined array key "department_id" - C:\xampp\htdocs\Educational-Ins
 Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\standards\index.php:50
 Error: [2] Undefined array key "department_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\standards\index.php:50
 Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\admin\standards\index.php:50
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.1.01.01 not found | meta: {"evidence_id":"H1.1.01.01"}
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.123123.01 not found | meta: {"evidence_id":"H1.01.123123.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.01.01 not found | meta: {"evidence_id":"H1.01.01.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.01.01 not found | meta: {"evidence_id":"H1.01.01.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.01.01 not found | meta: {"evidence_id":"H1.01.01.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.01.01 not found | meta: {"evidence_id":"H1.01.01.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+[BusinessException] EVIDENCE_NOT_FOUND - Evidence with ID H1.01.01.01 not found | meta: {"evidence_id":"H1.01.01.01"}
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [8192] htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Views\staff\evidences\edit.php:43
+Error: [2] Undefined array key "milestone_id" - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24
+Error: [8192] trim(): Passing null to parameter #1 ($string) of type string is deprecated - C:\xampp\htdocs\Educational-Institution-Accreditation\App\Http\Requests\EvidenceRequest.php:24

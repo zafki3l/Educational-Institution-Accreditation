@@ -10,11 +10,6 @@ abstract class Repository
 {
     protected function __construct(protected DatabaseInterface $db) {}
 
-    /**
-     * Fetch all records from a query
-     * @param string $sql
-     * @return array
-     */
     protected function getAll(string $sql): array
     {
         $conn = $this->db->connect();
@@ -28,12 +23,6 @@ abstract class Repository
         return $data;
     }
 
-    /**
-     * Fetch records with bound parameters
-     * @param array $params
-     * @param string $sql
-     * @return array
-     */
     protected function getByParams(array $params, string $sql): array
     {
         $conn = $this->db->connect();
@@ -47,12 +36,6 @@ abstract class Repository
         return $data;
     }
 
-    /**
-     * Insert a record into database
-     * @param string $table
-     * @param array $data
-     * @return bool|string
-     */
     protected function insert(string $table, array $data): int
     {
         $conn = $this->db->connect();
@@ -69,41 +52,24 @@ abstract class Repository
         return $id;
     }
 
-    /**
-     * Update a record from database
-     * @param string $sql
-     * @param array $params
-     * @return void
-     */
-    protected function update(string $sql, array $params): void
+    protected function update(string $sql, array $params): int
     {
         $conn = $this->db->connect();
 
-        $this->executeQuery($conn, $sql, array_values($params));
+        $stmt = $this->executeQuery($conn, $sql, array_values($params));
+
+        return $stmt->rowCount();
     }
 
-    /**
-     * Delete a record from database
-     * @param string $sql
-     * @param array $params
-     * @return void
-     */
-    protected function delete(string $sql, array $params): void
+    protected function delete(string $sql, array $params): int
     {
         $conn = $this->db->connect();
 
-        $this->executeQuery($conn, $sql, array_values($params));
+        $stmt = $this->executeQuery($conn, $sql, array_values($params));
+
+        return $stmt->rowCount();
     }
 
-    /**
-     * Execute a SQL query
-     * 
-     * Prevents SQL Injection by using Prepared Statements
-     * 
-     * @param string $sql
-     * @param array $params
-     * @return bool|PDOStatement
-     */
     private function executeQuery(PDO $conn, string $sql, array $params = []): PDOStatement
     {
         $stmt = $conn->prepare($sql);
@@ -112,11 +78,6 @@ abstract class Repository
         return $stmt;
     }
 
-    /**
-     * Fetch all item into an associative array
-     * @param \PDOStatement $stmt
-     * @return array
-     */
     private function fetchAll(PDOStatement $stmt): array
     {
         $data = [];

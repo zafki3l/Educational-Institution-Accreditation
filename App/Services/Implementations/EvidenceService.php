@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations;
 
+use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Models\Evidence;
 use App\Repositories\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Interfaces\EvidenceServiceInterface as InterfacesEvidenceServiceInterface;
@@ -9,10 +10,9 @@ use Core\Paginator;
 
 class EvidenceService implements InterfacesEvidenceServiceInterface
 {
-    public function __construct(private Evidence $evidence,
-                                private EvidenceRepositoryInterface $evidenceRepository) {}
+    public function __construct(private EvidenceRepositoryInterface $evidenceRepository) {}
 
-    public function listEvidences(?string $search, int $current_page, array $filter): array
+    public function list(?string $search, int $current_page, array $filter): array
     {
         $filter = $this->filterArray($filter);
 
@@ -38,66 +38,91 @@ class EvidenceService implements InterfacesEvidenceServiceInterface
         ];
     }
     
-    public function createEvidence(array $request): void
+    public function create(array $request): void
     {
-        $this->evidence->setId($request['evidence_id'])
-                        ->setName($request['evidence_name'])
-                        ->setMilestoneId($request['milestone_id'])
-                        ->setDecision($request['decision'])
-                        ->setDocumentDate($request['document_date'])
-                        ->setIssuePlace($request['issue_place'])
-                        ->setLink($request['link']);
+        $evidence = new Evidence();
 
-        $this->evidenceRepository->createEvidence($this->evidence);
+        $evidence->setId($request['evidence_id'])
+                ->setName($request['evidence_name'])
+                ->setMilestoneId($request['milestone_id'])
+                ->setDecision($request['decision'])
+                ->setDocumentDate($request['document_date'])
+                ->setIssuePlace($request['issue_place'])
+                ->setLink($request['link']);
+
+        $this->evidenceRepository->create($evidence);
     }
 
-    public function getEvidenceById(string $evidence_id): array
+    public function findById(string $evidence_id): array
     {
-        return $this->evidenceRepository->getEvidenceById($evidence_id);
-    }
+        $found = $this->evidenceRepository->findById($evidence_id);
 
-    public function updateEvidence(string $evidence_id, array $request): void
-    {
-        $this->evidence->setName($request['evidence_name'])
-                        ->setMilestoneId($request['milestone_id'])
-                        ->setDecision($request['decision'])
-                        ->setDocumentDate($request['document_date'])
-                        ->setIssuePlace($request['issue_place'])
-                        ->setLink($request['link']);
+        if (!$found) {
+            throw new EvidenceNotFoundException($evidence_id);
+        }
 
-        $this->evidenceRepository->updateEvidence($evidence_id, $this->evidence);
-    }
-
-    public function deleteEvidence(string $evidence_id): void
-    {
-        $this->evidenceRepository->deleteEvidence($evidence_id);
+        return $found;
     }
 
     public function findAll(int $start_from, int $result_per_page): array
     {
-        return $this->evidenceRepository->getAllEvidence($start_from, $result_per_page);
+        return $this->evidenceRepository->all($start_from, $result_per_page);
     }
 
     public function find(string $search, int $start_from, int $result_per_page): array
     {
-        return $this->evidenceRepository->searchEvidence($search, $start_from, $result_per_page);
+        return $this->evidenceRepository->search($search, $start_from, $result_per_page);
     }
 
     public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
     {
-        return $this->evidenceRepository->filterEvidences($start_from, $result_per_page, $filter);
+        return $this->evidenceRepository->filter($start_from, $result_per_page, $filter);
+    }
+
+    public function update(string $evidence_id, array $request): void
+    {
+        $this->findOrFail($evidence_id);
+
+        $evidence = new Evidence();
+
+        $evidence->setName($request['evidence_name'])
+                ->setMilestoneId($request['milestone_id'])
+                ->setDecision($request['decision'])
+                ->setDocumentDate($request['document_date'])
+                ->setIssuePlace($request['issue_place'])
+                ->setLink($request['link']);
+
+        $this->evidenceRepository->updateById($evidence_id, $evidence);
+    }
+
+    public function delete(string $evidence_id): void
+    {
+        $this->findOrFail($evidence_id);
+
+        $this->evidenceRepository->deleteById($evidence_id);
+    }
+
+    private function findOrFail(string $evidence_id): void
+    {
+        $found = $this->evidenceRepository->findById($evidence_id);
+
+        if (!$found) {
+            throw new EvidenceNotFoundException($evidence_id);
+        }
     }
 
     private function filterArray(array $filter): array
     {
+        // Return true values only
         return array_filter($filter, function ($value) {
             return !empty($value);
         });
     }
 
+    // Have to count the total records in order to calculate pagination
     private function count(?string $search): int
     {
-        return $search ? $this->evidenceRepository->countSearchEvidence($search) 
-                    : $this->evidenceRepository->countAllEvidence();
+        return $search ? $this->evidenceRepository->countSearch($search) 
+                    : $this->evidenceRepository->countAll();
     }
 }
