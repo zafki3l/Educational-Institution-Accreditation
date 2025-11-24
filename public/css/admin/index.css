@@ -13,11 +13,21 @@
 }
 
 .dashboard-container .dashboard-header {
-    background-color: #a10d25;
     padding: 10px 20px;
     display: flex;
-    color: rgb(245, 225, 225);
     justify-content: space-between;
+}
+
+.header-left{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-left .header-line{
+    width: 5px;
+    height: 40px;
+    background-color: #148E6A;
 }
 
 .dashboard-header .dashboard-search-add {
@@ -28,13 +38,24 @@
     justify-content: end;
 }
 
-.dashboard-header .dashboard-search-add input {
+.dashboard-header .dashboard-search-add .input-search {
     flex: 1;
     padding: 8px 10px;
     border-radius: 6px;
-    background-color: #faf9ea;
+    background-color: #FFFFFF;
     width: 350px;
     border: 1px solid #ccc;
+}
+
+.input-search input{
+    border: none;
+    background-color: #FFFFFF;
+    margin-left: 10px;
+}
+
+.input-search input:focus{
+    border: none;
+    outline: none;
 }
 
 .dashboard-header .dashboard-search-add button {

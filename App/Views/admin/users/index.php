@@ -15,9 +15,11 @@
         <div class="dashboard-container">
             <!-- DASHBOARD HEADER -->
             <div class="dashboard-header">
-                <div class="header-text">
-                    <h2>USER MANAGEMENT</h1>
-                    <h3>ADMIN DASHBOARD</h3>
+                <div class="header-left">
+                    <div class="header-line"></div>
+                    <div class="header-text">
+                        <h3>QUẢN LÝ NGƯỜI DÙNG</h3>       
+                    </div>
                 </div>
 
                 <!-- Searchbar and Add User -->
