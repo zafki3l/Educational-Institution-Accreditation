@@ -11,14 +11,12 @@ use Core\Paginator;
 
 class UserService implements UserServiceInterface
 {
-    public function __construct(private User $user,
-                                private UserRepositoryInterface $userRepository,
+    public function __construct(private UserRepositoryInterface $userRepository,
                                 private UserValidatorInterface $userValidator) {}
 
-    public function listUsers(?string $search, int $current_page): array
+    public function list(?string $search, int $current_page): array
     {
-        $total_records = $search ? $this->userRepository->countSearchUser($search) 
-                                : $this->userRepository->countUser();
+        $total_records = $this->count($search);
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
@@ -33,35 +31,38 @@ class UserService implements UserServiceInterface
         ];
     }
 
-    public function createUser(array $request): void
+    public function create(array $request): void
     {
-        $this->user->setFirstName($request['first_name'])
-                    ->setLastName($request['last_name'])
-                    ->setEmail($request['email'])
-                    ->setGender($request['gender'])
-                    ->setPassword($request['password'])
-                    ->setDepartmentId($request['department_id'])
-                    ->setRoleId($request['role_id']);
+        $user = new User();
 
-        $this->userRepository->createUser($this->user);
+        $user->setFirstName($request['first_name'])
+            ->setLastName($request['last_name'])
+            ->setEmail($request['email'])
+            ->setGender($request['gender'])
+            ->setPassword($request['password'])
+            ->setDepartmentId($request['department_id'])
+            ->setRoleId($request['role_id']);
+
+        $this->userRepository->create($user);
     }
 
-    public function updateUser(int $user_id, array $request): void
+    public function update(int $user_id, array $request): void
     {
-        // Update user informations
-        $this->user->setFirstName($request['first_name'])
-                    ->setLastName($request['last_name'])
-                    ->setEmail($request['email'])
-                    ->setGender($request['gender'])
-                    ->setDepartmentId($request['department_id'])
-                    ->setRoleId($request['role_id']);
+        $user = new User();
 
-        $this->userRepository->updateUserById($user_id, $this->user);
+        $user->setFirstName($request['first_name'])
+            ->setLastName($request['last_name'])
+            ->setEmail($request['email'])
+            ->setGender($request['gender'])
+            ->setDepartmentId($request['department_id'])
+            ->setRoleId($request['role_id']);
+
+        $this->userRepository->updateById($user_id, $user);
     }
 
-    public function deleteUser(int $user_id): void
+    public function delete(int $user_id): void
     {
-        $this->userRepository->deleteUser($user_id);
+        $this->userRepository->deleteById($user_id);
     }
 
     public function handleError(array $request, $isUpdated = false): ?array
@@ -73,7 +74,7 @@ class UserService implements UserServiceInterface
 
     public function findById(int $user_id): array
     {
-        $found = $this->userRepository->getUserById($user_id);
+        $found = $this->userRepository->findById($user_id);
 
         if (!$found) {
             throw new UserNotFoundException($user_id);
@@ -84,11 +85,17 @@ class UserService implements UserServiceInterface
 
     public function findAll(int $start_from, int $result_per_page): array
     {
-        return $this->userRepository->getAllUser($start_from, $result_per_page);
+        return $this->userRepository->all($start_from, $result_per_page);
     }
 
     public function find(string $search, int $start_from, int $result_per_page): array
     {
-        return $this->userRepository->searchUser($search, $start_from, $result_per_page);
+        return $this->userRepository->search($search, $start_from, $result_per_page);
+    }
+
+    private function count(?string $search): int
+    {
+        return $search ? $this->userRepository->countSearch($search) 
+                        : $this->userRepository->countAll();
     }
 }

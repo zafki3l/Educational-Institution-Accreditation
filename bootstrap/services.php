@@ -40,8 +40,7 @@ $container->bind(AuthServiceInterface::class, function ($container) {
 });
 
 $container->bind(UserServiceInterface::class, function ($container) {
-    return new UserService($container->resolve(User::class),
-                            $container->resolve(UserRepositoryInterface::class),
+    return new UserService($container->resolve(UserRepositoryInterface::class),
                             $container->resolve(UserValidatorInterface::class));
 });
 

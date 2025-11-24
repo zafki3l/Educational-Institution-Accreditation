@@ -30,7 +30,7 @@ class UserController extends Controller
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->userService->listUsers($search, $current_page);
+        $data = $this->userService->list($search, $current_page);
 
         return $this->view(
             'admin/users/index',
@@ -73,7 +73,7 @@ class UserController extends Controller
         }
 
         // Create new User and store into Database
-        $this->userService->createUser($request);
+        $this->userService->create($request);
 
         // Redirect back to dashboard if successfully
         $this->redirect('/admin/users');
@@ -109,7 +109,7 @@ class UserController extends Controller
             $this->back();
         }
 
-        $this->userService->updateUser($user_id, $request);
+        $this->userService->update($user_id, $request);
 
         $_SESSION['edit-user-success'] = 'Edit user successfully!';
 
@@ -118,7 +118,7 @@ class UserController extends Controller
 
     public function destroy(int $user_id): void
     {
-        $this->userService->deleteUser($user_id);
+        $this->userService->delete($user_id);
 
         $_SESSION['delete-user-success'] = 'Delete user successfully!';
 
