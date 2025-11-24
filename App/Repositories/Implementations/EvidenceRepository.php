@@ -25,7 +25,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
                         e.document_date,
                         e.issue_place,
                         e.link,
-                        c.department_id
+                        s.department_id as 'department_id'
                     FROM evidences e
                     JOIN milestone_evidence me
                         ON me.evidence_id = e.id
@@ -33,6 +33,8 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
                         ON em.id = me.milestone_id
                     JOIN evaluation_criterias c
                         ON c.id = em.criteria_id
+                    JOIN evaluation_standards s
+                        ON c.standard_id = s.id
                     LIMIT $start_from, $result_per_page";
         
             return $this->getAll($sql);
@@ -68,7 +70,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
                         e.document_date,
                         e.issue_place,
                         e.link,
-                        c.department_id
+                        es.department_id as 'department_id'
                     FROM evidences e
                     JOIN milestone_evidence me
                         ON me.evidence_id = e.id
@@ -76,7 +78,8 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
                         ON em.id = me.milestone_id
                     JOIN evaluation_criterias c
                         ON c.id = em.criteria_id
-                    JOIN evaluation_standards es";
+                    JOIN evaluation_standards es
+                        ON c.standard_id = es.id";
             
             if (!empty($where)) {
                 $sql .= ' WHERE ' . implode(' AND ', $where);
