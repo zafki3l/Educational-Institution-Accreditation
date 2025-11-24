@@ -48,6 +48,8 @@ class UserService implements UserServiceInterface
 
     public function update(int $user_id, array $request): void
     {
+        $this->findOrFail($user_id);
+
         $user = new User();
 
         $user->setFirstName($request['first_name'])
@@ -62,6 +64,8 @@ class UserService implements UserServiceInterface
 
     public function delete(int $user_id): void
     {
+        $this->findOrFail($user_id);
+        
         $this->userRepository->deleteById($user_id);
     }
 
@@ -97,5 +101,14 @@ class UserService implements UserServiceInterface
     {
         return $search ? $this->userRepository->countSearch($search) 
                         : $this->userRepository->countAll();
+    }
+    
+    private function findOrFail(int $user_id): void
+    {
+        $found = $this->userRepository->findById($user_id);
+
+        if (!$found) {
+            throw new UserNotFoundException($user_id);
+        }
     }
 }
