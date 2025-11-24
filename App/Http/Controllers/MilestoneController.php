@@ -21,11 +21,14 @@ class MilestoneController extends Controller
                                 
     public function index()
     {
-        $standard_id = $_GET['standard_id'] ?? null;
-        $criteria_id = $_GET['criteria_id'] ?? null;
+        $filter = [
+            'standard_id' => $_GET['standard_id'] ?? null,
+            'criteria_id' => $_GET['criteria_id'] ?? null
+        ];
+
         $search = $_GET['search'] ?? null;
 
-        $milestones = $this->milestoneService->listMilestones($search, $standard_id, $criteria_id);
+        $milestones = $this->milestoneService->listMilestones($search, $filter);
         $standards = $this->standardService->findAll();
         $criterias = $this->criteriaService->findAll();
 
