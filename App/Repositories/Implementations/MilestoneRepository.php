@@ -32,9 +32,24 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         }
     }
 
-    public function filterMilestones(?string $standard_id, ?string $criteria_id): array
+    public function filterMilestones(array $filter): array
     {
         try {
+            $where = [];
+            $params = [];
+
+            $columns = [
+                'standard_id' => 'es.id',
+                'criteria_id' => 'ec.id'
+            ];
+
+            foreach ($filter as $key => $value) {
+                if (!empty($value)) {
+                    $where[] = $columns[$key] . ' = ? ';
+                    $params[] = $value;
+                }
+            }
+
             $sql = "SELECT em.id as 'id',
                             em.criteria_id as 'criteria_id',
                             em.name as 'name',
@@ -44,10 +59,13 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
                     JOIN evaluation_criterias ec 
                         ON em.criteria_id = ec.id
                     JOIN evaluation_standards es
-                        ON ec.standard_id = es.id
-                    WHERE ec.id = ? AND es.id = ?";
+                        ON ec.standard_id = es.id";
             
-            return $this->getByParams([$criteria_id, $standard_id], $sql);
+            if (!empty($where)) {
+                $sql .= ' WHERE ' . implode(' AND ', $where);
+            }
+            
+            return $this->getByParams($params, $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
