@@ -15,6 +15,7 @@
             <li>
                 <i class="fa-solid fa-user-circle fa-5x"></i>
             </li>
+            <h3>Xin chào <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
         </div>
         <hr>
         <div class="sidebar-content">

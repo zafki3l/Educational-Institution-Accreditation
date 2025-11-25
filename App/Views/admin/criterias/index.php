@@ -18,7 +18,6 @@
             <div class="dashboard-header">
                 <div class="header-text">
                     <h2>DANH SÁCH TIÊU CHÍ</h2>
-                    <h3>WELCOME <?php echo htmlspecialchars($_SESSION['user']['last_name']) ?></h3>
                 </div>
 
                 <div class="dashboard-search-add">
