@@ -34,8 +34,7 @@ use App\Validations\Interfaces\AuthValidatorInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
 $container->bind(AuthServiceInterface::class, function ($container) {
-    return new AuthService($container->resolve(User::class), 
-                            $container->resolve(UserRepositoryInterface::class), 
+    return new AuthService($container->resolve(UserRepositoryInterface::class), 
                             $container->resolve(AuthValidatorInterface::class));
 });
 

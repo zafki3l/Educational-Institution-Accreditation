@@ -65,7 +65,7 @@ class UserService implements UserServiceInterface
     public function delete(int $user_id): void
     {
         $this->findOrFail($user_id);
-        
+
         $this->userRepository->deleteById($user_id);
     }
 
@@ -97,12 +97,14 @@ class UserService implements UserServiceInterface
         return $this->userRepository->search($search, $start_from, $result_per_page);
     }
 
+    // Have to count the total records in order to calculate pagination
     private function count(?string $search): int
     {
         return $search ? $this->userRepository->countSearch($search) 
                         : $this->userRepository->countAll();
     }
     
+    // Ensure user exists
     private function findOrFail(int $user_id): void
     {
         $found = $this->userRepository->findById($user_id);

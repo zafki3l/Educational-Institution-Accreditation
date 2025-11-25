@@ -6,8 +6,9 @@ use App\Models\Standard;
 
 interface StandardRepositoryInterface
 {
-    public function getAllStandard(): array;
-    public function getAllStandardWithDepartment(): array;
-    public function createStandard(Standard $standard): void;
-    public function deleteStandard(string $id): void;
+    public function all(): array;
+    public function allWithDepartment(): array;
+    public function create(Standard $standard): void;
+    public function findById(string $standard_id): array;
+    public function deleteById(string $id): void;
 }
