@@ -16,32 +16,37 @@
 
         <div class="dashboard-container">
             <div class="dashboard-header">
-                <div class="header-text">
-                    <h2>DANH SÁCH TIÊU CHÍ</h2>
+                <div class="header-left">
+                    <div class="header-line"></div>
+                    <div class="header-text">
+                        <h2>DANH SÁCH TIÊU CHÍ</h2>
+                    </div>
                 </div>
 
                 <div class="dashboard-search-add">
-                    <a href="/<?= PROJECT_NAME ?>/admin/criterias/create">Thêm tiêu chí</a>
+                    <a href="/<?= PROJECT_NAME ?>/admin/criterias/create">+ Thêm tiêu chí</a>
                 </div>
             </div>
 
-            <form action="?standard_id=&department_id=" method="get">
-                <select name="standard_id" id="standard_id">
-                    <option value="">Chọn 1 tiêu chuẩn để lọc</option>
-                    <?php foreach ($standards as $standard): ?>
-                        <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="fill">
+                <form action="?standard_id=&department_id=" method="get">
+                    <select name="standard_id" id="standard_id">
+                        <option value="">Chọn 1 tiêu chuẩn để lọc</option>
+                        <?php foreach ($standards as $standard): ?>
+                            <option value="<?= htmlspecialchars($standard['id']) ?>"><?= htmlspecialchars($standard['name']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
 
-                <select name="department_id" id="department_id">
-                    <option value="">Chọn phòng ban để lọc</option>
-                    <?php foreach ($departments as $department): ?>
-                        <option value="<?= htmlspecialchars($department['id']) ?>"><?= htmlspecialchars($department['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                    <select name="department_id" id="department_id">
+                        <option value="">Chọn phòng ban để lọc</option>
+                        <?php foreach ($departments as $department): ?>
+                            <option value="<?= htmlspecialchars($department['id']) ?>"><?= htmlspecialchars($department['name']) ?></option>
+                        <?php endforeach; ?>
+                    </select>
 
-                <input type="submit">
-            </form>
+                    <input type="submit">
+                </form>
+            </div>
 
             <div class="dashboard-table">
                 <table>

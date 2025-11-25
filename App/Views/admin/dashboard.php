@@ -9,26 +9,37 @@
 
 <body>
     <div class="main-content">
-        <div class="dashboard-content"><h1>ADMIN DASHBOARD</h1></div>
+        <div class="dashboard-header">
+            <div class="dashboard-title">
+                <div class="header-line"></div>
+                <h1>ADMIN DASHBOARD</h1>
+            </div>
+        </div>
+
         <div class="staff-dashboard">
             <div class="dashboard-grid">
                 <!-- Staff Information Section -->
                 <section class="card staff-info-card">
                     <header class="card-header">
                         <h3>Thông tin quản trị</h3>
+                        <i class="fa-solid fa-user-circle fa-4x" aria-hidden="true"></i>
                     </header>
                     <div class="card-body">
-                        <div class="profile-avatar">
-                            <i class="fa-solid fa-user-circle fa-4x" aria-hidden="true"></i>
-                        </div>
                         <div class="profile-details">
-                            <p><strong>User ID:</strong> <?= htmlspecialchars($_SESSION['user']['user_id'] ?? '') ?></p>
-                            <p><strong>Name:</strong> <?= htmlspecialchars($_SESSION['user']['last_name'] ?? '') ?></p>
-                            <p><strong>Email:</strong> <?= htmlspecialchars($_SESSION['user']['email'] ?? '') ?></p>
-                            <p><strong>Role:</strong> <?= htmlspecialchars('Admin') ?></p>
+                            <p><strong>User ID:</strong><?= htmlspecialchars($_SESSION['user']['user_id'] ?? '') ?></p>
+                            <p><strong>Name:</strong><?= htmlspecialchars($_SESSION['user']['last_name'] ?? '') ?></p>
+                            <p><strong>Email:</strong><?= htmlspecialchars($_SESSION['user']['email'] ?? '') ?></p>
+                            <div class="role-lable"><p><strong>Role:</strong><div class="role"><?= htmlspecialchars('Admin') ?></div></p></div>
                         </div>
                     </div>
                 </section>
+
+                <div class="system-overview">
+                    <h3>Tổng quan hệ thống</h3>
+                    <div class="criteria-box">
+                        <img src="/<?= PROJECT_NAME ?>/public/images/Check square.png" alt="">
+                    </div>
+                </div>
 
                 <section class="card inventory-card">
                     <header class="card-header">
