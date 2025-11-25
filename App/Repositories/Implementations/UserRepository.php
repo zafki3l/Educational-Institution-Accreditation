@@ -15,7 +15,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         parent::__construct($db);
     }
 
-    public function getAllUser(int $start_from, int $result_per_page): array
+    public function all(int $start_from, int $result_per_page): array
     {
         try {
             $sql = "SELECT u.id as 'id',
@@ -40,7 +40,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function getUserByEmail(string $email): array
+    public function findByEmail(string $email): array
     {
         try {
             $sql = "SELECT * FROM users
@@ -52,7 +52,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function getUserById(int $user_id): array
+    public function findById(int $user_id): array
     {
         try {
             $sql = "SELECT * FROM users
@@ -65,7 +65,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function createUser(User $user): int
+    public function create(User $user): int
     {
         try {
             return $this->insert('users', [
@@ -83,7 +83,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function updateUserById(int $user_id, User $user): void
+    public function updateById(int $user_id, User $user): int
     {
         try {
             $params = [
@@ -105,26 +105,28 @@ class UserRepository extends Repository implements UserRepositoryInterface
                         role_id = ?
                     WHERE id = ?";
 
-            $this->update($sql, $params);
+            return $this->update($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function deleteUser(int $user_id): void
+    public function deleteById(int $user_id): int
     {
         try {
             $params = ['user_id' => $user_id];
 
             $sql = "DELETE FROM users WHERE id = ?";
 
-            $this->delete($sql, $params);
+            return $this->delete($sql, $params);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function searchUser(mixed $search, $start_from, $result_per_page): array
+    public function search(mixed $search, $start_from, $result_per_page): array
     {
         try {
             $data = "%$search%";
@@ -156,7 +158,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function countUser(): int
+    public function countAll(): int
     {
         try {
             $data = $this->getAll("SELECT COUNT(id) as 'total' FROM users");
@@ -168,7 +170,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function countSearchUser(string $search): int
+    public function countSearch(string $search): int
     {
         try {
             $data = "%$search%";

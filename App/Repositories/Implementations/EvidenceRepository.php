@@ -15,7 +15,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         parent::__construct($db);
     }
 
-    public function getAllEvidence(int $start_from, int $result_per_page): array
+    public function all(int $start_from, int $result_per_page): array
     {
         try {
             $sql = "SELECT e.id as 'evidence_id',
@@ -44,7 +44,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
-    public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
+    public function filter(int $start_from, int $result_per_page, array $filter): array
     {
         try {
             $where = [];
@@ -94,7 +94,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
-    public function countAllEvidence(): int
+    public function countAll(): int
     {
         try {
             $data = $this->getAll("SELECT COUNT(id) as 'total' FROM evidences");
@@ -106,7 +106,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
-    public function createEvidence(Evidence $evidence): void
+    public function create(Evidence $evidence): void
     {
         try {
             $this->insert('evidences', [
@@ -123,7 +123,7 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
-    public function getEvidenceById(string $evidence_id): array
+    public function findById(string $evidence_id): array
     {   
         try {
             $sql = "SELECT * FROM evidences WHERE id = ?"; 
@@ -135,21 +135,19 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
-    public function updateEvidence(string $evidence_id, Evidence $evidence): void
+    public function updateById(string $evidence_id, Evidence $evidence): int
     {   
         try {
             $sql = "UPDATE evidences
                     SET name = ?,
-                        milestone_id = ?,
                         decision = ?,
                         document_date = ?,
                         issue_place = ?,
                         link = ?
                     WHERE id = ?";
 
-            $this->update($sql, [
+            return parent::update($sql, [
                 'name' => $evidence->getName(),
-                'milestone_id' => $evidence->getMilestoneId(),
                 'decision' => $evidence->getDecision(),
                 'document_date' => $evidence->getDocumentDate(),
                 'issue_place' => $evidence->getIssuePlace(),
@@ -158,25 +156,27 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function deleteEvidence(string $evidence_id): void
+    public function deleteById(string $evidence_id): int
     {
         try {
-            $this->delete("DELETE FROM evidences WHERE id = ?", [$evidence_id]);
+            return parent::delete("DELETE FROM evidences WHERE id = ?", [$evidence_id]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function searchEvidence(string $search, int $start_from, int $result_per_page): array
+    public function search(string $search, int $start_from, int $result_per_page): array
     {
         // TODO:
         return [];
     }
 
-    public function countSearchEvidence(string $search): int
+    public function countSearch(string $search): int
     {
         // TODO:
         return 0;

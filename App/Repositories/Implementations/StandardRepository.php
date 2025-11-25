@@ -15,7 +15,7 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         parent::__construct($db);
     }
 
-    public function getAllStandard(): array
+    public function all(): array
     {
         try {
             return $this->getAll("SELECT id, name FROM evaluation_standards");
@@ -25,7 +25,7 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         }
     }
 
-    public function getAllStandardWithDepartment(): array
+    public function allWithDepartment(): array
     {
         try {
             return $this->getAll(
@@ -41,7 +41,7 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         }
     }
 
-    public function createStandard(Standard $standard): void
+    public function create(Standard $standard): void
     {
         try {
             $this->insert('evaluation_standards', [
@@ -53,10 +53,20 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         }
     }
 
-    public function deleteStandard(string $id): void
+    public function findById(string $standard_id): array
     {
         try {
-            $this->delete("DELETE FROM evaluation_standards WHERE id = ?", [$id]);
+            return $this->getByParams([$standard_id], "SELECT id FROM evaluation_standards WHERE id = ?");
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function deleteById(string $standard_id): void
+    {
+        try {
+            $this->delete("DELETE FROM evaluation_standards WHERE id = ?", [$standard_id]);
         } catch (PDOException $e) {
             print $e->getMessage();
         }

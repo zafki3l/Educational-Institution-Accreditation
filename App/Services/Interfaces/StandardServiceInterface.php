@@ -4,8 +4,8 @@ namespace App\Services\Interfaces;
 
 interface StandardServiceInterface
 {
-    public function listStandards(): array;
+    public function list(): array;
     public function findAll(): array;
-    public function createStandard(array $request): void;
-    public function deleteStandard(string $id): void;
+    public function create(array $request): void;
+    public function delete(string $id): void;
 }

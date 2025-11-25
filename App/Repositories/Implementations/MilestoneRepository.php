@@ -15,7 +15,7 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         parent::__construct($db);
     }
 
-    public function getAllMilestones(): array
+    public function all(): array
     {
         try {
             $sql = "SELECT em.id as 'id',
@@ -32,7 +32,7 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         }
     }
 
-    public function filterMilestones(array $filter): array
+    public function filter(array $filter): array
     {
         try {
             $where = [];
@@ -72,7 +72,19 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         }
     }
 
-    public function createMilestone(Milestone $milestone): void
+    public function findById(string $milestone_id): array
+    {
+        try {
+            $sql = "SELECT id FROM evaluation_milestones WHERE id = ?"; 
+
+            return $this->getByParams([$milestone_id], $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function create(Milestone $milestone): void
     {
         try{
             $this->insert('evaluation_milestones', [
@@ -85,7 +97,7 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
         } 
     }
 
-    public function deleteMilestone(string $milestone_id): void
+    public function deleteById(string $milestone_id): void
     {
         try {
             $this->delete("DELETE FROM evaluation_milestones WHERE id = ?", [$milestone_id]);

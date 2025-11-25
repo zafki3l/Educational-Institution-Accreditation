@@ -49,7 +49,7 @@ class UserValidator extends Validator implements UserValidatorInterface
     // Check is email exist
     private function isEmailExist(string $email, UserRepositoryInterface $userRepository): bool
     {
-        $result = $userRepository->getUserByEmail($email);
+        $result = $userRepository->findByEmail($email);
 
         return !empty($result);
     }

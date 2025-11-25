@@ -28,7 +28,8 @@ class MilestoneController extends Controller
 
         $search = $_GET['search'] ?? null;
 
-        $milestones = $this->milestoneService->listMilestones($search, $filter);
+        $milestones = $this->milestoneService->list($search, $filter);
+
         $standards = $this->standardService->findAll();
         $criterias = $this->criteriaService->findAll();
 
@@ -65,14 +66,14 @@ class MilestoneController extends Controller
     {
         $request = $this->milestoneRequest->createMilestone();
 
-        $this->milestoneService->createMilestone($request);
+        $this->milestoneService->create($request);
 
         $this->redirect('/admin/milestones');
     }
 
     public function destroy(string $milestone_id): void
     {
-        $this->milestoneService->deleteMilestone($milestone_id);
+        $this->milestoneService->delete($milestone_id);
 
         $this->redirect('/admin/milestones');
     }

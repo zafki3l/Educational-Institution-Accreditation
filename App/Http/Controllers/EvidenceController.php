@@ -32,7 +32,7 @@ class EvidenceController extends Controller
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->evidenceService->listEvidences($search, $current_page, $filter);
+        $data = $this->evidenceService->list($search, $current_page, $filter);
 
         return $this->view(
             'staff/evidences/index',
@@ -65,7 +65,7 @@ class EvidenceController extends Controller
     {
         $request = $this->evidenceRequest->createRequest();
 
-        $this->evidenceService->createEvidence($request);
+        $this->evidenceService->create($request);
 
         $this->redirect('/staff/evidences');
     }
@@ -77,7 +77,7 @@ class EvidenceController extends Controller
             'staff.layouts',
             [
                 'title' => 'Chỉnh sửa minh chứng',
-                'evidence' => $this->evidenceService->getEvidenceById($evidence_id)
+                'evidence' => $this->evidenceService->findById($evidence_id)
             ]
         );
     }
@@ -86,14 +86,14 @@ class EvidenceController extends Controller
     {
         $request = $this->evidenceRequest->updateRequest();
 
-        $this->evidenceService->updateEvidence($evidence_id, $request);
+        $this->evidenceService->update($evidence_id, $request);
 
         $this->redirect('/staff/evidences');
     }
 
     public function destroy(string $evidence_id)
     {
-        $this->evidenceService->deleteEvidence($evidence_id);
+        $this->evidenceService->delete($evidence_id);
 
         $this->redirect('/staff/evidences');
     }

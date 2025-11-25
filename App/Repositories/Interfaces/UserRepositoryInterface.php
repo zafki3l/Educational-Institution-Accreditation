@@ -6,13 +6,13 @@ use App\Models\User;
 
 interface UserRepositoryInterface
 {
-    public function getAllUser(int $start_from, int $result_per_page): array;
-    public function getUserByEmail(string $email): array;
-    public function getUserById(int $user_id): array;
-    public function createUser(User $user): int;
-    public function updateUserById(int $user_id, User $user): void;
-    public function deleteUser(int $user_id): void;
-    public function searchUser(mixed $search, $start_from, $result_per_page): array;
-    public function countUser(): int;
-    public function countSearchUser(string $search): int;
+    public function all(int $start_from, int $result_per_page): array;
+    public function findByEmail(string $email): array;
+    public function findById(int $user_id): array;
+    public function create(User $user): int;
+    public function updateById(int $user_id, User $user): int;
+    public function deleteById(int $user_id): int;
+    public function search(mixed $search, $start_from, $result_per_page): array;
+    public function countAll(): int;
+    public function countSearch(string $search): int;
 }

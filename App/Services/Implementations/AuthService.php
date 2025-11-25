@@ -11,14 +11,13 @@ class AuthService implements AuthServiceInterface
 {
     public const LOCK_TIME = 60;
 
-    public function __construct(private User $user,
-                                private UserRepositoryInterface $userRepository,
+    public function __construct(private UserRepositoryInterface $userRepository,
                                 private AuthValidatorInterface $authValidator) {}
 
     public function handleLogin(array $request): array
     {
         // If the user is sucessfully login
-        return $this->userRepository->getUserByEmail($request['email']);
+        return $this->userRepository->findByEmail($request['email']);
     }
 
     public function handleError(array $request): ?array

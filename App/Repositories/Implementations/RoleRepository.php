@@ -14,7 +14,7 @@ class RoleRepository extends Repository implements RoleRepositoryInterface
         parent::__construct($db);
     }
 
-    public function getAllRoles(): array
+    public function all(): array
     {
         try {
             return $this->getAll("SELECT * from roles");

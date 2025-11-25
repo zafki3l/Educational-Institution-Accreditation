@@ -13,7 +13,7 @@ class AuthValidator extends Validator implements AuthValidatorInterface
     {
         $errors = [];
 
-        $userData = $userRepository->getUserByEmail($request['email']);
+        $userData = $userRepository->findByEmail($request['email']);
 
         $isEmailExist = $this->isEmailExist($request['email'], $userRepository);
         if (!$isEmailExist) {
@@ -51,7 +51,7 @@ class AuthValidator extends Validator implements AuthValidatorInterface
 
     private function isEmailExist(string $email, UserRepositoryInterface $userRepository): bool
     {
-        $result = $userRepository->getUserByEmail($email);
+        $result = $userRepository->findByEmail($email);
 
         return !empty($result);
     }

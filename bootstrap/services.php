@@ -34,43 +34,35 @@ use App\Validations\Interfaces\AuthValidatorInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
 $container->bind(AuthServiceInterface::class, function ($container) {
-    return new AuthService($container->resolve(User::class), 
-                            $container->resolve(UserRepositoryInterface::class), 
+    return new AuthService($container->resolve(UserRepositoryInterface::class), 
                             $container->resolve(AuthValidatorInterface::class));
 });
 
 $container->bind(UserServiceInterface::class, function ($container) {
-    return new UserService($container->resolve(User::class),
-                            $container->resolve(UserRepositoryInterface::class),
+    return new UserService($container->resolve(UserRepositoryInterface::class),
                             $container->resolve(UserValidatorInterface::class));
 });
 
 $container->bind(DepartmentServiceInterface::class, function ($container) {
-    return new DepartmentService($container->resolve(Department::class),
-                                $container->resolve(DepartmentRepositoryInterface::class));
+    return new DepartmentService($container->resolve(DepartmentRepositoryInterface::class));
 });
 
 $container->bind(EvidenceServiceInterface::class, function ($container) {
-    return new EvidenceService($container->resolve(Evidence::class),
-                                $container->resolve(EvidenceRepositoryInterface::class));
+    return new EvidenceService($container->resolve(EvidenceRepositoryInterface::class));
 });
 
 $container->bind(CriteriaServiceInterface::class, function ($container) {
-    return new CriteriaService($container->resolve(Criteria::class),
-                                $container->resolve(CriteriaRepositoryInterface::class));
+    return new CriteriaService($container->resolve(CriteriaRepositoryInterface::class));
 });
 
 $container->bind(StandardServiceInterface::class, function ($container) {
-    return new StandardService($container->resolve(Standard::class),
-                                $container->resolve(StandardRepositoryInterface::class));
+    return new StandardService($container->resolve(StandardRepositoryInterface::class));
 });
 
 $container->bind(MilestoneServiceInterface::class, function ($container) {
-    return new MilestoneService($container->resolve(Milestone::class),
-                                $container->resolve(MilestoneRepositoryInterface::class));
+    return new MilestoneService($container->resolve(MilestoneRepositoryInterface::class));
 });
 
 $container->bind(RoleServiceInterface::class, function ($container) {
-    return new RoleService($container->resolve(Role::class),
-                            $container->resolve(RoleRepositoryInterface::class));
+    return new RoleService($container->resolve(RoleRepositoryInterface::class));
 });
