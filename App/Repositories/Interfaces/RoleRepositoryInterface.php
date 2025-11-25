@@ -4,5 +4,5 @@ namespace App\Repositories\Interfaces;
 
 interface RoleRepositoryInterface
 {
-    public function getAllRoles(): array;
+    public function all(): array;
 }

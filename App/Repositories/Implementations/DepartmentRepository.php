@@ -14,7 +14,7 @@ class DepartmentRepository extends Repository implements DepartmentRepositoryInt
         parent::__construct($db);
     }
 
-    public function getAllDepartment(): array
+    public function all(): array
     {
         try {
             return $this->getAll("SELECT * FROM departments");

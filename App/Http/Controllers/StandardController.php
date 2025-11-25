@@ -18,7 +18,7 @@ class StandardController extends Controller
 
     public function index()
     {
-        $standards = $this->standardService->listStandards();
+        $standards = $this->standardService->list();
 
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
@@ -36,14 +36,14 @@ class StandardController extends Controller
     {
         $request = $this->standardRequest->createRequest();
 
-        $this->standardService->createStandard($request);
+        $this->standardService->create($request);
 
         $this->redirect('/admin/standards');
     }
 
     public function destroy(string $id): void
     {
-        $this->standardService->deleteStandard($id);
+        $this->standardService->delete($id);
 
         $this->redirect('/admin/standards');
     }

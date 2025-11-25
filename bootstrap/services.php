@@ -44,8 +44,7 @@ $container->bind(UserServiceInterface::class, function ($container) {
 });
 
 $container->bind(DepartmentServiceInterface::class, function ($container) {
-    return new DepartmentService($container->resolve(Department::class),
-                                $container->resolve(DepartmentRepositoryInterface::class));
+    return new DepartmentService($container->resolve(DepartmentRepositoryInterface::class));
 });
 
 $container->bind(EvidenceServiceInterface::class, function ($container) {
@@ -65,6 +64,5 @@ $container->bind(MilestoneServiceInterface::class, function ($container) {
 });
 
 $container->bind(RoleServiceInterface::class, function ($container) {
-    return new RoleService($container->resolve(Role::class),
-                            $container->resolve(RoleRepositoryInterface::class));
+    return new RoleService($container->resolve(RoleRepositoryInterface::class));
 });
