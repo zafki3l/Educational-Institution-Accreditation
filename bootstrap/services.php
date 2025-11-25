@@ -53,13 +53,11 @@ $container->bind(EvidenceServiceInterface::class, function ($container) {
 });
 
 $container->bind(CriteriaServiceInterface::class, function ($container) {
-    return new CriteriaService($container->resolve(Criteria::class),
-                                $container->resolve(CriteriaRepositoryInterface::class));
+    return new CriteriaService($container->resolve(CriteriaRepositoryInterface::class));
 });
 
 $container->bind(StandardServiceInterface::class, function ($container) {
-    return new StandardService($container->resolve(Standard::class),
-                                $container->resolve(StandardRepositoryInterface::class));
+    return new StandardService($container->resolve(StandardRepositoryInterface::class));
 });
 
 $container->bind(MilestoneServiceInterface::class, function ($container) {

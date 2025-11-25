@@ -9,8 +9,7 @@ use App\Services\Interfaces\StandardServiceInterface;
 
 class StandardService implements StandardServiceInterface
 {
-    public function __construct(private Standard $standard,
-                                private StandardRepositoryInterface $standardRepository) {}
+    public function __construct(private StandardRepositoryInterface $standardRepository) {}
 
     public function list(): array
     {
@@ -24,10 +23,12 @@ class StandardService implements StandardServiceInterface
 
     public function create(array $request): void
     {
-        $this->standard->setId($request['id'])
+        $standard = new Standard();
+        
+        $standard->setId($request['id'])
                         ->setName($request['name']);
 
-        $this->standardRepository->create($this->standard);
+        $this->standardRepository->create($standard);
     }
 
     public function delete(string $standard_id): void

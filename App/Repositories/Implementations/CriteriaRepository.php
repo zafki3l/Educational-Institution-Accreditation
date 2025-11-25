@@ -15,7 +15,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         parent::__construct($db);
     }
 
-    public function getAllCriteria(): array
+    public function all(): array
     {
         try {
             $sql = "SELECT id, standard_id, name FROM evaluation_standards";
@@ -27,7 +27,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function getAllCriteriaWithDepartment(): array
+    public function allWithDepartment(): array
     {
         try {
             $sql = "SELECT ec.id as 'criteria_id',
@@ -49,7 +49,19 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function getCriteriasByStandard(array $filter): array
+    public function findById(string $criteria_id): array
+    {
+        try {
+            $sql = "SELECT id FROM evidences WHERE id = ?"; 
+
+            return $this->getByParams([$criteria_id], $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function filter(array $filter): array
     {
         try {
             $where = [];
@@ -90,7 +102,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function countAllCriteria(): int
+    public function countAll(): int
     {
         try {
             $data = $this->getAll("SELECT COUNT(id) as 'total' FROM evaluation_criterias");
@@ -102,7 +114,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function createCriteria(Criteria $criteria): void
+    public function create(Criteria $criteria): void
     {
         try {
             $this->insert('evaluation_criterias', [
@@ -116,7 +128,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function deleteCriteria(string $id): void
+    public function deleteById(string $id): void
     {
         try {
             $this->delete("DELETE FROM evaluation_criterias WHERE id = ?", [$id]);
@@ -125,13 +137,13 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function searchCriteria(string $search): array
+    public function search(string $search): array
     {
         // TODO:
         return [];
     }
 
-    public function countSearchCriteria(string $search): int
+    public function countSearch(string $search): int
     {
         // TODO:
         return 0;

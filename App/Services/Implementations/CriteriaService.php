@@ -2,54 +2,67 @@
 
 namespace App\Services\Implementations;
 
+use App\Exceptions\CriteriaException\CriteriaNotFoundException;
 use App\Models\Criteria;
 use App\Repositories\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 
 class CriteriaService implements CriteriaServiceInterface
 {
-    public function __construct(private Criteria $criteria, 
-                                private CriteriaRepositoryInterface $criteriaRepository){}
+    public function __construct(private CriteriaRepositoryInterface $criteriaRepository){}
 
-    public function listCriterias(?string $search, array $filter): array
+    public function list(?string $search, array $filter): array
     {
         $filter = $this->filterArray($filter);
 
         if ($search) return $this->find($search);
 
-        if ($filter) return $this->filterCriteria($filter);
+        if ($filter) return $this->filter($filter);
 
         return $this->findAll();
     }
 
-    public function createCriteria(array $request): void
+    public function create(array $request): void
     {
-        $this->criteria->setId($request['id'])
-                        ->setStandardId($request['standard_id'])
-                        ->setName($request['name'])
-                        ->setDepartmentId($request['department_id']);
+        $criteria = new Criteria();
         
-        $this->criteriaRepository->createCriteria($this->criteria);
+        $criteria->setId($request['id'])
+                ->setStandardId($request['standard_id'])
+                ->setName($request['name'])
+                ->setDepartmentId($request['department_id']);
+        
+        $this->criteriaRepository->create($criteria);
     }
 
-    public function deleteCriteria(string $id): void
+    public function delete(string $criteria_id): void
     {
-        $this->criteriaRepository->deleteCriteria($id);
+        $this->findOrFail($criteria_id);
+
+        $this->criteriaRepository->deleteById($criteria_id);
     }
 
-    public function filterCriteria(array $filter): array
+    public function filter(array $filter): array
     {
-        return $this->criteriaRepository->getCriteriasByStandard($filter);
+        return $this->criteriaRepository->filter($filter);
     }
 
     public function findAll(): array
     {
-        return $this->criteriaRepository->getAllCriteriaWithDepartment();
+        return $this->criteriaRepository->allWithDepartment();
     }
 
     public function find(?string $search): array
     {
-        return $this->criteriaRepository->searchCriteria($search);
+        return $this->criteriaRepository->search($search);
+    }
+    
+    private function findOrFail(string $criteria_id): void
+    {
+        $found = $this->criteriaRepository->findById($criteria_id);
+
+        if (!$found) {
+            throw new CriteriaNotFoundException($criteria_id);
+        }
     }
 
     private function filterArray(array $filter): array
