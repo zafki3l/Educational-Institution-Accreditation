@@ -2,6 +2,26 @@
   padding: 20px;
 }
 
+.dashboard-header {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 10px;
+}
+
+.dashboard-title{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dashboard-title .header-line{
+  width: 5px;
+  height: 40px;
+  background-color: #148E6A;
+}
+
 /* Dashboard Layout */
 .staff-dashboard {
   display: flex;
@@ -16,53 +36,44 @@
 }
 
 /* Card Base Styles */
-.card {
-  background: #faf9ea;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  overflow: hidden;
-}
-
-.card-header {
-  background: #9d0202;
-  padding: 16px 20px;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: 18px;
-  color: white;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-/* Staff Info Card */
-.staff-info-card .profile-avatar {
+.card-header{
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  color: #ca122f;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.profile-details {
+.card-header i{
+  color: #1BB865;
+}
+
+.profile-details{
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 30px;
 }
 
-.profile-details p {
+
+.profile-details p{
   margin: 0;
   font-size: 14px;
-  color: #212529;
 }
 
-.profile-details strong {
-  color: #212529;
+.profile-details strong{
   display: inline-block;
   width: 80px;
+  margin-right: 150px;
+}
+
+.role-lable{
+  display: flex;
+}
+
+.profile-details .role{
+  background-color: #1BB865;
+  width: fit-content;
+  border-radius: 10px;
+  padding: 2px 10px;
+  color: #fff;
 }
 
 /* Management Links */
