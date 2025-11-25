@@ -25,7 +25,7 @@
                 <!-- Searchbar and Add User -->
                 <div class="dashboard-search-add">
                     <?php include_once 'search.php' ?>
-                    <a href="/<?= PROJECT_NAME ?>/admin/users/create">Add user</a>
+                    <a href="/<?= PROJECT_NAME ?>/admin/users/create">+ Thêm người dùng</a>
                 </div>
             </div>
 

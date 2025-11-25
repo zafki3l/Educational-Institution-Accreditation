@@ -9,6 +9,7 @@
 
 <body>
     <div class="main-content">
+        <div class="dashboard-content"><h1>ADMIN DASHBOARD</h1></div>
         <div class="staff-dashboard">
             <div class="dashboard-grid">
                 <!-- Staff Information Section -->

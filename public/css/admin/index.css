@@ -16,6 +16,8 @@
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-bottom: 10px;
 }
 
 .header-left{
@@ -68,25 +70,26 @@
 
 .dashboard-header .dashboard-search-add a {
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    background: #faf9ea;
+    background-color: #2B24E4;
     cursor: pointer;
     text-decoration: none;
     height: 34px;
+    color: #fff;
 }
 
 .dashboard-table {
     width: 100%;
     min-height: 100vh;
     overflow-x: auto;
-    background: #faf9ea;
+    background: #fff;
 }
 
 table {
     min-width: 1000px;
     border-collapse: collapse;
-    background: #faf9ea;
+    background: #fff;
     table-layout: fixed;
 }
 
@@ -120,10 +123,11 @@ th {
     font-size: 20px;
     border: none;
     background-color: transparent;
+    color: #E8272AED;
 }
 
 .edit-btn {
-    color: black;
+    color: #261FF3;
 }
 
 .modal {
