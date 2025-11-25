@@ -52,7 +52,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
     public function findById(string $criteria_id): array
     {
         try {
-            $sql = "SELECT id FROM evidences WHERE id = ?"; 
+            $sql = "SELECT id FROM evaluation_criterias WHERE id = ?"; 
 
             return $this->getByParams([$criteria_id], $sql);
         } catch (PDOException $e) {

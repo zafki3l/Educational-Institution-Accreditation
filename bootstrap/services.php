@@ -61,8 +61,7 @@ $container->bind(StandardServiceInterface::class, function ($container) {
 });
 
 $container->bind(MilestoneServiceInterface::class, function ($container) {
-    return new MilestoneService($container->resolve(Milestone::class),
-                                $container->resolve(MilestoneRepositoryInterface::class));
+    return new MilestoneService($container->resolve(MilestoneRepositoryInterface::class));
 });
 
 $container->bind(RoleServiceInterface::class, function ($container) {

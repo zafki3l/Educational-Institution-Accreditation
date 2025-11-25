@@ -6,8 +6,9 @@ use App\Models\Milestone;
 
 interface MilestoneRepositoryInterface
 {
-    public function getAllMilestones(): array;
-    public function filterMilestones(array $filter): array;
-    public function createMilestone(Milestone $milestone): void;
-    public function deleteMilestone(string $milestone_id): void;
+    public function all(): array;
+    public function filter(array $filter): array;
+    public function findById(string $milestone_id): array;
+    public function create(Milestone $milestone): void;
+    public function deleteById(string $milestone_id): void;
 }
