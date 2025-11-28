@@ -20,14 +20,18 @@ use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Implementations\CriteriaService;
+use App\Services\Implementations\LockService;
 use App\Services\Implementations\MilestoneService;
 use App\Services\Implementations\RoleService;
+use App\Services\Implementations\SessionService;
 use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
+use App\Services\Interfaces\LockServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
+use App\Services\Interfaces\SessionServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\AuthValidatorInterface;
@@ -65,4 +69,12 @@ $container->bind(MilestoneServiceInterface::class, function ($container) {
 
 $container->bind(RoleServiceInterface::class, function ($container) {
     return new RoleService($container->resolve(RoleRepositoryInterface::class));
+});
+
+$container->bind(SessionServiceInterface::class, function () {
+    return new SessionService();
+});
+
+$container->bind(LockServiceInterface::class, function () {
+    return new LockService();
 });
