@@ -22,6 +22,7 @@ class StandardController extends Controller
 
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
+        
         return $this->view(
             (string) $viewPrefix . '/standards/index', 
             (string) $viewPrefix .'.layouts', 
