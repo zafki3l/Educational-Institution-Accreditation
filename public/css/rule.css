@@ -22,6 +22,10 @@ body {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
   text-decoration: none;
+  }
+
+a:visited{
+  color: inherit;
 }
 
 .main-content {
