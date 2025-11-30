@@ -1,2 +1,5 @@
 .env
+vendor/
 diagram/
+logs/
+*.log
