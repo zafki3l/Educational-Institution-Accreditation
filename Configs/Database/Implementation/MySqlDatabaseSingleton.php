@@ -13,7 +13,7 @@ class MySqlDatabaseSingleton implements DatabaseInterface
     public function connect(): PDO
     {
         try {
-            $dsn = 'mysql:host=' . DB_SERVER . ';port=' . DB_PORT . ';dbname=' . DB_DATABASE . ';charset=UTF8';
+            $dsn = 'mysql:host=' . $_ENV['DB_SERVER'] . ';port=' . $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_DATABASE'] . ';charset=UTF8';
             
             return self::getInstance($dsn);
         } catch (PDOException $e) {
@@ -24,7 +24,7 @@ class MySqlDatabaseSingleton implements DatabaseInterface
     private static function getInstance($dsn)
     {
         if (self::$conn === null) {
-            self::$conn = new PDO($dsn, DB_USER, DB_PASSWORD);
+            self::$conn = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
         }
 
         return self::$conn;
