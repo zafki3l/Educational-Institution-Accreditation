@@ -72,12 +72,14 @@ class EvidenceController extends Controller
 
     public function edit(string $evidence_id)
     {
+        $evidences = $this->evidenceService->findById($evidence_id);
+        
         return $this->view(
             'staff/evidences/edit',
             'staff.layouts',
             [
                 'title' => 'Chỉnh sửa minh chứng',
-                'evidence' => $this->evidenceService->findById($evidence_id)
+                'evidence' => $evidences
             ]
         );
     }

@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
+require_once '../vendor/autoload.php';
 require_once '../errorHandler.php';
 
 use App\Http\Middlewares\CSRF_Authenticator;
 use Core\Router;
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
