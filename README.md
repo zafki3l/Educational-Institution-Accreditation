@@ -18,8 +18,9 @@ Setup composer:
 composer install
 ```
 
-Tạo file .env:
+Create .env file:
 
 ```bash
 cp .env.example .env
 ```
+
