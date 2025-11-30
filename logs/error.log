@@ -10,3 +10,14 @@ Error: [2] require(C:\xampp\htdocs\Educational-Institution-Accreditation/app/Vie
 [Unhandled Exception] Not implemented
 [Unhandled Exception] Not implemented
 [Unhandled Exception] Not implemented
+[Unhandled Exception] Call to private Configs\Database\Implementation\MySqlDatabase::__construct() from global scope
+[Unhandled Exception] Call to private Configs\Database\Implementation\MySqlDatabase::__construct() from global scope
+[BusinessException] TOKEN_INVALID - Invalid token! | meta: []
+[BusinessException] TOKEN_INVALID - Invalid token! | meta: []
+Error: [2] The magic method Configs\Database\Implementation\MySqlDatabase::__wakeup() must have public visibility - C:\xampp\htdocs\Educational-Institution-Accreditation\Configs\Database\Implementation\MySqlDatabase.php:36
+[Unhandled Exception] App\Repositories\Implementations\UserRepository::__construct(): Argument #1 ($db) must be of type Configs\Database\Interfaces\DatabaseInterface, PDO given, called in C:\xampp\htdocs\Educational-Institution-Accreditation\bootstrap\repositories.php on line 24
+Error: [2] The magic method Configs\Database\Implementation\MySqlDatabase::__wakeup() must have public visibility - C:\xampp\htdocs\Educational-Institution-Accreditation\Configs\Database\Implementation\MySqlDatabase.php:36
+[Unhandled Exception] Call to private Configs\Database\Implementation\MySqlDatabase::__construct() from global scope
+Error: [2] The magic method Configs\Database\Implementation\MySqlDatabaseSingleton::__wakeup() must have public visibility - C:\xampp\htdocs\Educational-Institution-Accreditation\Configs\Database\Implementation\MySqlDatabaseSingleton.php:34
+Error: [2] The magic method Configs\Database\Implementation\MySqlDatabaseSingleton::__wakeup() must have public visibility - C:\xampp\htdocs\Educational-Institution-Accreditation\Configs\Database\Implementation\MySqlDatabaseSingleton.php:34
+Error: [2] The magic method Configs\Database\Implementation\MySqlDatabaseSingleton::__wakeup() must have public visibility - C:\xampp\htdocs\Educational-Institution-Accreditation\Configs\Database\Implementation\MySqlDatabaseSingleton.php:34
