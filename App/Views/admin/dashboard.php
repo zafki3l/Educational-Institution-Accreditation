@@ -9,12 +9,6 @@
 
 <body>
     <div class="main-content">
-        <div class="dashboard-header">
-            <div class="dashboard-title">
-                <div class="header-line"></div>
-                <h1>ADMIN DASHBOARD</h1>
-            </div>
-        </div>
 
         <div class="staff-dashboard">
             <div class="dashboard-grid">

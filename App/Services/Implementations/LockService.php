@@ -15,9 +15,6 @@ class LockService implements LockServiceInterface
 
             return true;
         }
-
-        $remain = $_SESSION['lock_time'] - time();
-        $_SESSION['locked'] = "Too many failed attempts. Please try again after {$remain} seconds.";
         
         return false;
     }
