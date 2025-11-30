@@ -1,5 +1,5 @@
 .env
 vendor/
 diagram/
-logs/*.logs
+logs/
 *.logs
