@@ -5,6 +5,10 @@ use App\Validations\Implement\UserValidator;
 use App\Validations\Interfaces\AuthValidatorInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
+/**
+ * Binding Validation classes to container
+ */
+
 $container->bind(UserValidatorInterface::class, function () {
     return new UserValidator();
 }); 
