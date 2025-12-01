@@ -1,6 +1,6 @@
 <?php
 
-use Configs\Database\Implementation\MySqlDatabaseSingleton;
+use Configs\Database\Implementation\MySqlDatabase;
 use Configs\Database\Interfaces\DatabaseInterface;
 
 /**
@@ -8,5 +8,5 @@ use Configs\Database\Interfaces\DatabaseInterface;
  */
 
 $container->bind(DatabaseInterface::class, function () {
-    return new MySqlDatabaseSingleton();
+    return new MySqlDatabase();
 });
