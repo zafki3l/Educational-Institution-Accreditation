@@ -7,9 +7,12 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
+use Traits\QueryClauseHelperTrait;
 
 class UserRepository extends Repository implements UserRepositoryInterface
 {
+    use QueryClauseHelperTrait;
+
     public function __construct(DatabaseInterface $db) 
     {
         parent::__construct($db);
@@ -30,8 +33,8 @@ class UserRepository extends Repository implements UserRepositoryInterface
                     FROM users u
                     JOIN roles r ON r.id = u.role_id
                     LEFT JOIN departments d ON d.id = u.department_id
-                    ORDER BY u.id
-                    LIMIT $start_from, $result_per_page";
+                    ORDER BY u.id";
+            $sql .= $this->bindLimitClause($start_from, $result_per_page);
 
             return $this->getAll($sql);
         } catch (PDOException $e) {

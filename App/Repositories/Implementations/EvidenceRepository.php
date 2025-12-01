@@ -7,9 +7,12 @@ use App\Repositories\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
+use Traits\QueryClauseHelperTrait;
 
 class EvidenceRepository extends Repository implements EvidenceRepositoryInterface
 {
+    use QueryClauseHelperTrait;
+
     public function __construct(DatabaseInterface $db)
     {
         parent::__construct($db);
@@ -47,21 +50,13 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
     public function filter(int $start_from, int $result_per_page, array $filter): array
     {
         try {
-            $where = [];
-            $params = [];
-
             $columns = [
                 'standard_id' => 'es.id',
                 'criteria_id' => 'c.id',
                 'milestone_id' => 'em.id'
             ];
 
-            foreach ($filter as $key => $value) {
-                if (!empty($value)) {
-                    $where[] = $columns[$key] . ' = ? ';
-                    $params[] = $value;
-                }
-            }
+            $clause = $this->buildWhereClause($filter, $columns);
 
             $sql = "SELECT e.id as 'evidence_id',
                         e.name as 'evidence_name',
@@ -80,14 +75,10 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
                         ON c.id = em.criteria_id
                     JOIN evaluation_standards es
                         ON c.standard_id = es.id";
-            
-            if (!empty($where)) {
-                $sql .= ' WHERE ' . implode(' AND ', $where);
-            }
-
-            $sql .= " LIMIT $start_from, $result_per_page";
+            $sql .= $this->bindWhereClause($clause['where']);
+            $sql .= $this->bindLimitClause($start_from, $result_per_page);
         
-            return $this->getByParams($params, $sql);
+            return $this->getByParams($clause['params'], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

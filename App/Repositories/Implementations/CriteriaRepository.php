@@ -7,9 +7,12 @@ use App\Repositories\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
+use Traits\QueryClauseHelperTrait;
 
 class CriteriaRepository extends Repository implements CriteriaRepositoryInterface
 {
+    use QueryClauseHelperTrait;
+
     public function __construct(DatabaseInterface $db)
     {
         parent::__construct($db);
@@ -64,20 +67,12 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
     public function filter(array $filter): array
     {
         try {
-            $where = [];
-            $params = [];
-
             $columns = [
                 'standard_id' => 'es.id',
                 'department_id' => 'd.id'
             ];
 
-            foreach ($filter as $key => $value) {
-                if (!empty($value)) {
-                    $where[] = $columns[$key] . ' = ? ';
-                    $params[] = $value;
-                }
-            }
+            $clause = $this->buildWhereClause($filter, $columns);
 
             $sql = "SELECT ec.id as 'criteria_id',
                             es.name as 'standard_name',
@@ -90,12 +85,9 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
                         ON ec.standard_id = es.id
                     JOIN departments d 
                         ON es.department_id = d.id";
-
-            if (!empty($where)) {
-                $sql .= ' WHERE ' . implode(' AND ', $where);
-            }
+            $sql .= $this->bindWhereClause($clause['where']);
             
-            return $this->getByParams($params, $sql);
+            return $this->getByParams($clause['params'], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
