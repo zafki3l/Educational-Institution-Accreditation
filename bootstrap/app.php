@@ -3,6 +3,10 @@
 use Core\Container;
 use Core\App;
 
+/**
+ * Binding dependencies into a container
+ */
+
 $container = new Container();
 
 require_once 'database.php';
