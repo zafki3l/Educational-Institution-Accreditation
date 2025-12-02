@@ -86,11 +86,35 @@
     background: #fff;
 }
 
+.table-head{
+    display: flex;
+    align-items: center;
+    background-color: #F7F9FC;
+    height: 60px;
+    padding-left: 30px;
+    min-width: 1000px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.table-head p{
+    margin-left: 60px;
+    width: 90px;
+    height: 20px;
+    background-color: #14EA5C2B;
+    text-align: center;
+    border-radius: 10px;
+}
+
 table {
     min-width: 1000px;
     border-collapse: collapse;
     background: #fff;
     table-layout: fixed;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #F7F9FC;
 }
 
 
