@@ -16,6 +16,10 @@ use App\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 
+/**
+ * Binding Repository classes to container
+ */
+
 $container->bind(DepartmentRepositoryInterface::class, function ($container) {
     return new DepartmentRepository($container->resolve(DatabaseInterface::class));
 });

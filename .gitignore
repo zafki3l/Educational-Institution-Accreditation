@@ -1,2 +1,5 @@
-configs/config.php
+.env
+vendor/
 diagram/
+logs/
+*.logs

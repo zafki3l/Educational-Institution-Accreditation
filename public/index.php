@@ -2,17 +2,22 @@
 
 declare(strict_types=1);
 
+require_once '../Configs/config.php';
+require_once '../vendor/autoload.php';
 require_once '../errorHandler.php';
 
 use App\Http\Middlewares\CSRF_Authenticator;
 use Core\Router;
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
 require_once '../helper.php';
-require_once '../fileLoader.php';
 require_once '../bootstrap/app.php';
 
 CSRF_Authenticator::generate();

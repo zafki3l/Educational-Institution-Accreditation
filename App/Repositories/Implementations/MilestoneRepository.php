@@ -7,9 +7,12 @@ use App\Repositories\Interfaces\MilestoneRepositoryInterface;
 use Configs\Database\Interfaces\DatabaseInterface;
 use Core\Repository;
 use PDOException;
+use Traits\QueryClauseHelperTrait;
 
 class MilestoneRepository extends Repository implements MilestoneRepositoryInterface
 {
+    use QueryClauseHelperTrait;
+
     public function __construct(DatabaseInterface $db)
     {
         parent::__construct($db);
@@ -35,20 +38,12 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
     public function filter(array $filter): array
     {
         try {
-            $where = [];
-            $params = [];
-
             $columns = [
                 'standard_id' => 'es.id',
                 'criteria_id' => 'ec.id'
             ];
 
-            foreach ($filter as $key => $value) {
-                if (!empty($value)) {
-                    $where[] = $columns[$key] . ' = ? ';
-                    $params[] = $value;
-                }
-            }
+            $clause = $this->buildWhereClause($filter, $columns);
 
             $sql = "SELECT em.id as 'id',
                             em.criteria_id as 'criteria_id',
@@ -60,12 +55,9 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
                         ON em.criteria_id = ec.id
                     JOIN evaluation_standards es
                         ON ec.standard_id = es.id";
+            $sql .= $this->bindWhereClause($clause['where']);
             
-            if (!empty($where)) {
-                $sql .= ' WHERE ' . implode(' AND ', $where);
-            }
-            
-            return $this->getByParams($params, $sql);
+            return $this->getByParams($clause['params'], $sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
