@@ -31,6 +31,10 @@
 
             <!-- DASHBOARD USER MANAGEMENT TABLE -->
             <div class="dashboard-table">
+                <div class="table-head">
+                    <h2>Danh sách người dùng</h2>
+                    <p>3 nguoi</p>
+                </div>
                 <table>
                     <thead>
                         <tr>
