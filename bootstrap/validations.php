@@ -1,8 +1,10 @@
 <?php
 
 use App\Validations\Implement\AuthValidator;
+use App\Validations\Implement\FileUploadValidator;
 use App\Validations\Implement\UserValidator;
 use App\Validations\Interfaces\AuthValidatorInterface;
+use App\Validations\Interfaces\FileUploadValidatorInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
 /**
@@ -16,3 +18,7 @@ $container->bind(UserValidatorInterface::class, function () {
 $container->bind(AuthValidatorInterface::class, function () {
     return new AuthValidator();
 }); 
+
+$container->bind(FileUploadValidatorInterface::class, function () {
+    return new FileUploadValidator();
+});

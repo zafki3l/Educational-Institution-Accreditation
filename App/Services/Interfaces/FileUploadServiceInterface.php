@@ -4,5 +4,5 @@ namespace App\Services\Interfaces;
 
 interface FileUploadServiceInterface
 {
-    public function fileUpload(): string;
+    public function evidenceUpload(): string;
 }
