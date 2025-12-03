@@ -49,7 +49,7 @@ class EvidenceService implements EvidenceServiceInterface
                 ->setDecision($request['decision'])
                 ->setDocumentDate($request['document_date'])
                 ->setIssuePlace($request['issue_place'])
-                ->setLink($this->fileUploadService->fileUpload());
+                ->setLink($this->fileUploadService->evidenceUpload());
 
         $this->evidenceRepository->create($evidence);
     }
@@ -87,11 +87,10 @@ class EvidenceService implements EvidenceServiceInterface
         $evidence = new Evidence();
 
         $evidence->setName($request['evidence_name'])
-                ->setMilestoneId($request['milestone_id'])
                 ->setDecision($request['decision'])
                 ->setDocumentDate($request['document_date'])
                 ->setIssuePlace($request['issue_place'])
-                ->setLink($request['link']);
+                ->setLink($this->fileUploadService->evidenceUpload());
 
         $this->evidenceRepository->updateById($evidence_id, $evidence);
     }
@@ -115,15 +114,16 @@ class EvidenceService implements EvidenceServiceInterface
     private function filterArray(array $filter): array
     {
         // Return true values only
-        return array_filter($filter, function ($value) {
-            return !empty($value);
-        });
+        return array_filter($filter, fn($value) => !empty($value));
     }
 
-    // Have to count the total records in order to calculate pagination
+    /**
+     * Have to count the total records in order to calculate pagination
+     */
     private function count(?string $search): int
     {
-        return $search ? $this->evidenceRepository->countSearch($search) 
-                    : $this->evidenceRepository->countAll();
+        return $search 
+            ? $this->evidenceRepository->countSearch($search) 
+            : $this->evidenceRepository->countAll();
     }
 }

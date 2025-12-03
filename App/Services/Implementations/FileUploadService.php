@@ -2,17 +2,33 @@
 
 namespace App\Services\Implementations;
 
+use App\Exceptions\FileUploadException\FileSizeException;
+use App\Exceptions\FileUploadException\NoFileException;
+use App\Exceptions\FileUploadException\NotAllowedFileException;
 use App\Services\Interfaces\FileUploadServiceInterface;
+use App\Validations\Interfaces\FileUploadValidatorInterface;
 
 class FileUploadService implements FileUploadServiceInterface
 {
-    public function fileUpload(): string
+    private const ALLOWED_SIZE = 20_000_000;
+    private const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'pdf'];
+
+    public function __construct(private FileUploadValidatorInterface $fileUploadValidator) {}
+
+    public function evidenceUpload(): string
     {
-        if (!isset($_FILES['file']) || $_FILES['file']['error'] === UPLOAD_ERR_NO_FILE) {
-            return 'No file';
+        return $this->fileUpload(__DIR__ . '/../../../public/images/evidences/');
+    }
+
+    private function fileUpload(string $uploadDirection): string
+    {
+        $validator = $this->fileUploadValidator;
+
+        if (!$validator->isUpload()) {
+            throw new NoFileException();
         }
 
-        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+        if ($validator->isUploadFailed()) {
             exit('There is something wrong');
         }
 
@@ -21,30 +37,27 @@ class FileUploadService implements FileUploadServiceInterface
         $file_separator = explode('.', $file_name);
         $file_extension = strtolower(end($file_separator));
 
-        if (!in_array($file_extension, static::allowedFile())) {
-            exit('Not Allowed file!');
+        if (!$validator->isAllowedFile($file_extension, self::ALLOWED_EXTENSIONS)) {
+            throw new NotAllowedFileException();
         }
 
-        if ($_FILES['file']['size'] >= 20_000_000) {
-            exit('File too big (Limit: 20 MB)');
+        if ($validator->isFileTooLarge($_FILES['file']['size'], self::ALLOWED_SIZE)) {
+            throw new FileSizeException();
         }
 
-        $uploadDirection = __DIR__ . '/../../../public/images/evidences/';
         $newFileName = uniqid('', true) . '.' . $file_extension;
 
         $fileDestination = $uploadDirection . $newFileName;
 
-        if (!is_dir($uploadDirection)) {
-            mkdir($uploadDirection, 0775, true);
+        if (!is_dir($uploadDirection) && !mkdir($uploadDirection, 0775, true) && !is_dir($uploadDirection)) {
+            throw new \RuntimeException("Failed to create upload directory: {$uploadDirection}");
         }
 
-        move_uploaded_file($_FILES['file']['tmp_name'], $fileDestination);
+
+        if (!move_uploaded_file($_FILES['file']['tmp_name'], $fileDestination)) {
+            throw new \RuntimeException('Failed to move uploaded file.');
+        }
 
         return $newFileName;
-    }
-
-    public static function allowedFile(): array
-    {
-        return ['jpg', 'jpeg', 'png', 'webp', 'pdf', 'docx'];
     }
 }

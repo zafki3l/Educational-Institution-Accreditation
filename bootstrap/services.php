@@ -37,6 +37,7 @@ use App\Services\Interfaces\SessionServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\AuthValidatorInterface;
+use App\Validations\Interfaces\FileUploadValidatorInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
 /**
@@ -57,8 +58,8 @@ $container->bind(DepartmentServiceInterface::class, function ($container) {
     return new DepartmentService($container->resolve(DepartmentRepositoryInterface::class));
 });
 
-$container->bind(FileUploadServiceInterface::class, function () {
-    return new FileUploadService();
+$container->bind(FileUploadServiceInterface::class, function ($container) {
+    return new FileUploadService($container->resolve(FileUploadValidatorInterface::class));
 });
 
 $container->bind(EvidenceServiceInterface::class, function ($container) {
