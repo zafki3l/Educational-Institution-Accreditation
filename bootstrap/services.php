@@ -20,6 +20,7 @@ use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\StandardRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Services\Implementations\CriteriaService;
+use App\Services\Implementations\FileUploadService;
 use App\Services\Implementations\LockService;
 use App\Services\Implementations\MilestoneService;
 use App\Services\Implementations\RoleService;
@@ -28,6 +29,7 @@ use App\Services\Implementations\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
+use App\Services\Interfaces\FileUploadServiceInterface;
 use App\Services\Interfaces\LockServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
@@ -55,8 +57,13 @@ $container->bind(DepartmentServiceInterface::class, function ($container) {
     return new DepartmentService($container->resolve(DepartmentRepositoryInterface::class));
 });
 
+$container->bind(FileUploadServiceInterface::class, function () {
+    return new FileUploadService();
+});
+
 $container->bind(EvidenceServiceInterface::class, function ($container) {
-    return new EvidenceService($container->resolve(EvidenceRepositoryInterface::class));
+    return new EvidenceService($container->resolve(EvidenceRepositoryInterface::class),
+                                $container->resolve(FileUploadServiceInterface::class));
 });
 
 $container->bind(CriteriaServiceInterface::class, function ($container) {

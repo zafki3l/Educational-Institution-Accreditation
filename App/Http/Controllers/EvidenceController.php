@@ -99,4 +99,13 @@ class EvidenceController extends Controller
 
         $this->redirect('/staff/evidences');
     }
+
+    public function show(string $link)
+    {
+        return $this->view(
+            'staff/evidences/show',
+            'staff.layouts',
+            ['link' => $link]
+        );
+    }
 }

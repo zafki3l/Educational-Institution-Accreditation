@@ -6,6 +6,11 @@ use App\Services\Interfaces\SessionServiceInterface;
 
 class SessionService implements SessionServiceInterface 
 {
+    public static function generate(): bool
+    {
+        return session_status() == PHP_SESSION_NONE ? session_start() : true;
+    }
+
     public function setUserSession(array $db_user): array
     {
         return [

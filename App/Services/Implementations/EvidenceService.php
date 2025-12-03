@@ -5,12 +5,14 @@ namespace App\Services\Implementations;
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Models\Evidence;
 use App\Repositories\Interfaces\EvidenceRepositoryInterface;
-use App\Services\Interfaces\EvidenceServiceInterface as InterfacesEvidenceServiceInterface;
+use App\Services\Interfaces\EvidenceServiceInterface;
+use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;
 
-class EvidenceService implements InterfacesEvidenceServiceInterface
+class EvidenceService implements EvidenceServiceInterface
 {
-    public function __construct(private EvidenceRepositoryInterface $evidenceRepository) {}
+    public function __construct(private EvidenceRepositoryInterface $evidenceRepository,
+                                private FileUploadServiceInterface $fileUploadService) {}
 
     public function list(?string $search, int $current_page, array $filter): array
     {
@@ -44,11 +46,10 @@ class EvidenceService implements InterfacesEvidenceServiceInterface
 
         $evidence->setId($request['evidence_id'])
                 ->setName($request['evidence_name'])
-                ->setMilestoneId($request['milestone_id'])
                 ->setDecision($request['decision'])
                 ->setDocumentDate($request['document_date'])
                 ->setIssuePlace($request['issue_place'])
-                ->setLink($request['link']);
+                ->setLink($this->fileUploadService->fileUpload());
 
         $this->evidenceRepository->create($evidence);
     }
