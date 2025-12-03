@@ -13,7 +13,7 @@
             justify-items: center;
         }
         embed {
-            width: 800px;   
+            width: 100%;   
             height: auto;
             border: none;
         }
