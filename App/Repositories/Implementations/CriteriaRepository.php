@@ -141,4 +141,3 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         return 0;
     }
 }
-?>

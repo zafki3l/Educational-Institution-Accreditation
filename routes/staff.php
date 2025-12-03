@@ -34,6 +34,8 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->post('/staff/evidences', [EvidenceController::class, 'store']);
 
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->get('/staff/evidences/{link}', [EvidenceController::class, 'show']);
 
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences/{id}/edit', [EvidenceController::class, 'edit']);

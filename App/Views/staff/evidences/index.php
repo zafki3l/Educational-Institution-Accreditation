@@ -75,7 +75,7 @@
                                 <td><?= htmlspecialchars($evidence['decision']) ?></td>
                                 <td><?= htmlspecialchars($evidence['document_date']) ?></td>
                                 <td><?= htmlspecialchars($evidence['issue_place']) ?></td>
-                                <td><a href="<?= htmlspecialchars($evidence['link']) ?>">Google drive</a></td>
+                                <td><a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['link']) ?>">Xem minh chứng</a></td>
                                 <td>
                                     <a href="">Xem chi tiết</a>
                                 </td>

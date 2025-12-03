@@ -102,7 +102,6 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         try {
             $this->insert('evidences', [
                 'id' => $evidence->getId(),
-                'milestone_id' => $evidence->getMilestoneId(),
                 'name' => $evidence->getName(),
                 'decision' => $evidence->getDecision(),
                 'document_date' => $evidence->getDocumentDate(),

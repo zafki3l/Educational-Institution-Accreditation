@@ -19,7 +19,7 @@
             </div>
 
             <div class="container-content">
-                <form action="/<?= PROJECT_NAME ?>/staff/evidences" method="post">
+                <form action="/<?= PROJECT_NAME ?>/staff/evidences" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <div class="form-group">
                         <label for="evidence_id">Mã minh chứng:</label>
@@ -54,8 +54,7 @@
 
                     <div class="form-group">
                         <label for="link">Liên kết:</label>
-                        <input type="text" id="link" name="link" placeholder="link">
-
+                        <input type="file" id="file" name="file" placeholder="file">
                     </div>
 
                     <div class="form-group">
