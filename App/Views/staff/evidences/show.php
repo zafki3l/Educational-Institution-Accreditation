@@ -28,7 +28,7 @@
         </div>
 
         <div class="content">
-            <embed  src="/<?= PROJECT_NAME ?>/public/images/evidences/<?= $link ?>"></embed >
+            <embed src="/<?= PROJECT_NAME ?>/public/assets/evidences/<?= $link ?>"></embed>
         </div>
     </div>
 </body>
