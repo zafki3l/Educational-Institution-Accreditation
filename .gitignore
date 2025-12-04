@@ -3,4 +3,4 @@ vendor/
 diagram/
 logs/
 *.logs
-public/images/evidences/
+public/assets/

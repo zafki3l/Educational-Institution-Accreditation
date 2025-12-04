@@ -13,8 +13,9 @@ class FileUploadService implements FileUploadServiceInterface
 {
     private const ALLOWED_SIZE = 20_000_000;
     private const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'pdf'];
-    private const ENVIDENCE_UPLOAD_PATH = __DIR__ . '/../../../public/images/evidences/';
-    
+    private const BASE_UPLOAD_PATH = __DIR__ . '/../../../public/assets/';
+    private const ENVIDENCE_UPLOAD_PATH = self::BASE_UPLOAD_PATH . 'evidences/';
+
     public function __construct(private FileUploadValidatorInterface $fileUploadValidator) {}
 
     public function evidenceUpload(?string $old_file = null): string
@@ -26,7 +27,7 @@ class FileUploadService implements FileUploadServiceInterface
     {
         $validator = $this->fileUploadValidator;
         
-        if ($old_file !== null) {
+        if ($old_file !== null && !isset($_FILES['file'])) {
             return $old_file;
         }
 
