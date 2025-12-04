@@ -3,6 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\FileUploadException\FileSizeException;
+use App\Exceptions\FileUploadException\FileUploadException;
 use App\Exceptions\FileUploadException\NoFileException;
 use App\Exceptions\FileUploadException\NotAllowedFileException;
 use App\Services\Interfaces\FileUploadServiceInterface;
@@ -12,52 +13,86 @@ class FileUploadService implements FileUploadServiceInterface
 {
     private const ALLOWED_SIZE = 20_000_000;
     private const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'pdf'];
-
+    private const ENVIDENCE_UPLOAD_PATH = __DIR__ . '/../../../public/images/evidences/';
+    
     public function __construct(private FileUploadValidatorInterface $fileUploadValidator) {}
 
-    public function evidenceUpload(): string
+    public function evidenceUpload(?string $old_file = null): string
     {
-        return $this->fileUpload(__DIR__ . '/../../../public/images/evidences/');
+        return $this->upload(self::ENVIDENCE_UPLOAD_PATH, $old_file);
     }
 
-    private function fileUpload(string $uploadDirection): string
+    private function upload(string $uploadDirection, ?string $old_file): string
     {
         $validator = $this->fileUploadValidator;
+        
+        if ($old_file !== null) {
+            return $old_file;
+        }
 
+        $this->validateUpload($validator);
+
+        $file_extension = $this->getFileExtension();
+
+        $this->validateFile($validator, $file_extension, $_FILES['file']['size']);
+
+        $newFileName = $this->generateFileName($file_extension);
+
+        $file_destination = $uploadDirection . $newFileName;
+
+        $this->ensureDirectory($uploadDirection);
+
+        $this->moveUploadedFile($file_destination);
+
+        return $newFileName;
+    }
+
+    private function validateUpload(FileUploadValidatorInterface $validator): void
+    {
         if (!$validator->isUpload()) {
             throw new NoFileException();
         }
 
         if ($validator->isUploadFailed()) {
-            exit('There is something wrong');
+            throw new FileUploadException();
         }
+    }
 
+    private function getFileExtension(): string
+    {
         $file_name = $_FILES['file']['name'];
-
         $file_separator = explode('.', $file_name);
-        $file_extension = strtolower(end($file_separator));
 
+        return strtolower(end($file_separator));
+    }
+
+    private function validateFile(FileUploadValidatorInterface $validator, string $file_extension, int $size): void
+    {
         if (!$validator->isAllowedFile($file_extension, self::ALLOWED_EXTENSIONS)) {
             throw new NotAllowedFileException();
         }
 
-        if ($validator->isFileTooLarge($_FILES['file']['size'], self::ALLOWED_SIZE)) {
+        if ($validator->isFileTooLarge($size, self::ALLOWED_SIZE)) {
             throw new FileSizeException();
         }
+    }
 
-        $newFileName = uniqid('', true) . '.' . $file_extension;
+    private function generateFileName(string $file_extension): string
+    {
+        return uniqid('', true) . '.' . $file_extension;
+    }
 
-        $fileDestination = $uploadDirection . $newFileName;
-
-        if (!is_dir($uploadDirection) && !mkdir($uploadDirection, 0775, true) && !is_dir($uploadDirection)) {
-            throw new \RuntimeException("Failed to create upload directory: {$uploadDirection}");
+    private function ensureDirectory(string $uploadDirection): void
+    {
+        if (!is_dir($uploadDirection) && !mkdir($uploadDirection, 0775, true)) {
+            throw new \RuntimeException("Cannot create directory: $uploadDirection");
         }
+    }
 
-
-        if (!move_uploaded_file($_FILES['file']['tmp_name'], $fileDestination)) {
+    private function moveUploadedFile(string $file_destination): void
+    {
+        if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_destination)) {
             throw new \RuntimeException('Failed to move uploaded file.');
         }
-
-        return $newFileName;
     }
 }

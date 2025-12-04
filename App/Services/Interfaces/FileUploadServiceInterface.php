@@ -4,5 +4,5 @@ namespace App\Services\Interfaces;
 
 interface FileUploadServiceInterface
 {
-    public function evidenceUpload(): string;
+    public function evidenceUpload(?string $old_file = null): string;
 }

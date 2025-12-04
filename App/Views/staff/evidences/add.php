@@ -32,11 +32,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="milestone_id">Mốc đánh giá:</label>
-                        <input type="text" id="milestone_id" name="milestone_id" placeholder="TĐG">
-                    </div>
-
-                    <div class="form-group">
                         <label for="decision">Quyết định:</label>
                         <input type="text" id="decision" name="decision" placeholder="Quyết định">
 
