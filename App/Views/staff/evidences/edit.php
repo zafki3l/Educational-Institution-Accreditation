@@ -21,7 +21,7 @@
             </div>
 
             <div class="container-content">
-                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence[0]['id']) ?>" method="post" enctype="">
+                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence[0]['id']) ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <input type="hidden" name="_method" value="PUT">
 
@@ -36,12 +36,6 @@
                         <input type="text" id="evidence_name" name="evidence_name" placeholder="Tên minh chứng"
                             value="<?= htmlspecialchars($evidence[0]['name']) ?>">
                     </div>
-
-                    <!-- <div class="form-group">
-                        <label for="milestone_id">Mốc đánh giá:</label>
-                        <input type="text" id="milestone_id" name="milestone_id" placeholder="TĐG"
-                            value="<?= htmlspecialchars($evidence[0]['milestone_id']) ?>">
-                    </div> -->
 
                     <div class="form-group">
                         <label for="decision">Quyết định:</label>
@@ -63,9 +57,7 @@
 
                     <div class="form-group">
                         <label for="link">Liên kết:</label>
-                        <input type="text" id="link" name="link" placeholder="link"
-                            value="<?= htmlspecialchars($evidence[0]['link']) ?>">
-
+                        <input type="file" id="file" name="file" placeholder="file">
                     </div>
 
                     <div class="form-group">

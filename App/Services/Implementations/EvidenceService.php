@@ -82,7 +82,7 @@ class EvidenceService implements EvidenceServiceInterface
 
     public function update(string $evidence_id, array $request): void
     {
-        $this->findOrFail($evidence_id);
+        $found = $this->findById($evidence_id);
 
         $evidence = new Evidence();
 
@@ -90,7 +90,7 @@ class EvidenceService implements EvidenceServiceInterface
                 ->setDecision($request['decision'])
                 ->setDocumentDate($request['document_date'])
                 ->setIssuePlace($request['issue_place'])
-                ->setLink($this->fileUploadService->evidenceUpload());
+                ->setLink($this->fileUploadService->evidenceUpload($found[0]['link']));
 
         $this->evidenceRepository->updateById($evidence_id, $evidence);
     }
@@ -102,13 +102,11 @@ class EvidenceService implements EvidenceServiceInterface
         $this->evidenceRepository->deleteById($evidence_id);
     }
 
-    private function findOrFail(string $evidence_id): void
+    private function findOrFail(string $evidence_id): array
     {
         $found = $this->evidenceRepository->findById($evidence_id);
 
-        if (!$found) {
-            throw new EvidenceNotFoundException($evidence_id);
-        }
+        return $found ? $found : throw new EvidenceNotFoundException($evidence_id);
     }
 
     private function filterArray(array $filter): array

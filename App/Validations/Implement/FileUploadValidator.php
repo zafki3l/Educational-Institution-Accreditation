@@ -33,6 +33,6 @@ class FileUploadValidator extends Validator implements FileUploadValidatorInterf
      */
     public function isFileTooLarge(int $size, int $allowed_size): bool
     {
-        return $size >= $allowed_size;
+        return $size > $allowed_size;
     }
 }
