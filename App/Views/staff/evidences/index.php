@@ -25,6 +25,24 @@
                 <div class="search-add">
                     <a href="/<?= PROJECT_NAME ?>/staff/evidences/create" class="addEvidence">Thêm minh chứng</a>
                 </div>
+
+                <form action="/<?= PROJECT_NAME ?>/staff/evidences/milestones"
+                    method="post">
+                    <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
+                    <select name="evidence_id" id="evidence_id">
+                        <?php foreach ($evidencesWithoutMilestone as $evidence): ?>
+                            <option value="<?= htmlspecialchars($evidence['evidence_id']) ?>"><?= $evidence['evidence_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select name="milestone_id" id="milestone_id">
+                        <?php foreach ($milestones as $milestone): ?>
+                            <option value="<?= htmlspecialchars($milestone['id']) ?>"><?= $milestone['name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <button type="submit">Thêm mốc đánh giá</button>
+                </form>
             </div>
 
             <form action="?standard_id=&criteria_id=&milestone_id=" method="get">
@@ -77,7 +95,7 @@
                                 <td><?= htmlspecialchars($evidence['issue_place']) ?></td>
                                 <td><a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['link']) ?>">Xem minh chứng</a></td>
                                 <td>
-                                    <a href="">Xem chi tiết</a>
+                                    <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/milestones">Xem chi tiết</a>
                                 </td>
                                 <td>
                                     <?php if (App\Models\User::isAdmin($_SESSION['user']['role_id']) ||

@@ -34,6 +34,8 @@ class EvidenceController extends Controller
 
         $data = $this->evidenceService->list($search, $current_page, $filter);
 
+        $evidencesWithoutMilestone = $this->evidenceService->findAllWithoutMilestone();
+
         return $this->view(
             'staff/evidences/index',
             'staff.layouts',
@@ -45,7 +47,8 @@ class EvidenceController extends Controller
                 'result_per_page' => $data['result_per_page'],
                 'standards' => $this->standardService->findAll(),
                 'criterias' => $this->criteriaService->findAll(),
-                'milestones' => $this->milestoneService->findAll()
+                'milestones' => $this->milestoneService->findAll(),
+                'evidencesWithoutMilestone' => $evidencesWithoutMilestone
             ]
         );
     }
@@ -70,7 +73,7 @@ class EvidenceController extends Controller
         $this->redirect('/staff/evidences');
     }
 
-    public function edit(string $evidence_id)
+    public function edit(string $evidence_id): mixed
     {
         $evidences = $this->evidenceService->findById($evidence_id);
         
@@ -84,7 +87,7 @@ class EvidenceController extends Controller
         );
     }
 
-    public function update(string $evidence_id)
+    public function update(string $evidence_id): void
     {
         $request = $this->evidenceRequest->updateRequest();
 
@@ -93,19 +96,44 @@ class EvidenceController extends Controller
         $this->redirect('/staff/evidences');
     }
 
-    public function destroy(string $evidence_id)
+    public function destroy(string $evidence_id): void
     {
         $this->evidenceService->delete($evidence_id);
 
         $this->redirect('/staff/evidences');
     }
 
-    public function show(string $link)
+    public function show(string $link): mixed
     {
         return $this->view(
             'staff/evidences/show',
             'staff.layouts',
             ['link' => $link]
         );
+    }
+
+    public function milestones(string $evidence_id): mixed
+    {
+        $evidences = $this->evidenceService->evidenceMilestone($evidence_id);
+        $milestones = $this->milestoneService->findAll();
+
+        return $this->view(
+            'staff/evidences/milestones',
+            'staff.layouts',
+            [
+                'evidences' => $evidences,
+                'evidence_id' => $evidence_id,
+                'milestones' => $milestones
+            ]
+        );
+    }
+
+    public function storeMilestones(): void
+    {
+        $request = $this->evidenceRequest->addMilestone();
+
+        $this->evidenceService->addMilestone($request['evidence_id'], $request['milestone_id']);
+
+        $this->redirect("/staff/evidences/{$request['evidence_id']}/milestones");
     }
 }

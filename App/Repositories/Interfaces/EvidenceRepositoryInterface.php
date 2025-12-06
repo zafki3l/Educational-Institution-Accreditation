@@ -13,8 +13,12 @@ interface EvidenceRepositoryInterface
     public function countAll(): int;
     
     public function create(Evidence $evidence): void;
+
+    public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): void;
     
     public function findById(string $evidence_id): array;
+
+    public function evidenceManyToManyMilestone(string $evidence_id): array;
     
     public function updateById(string $evidence_id, Evidence $evidence): int;
     
@@ -23,4 +27,6 @@ interface EvidenceRepositoryInterface
     public function search(string $search, int $start_from, int $result_per_page): array;
     
     public function countSearch(string $search): int;  
+
+    public function evidenceWithoutMilestone(): array;
 }

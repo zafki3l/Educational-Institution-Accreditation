@@ -75,9 +75,19 @@ class EvidenceService implements EvidenceServiceInterface
         return $this->evidenceRepository->search($search, $start_from, $result_per_page);
     }
 
+    public function findAllWithoutMilestone(): array
+    {
+        return $this->evidenceRepository->evidenceWithoutMilestone();
+    }
+
     public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
     {
         return $this->evidenceRepository->filter($start_from, $result_per_page, $filter);
+    }
+
+    public function evidenceMilestone(string $evidence_id): array
+    {
+        return $this->evidenceRepository->evidenceManyToManyMilestone($evidence_id);
     }
 
     public function update(string $evidence_id, array $request): void
@@ -100,6 +110,11 @@ class EvidenceService implements EvidenceServiceInterface
         $this->findOrFail($evidence_id);
 
         $this->evidenceRepository->deleteById($evidence_id);
+    }
+
+    public function addMilestone($evidence_id, $milestone_id): void
+    {
+        $this->evidenceRepository->linkMinestoneToEvidence($evidence_id, $milestone_id);
     }
 
     private function findOrFail(string $evidence_id): array
