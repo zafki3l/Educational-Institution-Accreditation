@@ -30,7 +30,9 @@ trait QueryClauseHelperTrait
      */
     public function bindWhereClause(?array $where): ?string 
     {
-        return !empty($where) ? ' WHERE ' . implode(' AND ', $where) : '';
+        return !empty($where) 
+            ? ' WHERE ' . implode(' AND ', $where) 
+            : '';
     }
 
     /**
@@ -39,6 +41,7 @@ trait QueryClauseHelperTrait
     public function bindLimitClause(int $start_from, int $result_per_page): string
     {
         return !empty($start_from) && !empty($result_per_page) 
-                    ? " LIMIT $start_from, $result_per_page" : '';
+            ? " LIMIT $start_from, $result_per_page" 
+            : '';
     }
 }

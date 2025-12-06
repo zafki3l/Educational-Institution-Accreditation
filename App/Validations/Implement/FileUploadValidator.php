@@ -7,17 +7,17 @@ use Core\Validator;
 
 class FileUploadValidator extends Validator implements FileUploadValidatorInterface
 {
-    public function isUpload(): bool
+    public function isUpload(array $file): bool
     {
-        return isset($_FILES['file']) && $_FILES['file']['error'] !== UPLOAD_ERR_NO_FILE;
+        return isset($file) && $file['error'] !== UPLOAD_ERR_NO_FILE;
     }
 
     /**
      * Ensure only process successfully uploaded files
      */
-    public function isUploadFailed(): bool
+    public function isUploadFailed(array $file): bool
     {
-        return $_FILES['file']['error'] !== UPLOAD_ERR_OK;
+        return $file['error'] !== UPLOAD_ERR_OK;
     }
 
     /**

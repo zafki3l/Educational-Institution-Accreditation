@@ -32,7 +32,7 @@
                     <h3>Tổng quan hệ thống</h3>
                     <div class="container-box">
                         <a href="/<?= PROJECT_NAME ?>/admin/criterias"><div class="box criteria-box">
-                            <img src="/<?= PROJECT_NAME ?>/public/images/Check square.png" alt="">
+                            <img src="/<?= PROJECT_NAME ?>/public/assets/icon/Check square.png" alt="">
                             <p>100</p>
                             <p>Tiêu chí</p>
                         </div></a>
