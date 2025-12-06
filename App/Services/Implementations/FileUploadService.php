@@ -18,55 +18,71 @@ class FileUploadService implements FileUploadServiceInterface
 
     public function __construct(private FileUploadValidatorInterface $fileUploadValidator) {}
 
+    /**
+     * Keep old evidence if no new file is uploaded to avoid losing existing files.
+     */
     public function evidenceUpload(?string $old_file = null): string
     {
         return $this->upload(self::ENVIDENCE_UPLOAD_PATH, $old_file);
     }
 
-    private function upload(string $uploadDirection, ?string $old_file): string
+    /**
+     * Central place to handle uploads safely and reuse logic.
+     * Keeps old file if none is provided.
+     */
+    private function upload(string $upload_directory, ?string $old_file): string
     {
-        $validator = $this->fileUploadValidator;
-        
-        if ($old_file !== null && !isset($_FILES['file'])) {
+        $file = $_FILES['file'] ?? null;
+
+        $keepOldFileIfNoNewUpload = $old_file !== null && !$this->fileUploadValidator->isUpload($file);
+        if ($keepOldFileIfNoNewUpload) {
             return $old_file;
         }
 
-        $this->validateUpload($validator);
+        $this->validateUpload($file, $this->fileUploadValidator);
 
-        $file_extension = $this->getFileExtension();
+        $file_extension = $this->getFileExtension($file['name']);
 
-        $this->validateFile($validator, $file_extension, $_FILES['file']['size']);
+        $this->validateFile($this->fileUploadValidator, $file_extension, $file['size']);
 
-        $newFileName = $this->generateFileName($file_extension);
+        $new_file_name = $this->generateFileName($file_extension);
 
-        $file_destination = $uploadDirection . $newFileName;
+        $file_destination = $upload_directory . $new_file_name;
 
-        $this->ensureDirectory($uploadDirection);
+        $this->ensureDirectory($upload_directory);
 
-        $this->moveUploadedFile($file_destination);
+        $this->moveUploadedFile($file['tmp_name'], $file_destination);
 
-        return $newFileName;
+        return $new_file_name;
     }
 
-    private function validateUpload(FileUploadValidatorInterface $validator): void
+    /**
+     * Ensure there is a valid file to process before continuing.
+     */
+    private function validateUpload(array $file, FileUploadValidatorInterface $validator): void
     {
-        if (!$validator->isUpload()) {
+        if (!$validator->isUpload($file)) {
             throw new NoFileException();
         }
 
-        if ($validator->isUploadFailed()) {
+        if ($validator->isUploadFailed($file)) {
             throw new FileUploadException();
         }
     }
 
-    private function getFileExtension(): string
+    /**
+     * Extract file extension for naming and validation purposes.
+     */
+    private function getFileExtension(string $file_name): string
     {
-        $file_name = $_FILES['file']['name'];
         $file_separator = explode('.', $file_name);
 
         return strtolower(end($file_separator));
     }
 
+    /**
+     * Keep file rules in one place to make changes easy and consistent.
+     */
     private function validateFile(FileUploadValidatorInterface $validator, string $file_extension, int $size): void
     {
         if (!$validator->isAllowedFile($file_extension, self::ALLOWED_EXTENSIONS)) {
@@ -78,21 +94,30 @@ class FileUploadService implements FileUploadServiceInterface
         }
     }
 
+    /**
+     * Ensure uploaded files have unique names to avoid overwriting.
+     */
     private function generateFileName(string $file_extension): string
     {
         return uniqid('', true) . '.' . $file_extension;
     }
 
-    private function ensureDirectory(string $uploadDirection): void
+    /**
+     * Create directory if it doesn’t exist to prevent upload failures.
+     */
+    private function ensureDirectory(string $upload_directory): void
     {
-        if (!is_dir($uploadDirection) && !mkdir($uploadDirection, 0775, true)) {
-            throw new \RuntimeException("Cannot create directory: $uploadDirection");
+        if (!is_dir($upload_directory) && !mkdir($upload_directory, 0775, true)) {
+            throw new \RuntimeException("Cannot create directory: $upload_directory");
         }
     }
 
-    private function moveUploadedFile(string $file_destination): void
+    /**
+     * Move the uploaded file to its destination securely.
+     */
+    private function moveUploadedFile(string $tmp_name, string $file_destination): void
     {
-        if (!move_uploaded_file($_FILES['file']['tmp_name'], $file_destination)) {
+        if (!move_uploaded_file($tmp_name, $file_destination)) {
             throw new \RuntimeException('Failed to move uploaded file.');
         }
     }
