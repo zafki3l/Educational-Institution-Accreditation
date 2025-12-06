@@ -47,5 +47,7 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->delete('/staff/evidences/{id}', [EvidenceController::class, 'destroy']);
 
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
-    ->get('/staff/evidences/{id}/criterias', [EvidenceController::class, 'criterias']);
-
+    ->get('/staff/evidences/{id}/milestones', [EvidenceController::class, 'milestones']);
+    
+$router->middleware([EnsureAuth::class, EnsureStaff::class])
+    ->post('/staff/evidences/milestones', [EvidenceController::class, 'storeMilestones']);

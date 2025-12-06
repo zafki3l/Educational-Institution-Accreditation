@@ -113,12 +113,63 @@ class EvidenceRepository extends Repository implements EvidenceRepositoryInterfa
         }
     }
 
+    public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): void
+    {
+        try {
+            $this->insert('milestone_evidence', [
+                'milestone_id' => $milestone_id,
+                'evidence_id' => $evidence_id
+            ]);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+        }
+    }
+
     public function findById(string $evidence_id): array
     {   
         try {
             $sql = "SELECT * FROM evidences WHERE id = ?"; 
 
             return $this->getByParams([$evidence_id], $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function evidenceManyToManyMilestone(string $evidence_id): array
+    {
+        try {
+            $sql = "SELECT em.evidence_id as 'evidence_id',
+                            em.milestone_id as 'milestone_id',
+                            m.name as 'milestone_name'
+                    FROM evidences e
+                    JOIN milestone_evidence em 
+                        ON e.id = em.evidence_id
+                    JOIN evaluation_milestones m
+                        ON m.id = em.milestone_id 
+                    WHERE e.id = ?"; 
+
+            return $this->getByParams([$evidence_id], $sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function evidenceWithoutMilestone(): array
+    {
+        try {
+            $sql = "SELECT e.id as 'evidence_id',
+                            e.name as 'evidence_name'
+                    FROM evidences e
+                    LEFT JOIN milestone_evidence em 
+                        ON e.id = em.evidence_id
+                    LEFT JOIN evaluation_milestones m
+                        ON m.id = em.milestone_id
+                    WHERE m.id is NULL"; 
+
+            return $this->getAll($sql);
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

@@ -28,4 +28,12 @@ class EvidenceRequest
             'link' => trim($_POST['link'])
         ];
     }
+
+    public function addMilestone(): array
+    {
+        return [
+            'evidence_id' => trim($_POST['evidence_id']),
+            'milestone_id' => trim($_POST['milestone_id'])
+        ];
+    }
 }

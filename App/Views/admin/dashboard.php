@@ -37,17 +37,17 @@
                             <p>Tiêu chí</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/users"><div class="box user-box">
-                            <img src="/<?= PROJECT_NAME ?>/public/images/vector.png" alt="">
+                            <img src="/<?= PROJECT_NAME ?>/public/assets/icon/vector.png" alt="">
                             <p>40</p>
                             <p>Người dùng</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/standards"><div class="box evidence-box">
-                            <img src="/<?= PROJECT_NAME ?>/public/images/frame.png" alt="">
+                            <img src="/<?= PROJECT_NAME ?>/public/assets/icon/frame.png" alt="">
                             <p>2000</p>
                             <p>Minh chứng</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/milestones"><div class="box milestone-box">
-                            <img src="/<?= PROJECT_NAME ?>/public/images/marker.png" alt="">
+                            <img src="/<?= PROJECT_NAME ?>/public/assets/icon/marker.png" alt="">
                             <p>1000</p>
                             <p>Mốc đánh giá</p>
                         </div></a>

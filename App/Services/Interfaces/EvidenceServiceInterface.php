@@ -11,6 +11,8 @@ interface EvidenceServiceInterface
     public function findAll(int $start_from, int $result_per_page): array;
     
     public function findById(string $evidence_id): array;
+
+    public function evidenceMilestone(string $evidence_id): array;
     
     public function find(string $search, int $start_from, int $result_per_page): array;
     
@@ -19,4 +21,7 @@ interface EvidenceServiceInterface
     public function update(string $evidence_id, array $request): void;
     
     public function delete(string $evidence_id): void;
+
+    public function addMilestone($evidence_id, $milestone_id): void;
+    public function findAllWithoutMilestone(): array;
 }
