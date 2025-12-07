@@ -71,4 +71,9 @@ class MilestoneService implements MilestoneServiceInterface
             return !empty($value);
         });
     }
+
+    public function count(): int
+    {
+        return $this->milestoneRepository->countAll();
+    }
 }

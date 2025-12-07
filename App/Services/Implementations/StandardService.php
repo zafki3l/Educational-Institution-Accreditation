@@ -46,4 +46,9 @@ class StandardService implements StandardServiceInterface
             throw new StandardNotFoundException($standard_id);
         }
     }
+
+    public function count(): int
+    {
+        return $this->standardRepository->countAll();
+    }
 }

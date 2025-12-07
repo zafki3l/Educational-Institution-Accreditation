@@ -98,7 +98,7 @@ class UserService implements UserServiceInterface
     }
 
     // Have to count the total records in order to calculate pagination
-    private function count(?string $search): int
+    public function count(?string $search = null): int
     {
         return $search ? $this->userRepository->countSearch($search) 
                         : $this->userRepository->countAll();

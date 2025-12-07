@@ -23,5 +23,8 @@ interface EvidenceServiceInterface
     public function delete(string $evidence_id): void;
 
     public function addMilestone($evidence_id, $milestone_id): void;
+
     public function findAllWithoutMilestone(): array;
+
+    public function count(?string $search = null): int;
 }

@@ -15,4 +15,6 @@ interface StandardRepositoryInterface
     public function findById(string $standard_id): array;
     
     public function deleteById(string $id): void;
+
+    public function countAll(): int;
 }

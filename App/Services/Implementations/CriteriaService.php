@@ -71,4 +71,9 @@ class CriteriaService implements CriteriaServiceInterface
             return !empty($value);
         });
     }
+
+    public function count(): int
+    {
+        return $this->criteriaRepository->countAll();
+    }
 }

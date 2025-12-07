@@ -97,4 +97,15 @@ class MilestoneRepository extends Repository implements MilestoneRepositoryInter
             print $e->getMessage();
         }
     }
+
+    public function countAll(): int
+    {
+        try {
+            $results = $this->getAll("SELECT count(id) as 'results' from evaluation_milestones");
+            return $results[0]['results'];
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return 0;
+        }
+    }
 }

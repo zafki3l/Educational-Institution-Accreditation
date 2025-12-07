@@ -133,7 +133,7 @@ class EvidenceService implements EvidenceServiceInterface
     /**
      * Have to count the total records in order to calculate pagination
      */
-    private function count(?string $search): int
+    public function count(?string $search = null): int
     {
         return $search 
             ? $this->evidenceRepository->countSearch($search) 
