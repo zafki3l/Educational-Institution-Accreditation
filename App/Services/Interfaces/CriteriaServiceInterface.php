@@ -15,4 +15,6 @@ interface CriteriaServiceInterface
     public function findAll(): array;
     
     public function find(?string $search): array;
+
+    public function count(): int;
 }

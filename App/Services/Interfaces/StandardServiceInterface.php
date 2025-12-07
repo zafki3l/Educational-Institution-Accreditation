@@ -11,4 +11,6 @@ interface StandardServiceInterface
     public function create(array $request): void;
     
     public function delete(string $id): void;
+
+    public function count(): int;
 }

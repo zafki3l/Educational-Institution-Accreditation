@@ -15,4 +15,6 @@ interface MilestoneRepositoryInterface
     public function create(Milestone $milestone): void;
     
     public function deleteById(string $milestone_id): void;
+
+    public function countAll(): int;
 }

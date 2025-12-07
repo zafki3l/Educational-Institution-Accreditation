@@ -1,5 +1,6 @@
 .main-content {
   padding: 15px 100px;
+  background-color: #e7ecf0;
 }
 
 .dashboard-header {
@@ -42,7 +43,7 @@
   width: 519px;
   height: 280px;
   border-radius: 8px;
-  background-color: #F7F9FA;
+  background-color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 20px 40px;
 }

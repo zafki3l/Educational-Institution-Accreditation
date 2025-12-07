@@ -30,12 +30,11 @@ class FileUploadService implements FileUploadServiceInterface
      * Central place to handle uploads safely and reuse logic.
      * Keeps old file if none is provided.
      */
-    private function upload(string $upload_directory, ?string $old_file): string
+    private function upload(string $upload_path, ?string $old_file): string
     {
         $file = $_FILES['file'] ?? null;
 
-        $keepOldFileIfNoNewUpload = $old_file !== null && !$this->fileUploadValidator->isUpload($file);
-        if ($keepOldFileIfNoNewUpload) {
+        if ($this->keepOldFileIfNoNewUpload($file, $old_file)) {
             return $old_file;
         }
 
@@ -47,13 +46,21 @@ class FileUploadService implements FileUploadServiceInterface
 
         $new_file_name = $this->generateFileName($file_extension);
 
-        $file_destination = $upload_directory . $new_file_name;
+        $file_destination = $upload_path . $new_file_name;
 
-        $this->ensureDirectory($upload_directory);
+        $this->ensureDirectory($upload_path);
 
         $this->moveUploadedFile($file['tmp_name'], $file_destination);
 
         return $new_file_name;
+    }
+
+    /**
+     * Keep old file if no new file is uploaded to avoid losing existing files.
+     */
+    private function keepOldFileIfNoNewUpload(array $file, string $old_file): bool
+    {
+        return $old_file !== null && !$this->fileUploadValidator->isUpload($file);
     }
 
     /**
@@ -105,10 +112,10 @@ class FileUploadService implements FileUploadServiceInterface
     /**
      * Create directory if it doesn’t exist to prevent upload failures.
      */
-    private function ensureDirectory(string $upload_directory): void
+    private function ensureDirectory(string $upload_path): void
     {
-        if (!is_dir($upload_directory) && !mkdir($upload_directory, 0775, true)) {
-            throw new \RuntimeException("Cannot create directory: $upload_directory");
+        if (!is_dir($upload_path) && !mkdir($upload_path, 0775, true)) {
+            throw new \RuntimeException("Cannot create directory: $upload_path");
         }
     }
 

@@ -33,22 +33,22 @@
                     <div class="container-box">
                         <a href="/<?= PROJECT_NAME ?>/admin/criterias"><div class="box criteria-box">
                             <img src="/<?= PROJECT_NAME ?>/public/assets/icon/Check square.png" alt="">
-                            <p>100</p>
+                            <p><?= $criterias ?? 0 ?></p>
                             <p>Tiêu chí</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/users"><div class="box user-box">
                             <img src="/<?= PROJECT_NAME ?>/public/assets/icon/vector.png" alt="">
-                            <p>40</p>
+                            <p><?= $users ?? 0 ?></p>
                             <p>Người dùng</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/standards"><div class="box evidence-box">
                             <img src="/<?= PROJECT_NAME ?>/public/assets/icon/frame.png" alt="">
-                            <p>2000</p>
+                            <p><?= $evidences ?? 0 ?></p>
                             <p>Minh chứng</p>
                         </div></a>
                         <a href="/<?= PROJECT_NAME ?>/admin/milestones"><div class="box milestone-box">
                             <img src="/<?= PROJECT_NAME ?>/public/assets/icon/marker.png" alt="">
-                            <p>1000</p>
+                            <p><?= $milestones ?? 0 ?></p>
                             <p>Mốc đánh giá</p>
                         </div></a>
                     </div>
@@ -58,15 +58,15 @@
                     <h3>Quản lý tiêu chí</h3>
                     <div class="list evidence-list">
                         <p>Danh sách tiêu chuẩn</p>
-                        <p>10 tiêu chuẩn</p>
+                        <p><?= $standards ?? 0 ?> tiêu chuẩn</p>
                     </div>
                     <div class="list criteria-list">
                         <p>Danh sách tiêu chí</p>
-                        <p>2 tiêu chí</p>
+                        <p><?= $criterias ?? 0 ?> tiêu chí</p>
                     </div>
                     <div class="list milestone-list">
                         <p>Mốc đánh giá</p>
-                        <p>2 mốc</p>
+                        <p><?= $milestones ?? 0 ?> mốc</p>
                     </div>
                 </div>
 

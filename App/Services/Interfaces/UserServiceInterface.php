@@ -19,4 +19,6 @@ interface UserServiceInterface
     public function findAll(int $start_from, int $result_per_page): array;
     
     public function find(string $search, int $start_from, int $result_per_page): array;
+
+    public function count(?string $search = null): int;
 }
