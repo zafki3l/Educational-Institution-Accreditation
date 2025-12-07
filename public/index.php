@@ -17,7 +17,7 @@ $dotenv->load();
 SessionService::generate();
 
 require_once '../helper.php';
-require_once '../bootstrap/app.php';
+require_once '../bootstrap/DI_Container/app.php';
 
 CSRF_Authenticator::generate();
 
