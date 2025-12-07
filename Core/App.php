@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use DI\Container;
+
 /**
  * Class App
  * 
@@ -16,9 +18,6 @@ class App
 
     /**
      * Set the application's container instance
-     * 
-     * @param \Core\Container $container
-     * @return void
      */
     public static function setContainer(Container $container): void
     {
@@ -27,19 +26,14 @@ class App
 
     /**
      * Resolve a class instance through the container
-     * 
-     * @param string $class
-     * @return Container
      */
     public static function resolve(string $class): object
     {
-        return static::container()->resolve($class);
+        return static::container()->get($class);
     }
 
     /**
      * Get the current container instance
-     * 
-     * @return Container
      */
     private static function container(): Container
     {
