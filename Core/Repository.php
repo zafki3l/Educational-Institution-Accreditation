@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Configs\Database\Interfaces\DatabaseInterface;
+use Configs\Database\Interfaces\Core\DatabaseInterface;
 use PDO;
 use PDOStatement;
 

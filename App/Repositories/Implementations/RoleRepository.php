@@ -3,7 +3,7 @@
 namespace App\Repositories\Implementations;
 
 use App\Repositories\Interfaces\RoleRepositoryInterface;
-use Configs\Database\Interfaces\DatabaseInterface;
+use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 

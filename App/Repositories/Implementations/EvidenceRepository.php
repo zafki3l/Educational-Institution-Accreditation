@@ -4,7 +4,7 @@ namespace App\Repositories\Implementations;
 
 use App\Models\Evidence;
 use App\Repositories\Interfaces\EvidenceRepositoryInterface;
-use Configs\Database\Interfaces\DatabaseInterface;
+use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;

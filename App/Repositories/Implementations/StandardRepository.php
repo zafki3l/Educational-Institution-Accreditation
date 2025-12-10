@@ -4,7 +4,7 @@ namespace App\Repositories\Implementations;
 
 use App\Models\Standard;
 use App\Repositories\Interfaces\StandardRepositoryInterface;
-use Configs\Database\Interfaces\DatabaseInterface;
+use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\Repository;
 use PDOException;
 
