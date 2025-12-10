@@ -4,9 +4,9 @@ namespace Configs\Database\Implementation;
 
 use PDO;
 use PDOException;
-use Configs\Database\Interfaces\DatabaseInterface;
+use Configs\Database\Interfaces\MySqlDatabaseInterface;
 
-class MySqlDatabase implements DatabaseInterface
+class MySqlDatabase implements MySqlDatabaseInterface
 {
     public function connect(): PDO
     {
