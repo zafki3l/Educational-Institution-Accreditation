@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class UserRepository extends Repository implements UserRepositoryInterface
+class UserRepository extends SqlRepository implements UserRepositoryInterface
 {
     use QueryClauseHelperTrait;
 

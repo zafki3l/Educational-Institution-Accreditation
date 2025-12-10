@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Repositories\Interfaces;
+namespace App\Repositories\Sql\Interfaces;
 
 use App\Models\Standard;
 

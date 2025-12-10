@@ -3,7 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Validations\Interfaces\AuthValidatorInterface;
 

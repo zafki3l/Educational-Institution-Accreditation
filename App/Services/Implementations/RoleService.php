@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations;
 
-use App\Repositories\Interfaces\RoleRepositoryInterface;
+use App\Repositories\Sql\Interfaces\RoleRepositoryInterface;
 use App\Services\Interfaces\RoleServiceInterface;
 
 class RoleService implements RoleServiceInterface

@@ -4,7 +4,7 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Models\Evidence;
-use App\Repositories\Interfaces\EvidenceRepositoryInterface;
+use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;

@@ -4,7 +4,7 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\StandardException\StandardNotFoundException;
 use App\Models\Standard;
-use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 
 class StandardService implements StandardServiceInterface

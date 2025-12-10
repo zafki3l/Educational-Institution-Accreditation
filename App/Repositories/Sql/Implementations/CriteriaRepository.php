@@ -1,15 +1,15 @@
 <?php 
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
 use App\Models\Criteria;
-use App\Repositories\Interfaces\CriteriaRepositoryInterface;
+use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class CriteriaRepository extends Repository implements CriteriaRepositoryInterface
+class CriteriaRepository extends SqlRepository implements CriteriaRepositoryInterface
 {
     use QueryClauseHelperTrait;
 

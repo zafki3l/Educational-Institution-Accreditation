@@ -4,7 +4,7 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\UserException\UserNotFoundException;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;

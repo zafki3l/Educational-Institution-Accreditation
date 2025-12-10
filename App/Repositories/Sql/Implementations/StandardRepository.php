@@ -1,14 +1,14 @@
 <?php 
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
 use App\Models\Standard;
-use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 
-class StandardRepository extends Repository implements StandardRepositoryInterface
+class StandardRepository extends SqlRepository implements StandardRepositoryInterface
 {
     public function __construct(DatabaseInterface $db)
     {

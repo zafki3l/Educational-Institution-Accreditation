@@ -1,19 +1,19 @@
 <?php
 
-use App\Repositories\Implementations\CriteriaRepository;
-use App\Repositories\Implementations\DepartmentRepository;
-use App\Repositories\Implementations\EvidenceRepository;
-use App\Repositories\Implementations\MilestoneRepository;
-use App\Repositories\Implementations\RoleRepository;
-use App\Repositories\Implementations\StandardRepository;
-use App\Repositories\Implementations\UserRepository;
-use App\Repositories\Interfaces\CriteriaRepositoryInterface;
-use App\Repositories\Interfaces\DepartmentRepositoryInterface;
-use App\Repositories\Interfaces\EvidenceRepositoryInterface;
-use App\Repositories\Interfaces\MilestoneRepositoryInterface;
-use App\Repositories\Interfaces\RoleRepositoryInterface;
-use App\Repositories\Interfaces\StandardRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Implementations\CriteriaRepository;
+use App\Repositories\Sql\Implementations\DepartmentRepository;
+use App\Repositories\Sql\Implementations\EvidenceRepository;
+use App\Repositories\Sql\Implementations\MilestoneRepository;
+use App\Repositories\Sql\Implementations\RoleRepository;
+use App\Repositories\Sql\Implementations\StandardRepository;
+use App\Repositories\Sql\Implementations\UserRepository;
+use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
+use App\Repositories\Sql\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
+use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Sql\Interfaces\RoleRepositoryInterface;
+use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 
 use function DI\autowire;
 
