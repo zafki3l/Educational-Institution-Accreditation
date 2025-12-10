@@ -20,14 +20,14 @@
 
             <!-- Edit user form -->
             <div class="container-content">
-                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user[0]['id']) ?>" method="post">
+                <form action="/<?= PROJECT_NAME ?>/admin/users/<?= htmlspecialchars($user['id']) ?>" method="post">
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <input type="hidden" name="_method" value="PUT">
-                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user[0]['id']) ?>">
+                    <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['id']) ?>">
 
                     <div class="form-group">
                         <label for="first_name">First name: </label>
-                        <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user[0]['first_name']) ?>" placeholder="First name">
+                        <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']) ?>" placeholder="First name">
 
                         <div class="error-msg">
                             <?php if (!empty($_SESSION['errors']['empty-firstname'])): ?>
@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                         <label for="last_name">Last name: </label>
-                        <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user[0]['last_name']) ?>" placeholder="Last name">
+                        <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']) ?>" placeholder="Last name">
 
                         <div class="error-msg">
                             <?php if (!empty($_SESSION['errors']['empty-lastname'])): ?>
@@ -49,7 +49,7 @@
 
                     <div class="form-group">
                         <label for="email">Email: </label>
-                        <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($user[0]['email']) ?>" placeholder="Email">
+                        <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($user['email']) ?>" placeholder="Email">
 
                         <div class="error-msg">
                             <?php if (!empty($_SESSION['errors']['empty-email'])): ?>
@@ -65,15 +65,15 @@
                         <div class="gender-group">
                             <label>
                                 <input type="radio" name="gender" value="male"
-                                <?= ($user[0]['gender'] == 'male') ? 'checked' : '' ?>> Male
+                                <?= ($user['gender'] == 'male') ? 'checked' : '' ?>> Male
                             </label>
                             <label>
                                 <input type="radio" name="gender" value="female"
-                                <?= ($user[0]['gender'] == 'female') ? 'checked' : '' ?>> Female
+                                <?= ($user['gender'] == 'female') ? 'checked' : '' ?>> Female
                             </label>
                             <label>
                                 <input type="radio" name="gender" value="other"
-                                <?= ($user[0]['gender'] == 'other') ? 'checked' : '' ?>> Other
+                                <?= ($user['gender'] == 'other') ? 'checked' : '' ?>> Other
                             </label>
                         </div>
 
@@ -89,7 +89,7 @@
 
                         <select name="department_id" id="department_id">
                             <?php foreach ($departments as $department): ?>
-                                <option value="<?= htmlspecialchars($department['id']) ?>" <?= htmlspecialchars($user[0]['department_id'] === $department['id']  ? 'selected' : '') ?>><?= htmlspecialchars($department['name']) ?></option>
+                                <option value="<?= htmlspecialchars($department['id']) ?>" <?= htmlspecialchars($user['department_id'] === $department['id']  ? 'selected' : '') ?>><?= htmlspecialchars($department['name']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -99,7 +99,7 @@
 
                         <select name="role_id" id="role_id">
                             <?php foreach ($roles as $role): ?>
-                                <option value="<?= htmlspecialchars($role['id']) ?>" <?= htmlspecialchars($user[0]['role_id'] === $role['id']  ? 'selected' : '') ?>><?= htmlspecialchars($role['name']) ?></option>
+                                <option value="<?= htmlspecialchars($role['id']) ?>" <?= htmlspecialchars($user['role_id'] === $role['id']  ? 'selected' : '') ?>><?= htmlspecialchars($role['name']) ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Repositories\NoSql\Implementations\LogRepository;
+use App\Repositories\NoSql\Interfaces\LogRepositoryInterface;
 use App\Repositories\Sql\Implementations\CriteriaRepository;
 use App\Repositories\Sql\Implementations\DepartmentRepository;
 use App\Repositories\Sql\Implementations\EvidenceRepository;
@@ -24,5 +26,6 @@ return [
     CriteriaRepositoryInterface::class => autowire(CriteriaRepository::class),
     StandardRepositoryInterface::class => autowire(StandardRepository::class),
     MilestoneRepositoryInterface::class => autowire(MilestoneRepository::class),
-    RoleRepositoryInterface::class => autowire(RoleRepository::class)
+    RoleRepositoryInterface::class => autowire(RoleRepository::class),
+    LogRepositoryInterface::class => autowire(LogRepository::class)
 ];

@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 require_once '../Configs/config.php';
 require_once '../vendor/autoload.php';
 require_once '../errorHandler.php';

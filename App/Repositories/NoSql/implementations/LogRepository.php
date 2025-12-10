@@ -4,20 +4,25 @@ namespace App\Repositories\NoSql\Implementations;
 
 use App\Repositories\NoSql\Interfaces\LogRepositoryInterface;
 use Configs\Database\Interfaces\MongoDatabaseInterface;
+use MongoDB\InsertOneResult;
 
 class LogRepository implements LogRepositoryInterface
 {
+    private const COLLECTION_NAME = 'logs';
+
     public function __construct(private MongoDatabaseInterface $mongo) {}
 
-    public function find()
+    public function findAll()
     {
         $data = [];
-        $students = $this->mongo->getCollection('student');
-
-        foreach ($students as $student) {
-            $data[] = $student;
-        }
 
         return $data;
+    }
+
+    public function insertOne(array $document, array $options = []): InsertOneResult
+    {
+        $collection = $this->mongo->getCollection(self::COLLECTION_NAME);
+
+        return $collection->insertOne($document, $options);
     }
 }
