@@ -26,6 +26,11 @@
                         <button type="submit">Thêm tiểu chuẩn</button>
                         <input type="text" name="id" placeholder="Mã tiêu chuẩn">
                         <input type="text" name="name" placeholder="Tên tiêu chuẩn">
+                        <select name="department_id" id="department_id">
+                            <?php foreach ($departments as $department): ?>
+                                <option value="<?= $department['id'] ?>"><?= $department['name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </form>
                 </div>
             </div>

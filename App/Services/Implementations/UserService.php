@@ -45,13 +45,23 @@ class UserService implements UserServiceInterface
             ->setDepartmentId($request['department_id'])
             ->setRoleId($request['role_id']);
 
-        $user_id = $this->userRepository->create($user);
+        $created = $this->userRepository->create([
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'gender' => $user->getGender(),
+            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'department_id' => $user->getDepartmentId(),
+            'role_id' => $user->getRoleId()
+        ]);
 
-        $found = $this->findById($user_id);
+        $found = $this->findById($created);
+
+        $isSuccess = $created ? true : false;
 
         $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm người dùng mới";
 
-        $this->logService->createLogUser($found, 'create', $message);
+        $this->logService->createLog('user', $found, 'create', $message, $isSuccess);
     }
 
     public function update(int $user_id, array $request): void
@@ -67,22 +77,34 @@ class UserService implements UserServiceInterface
             ->setDepartmentId($request['department_id'])
             ->setRoleId($request['role_id']);
 
-        $this->userRepository->updateById($user_id, $user);
+        $updated = $this->userRepository->updateById([
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'gender' => $user->getGender(),
+            'department_id' => $user->getDepartmentId(),
+            'role_id' => $user->getRoleId(),
+            'user_id' => $user_id
+        ]);
+
+        $isSuccess = $updated ? true : false;
 
         $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã chỉnh sửa thông tin người dùng {$found['id']}";
 
-        $this->logService->createLogUser($found, 'update', $message);
+        $this->logService->createLog('user', $found, 'update', $message, $isSuccess);
     }
 
     public function delete(int $user_id): void
     {
         $found = $this->findById($user_id);
 
-        $this->userRepository->deleteById($user_id);
+        $deleted = $this->userRepository->deleteById($user_id);
 
         $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa người dùng {$found['id']}";
 
-        $this->logService->createLogUser($found, 'delete', $message);
+        $isSuccess = $deleted ? true : false;
+
+        $this->logService->createLog('user', $found, 'delete', $message, $isSuccess);
     }
 
     public function handleError(array $request, $isUpdated = false): ?array

@@ -19,6 +19,7 @@ class StandardController extends Controller
     public function index()
     {
         $standards = $this->standardService->list();
+        $departments = $this->departmentService->findAll();
 
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
@@ -28,7 +29,8 @@ class StandardController extends Controller
             (string) $viewPrefix .'.layouts', 
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chuẩn' : 'Danh sách tiêu chuẩn',
-                'standards' => $standards
+                'standards' => $standards,
+                'departments' => $departments
             ]
         );
     }

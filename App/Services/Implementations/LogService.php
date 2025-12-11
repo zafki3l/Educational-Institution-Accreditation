@@ -10,26 +10,27 @@ class LogService implements LogServiceInterface
 {
     public function __construct(private LogRepositoryInterface $logRepository) {}
 
-    public function createLogUser(array $user, string $action, string $message, array $options = []): InsertOneResult
-    {
-        $document = $this->userDocument();
-        $document['message'] = $message;
-        $document['user'] = $user;
-        $document['action'] = $action;
-
-        return $this->logRepository->insertOne($document, $options);
-    }
-
-    private function userDocument()
+    /**
+     * Summary of createLog
+     * @param string $target_key
+     * @param mixed $target_data
+     * @param string $action
+     * @param string $message
+     * @param bool $isSuccess
+     * @param array $options
+     * @return InsertOneResult
+     */
+    public function createLog(string $target_key, mixed $target_data, string $action, string $message, bool $isSuccess, array $options = []): InsertOneResult
     {
         $document = [
             'actor' => $_SESSION['user'],
-            'user' => null,
-            'action' => null,
-            'message' => null,
-            'created_at' => (new \DateTime())->format('Y-m-d H:i:s')
+            $target_key => $target_data,
+            'action' => $action,
+            'message' => $message,
+            'created_at' => new \DateTime()->format('Y-m-d H:i:s'),
+            'isSuccess' => $isSuccess
         ];
 
-        return $document;
+        return $this->logRepository->insertOne($document, $options);
     }
 }

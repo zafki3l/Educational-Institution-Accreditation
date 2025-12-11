@@ -12,9 +12,9 @@ interface UserRepositoryInterface
     
     public function findById(int $user_id): array;
     
-    public function create(User $user): int;
+    public function create(array $user): int;
     
-    public function updateById(int $user_id, User $user): int;
+    public function updateById(array $user): int;
     
     public function deleteById(int $user_id): int;
     

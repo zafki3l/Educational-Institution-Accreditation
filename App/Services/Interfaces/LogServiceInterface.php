@@ -6,5 +6,5 @@ use MongoDB\InsertOneResult;
 
 interface LogServiceInterface
 {
-    public function createLogUser(array $user, string $action, string $message, array $options = []): InsertOneResult;
+    public function createLog(string $target_key, mixed $target_data, string $action, string $message, bool $isSuccess, array $options = []): InsertOneResult;
 }

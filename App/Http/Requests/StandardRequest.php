@@ -8,7 +8,8 @@ class StandardRequest
     {
         return [
             'id' => trim($_POST['id']),
-            'name' => trim($_POST['name'])
+            'name' => trim($_POST['name']),
+            'department_id' => trim($_POST['department_id'])
         ];
     }
 }
