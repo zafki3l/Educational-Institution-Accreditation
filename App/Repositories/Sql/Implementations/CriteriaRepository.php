@@ -1,15 +1,14 @@
 <?php 
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
-use App\Models\Criteria;
-use App\Repositories\Interfaces\CriteriaRepositoryInterface;
+use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class CriteriaRepository extends Repository implements CriteriaRepositoryInterface
+class CriteriaRepository extends SqlRepository implements CriteriaRepositoryInterface
 {
     use QueryClauseHelperTrait;
 
@@ -55,7 +54,7 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
     public function findById(string $criteria_id): array
     {
         try {
-            $sql = "SELECT id FROM evaluation_criterias WHERE id = ?"; 
+            $sql = "SELECT * FROM evaluation_criterias WHERE id = ?"; 
 
             return $this->getByParams([$criteria_id], $sql);
         } catch (PDOException $e) {
@@ -106,26 +105,23 @@ class CriteriaRepository extends Repository implements CriteriaRepositoryInterfa
         }
     }
 
-    public function create(Criteria $criteria): void
+    public function create(array $criteria): int
     {
         try {
-            $this->insert('evaluation_criterias', [
-                'id' => $criteria->getId(),
-                'standard_id' => $criteria->getStandardId(),
-                'name' => $criteria->getName(),
-                'department_id' => $criteria->getDepartmentId()
-            ]);
+            return $this->insert('evaluation_criterias', $criteria);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
-    public function deleteById(string $id): void
+    public function deleteById(string $id): int
     {
         try {
-            $this->delete("DELETE FROM evaluation_criterias WHERE id = ?", [$id]);
+            return $this->delete("DELETE FROM evaluation_criterias WHERE id = ?", [$id]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 

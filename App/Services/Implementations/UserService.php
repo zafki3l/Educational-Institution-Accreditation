@@ -4,7 +4,8 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\UserException\UserNotFoundException;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;
@@ -12,7 +13,8 @@ use Core\Paginator;
 class UserService implements UserServiceInterface
 {
     public function __construct(private UserRepositoryInterface $userRepository,
-                                private UserValidatorInterface $userValidator) {}
+                                private UserValidatorInterface $userValidator,
+                                private LogServiceInterface $logService) {}
 
     public function list(?string $search, int $current_page): array
     {
@@ -43,12 +45,28 @@ class UserService implements UserServiceInterface
             ->setDepartmentId($request['department_id'])
             ->setRoleId($request['role_id']);
 
-        $this->userRepository->create($user);
+        $created = $this->userRepository->create([
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'gender' => $user->getGender(),
+            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'department_id' => $user->getDepartmentId(),
+            'role_id' => $user->getRoleId()
+        ]);
+
+        $found = $this->findById($created);
+
+        $isSuccess = $created ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm người dùng mới";
+
+        $this->logService->createLog('user', $found, 'create', $message, $isSuccess);
     }
 
     public function update(int $user_id, array $request): void
     {
-        $this->findOrFail($user_id);
+        $found = $this->findById($user_id);
 
         $user = new User();
 
@@ -59,14 +77,34 @@ class UserService implements UserServiceInterface
             ->setDepartmentId($request['department_id'])
             ->setRoleId($request['role_id']);
 
-        $this->userRepository->updateById($user_id, $user);
+        $updated = $this->userRepository->updateById([
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'gender' => $user->getGender(),
+            'department_id' => $user->getDepartmentId(),
+            'role_id' => $user->getRoleId(),
+            'user_id' => $user_id
+        ]);
+
+        $isSuccess = $updated ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã chỉnh sửa thông tin người dùng {$found['id']}";
+
+        $this->logService->createLog('user', $found, 'update', $message, $isSuccess);
     }
 
     public function delete(int $user_id): void
     {
-        $this->findOrFail($user_id);
+        $found = $this->findById($user_id);
 
-        $this->userRepository->deleteById($user_id);
+        $deleted = $this->userRepository->deleteById($user_id);
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa người dùng {$found['id']}";
+
+        $isSuccess = $deleted ? true : false;
+
+        $this->logService->createLog('user', $found, 'delete', $message, $isSuccess);
     }
 
     public function handleError(array $request, $isUpdated = false): ?array
@@ -84,7 +122,15 @@ class UserService implements UserServiceInterface
             throw new UserNotFoundException($user_id);
         }
 
-        return $found;
+        return [
+            'id' => $found[0]['id'],
+            'first_name' => $found[0]['first_name'],
+            'last_name' => $found[0]['last_name'],
+            'email' => $found[0]['email'],
+            'gender' => $found[0]['gender'],
+            'role_id' => $found[0]['role_id'],
+            'department_id' => $found[0]['department_id']
+        ];
     }
 
     public function findAll(int $start_from, int $result_per_page): array
@@ -102,15 +148,5 @@ class UserService implements UserServiceInterface
     {
         return $search ? $this->userRepository->countSearch($search) 
                         : $this->userRepository->countAll();
-    }
-    
-    // Ensure user exists
-    private function findOrFail(int $user_id): void
-    {
-        $found = $this->userRepository->findById($user_id);
-
-        if (!$found) {
-            throw new UserNotFoundException($user_id);
-        }
     }
 }

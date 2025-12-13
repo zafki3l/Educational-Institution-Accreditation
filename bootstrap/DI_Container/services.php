@@ -6,6 +6,7 @@ use App\Services\Implementations\DepartmentService;
 use App\Services\Implementations\EvidenceService;
 use App\Services\Implementations\FileUploadService;
 use App\Services\Implementations\LockService;
+use App\Services\Implementations\LogService;
 use App\Services\Implementations\MilestoneService;
 use App\Services\Implementations\RoleService;
 use App\Services\Implementations\SessionService;
@@ -17,6 +18,7 @@ use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use App\Services\Interfaces\LockServiceInterface;
+use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
 use App\Services\Interfaces\SessionServiceInterface;
@@ -36,5 +38,6 @@ return [
     MilestoneServiceInterface::class => autowire(MilestoneService::class),
     RoleServiceInterface::class => autowire(RoleService::class),
     SessionServiceInterface::class => autowire(SessionService::class),
-    LockServiceInterface::class => autowire(LockService::class)
+    LockServiceInterface::class => autowire(LockService::class),
+    LogServiceInterface::class => autowire(LogService::class)
 ];

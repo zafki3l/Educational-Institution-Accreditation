@@ -1,14 +1,14 @@
 <?php 
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
 use App\Models\Standard;
-use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 
-class StandardRepository extends Repository implements StandardRepositoryInterface
+class StandardRepository extends SqlRepository implements StandardRepositoryInterface
 {
     public function __construct(DatabaseInterface $db)
     {
@@ -41,15 +41,13 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         }
     }
 
-    public function create(Standard $standard): void
+    public function create(array $standard): int
     {
         try {
-            $this->insert('evaluation_standards', [
-                'id' => $standard->getId(),
-                'name' => $standard->getName()
-            ]);
+            return $this->insert('evaluation_standards', $standard);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
@@ -63,12 +61,13 @@ class StandardRepository extends Repository implements StandardRepositoryInterfa
         }
     }
 
-    public function deleteById(string $standard_id): void
+    public function deleteById(string $standard_id): int
     {
         try {
-            $this->delete("DELETE FROM evaluation_standards WHERE id = ?", [$standard_id]);
+            return $this->delete("DELETE FROM evaluation_standards WHERE id = ?", [$standard_id]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 

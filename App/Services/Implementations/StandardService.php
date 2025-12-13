@@ -4,12 +4,14 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\StandardException\StandardNotFoundException;
 use App\Models\Standard;
-use App\Repositories\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
+use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 
 class StandardService implements StandardServiceInterface
 {
-    public function __construct(private StandardRepositoryInterface $standardRepository) {}
+    public function __construct(private StandardRepositoryInterface $standardRepository,
+                                private LogServiceInterface $logService) {}
 
     public function list(): array
     {
@@ -26,25 +28,44 @@ class StandardService implements StandardServiceInterface
         $standard = new Standard();
         
         $standard->setId($request['id'])
-                        ->setName($request['name']);
+                ->setName($request['name'])
+                ->setDepartmentId($request['department_id']);
 
-        $this->standardRepository->create($standard);
+        $created = $this->standardRepository->create([
+            'id' => $standard->getId(),
+            'name' => $standard->getName(),
+            'department_id' => $standard->getDepartmentId()
+        ]);
+
+        $isSuccess = $created ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm 1 tiêu chuẩn mới";
+
+        $this->logService->createLog('standard', $created, 'create', $message, $isSuccess);
     }
 
     public function delete(string $standard_id): void
     {
-        $this->findOrFail($standard_id);
+        $found = $this->findById($standard_id);
 
-        $this->standardRepository->deleteById($standard_id);
+        $deleted = $this->standardRepository->deleteById($standard_id);
+
+        $isSuccess = $deleted ? true : false;
+        
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa tiêu chuẩn {$found[0]['id']}";
+
+        $this->logService->createLog('standard', $found, 'delete', $message, $isSuccess);
     }
 
-    private function findOrFail(string $standard_id): void
+    private function findById(string $standard_id): array
     {
         $found = $this->standardRepository->findById($standard_id);
 
         if (!$found) {
             throw new StandardNotFoundException($standard_id);
         }
+
+        return $found;
     }
 
     public function count(): int

@@ -4,7 +4,7 @@ namespace App\Services\Implementations;
 
 use App\Exceptions\MilestoneException\MilestoneNotFoundException;
 use App\Models\Milestone;
-use App\Repositories\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 
 class MilestoneService implements MilestoneServiceInterface

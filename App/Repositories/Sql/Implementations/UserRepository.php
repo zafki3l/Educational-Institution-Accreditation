@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class UserRepository extends Repository implements UserRepositoryInterface
+class UserRepository extends SqlRepository implements UserRepositoryInterface
 {
     use QueryClauseHelperTrait;
 
@@ -68,36 +68,20 @@ class UserRepository extends Repository implements UserRepositoryInterface
         }
     }
 
-    public function create(User $user): int
+    public function create(array $user): int
     {
         try {
-            return $this->insert('users', [
-                'first_name' => $user->getFirstName(),
-                'last_name' => $user->getLastName(),
-                'email' => $user->getEmail(),
-                'gender' => $user->getGender(),
-                'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
-                'department_id' => $user->getDepartmentId(),
-                'role_id' => $user->getRoleId()
-            ]);
+            return $this->insert('users', $user);
         } catch (PDOException $e) {
             print $e->getMessage();
             return 0;
         }
     }
 
-    public function updateById(int $user_id, User $user): int
+    public function updateById(array $user): int
     {
         try {
-            $params = [
-                'first_name' => $user->getFirstName(),
-                'last_name' => $user->getLastName(),
-                'email' => $user->getEmail(),
-                'gender' => $user->getGender(),
-                'department_id' => $user->getDepartmentId(),
-                'role_id' => $user->getRoleId(),
-                'user_id' => $user_id
-            ];
+            $params = $user;
 
             $sql = "UPDATE users
                     SET first_name = ?,

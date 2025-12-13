@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Repositories\Implementations;
+namespace App\Repositories\Sql\Implementations;
 
-use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Sql\Interfaces\RoleRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
-use Core\Repository;
+use Core\SqlRepository;
 use PDOException;
 
-class DepartmentRepository extends Repository implements DepartmentRepositoryInterface
+class RoleRepository extends SqlRepository implements RoleRepositoryInterface
 {
     public function __construct(DatabaseInterface $db)
     {
@@ -17,7 +17,7 @@ class DepartmentRepository extends Repository implements DepartmentRepositoryInt
     public function all(): array
     {
         try {
-            return $this->getAll("SELECT * FROM departments");
+            return $this->getAll("SELECT * from roles");
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];

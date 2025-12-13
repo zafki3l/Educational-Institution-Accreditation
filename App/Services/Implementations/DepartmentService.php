@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations;
 
-use App\Repositories\Interfaces\DepartmentRepositoryInterface;
+use App\Repositories\Sql\Interfaces\DepartmentRepositoryInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 
 class DepartmentService implements DepartmentServiceInterface

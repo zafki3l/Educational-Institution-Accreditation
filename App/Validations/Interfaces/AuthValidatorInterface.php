@@ -2,7 +2,7 @@
 
 namespace App\Validations\Interfaces;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 
 interface AuthValidatorInterface
 {
