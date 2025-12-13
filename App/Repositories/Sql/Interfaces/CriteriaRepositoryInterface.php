@@ -16,9 +16,9 @@ interface CriteriaRepositoryInterface
     
     public function countAll(): int;
     
-    public function create(Criteria $criteria): void;
+    public function create(array $criteria): int;
     
-    public function deleteById(string $id): void;
+    public function deleteById(string $id): int;
     
     public function search(string $search): array;
     

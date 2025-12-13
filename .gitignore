@@ -4,3 +4,4 @@ diagram/
 logs/
 *.logs
 public/assets/evidences
+.vscode/

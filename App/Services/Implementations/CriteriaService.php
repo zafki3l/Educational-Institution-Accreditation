@@ -6,10 +6,12 @@ use App\Exceptions\CriteriaException\CriteriaNotFoundException;
 use App\Models\Criteria;
 use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
+use App\Services\Interfaces\LogServiceInterface;
 
 class CriteriaService implements CriteriaServiceInterface
 {
-    public function __construct(private CriteriaRepositoryInterface $criteriaRepository){}
+    public function __construct(private CriteriaRepositoryInterface $criteriaRepository,
+                                private LogServiceInterface $logService){}
 
     public function list(?string $search, array $filter): array
     {
@@ -31,14 +33,33 @@ class CriteriaService implements CriteriaServiceInterface
                 ->setName($request['name'])
                 ->setDepartmentId($request['department_id']);
         
-        $this->criteriaRepository->create($criteria);
+        $created = $this->criteriaRepository->create([
+            'id' => $criteria->getId(),
+            'standard_id' => $criteria->getStandardId(),
+            'name' => $criteria->getName(),
+            'department_id' => $criteria->getDepartmentId()
+        ]);
+
+        $isSuccess = $created ? true : false;
+
+        $found = $this->findbyId($created);
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm tiêu chí mới";
+
+        $this->logService->createLog('criteria', $found, 'create', $message, $isSuccess);
     }
 
     public function delete(string $criteria_id): void
     {
-        $this->findOrFail($criteria_id);
+        $found = $this->findById($criteria_id);
 
-        $this->criteriaRepository->deleteById($criteria_id);
+        $deleted = $this->criteriaRepository->deleteById($criteria_id);
+
+        $isSuccess = $deleted ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa tiêu chí {$found[0]['id']}";
+
+        $this->logService->createLog('criteria', $found, 'delete', $message, $isSuccess);
     }
 
     public function filter(array $filter): array
@@ -56,13 +77,15 @@ class CriteriaService implements CriteriaServiceInterface
         return $this->criteriaRepository->search($search);
     }
     
-    private function findOrFail(string $criteria_id): void
+    private function findById(string $criteria_id): array
     {
         $found = $this->criteriaRepository->findById($criteria_id);
 
         if (!$found) {
             throw new CriteriaNotFoundException($criteria_id);
         }
+
+        return $found[0];
     }
 
     private function filterArray(array $filter): array
