@@ -130,9 +130,6 @@ class EvidenceService implements EvidenceServiceInterface
         return array_filter($filter, fn($value) => !empty($value));
     }
 
-    /**
-     * Have to count the total records in order to calculate pagination
-     */
     public function count(?string $search = null): int
     {
         return $search 
