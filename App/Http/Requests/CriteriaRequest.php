@@ -10,7 +10,6 @@ class CriteriaRequest
             'id' => trim($_POST['id']),
             'standard_id' => trim($_POST['standard_id']),  
             'name' => trim($_POST['name']),
-            'department_id' => trim($_POST['department_id'])
         ];
     }
 }

@@ -5,11 +5,13 @@ namespace App\Services\Implementations;
 use App\Exceptions\MilestoneException\MilestoneNotFoundException;
 use App\Models\Milestone;
 use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
+use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 
 class MilestoneService implements MilestoneServiceInterface
 {
-    public function __construct(private MilestoneRepositoryInterface $milestoneRepository) {}
+    public function __construct(private MilestoneRepositoryInterface $milestoneRepository,
+                                private LogServiceInterface $logService) {}
 
     public function list(?string $search, array $filter): array
     {
@@ -46,23 +48,43 @@ class MilestoneService implements MilestoneServiceInterface
                     ->setCriteriaId($request['criteria_id'])
                     ->setName($request['name']);
     
-        $this->milestoneRepository->create($milestone);
+        $created = $this->milestoneRepository->create([
+            'id' => $milestone->getId(),
+            'criteria_id' => $milestone->getCriteriaId(),
+            'name' => $milestone->getName()
+        ]);
+
+        $found = $this->findById($milestone->getId());
+
+        $isSuccess = $created ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm mốc đánh giá mới";
+
+        $this->logService->createLog('milestone', $found, 'create', $message, $isSuccess);
     }
 
     public function delete(string $milestone_id): void
     {
-        $this->findOrFail($milestone_id);
+        $found = $this->findById($milestone_id);
         
-        $this->milestoneRepository->deleteById($milestone_id);
+        $deleted = $this->milestoneRepository->deleteById($milestone_id);
+
+        $isSuccess = $deleted ? true : false;
+
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa mốc đánh giá {$found['id']}";
+
+        $this->logService->createLog('milestone', $found, 'delete', $message, $isSuccess);
     }
 
-    private function findOrFail(string $milestone_id): void
+    private function findById(string $milestone_id): array
     {
         $found = $this->milestoneRepository->findById($milestone_id);
 
         if (!$found) {
             throw new MilestoneNotFoundException($milestone_id);
         }
+
+        return $found[0];
     }
 
     private function filterArray(array $filter)

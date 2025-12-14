@@ -64,7 +64,7 @@
                                 <td><?= htmlspecialchars($milestone['updated_at']) ?></td>
                                 <td>
                                     <div class="action-btn">
-                                        <button onclick="showConfirm(<?php echo htmlspecialchars($milestone['id']) ?>)" class="delete-btn">
+                                        <button onclick="showConfirm('<?php echo htmlspecialchars($milestone['id']) ?>')" class="delete-btn">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
 
@@ -83,7 +83,7 @@
 
                                                     <button type="submit" class="submit-modal">Confirm</button>
                                                     <button type="button" class="cancel-modal" 
-                                                    onclick="closeModal(<?php echo htmlspecialchars($milestone['id']) ?>)">Cancel</button>
+                                                    onclick="closeModal('<?php echo htmlspecialchars($milestone['id']) ?>')">Cancel</button>
                                                 </form>
                                             </div>
                                         </div>

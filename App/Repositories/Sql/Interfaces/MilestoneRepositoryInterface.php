@@ -12,9 +12,9 @@ interface MilestoneRepositoryInterface
     
     public function findById(string $milestone_id): array;
     
-    public function create(Milestone $milestone): void;
+    public function create(array $milestone): string;
     
-    public function deleteById(string $milestone_id): void;
+    public function deleteById(string $milestone_id): int;
 
     public function countAll(): int;
 }

@@ -42,7 +42,7 @@ class CriteriaController extends Controller
         );
     }
 
-    public function create()
+    public function create(): mixed
     {
         $standards = $this->standardService->findAll();
         $departments = $this->departmentService->findAll();

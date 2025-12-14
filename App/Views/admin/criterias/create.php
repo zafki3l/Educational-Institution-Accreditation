@@ -40,14 +40,6 @@
                         <input type="text" id="name" name="name" placeholder="Tên tiêu chí">
                     </div>
 
-                    <div class="form-group">
-                        <label for="department_id">Phòng ban: </label>
-                        <select name="department_id" id="department_id">
-                            <?php foreach ($departments as $department): ?>
-                                <option value="<?= $department['id']  ?>"><p><?= $department['name'] ?></p></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
 
                     <div class="form-group">
                         <a href="/<?= PROJECT_NAME ?>/admin/criterias" class="cancel-btn">Cancel</a>

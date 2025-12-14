@@ -36,7 +36,7 @@ abstract class SqlRepository
         return $data;
     }
 
-    protected function insert(string $table, array $data): int
+    protected function insert(string $table, array $data): mixed
     {
         $conn = $this->db->connect();
 
