@@ -70,7 +70,7 @@
                                 <td><?= htmlspecialchars($criteria['updated_at']) ?></td>
                                 <td>
                                     <div class="action-btn">
-                                        <button onclick="showConfirm(<?php echo htmlspecialchars($criteria['criteria_id']) ?>)" class="delete-btn">
+                                        <button onclick="showConfirm('<?php echo htmlspecialchars($criteria['criteria_id']) ?>')" class="delete-btn">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
 
@@ -89,7 +89,7 @@
 
                                                     <button type="submit" class="submit-modal">Confirm</button>
                                                     <button type="button" class="cancel-modal" 
-                                                    onclick="closeModal(<?php echo htmlspecialchars($criteria['criteria_id']) ?>)">Cancel</button>
+                                                    onclick="closeModal('<?php echo htmlspecialchars($criteria['criteria_id']) ?>')">Cancel</button>
                                                 </form>
                                             </div>
                                         </div>

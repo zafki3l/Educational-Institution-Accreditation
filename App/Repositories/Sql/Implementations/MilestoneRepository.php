@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Sql\Implementations;
 
-use App\Models\Milestone;
 use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
@@ -67,7 +66,7 @@ class MilestoneRepository extends SqlRepository implements MilestoneRepositoryIn
     public function findById(string $milestone_id): array
     {
         try {
-            $sql = "SELECT id FROM evaluation_milestones WHERE id = ?"; 
+            $sql = "SELECT * FROM evaluation_milestones WHERE id = ?"; 
 
             return $this->getByParams([$milestone_id], $sql);
         } catch (PDOException $e) {
@@ -76,25 +75,23 @@ class MilestoneRepository extends SqlRepository implements MilestoneRepositoryIn
         }
     }
 
-    public function create(Milestone $milestone): void
+    public function create(array $milestone): string
     {
         try{
-            $this->insert('evaluation_milestones', [
-                'id' => $milestone->getId(),
-                'criteria_id' => $milestone->getCriteriaId(),
-                'name' => $milestone->getName()
-            ]);
+            return $this->insert('evaluation_milestones', $milestone);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return '';
         } 
     }
 
-    public function deleteById(string $milestone_id): void
+    public function deleteById(string $milestone_id): int
     {
         try {
-            $this->delete("DELETE FROM evaluation_milestones WHERE id = ?", [$milestone_id]);
+            return $this->delete("DELETE FROM evaluation_milestones WHERE id = ?", [$milestone_id]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 

@@ -30,19 +30,17 @@ class CriteriaService implements CriteriaServiceInterface
         
         $criteria->setId($request['id'])
                 ->setStandardId($request['standard_id'])
-                ->setName($request['name'])
-                ->setDepartmentId($request['department_id']);
-        
+                ->setName($request['name']);
+
         $created = $this->criteriaRepository->create([
             'id' => $criteria->getId(),
             'standard_id' => $criteria->getStandardId(),
-            'name' => $criteria->getName(),
-            'department_id' => $criteria->getDepartmentId()
+            'name' => $criteria->getName()
         ]);
 
         $isSuccess = $created ? true : false;
 
-        $found = $this->findbyId($created);
+        $found = $this->findbyId($criteria->getId());
 
         $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm tiêu chí mới";
 
@@ -57,7 +55,7 @@ class CriteriaService implements CriteriaServiceInterface
 
         $isSuccess = $deleted ? true : false;
 
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa tiêu chí {$found[0]['id']}";
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa tiêu chí {$found['id']}";
 
         $this->logService->createLog('criteria', $found, 'delete', $message, $isSuccess);
     }
