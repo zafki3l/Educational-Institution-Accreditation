@@ -2,6 +2,7 @@
 
 namespace App\Validations\Implement;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Implementations\AuthService;
 use App\Validations\Interfaces\AuthValidatorInterface;
@@ -9,23 +10,23 @@ use Core\Validator;
 
 class AuthValidator extends Validator implements AuthValidatorInterface
 {
-    public function loginErrorHandling(UserRepositoryInterface $userRepository, array $request): array
+    public function loginErrorHandling(UserRepositoryInterface $userRepository, LoginRequest $request): array
     {
         $errors = [];
 
-        $userData = $userRepository->findByEmail($request['email']);
+        $userData = $userRepository->findByEmail($request->getEmail());
 
-        $isEmailExist = $this->isEmailExist($request['email'], $userRepository);
+        $isEmailExist = $this->isEmailExist($request->getEmail(), $userRepository);
         if (!$isEmailExist) {
             $errors['email-not-existed'] = 'Email is not exist! create a new account!';
         }
 
-        if ($this->emptyInput($request['email'])) {
+        if ($this->emptyInput($request->getEmail())) {
             $errors['empty-email'] = 'Email can not be empty!';
         }
 
         $user_password = $userData[0]['password'];
-        $isPasswordCorrect = $this->isPasswordCorrect($user_password, $request['password']);
+        $isPasswordCorrect = $this->isPasswordCorrect($user_password, $request->getPassword());
         if ($isEmailExist && !$isPasswordCorrect) {
             $errors['incorrect-password'] = 'Password incorrect!';
             $errors['failed_login'] = $this->handleFailedAttempt();

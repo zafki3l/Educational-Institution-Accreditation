@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
@@ -19,8 +20,7 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private UserRequest $userRequest,
-                                private UserServiceInterface $userService,
+    public function __construct(private UserServiceInterface $userService,
                                 private RoleServiceInterface $roleService,
                                 private DepartmentServiceInterface $departmentService) {}
 
@@ -63,7 +63,7 @@ class UserController extends Controller
 
     public function store(): void
     {
-        $request = $this->userRequest->addUserRequest();
+        $request = new CreateUserRequest($_POST);
 
         // Handles errors
         $errors = $this->userService->handleError($request, true);
@@ -100,7 +100,7 @@ class UserController extends Controller
     public function update(int $user_id): void
     {
         // Get request from user
-        $request = $this->userRequest->updateUserRequest();
+        $request = new UpdateUserRequest($_POST);
 
         // Handles errors
         $errors = $this->userService->handleError($request, true);

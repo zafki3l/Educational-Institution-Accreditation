@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations;
 
-use App\Models\User;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Validations\Interfaces\AuthValidatorInterface;
@@ -14,13 +14,13 @@ class AuthService implements AuthServiceInterface
     public function __construct(private UserRepositoryInterface $userRepository,
                                 private AuthValidatorInterface $authValidator) {}
 
-    public function handleLogin(array $request): array
+    public function handleLogin(LoginRequest $request): array
     {
         // If the user is sucessfully login
-        return $this->userRepository->findByEmail($request['email']);
+        return $this->userRepository->findByEmail($request->getEmail());
     }
 
-    public function handleError(array $request): ?array
+    public function handleError(LoginRequest $request): ?array
     {
         $errors = $this->authValidator->loginErrorHandling($this->userRepository, $request);
 

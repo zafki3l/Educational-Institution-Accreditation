@@ -3,6 +3,9 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\UserException\UserNotFoundException;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\LogServiceInterface;
@@ -33,17 +36,17 @@ class UserService implements UserServiceInterface
         ];
     }
 
-    public function create(array $request): void
+    public function create(CreateUserRequest $request): void
     {
         $user = new User();
 
-        $user->setFirstName($request['first_name'])
-            ->setLastName($request['last_name'])
-            ->setEmail($request['email'])
-            ->setGender($request['gender'])
-            ->setPassword($request['password'])
-            ->setDepartmentId($request['department_id'])
-            ->setRoleId($request['role_id']);
+        $user->setFirstName($request->getFirstName())
+            ->setLastName($request->getLastName())
+            ->setEmail($request->getEmail())
+            ->setGender($request->getGender())
+            ->setPassword($request->getPassword())
+            ->setDepartmentId($request->getDepartmentId())
+            ->setRoleId($request->getDepartmentId());
 
         $created = $this->userRepository->create([
             'first_name' => $user->getFirstName(),
@@ -64,18 +67,18 @@ class UserService implements UserServiceInterface
         $this->logService->createLog('user', $found, 'create', $message, $isSuccess);
     }
 
-    public function update(int $user_id, array $request): void
+    public function update(int $user_id, UpdateUserRequest $request): void
     {
         $found = $this->findById($user_id);
 
         $user = new User();
 
-        $user->setFirstName($request['first_name'])
-            ->setLastName($request['last_name'])
-            ->setEmail($request['email'])
-            ->setGender($request['gender'])
-            ->setDepartmentId($request['department_id'])
-            ->setRoleId($request['role_id']);
+        $user->setFirstName($request->getFirstName())
+            ->setLastName($request->getLastName())
+            ->setEmail($request->getEmail())
+            ->setGender($request->getGender())
+            ->setDepartmentId($request->getDepartmentId())
+            ->setRoleId($request->getRoleId());
 
         $updated = $this->userRepository->updateById([
             'first_name' => $user->getFirstName(),
@@ -107,8 +110,9 @@ class UserService implements UserServiceInterface
         $this->logService->createLog('user', $found, 'delete', $message, $isSuccess);
     }
 
-    public function handleError(array $request, $isUpdated = false): ?array
+    public function handleError(UserRequest $request, $isUpdated = false): ?array
     {
+        $request = !$isUpdated ? new CreateUserRequest($_POST) : new UpdateUserRequest($_POST); 
         $errors = $this->userValidator->handleUserError($this->userRepository, $request, $isUpdated);
 
         return !empty($errors) ? $errors : null;
