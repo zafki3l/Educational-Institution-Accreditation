@@ -2,6 +2,8 @@
 
 namespace App\Services\Interfaces;
 
+use App\DTO\UserDTO\UserByIdDTO;
+use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
@@ -18,11 +20,11 @@ interface UserServiceInterface
     
     public function handleError(UserRequest $request, $isUpdated = false): ?array;
     
-    public function findById(int $user_id): array;
+    public function findById(int $user_id): UserByIdDTO;
     
-    public function findAll(int $start_from, int $result_per_page): array;
+    public function findAll(int $start_from, int $result_per_page): UserCollectionDTO;
     
-    public function find(string $search, int $start_from, int $result_per_page): array;
+    public function find(string $search, int $start_from, int $result_per_page): UserCollectionDTO;
 
     public function count(?string $search = null): int;
 }
