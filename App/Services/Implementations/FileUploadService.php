@@ -21,19 +21,17 @@ class FileUploadService implements FileUploadServiceInterface
     /**
      * Keep old evidence if no new file is uploaded to avoid losing existing files.
      */
-    public function evidenceUpload(?string $old_file = null): string
+    public function evidenceUpload(?array $file, ?string $old_file = null): string
     {
-        return $this->upload(self::ENVIDENCE_UPLOAD_PATH, $old_file);
+        return $this->upload(self::ENVIDENCE_UPLOAD_PATH, $file, $old_file);
     }
 
     /**
      * Central place to handle uploads safely and reuse logic.
      * Keeps old file if none is provided.
      */
-    private function upload(string $upload_path, ?string $old_file): string
+    private function upload(string $upload_path, array $file, ?string $old_file): string
     {
-        $file = $_FILES['file'] ?? null;
-
         if ($this->keepOldFileIfNoNewUpload($file, $old_file)) {
             return $old_file;
         }

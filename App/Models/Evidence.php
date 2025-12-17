@@ -7,7 +7,6 @@ use DateTime;
 class Evidence
 {
     private string $id;
-    private string $milestoneId;
     private string $name;
     private string $decision;
     private string $documentDate;
@@ -17,8 +16,6 @@ class Evidence
     private DateTime $updated_at;
 
     public function getId(): string {return $this->id;}
-
-	public function getMilestoneId(): string {return $this->milestoneId;}
 
 	public function getName(): string {return $this->name;}
 
@@ -35,8 +32,6 @@ class Evidence
 	public function getUpdatedAt(): DateTime {return $this->updated_at;}
 
 	public function setId(string $id): self {$this->id = $id; return $this;}
-
-	public function setMilestoneId(string $milestoneId): self {$this->milestoneId = $milestoneId; return $this;}
 
 	public function setName(string $name): self {$this->name = $name; return $this;}
 

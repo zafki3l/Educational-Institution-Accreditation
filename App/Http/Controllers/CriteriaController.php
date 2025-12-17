@@ -1,8 +1,8 @@
 <?php 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\User;
-use App\Http\Requests\CriteriaRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
@@ -13,8 +13,7 @@ class CriteriaController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private CriteriaRequest $criteriaRequest, 
-                                private CriteriaServiceInterface $criteriaService,
+    public function __construct(private CriteriaServiceInterface $criteriaService,
                                 private StandardServiceInterface $standardService,
                                 private DepartmentServiceInterface $departmentService) {}
 
@@ -60,7 +59,7 @@ class CriteriaController extends Controller
 
     public function store(): void
     {
-        $request = $this->criteriaRequest->createRequest();
+        $request = new CreateCriteriaRequest($_POST);
 
         $this->criteriaService->create($request);
 

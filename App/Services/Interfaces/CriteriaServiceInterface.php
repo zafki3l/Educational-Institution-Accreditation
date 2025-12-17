@@ -2,11 +2,13 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\Criteria\CreateCriteriaRequest;
+
 interface CriteriaServiceInterface
 {
     public function list(?string $search, array $filter): array;
 
-    public function create(array $request): void;
+    public function create(CreateCriteriaRequest $request): void;
 
     public function delete(string $id): void;
 

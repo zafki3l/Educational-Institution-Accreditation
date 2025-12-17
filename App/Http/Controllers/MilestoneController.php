@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MilestoneRequest;
+use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\User;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
@@ -14,8 +14,7 @@ class MilestoneController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private MilestoneRequest $milestoneRequest,
-                                private StandardServiceInterface $standardService,
+    public function __construct(private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService) {}
                                 
@@ -64,7 +63,7 @@ class MilestoneController extends Controller
 
     public function store(): void
     {
-        $request = $this->milestoneRequest->createMilestone();
+        $request = new CreateMilestoneRequest($_POST);
 
         $this->milestoneService->create($request);
 

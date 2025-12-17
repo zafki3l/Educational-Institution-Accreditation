@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Criteria;
+namespace App\Http\Requests\Milestone;
 
-class CreateCriteriaRequest extends CriteriaRequest
+class CreateMilestoneRequest extends MilestoneRequest
 {
-    private string $id;
+    private readonly string $id;
 
     public function __construct(array $input)
     {
         $this->id = trim($input['id']);
-        $this->standard_id = trim($input['standard_id']);
+        $this->criteria_id = trim($input['criteria_id']);
         $this->name = trim($input['name']);
     }
 

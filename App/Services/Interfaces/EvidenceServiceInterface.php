@@ -2,11 +2,14 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\Evidence\CreateEvidenceRequest;
+use App\Http\Requests\Evidence\UpdateEvidenceRequest;
+
 interface EvidenceServiceInterface
 {
     public function list(?string $search, int $current_page, array $filter): array;
 
-    public function create(array $request): void;
+    public function create(CreateEvidenceRequest $request): void;
 
     public function findAll(int $start_from, int $result_per_page): array;
     
@@ -18,7 +21,7 @@ interface EvidenceServiceInterface
     
     public function filterEvidences(int $start_from, int $result_per_page, array $filter): array;
     
-    public function update(string $evidence_id, array $request): void;
+    public function update(string $evidence_id, UpdateEvidenceRequest $request): void;
     
     public function delete(string $evidence_id): void;
 

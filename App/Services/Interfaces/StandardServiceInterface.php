@@ -2,13 +2,15 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\Standard\CreateStandardRequest;
+
 interface StandardServiceInterface
 {
     public function list(): array;
     
     public function findAll(): array;
     
-    public function create(array $request): void;
+    public function create(CreateStandardRequest $request): void;
     
     public function delete(string $id): void;
 

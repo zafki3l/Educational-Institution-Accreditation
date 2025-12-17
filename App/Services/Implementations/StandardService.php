@@ -3,6 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\StandardException\StandardNotFoundException;
+use App\Http\Requests\Standard\CreateStandardRequest;
 use App\Models\Standard;
 use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
 use App\Services\Interfaces\LogServiceInterface;
@@ -23,13 +24,13 @@ class StandardService implements StandardServiceInterface
         return $this->standardRepository->all();
     }
 
-    public function create(array $request): void
+    public function create(CreateStandardRequest $request): void
     {
         $standard = new Standard();
         
-        $standard->setId($request['id'])
-                ->setName($request['name'])
-                ->setDepartmentId($request['department_id']);
+        $standard->setId($request->getId())
+                ->setName($request->getName())
+                ->setDepartmentId($request->getDepartmentId());
 
         $created = $this->standardRepository->create([
             'id' => $standard->getId(),

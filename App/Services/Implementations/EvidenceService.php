@@ -3,6 +3,8 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
+use App\Http\Requests\Evidence\CreateEvidenceRequest;
+use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
@@ -40,16 +42,16 @@ class EvidenceService implements EvidenceServiceInterface
         ];
     }
     
-    public function create(array $request): void
+    public function create(CreateEvidenceRequest $request): void
     {
         $evidence = new Evidence();
 
-        $evidence->setId($request['evidence_id'])
-                ->setName($request['evidence_name'])
-                ->setDecision($request['decision'])
-                ->setDocumentDate($request['document_date'])
-                ->setIssuePlace($request['issue_place'])
-                ->setLink($this->fileUploadService->evidenceUpload());
+        $evidence->setId($request->getId())
+                ->setName($request->getName())
+                ->setDecision($request->getDecision())
+                ->setDocumentDate($request->getDocumentDate())
+                ->setIssuePlace($request->getIssuePlace())
+                ->setLink($this->fileUploadService->evidenceUpload($request->getFile()));
 
         $this->evidenceRepository->create($evidence);
     }
@@ -90,17 +92,17 @@ class EvidenceService implements EvidenceServiceInterface
         return $this->evidenceRepository->evidenceManyToManyMilestone($evidence_id);
     }
 
-    public function update(string $evidence_id, array $request): void
+    public function update(string $evidence_id, UpdateEvidenceRequest $request): void
     {
         $found = $this->findById($evidence_id);
 
         $evidence = new Evidence();
 
-        $evidence->setName($request['evidence_name'])
-                ->setDecision($request['decision'])
-                ->setDocumentDate($request['document_date'])
-                ->setIssuePlace($request['issue_place'])
-                ->setLink($this->fileUploadService->evidenceUpload($found[0]['link']));
+        $evidence->setName($request->getName())
+                ->setDecision($request->getDecision())
+                ->setDocumentDate($request->getDocumentDate())
+                ->setIssuePlace($request->getIssuePlace())
+                ->setLink($this->fileUploadService->evidenceUpload($request->getFile(), $found[0]['link']));
 
         $this->evidenceRepository->updateById($evidence_id, $evidence);
     }
