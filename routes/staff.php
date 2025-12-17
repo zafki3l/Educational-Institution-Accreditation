@@ -50,4 +50,4 @@ $router->middleware([EnsureAuth::class, EnsureStaff::class])
     ->get('/staff/evidences/{id}/milestones', [EvidenceController::class, 'milestones']);
     
 $router->middleware([EnsureAuth::class, EnsureStaff::class])
-    ->post('/staff/evidences/milestones', [EvidenceController::class, 'storeMilestones']);
+    ->post('/staff/evidences/{$id}/milestones', [EvidenceController::class, 'storeMilestones']);

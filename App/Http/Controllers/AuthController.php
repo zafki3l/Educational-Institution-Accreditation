@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use App\Http\Requests\AuthRequest;
 use App\Services\Implementations\LockService;
 use Core\Controller;
 use App\Services\Interfaces\AuthServiceInterface;
@@ -19,8 +19,7 @@ class AuthController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private AuthRequest $authRequest,
-                                private AuthServiceInterface $authService,
+    public function __construct(private AuthServiceInterface $authService,
                                 private SessionServiceInterface $sessionService) {}
 
     public function showLogin(): mixed
@@ -43,7 +42,7 @@ class AuthController extends Controller
         }
 
         // Get email & password from request
-        $request = $this->authRequest->loginRequest();
+        $request = new LoginRequest($_POST);
 
         // Handles errors
         $errors = $this->authService->handleError($request);

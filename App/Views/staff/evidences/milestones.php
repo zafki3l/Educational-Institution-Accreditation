@@ -22,10 +22,9 @@
 
                 <!-- Thanh tìm kiếm -->
                 <div class="search-add">
-                    <form action="/<?= PROJECT_NAME ?>/staff/evidences/milestones"
+                    <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence_id) ?>/milestones"
                         method="post">
                         <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
-                        <input type="hidden" name="evidence_id" value="<?= htmlspecialchars($evidence_id) ?>">
 
                         <select name="milestone_id" id="milestone_id">
                             <?php foreach ($milestones as $milestone): ?>

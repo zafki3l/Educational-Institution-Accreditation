@@ -3,6 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\CriteriaException\CriteriaNotFoundException;
+use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\Criteria;
 use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
@@ -24,13 +25,13 @@ class CriteriaService implements CriteriaServiceInterface
         return $this->findAll();
     }
 
-    public function create(array $request): void
+    public function create(CreateCriteriaRequest $request): void
     {
         $criteria = new Criteria();
         
-        $criteria->setId($request['id'])
-                ->setStandardId($request['standard_id'])
-                ->setName($request['name']);
+        $criteria->setId($request->getId())
+                ->setStandardId($request->getStandardId())
+                ->setName($request->getName());
 
         $created = $this->criteriaRepository->create([
             'id' => $criteria->getId(),

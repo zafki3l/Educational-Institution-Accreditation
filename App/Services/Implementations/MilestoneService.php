@@ -3,6 +3,7 @@
 namespace App\Services\Implementations;
 
 use App\Exceptions\MilestoneException\MilestoneNotFoundException;
+use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\Milestone;
 use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
 use App\Services\Interfaces\LogServiceInterface;
@@ -40,13 +41,13 @@ class MilestoneService implements MilestoneServiceInterface
         return [];
     }
 
-    public function create(array $request): void
+    public function create(CreateMilestoneRequest $request): void
     {
         $milestone = new Milestone();
 
-        $milestone->setId($request['id'])
-                    ->setCriteriaId($request['criteria_id'])
-                    ->setName($request['name']);
+        $milestone->setId($request->getId())
+                    ->setCriteriaId($request->getCriteriaId())
+                    ->setName($request->getName());
     
         $created = $this->milestoneRepository->create([
             'id' => $milestone->getId(),

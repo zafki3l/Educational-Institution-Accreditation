@@ -2,9 +2,11 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\Auth\LoginRequest;
+
 interface AuthServiceInterface
 {
-    public function handleLogin(array $request): array;
+    public function handleLogin(LoginRequest $request): array;
     
-    public function handleError(array $request): ?array;
+    public function handleError(LoginRequest $request): ?array;
 }

@@ -2,17 +2,21 @@
 
 namespace App\Services\Interfaces;
 
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UserRequest;
+
 interface UserServiceInterface
 {
     public function list(?string $search, int $current_page): array;
     
-    public function create(array $request): void;
+    public function create(CreateUserRequest $request): void;
     
-    public function update(int $user_id, array $request);
+    public function update(int $user_id, UpdateUserRequest $request);
     
     public function delete(int $user_id): void;
     
-    public function handleError(array $request, $isUpdated = false): ?array;
+    public function handleError(UserRequest $request, $isUpdated = false): ?array;
     
     public function findById(int $user_id): array;
     

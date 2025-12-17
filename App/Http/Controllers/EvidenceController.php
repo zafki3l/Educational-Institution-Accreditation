@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EvidenceRequest;
+use App\Http\Requests\Evidence\AddMilestoneRequest;
+use App\Http\Requests\Evidence\CreateEvidenceRequest;
+use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
@@ -14,8 +16,7 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private EvidenceRequest $evidenceRequest,
-                                private EvidenceServiceInterface $evidenceService,
+    public function __construct(private EvidenceServiceInterface $evidenceService,
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService) {}
@@ -66,7 +67,7 @@ class EvidenceController extends Controller
 
     public function store(): void
     {
-        $request = $this->evidenceRequest->createRequest();
+        $request = new CreateEvidenceRequest($_POST);
 
         $this->evidenceService->create($request);
 
@@ -89,7 +90,7 @@ class EvidenceController extends Controller
 
     public function update(string $evidence_id): void
     {
-        $request = $this->evidenceRequest->updateRequest();
+        $request = new UpdateEvidenceRequest($_POST);
 
         $this->evidenceService->update($evidence_id, $request);
 
@@ -128,12 +129,12 @@ class EvidenceController extends Controller
         );
     }
 
-    public function storeMilestones(): void
+    public function storeMilestones(string $evidence_id): void
     {
-        $request = $this->evidenceRequest->addMilestone();
+        $request = new AddMilestoneRequest($_POST);
 
-        $this->evidenceService->addMilestone($request['evidence_id'], $request['milestone_id']);
+        $this->evidenceService->addMilestone($evidence_id, $request->getMilestoneId());
 
-        $this->redirect("/staff/evidences/{$request['evidence_id']}/milestones");
+        $this->redirect("/staff/evidences/{$evidence_id}/milestones");
     }
 }
