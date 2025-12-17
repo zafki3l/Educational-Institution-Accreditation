@@ -90,7 +90,7 @@ class UserController extends Controller
             'admin.layouts',
             [
                 'title' => 'Edit user',
-                'user' => $users,
+                'user' => $users->toArray(),
                 'departments' => $departments,
                 'roles' => $roles
             ]

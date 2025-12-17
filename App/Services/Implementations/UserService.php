@@ -2,6 +2,9 @@
 
 namespace App\Services\Implementations;
 
+use App\DTO\UserDTO\UserByIdDTO;
+use App\DTO\UserDTO\UserCollectionDTO;
+use App\DTO\UserDTO\UserListDTO;
 use App\Exceptions\UserException\UserNotFoundException;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -12,6 +15,7 @@ use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;
+use DateTimeImmutable;
 
 class UserService implements UserServiceInterface
 {
@@ -29,7 +33,7 @@ class UserService implements UserServiceInterface
                         : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
-            'users' => $users,
+            'users' => $users->toArray(),
             'current_page' => $current_page,
             'total_pages' => $total_pages,
             'result_per_page' => Paginator::RESULT_PER_PAGE
@@ -71,6 +75,8 @@ class UserService implements UserServiceInterface
     {
         $found = $this->findById($user_id);
 
+        $data = $found->toArray();
+
         $user = new User();
 
         $user->setFirstName($request->getFirstName())
@@ -92,22 +98,24 @@ class UserService implements UserServiceInterface
 
         $isSuccess = $updated ? true : false;
 
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã chỉnh sửa thông tin người dùng {$found['id']}";
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã chỉnh sửa thông tin người dùng {$data['id']}";
 
-        $this->logService->createLog('user', $found, 'update', $message, $isSuccess);
+        $this->logService->createLog('user', $data, 'update', $message, $isSuccess);
     }
 
     public function delete(int $user_id): void
     {
         $found = $this->findById($user_id);
 
+        $data = $found->toArray();
+
         $deleted = $this->userRepository->deleteById($user_id);
 
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa người dùng {$found['id']}";
+        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa người dùng {$data['id']}";
 
         $isSuccess = $deleted ? true : false;
 
-        $this->logService->createLog('user', $found, 'delete', $message, $isSuccess);
+        $this->logService->createLog('user', $data, 'delete', $message, $isSuccess);
     }
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
@@ -118,7 +126,7 @@ class UserService implements UserServiceInterface
         return !empty($errors) ? $errors : null;
     }
 
-    public function findById(int $user_id): array
+    public function findById(int $user_id): UserByIdDTO
     {
         $found = $this->userRepository->findById($user_id);
 
@@ -126,31 +134,68 @@ class UserService implements UserServiceInterface
             throw new UserNotFoundException($user_id);
         }
 
-        return [
-            'id' => $found[0]['id'],
-            'first_name' => $found[0]['first_name'],
-            'last_name' => $found[0]['last_name'],
-            'email' => $found[0]['email'],
-            'gender' => $found[0]['gender'],
-            'role_id' => $found[0]['role_id'],
-            'department_id' => $found[0]['department_id']
-        ];
+        return new UserByIdDTO(
+            $found[0]['id'],
+            $found[0]['first_name'],
+            $found[0]['last_name'],
+            $found[0]['email'],
+            $found[0]['gender'],
+            $found[0]['role_id'],
+            $found[0]['department_id']
+        );
     }
 
-    public function findAll(int $start_from, int $result_per_page): array
+    public function findAll(int $start_from, int $result_per_page): UserCollectionDTO
     {
-        return $this->userRepository->all($start_from, $result_per_page);
+        $users = $this->userRepository->all($start_from, $result_per_page);
+
+        $userCollection = new UserCollectionDTO();
+
+        foreach ($users as $userDto) {
+            $userCollection->append(new UserListDTO(
+                $userDto['id'],
+                $userDto['first_name'],
+                $userDto['last_name'],
+                $userDto['email'],
+                $userDto['gender'],
+                $userDto['department_name'],
+                $userDto['role_name'],
+                new DateTimeImmutable($userDto['created_at']),
+                new DateTimeImmutable($userDto['updated_at'])
+            ));
+        }
+
+        return $userCollection;
     }
 
-    public function find(string $search, int $start_from, int $result_per_page): array
+    public function find(string $search, int $start_from, int $result_per_page): UserCollectionDTO
     {
-        return $this->userRepository->search($search, $start_from, $result_per_page);
+        $users = $this->userRepository->search($search, $start_from, $result_per_page);
+
+        $userCollection = new UserCollectionDTO();
+
+        foreach ($users as $userDto) {
+            $userCollection->append(new UserListDTO(
+                $userDto['id'],
+                $userDto['first_name'],
+                $userDto['last_name'],
+                $userDto['email'],
+                $userDto['gender'],
+                $userDto['department_name'],
+                $userDto['role_name'],
+                new DateTimeImmutable($userDto['created_at']),
+                new DateTimeImmutable($userDto['updated_at'])
+            ));
+        }
+
+        return $userCollection;
     }
 
     // Have to count the total records in order to calculate pagination
     public function count(?string $search = null): int
     {
-        return $search ? $this->userRepository->countSearch($search) 
-                        : $this->userRepository->countAll();
+        return $search 
+            ? $this->userRepository->countSearch($search) 
+            : $this->userRepository->countAll();
     }
 }
