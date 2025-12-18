@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations\User;
 
+use App\DTO\CommandResult;
 use App\DTO\UserDTO\UserByIdDTO;
 use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
@@ -46,35 +47,47 @@ class UserFacadeService implements UserFacadeServiceInterface
 
         $created_id = $this->userCommandService->create($user);
 
-        $isSuccess = $created_id ? true : false;
+        $create_data = $this->userQueryService->findOrFail($created_id);
 
-        $data = $this->userQueryService->findOrFail($created_id);
+        $result = new CommandResult(
+            $created_id,
+            $create_data->toArray(),
+            $created_id ? true : false
+        );
 
-        return $this->handleLogUserService->createLog($data->toArray(), $isSuccess);
+        return $this->handleLogUserService->createLog($result);
     }
 
     public function update(int $id, UpdateUserRequest $request): InsertOneResult
     {
-        $data = $this->userQueryService->findOrFail($id);
+        $update_data = $this->userQueryService->findOrFail($id);
 
         $user = $this->userCommandService->setUpdateUser($request);
 
         $updated_id = $this->userCommandService->update($id, $user);
 
-        $isSuccess = $updated_id ? true : false;
+        $result = new CommandResult(
+            $updated_id,
+            $update_data->toArray(),
+            $updated_id ? true : false
+        );
 
-        return $this->handleLogUserService->updateLog($data->toArray(), $isSuccess);   
+        return $this->handleLogUserService->updateLog($result);   
     }
 
     public function delete(int $id): InsertOneResult
     {
-        $data = $this->userQueryService->findOrFail($id);
+        $delete_data = $this->userQueryService->findOrFail($id);
 
         $deleted_rows = $this->userCommandService->delete($id);
 
-        $isSuccess = $deleted_rows > 0 ? true : false;
+        $result = new CommandResult(
+            $id,
+            $delete_data->toArray(),
+            $deleted_rows > 0 ? true : false
+        );
         
-        return $this->handleLogUserService->deleteLog($data->toArray(), $isSuccess);
+        return $this->handleLogUserService->deleteLog($result);
     }
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
