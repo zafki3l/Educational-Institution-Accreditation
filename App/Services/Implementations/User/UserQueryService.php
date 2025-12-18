@@ -18,46 +18,14 @@ class UserQueryService implements UserQueryServiceInterface
     {
         $users = $this->userRepository->all($start_from, $result_per_page);
 
-        $userCollection = new UserCollectionDTO();
-
-        foreach ($users as $userDto) {
-            $userCollection->append(new UserListDTO(
-                $userDto['id'],
-                $userDto['first_name'],
-                $userDto['last_name'],
-                $userDto['email'],
-                $userDto['gender'],
-                $userDto['department_name'],
-                $userDto['role_name'],
-                new DateTimeImmutable($userDto['created_at']),
-                new DateTimeImmutable($userDto['updated_at'])
-            ));
-        }
-
-        return $userCollection;
+        return $this->dtoMapper($users);
     }
 
     public function find(string $search, int $start_from, int $result_per_page): UserCollectionDTO
     {
         $users = $this->userRepository->search($search, $start_from, $result_per_page);
 
-        $userCollection = new UserCollectionDTO();
-
-        foreach ($users as $userDto) {
-            $userCollection->append(new UserListDTO(
-                $userDto['id'],
-                $userDto['first_name'],
-                $userDto['last_name'],
-                $userDto['email'],
-                $userDto['gender'],
-                $userDto['department_name'],
-                $userDto['role_name'],
-                new DateTimeImmutable($userDto['created_at']),
-                new DateTimeImmutable($userDto['updated_at'])
-            ));
-        }
-
-        return $userCollection;
+        return $this->dtoMapper($users);
     }
 
     public function findById(int $id): UserByIdDTO
@@ -84,5 +52,26 @@ class UserQueryService implements UserQueryServiceInterface
         return $search 
             ? $this->userRepository->countSearch($search) 
             : $this->userRepository->countAll();
+    }
+
+    private function dtoMapper(array $users): UserCollectionDTO
+    {
+        $userCollection = new UserCollectionDTO();
+
+        foreach ($users as $userDto) {
+            $userCollection->append(new UserListDTO(
+                $userDto['id'],
+                $userDto['first_name'],
+                $userDto['last_name'],
+                $userDto['email'],
+                $userDto['gender'],
+                $userDto['department_name'],
+                $userDto['role_name'],
+                new DateTimeImmutable($userDto['created_at']),
+                new DateTimeImmutable($userDto['updated_at'])
+            ));
+        }
+
+        return $userCollection;
     }
 }
