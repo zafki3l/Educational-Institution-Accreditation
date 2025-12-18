@@ -47,11 +47,11 @@ class UserFacadeService implements UserFacadeServiceInterface
 
         $created_id = $this->userCommandService->create($user);
 
-        $create_data = $this->userQueryService->findOrFail($created_id);
+        $created_data = $this->userQueryService->findOrFail($created_id);
 
         $result = new CommandResult(
             $created_id,
-            $create_data->toArray(),
+            $created_data->toArray(),
             $created_id ? true : false
         );
 
