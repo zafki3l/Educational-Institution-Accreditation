@@ -2,12 +2,12 @@
 
 namespace App\Services\Implementations\User;
 
+use App\DTO\CommandResult;
 use App\DTO\UserDTO\UserByIdDTO;
 use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
-use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
@@ -43,23 +43,51 @@ class UserFacadeService implements UserFacadeServiceInterface
 
     public function create(CreateUserRequest $request): InsertOneResult
     {
-        $created = $this->userCommandService->create($request);
+        $user = $this->userCommandService->setCreateUser($request);
 
-        return $this->handleLogUserService->createLog($created);
+        $created_id = $this->userCommandService->create($user);
+
+        $created_data = $this->userQueryService->findOrFail($created_id);
+
+        $result = new CommandResult(
+            $created_id,
+            $created_data->toArray(),
+            $created_id ? true : false
+        );
+
+        return $this->handleLogUserService->createLog($result);
     }
 
     public function update(int $id, UpdateUserRequest $request): InsertOneResult
     {
-        $updated = $this->userCommandService->update($id, $request);
+        $update_data = $this->userQueryService->findOrFail($id);
 
-        return $this->handleLogUserService->updateLog($updated);   
+        $user = $this->userCommandService->setUpdateUser($request);
+
+        $updated_id = $this->userCommandService->update($id, $user);
+
+        $result = new CommandResult(
+            $updated_id,
+            $update_data->toArray(),
+            $updated_id ? true : false
+        );
+
+        return $this->handleLogUserService->updateLog($result);   
     }
 
     public function delete(int $id): InsertOneResult
     {
-        $deleted = $this->userCommandService->delete($id);
+        $delete_data = $this->userQueryService->findOrFail($id);
+
+        $deleted_rows = $this->userCommandService->delete($id);
+
+        $result = new CommandResult(
+            $id,
+            $delete_data->toArray(),
+            $deleted_rows > 0 ? true : false
+        );
         
-        return $this->handleLogUserService->deleteLog($deleted);
+        return $this->handleLogUserService->deleteLog($result);
     }
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
@@ -77,9 +105,9 @@ class UserFacadeService implements UserFacadeServiceInterface
         return $this->userQueryService->find($search, $start_from, $result_per_page);
     }
 
-    public function findById(int $id): UserByIdDTO
+    public function findOrFail(int $id): UserByIdDTO
     {
-        return $this->userQueryService->findById($id);
+        return $this->userQueryService->findOrFail($id);
     }
 
     public function count(?string $search = null): int

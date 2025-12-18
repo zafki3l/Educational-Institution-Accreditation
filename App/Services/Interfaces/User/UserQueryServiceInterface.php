@@ -11,7 +11,7 @@ interface UserQueryServiceInterface
 
     public function find(string $search, int $start_from, int $result_per_page): UserCollectionDTO;
 
-    public function findById(int $id): UserByIdDTO;
+    public function findOrFail(int $id): UserByIdDTO;
 
     public function count(?string $search = null): int;
 }

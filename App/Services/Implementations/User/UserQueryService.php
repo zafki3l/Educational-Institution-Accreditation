@@ -28,7 +28,7 @@ class UserQueryService implements UserQueryServiceInterface
         return $this->dtoMapper($users);
     }
 
-    public function findById(int $id): UserByIdDTO
+    public function findOrFail(int $id): UserByIdDTO
     {
         $found = $this->userRepository->findById($id);
 
