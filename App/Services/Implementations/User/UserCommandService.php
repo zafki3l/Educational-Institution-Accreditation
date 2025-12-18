@@ -14,7 +14,22 @@ class UserCommandService implements UserCommandServiceInterface
     public function __construct(private UserRepositoryInterface $userRepository,
                                 private UserQueryServiceInterface $userQueryService) {}
 
-    public function create(CreateUserRequest $request): array
+    public function create(User $user): int
+    {
+        $created_id = $this->userRepository->create([
+            'first_name' => $user->getFirstName(),
+            'last_name' => $user->getLastName(),
+            'email' => $user->getEmail(),
+            'gender' => $user->getGender(),
+            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'department_id' => $user->getDepartmentId(),
+            'role_id' => $user->getRoleId()
+        ]);
+
+        return $created_id;
+    }
+
+    public function setCreateUser(CreateUserRequest $request): User
     {
         $user = new User();
 
@@ -25,39 +40,13 @@ class UserCommandService implements UserCommandServiceInterface
             ->setPassword($request->getPassword())
             ->setDepartmentId($request->getDepartmentId())
             ->setRoleId($request->getRoleId());
-
-        $created = $this->userRepository->create([
-            'first_name' => $user->getFirstName(),
-            'last_name' => $user->getLastName(),
-            'email' => $user->getEmail(),
-            'gender' => $user->getGender(),
-            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
-            'department_id' => $user->getDepartmentId(),
-            'role_id' => $user->getRoleId()
-        ]);
-
-        $data = $this->userQueryService->findById($created);
-
-        return [
-            'data' => $data->toArray(), 
-            'isSuccess' => $created ? true : false
-        ];
+        
+        return $user;
     }
 
-    public function update(int $user_id, UpdateUserRequest $request): array
+    public function update(int $user_id, User $user): int
     {
-        $found = $this->userQueryService->findById($user_id);
-
-        $user = new User();
-
-        $user->setFirstName($request->getFirstName())
-            ->setLastName($request->getLastName())
-            ->setEmail($request->getEmail())
-            ->setGender($request->getGender())
-            ->setDepartmentId($request->getDepartmentId())
-            ->setRoleId($request->getRoleId());
-
-        $updated = $this->userRepository->updateById([
+        $updated_id = $this->userRepository->updateById([
             'first_name' => $user->getFirstName(),
             'last_name' => $user->getLastName(),
             'email' => $user->getEmail(),
@@ -67,21 +56,27 @@ class UserCommandService implements UserCommandServiceInterface
             'user_id' => $user_id
         ]);
 
-        return [
-            'data' => $found->toArray(), 
-            'isSuccess' => $updated ? true : false
-        ];
+        return $updated_id;
     }
 
-    public function delete(int $id): array
+    public function setUpdateUser(UpdateUserRequest $request): User
     {
-        $found = $this->userQueryService->findById($id);
+        $user = new User();
 
-        $deleted = $this->userRepository->deleteById($id);
+        $user->setFirstName($request->getFirstName())
+            ->setLastName($request->getLastName())
+            ->setEmail($request->getEmail())
+            ->setGender($request->getGender())
+            ->setDepartmentId($request->getDepartmentId())
+            ->setRoleId($request->getRoleId());
+        
+        return $user;
+    }
 
-        return [
-            'data' => $found->toArray(),
-            'isSuccess' => $deleted ? true : false
-        ];
+    public function delete(int $id): int
+    {
+        $deleted_rows = $this->userRepository->deleteById($id);
+
+        return $deleted_rows;
     }
 }

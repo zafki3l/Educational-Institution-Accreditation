@@ -6,9 +6,9 @@ use MongoDB\InsertOneResult;
 
 interface HandleLogUserServiceInterface
 {
-    public function createLog(array $created): InsertOneResult;
+    public function createLog(array $data, bool $isSuccess): InsertOneResult;
 
-    public function updateLog(array $updated): InsertOneResult;
+    public function updateLog(array $data, bool $isSuccess): InsertOneResult;
 
-    public function deleteLog(array $deleted): InsertOneResult;
+    public function deleteLog(array $data, bool $isSuccess): InsertOneResult;
 }
