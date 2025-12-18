@@ -11,7 +11,9 @@ use App\Services\Implementations\MilestoneService;
 use App\Services\Implementations\RoleService;
 use App\Services\Implementations\SessionService;
 use App\Services\Implementations\StandardService;
-use App\Services\Implementations\UserService;
+use App\Services\Implementations\User\UserCommandService;
+use App\Services\Implementations\User\UserQueryService;
+use App\Services\Implementations\User\UserService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
@@ -23,13 +25,17 @@ use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
 use App\Services\Interfaces\SessionServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
-use App\Services\Interfaces\UserServiceInterface;
+use App\Services\Interfaces\User\UserCommandServiceInterface;
+use App\Services\Interfaces\User\UserQueryServiceInterface;
+use App\Services\Interfaces\User\UserServiceInterface;
 
 use function DI\autowire;
 
 return [
     AuthServiceInterface::class => autowire(AuthService::class),
     UserServiceInterface::class => autowire(UserService::class),
+    UserQueryServiceInterface::class => autowire(UserQueryService::class),
+    UserCommandServiceInterface::class => autowire(UserCommandService::class),
     DepartmentServiceInterface::class => autowire(DepartmentService::class),
     FileUploadServiceInterface::class => autowire(FileUploadService::class),
     EvidenceServiceInterface::class => autowire(EvidenceService::class),

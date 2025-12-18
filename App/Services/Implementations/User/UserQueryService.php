@@ -7,9 +7,10 @@ use App\DTO\UserDTO\UserCollectionDTO;
 use App\DTO\UserDTO\UserListDTO;
 use App\Exceptions\UserException\UserNotFoundException;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Services\Interfaces\User\UserQueryServiceInterface;
 use DateTimeImmutable;
 
-class UserQueryService
+class UserQueryService implements UserQueryServiceInterface
 {
     public function __construct(private UserRepositoryInterface $userRepository) {}
 
