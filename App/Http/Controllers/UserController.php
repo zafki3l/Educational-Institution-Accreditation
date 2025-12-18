@@ -6,7 +6,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
-use App\Services\Interfaces\UserServiceInterface;
+use App\Services\Interfaces\User\UserServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 

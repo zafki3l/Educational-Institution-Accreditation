@@ -8,12 +8,12 @@ namespace App\Http\Requests\User;
  */
 abstract class UserRequest
 {
-    protected readonly string $first_name;
-    protected readonly string $last_name;
-    protected readonly string $email;
-    protected readonly string $gender;
-    protected readonly int $department_id;
-    protected readonly int $role_id;
+    protected string $first_name;
+    protected string $last_name;
+    protected string $email;
+    protected string $gender;
+    protected int $department_id;
+    protected int $role_id;
 
 	public function getFirstName(): string {return $this->first_name;}
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Evidence;
 
 class AddMilestoneRequest extends EvidenceRequest
 {
-    private readonly string $milestone_id;
+    private string $milestone_id;
 
     public function __construct(array $input)
     {

@@ -8,8 +8,8 @@ namespace App\Http\Requests\Auth;
  */
 abstract class AuthRequest
 {
-    protected readonly string $email;
-    protected readonly string $password;
+    protected string $email;
+    protected string $password;
 
     public function getEmail(): string {return $this->email;}
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Interfaces;
+namespace App\Services\Interfaces\User;
 
 use App\DTO\UserDTO\UserByIdDTO;
 use App\DTO\UserDTO\UserCollectionDTO;
@@ -19,12 +19,12 @@ interface UserServiceInterface
     public function delete(int $user_id): void;
     
     public function handleError(UserRequest $request, $isUpdated = false): ?array;
-    
-    public function findById(int $user_id): UserByIdDTO;
-    
+
     public function findAll(int $start_from, int $result_per_page): UserCollectionDTO;
-    
+
     public function find(string $search, int $start_from, int $result_per_page): UserCollectionDTO;
+
+    public function findById(int $id): UserByIdDTO;
 
     public function count(?string $search = null): int;
 }

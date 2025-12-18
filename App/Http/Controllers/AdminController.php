@@ -6,7 +6,7 @@ use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
-use App\Services\Interfaces\UserServiceInterface;
+use App\Services\Interfaces\User\UserServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
