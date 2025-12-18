@@ -4,8 +4,8 @@ namespace App\Http\Requests\Standard;
 
 abstract class StandardRequest
 {
-    protected readonly string $name;
-	protected readonly int $department_id;
+    protected string $name;
+	protected int $department_id;
 
     public function getName(): string {return $this->name;}
 

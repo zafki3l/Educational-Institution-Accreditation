@@ -11,6 +11,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Services\Implementations\User\UserQueryService;
 use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
@@ -20,17 +21,18 @@ use DateTimeImmutable;
 class UserService implements UserServiceInterface
 {
     public function __construct(private UserRepositoryInterface $userRepository,
+                                private UserQueryService $userQueryService,
                                 private UserValidatorInterface $userValidator,
                                 private LogServiceInterface $logService) {}
 
     public function list(?string $search, int $current_page): array
     {
-        $total_records = $this->count($search);
+        $total_records = $this->userQueryService->count($search);
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
-        $users = $search ? $this->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
-                        : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
+        $users = $search ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+                        : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'users' => $users->toArray(),
@@ -50,7 +52,7 @@ class UserService implements UserServiceInterface
             ->setGender($request->getGender())
             ->setPassword($request->getPassword())
             ->setDepartmentId($request->getDepartmentId())
-            ->setRoleId($request->getDepartmentId());
+            ->setRoleId($request->getRoleId());
 
         $created = $this->userRepository->create([
             'first_name' => $user->getFirstName(),
@@ -120,7 +122,6 @@ class UserService implements UserServiceInterface
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
     {
-        $request = !$isUpdated ? new CreateUserRequest($_POST) : new UpdateUserRequest($_POST); 
         $errors = $this->userValidator->handleUserError($this->userRepository, $request, $isUpdated);
 
         return !empty($errors) ? $errors : null;

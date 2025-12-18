@@ -4,8 +4,8 @@ namespace App\Http\Requests\Milestone;
 
 abstract class MilestoneRequest
 {
-    protected readonly string $criteria_id;
-    protected readonly string $name;
+    protected string $criteria_id;
+    protected string $name;
 
     public function getCriteriaId(): string {return $this->criteria_id;}
 

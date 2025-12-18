@@ -6,7 +6,7 @@ class UserCollectionDTO
 {
     protected array $items = [];
 
-    public function append(mixed $dto): void
+    public function append(BaseUserDTO $dto): void
     {
         $this->items[] = $dto;
     }
@@ -14,7 +14,7 @@ class UserCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (mixed $dto) => $dto->toArray(), 
+            fn (BaseUserDTO $dto) => $dto->toArray(), 
             $this->items
         );
     }

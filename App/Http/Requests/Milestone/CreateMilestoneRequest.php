@@ -4,7 +4,7 @@ namespace App\Http\Requests\Milestone;
 
 class CreateMilestoneRequest extends MilestoneRequest
 {
-    private readonly string $id;
+    private string $id;
 
     public function __construct(array $input)
     {
