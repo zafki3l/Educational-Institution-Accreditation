@@ -7,21 +7,21 @@ use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\LogServiceInterface;
+use App\Services\Interfaces\User\HandleLogUserServiceInterface;
+use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
 use App\Services\Interfaces\User\UserQueryServiceInterface;
-use App\Services\Interfaces\User\UserServiceInterface;
-use App\Validations\Interfaces\UserValidatorInterface;
+use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Paginator;
+use MongoDB\InsertOneResult;
 
-class UserService implements UserServiceInterface
+class UserFacadeService implements UserFacadeServiceInterface
 {
-    public function __construct(private UserRepositoryInterface $userRepository,
+    public function __construct(private HandleUserErrorServiceInterface $handleUserErrorService,
                                 private UserQueryServiceInterface $userQueryService,
                                 private UserCommandServiceInterface $userCommandService,
-                                private UserValidatorInterface $userValidator,
-                                private LogServiceInterface $logService) {}
+                                private HandleLogUserServiceInterface $handleLogUserService) {}
 
     public function list(?string $search, int $current_page): array
     {
@@ -29,8 +29,9 @@ class UserService implements UserServiceInterface
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
-        $users = $search ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
-                        : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
+        $users = $search 
+            ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+            : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'users' => $users->toArray(),
@@ -40,40 +41,30 @@ class UserService implements UserServiceInterface
         ];
     }
 
-    public function create(CreateUserRequest $request): void
+    public function create(CreateUserRequest $request): InsertOneResult
     {
         $created = $this->userCommandService->create($request);
 
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm người dùng mới";
-
-        $this->logService->createLog('user', $created['data'], 'create', $message, $created['isSuccess']);
+        return $this->handleLogUserService->createLog($created);
     }
 
-    public function update(int $id, UpdateUserRequest $request): void
+    public function update(int $id, UpdateUserRequest $request): InsertOneResult
     {
         $updated = $this->userCommandService->update($id, $request);
-        $data = $updated['data'];
 
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã chỉnh sửa thông tin người dùng {$data['id']}";
-
-        $this->logService->createLog('user', $data, 'update', $message, $updated['isSuccess']);   
+        return $this->handleLogUserService->updateLog($updated);   
     }
 
-    public function delete(int $id): void
+    public function delete(int $id): InsertOneResult
     {
         $deleted = $this->userCommandService->delete($id);
-        $data = $deleted['data'];
-
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa người dùng {$data['id']}";
-
-        $this->logService->createLog('user', $data, 'delete', $message, $deleted['isSuccess']);
+        
+        return $this->handleLogUserService->deleteLog($deleted);
     }
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
     {
-        $errors = $this->userValidator->handleUserError($this->userRepository, $request, $isUpdated);
-
-        return !empty($errors) ? $errors : null;
+        return $this->handleUserErrorService->handleError($request, $isUpdated);
     }
 
     public function findAll(int $start_from, int $result_per_page): UserCollectionDTO
