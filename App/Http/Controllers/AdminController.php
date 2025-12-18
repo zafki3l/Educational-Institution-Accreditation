@@ -6,7 +6,7 @@ use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
-use App\Services\Interfaces\User\UserServiceInterface;
+use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private UserServiceInterface $userService,
+    public function __construct(private UserFacadeServiceInterface $userService,
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService,

@@ -11,11 +11,11 @@ use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
 use App\Services\Interfaces\User\UserQueryServiceInterface;
-use App\Services\Interfaces\User\UserServiceInterface;
+use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Paginator;
 
-class UserService implements UserServiceInterface
+class UserFacadeService implements UserFacadeServiceInterface
 {
     public function __construct(private UserRepositoryInterface $userRepository,
                                 private UserQueryServiceInterface $userQueryService,
@@ -29,8 +29,9 @@ class UserService implements UserServiceInterface
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
-        $users = $search ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
-                        : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
+        $users = $search 
+            ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+            : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'users' => $users->toArray(),

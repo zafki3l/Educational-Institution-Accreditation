@@ -6,7 +6,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
-use App\Services\Interfaces\User\UserServiceInterface;
+use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private UserServiceInterface $userService,
+    public function __construct(private UserFacadeServiceInterface $userService,
                                 private RoleServiceInterface $roleService,
                                 private DepartmentServiceInterface $departmentService) {}
 

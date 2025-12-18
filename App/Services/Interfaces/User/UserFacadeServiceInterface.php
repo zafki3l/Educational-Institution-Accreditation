@@ -8,7 +8,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 
-interface UserServiceInterface
+interface UserFacadeServiceInterface
 {
     public function list(?string $search, int $current_page): array;
     
