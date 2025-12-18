@@ -7,16 +7,17 @@ use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
+use MongoDB\InsertOneResult;
 
 interface UserFacadeServiceInterface
 {
     public function list(?string $search, int $current_page): array;
     
-    public function create(CreateUserRequest $request): void;
+    public function create(CreateUserRequest $request): InsertOneResult;
     
-    public function update(int $user_id, UpdateUserRequest $request);
+    public function update(int $user_id, UpdateUserRequest $request): InsertOneResult;
     
-    public function delete(int $user_id): void;
+    public function delete(int $user_id): InsertOneResult;
     
     public function handleError(UserRequest $request, $isUpdated = false): ?array;
 
