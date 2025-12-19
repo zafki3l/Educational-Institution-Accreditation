@@ -2,19 +2,39 @@
 
 namespace App\Services\Implementations\Evidence;
 
+use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
-use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;
+use Traits\FilterHelperTrait;
 
+/**
+ *
+ * High-level application service responsible for orchestrating
+ * evidence-related use cases.
+ *
+ * This service acts as a Facade:
+ * - Coordinates Query Services and Command Services
+ * - Delegates logging and error handling to dedicated services
+ * - Encapsulates complex workflows into simple public methods
+ *
+ * It hides internal business logic and interaction details from
+ * controllers, providing a clean and stable interface for the
+ * presentation layer.
+ *
+ * The Facade does NOT contain business rules or persistence logic.
+ * Its sole responsibility is orchestration and flow control.
+ */
 class EvidenceFacadeService implements EvidenceServiceInterface
 {
+    use FilterHelperTrait;
+
     public function __construct(private EvidenceRepositoryInterface $evidenceRepository,
                                 private FileUploadServiceInterface $fileUploadService,
                                 private EvidenceQueryServiceInterface $evidenceQueryService) {}
@@ -59,17 +79,6 @@ class EvidenceFacadeService implements EvidenceServiceInterface
         $this->evidenceRepository->create($evidence);
     }
 
-    public function findById(string $evidence_id): array
-    {
-        $found = $this->evidenceRepository->findById($evidence_id);
-
-        if (!$found) {
-            throw new EvidenceNotFoundException($evidence_id);
-        }
-
-        return $found;
-    }
-
     public function evidenceMilestone(string $evidence_id): array
     {
         return $this->evidenceRepository->evidenceManyToManyMilestone($evidence_id);
@@ -77,7 +86,7 @@ class EvidenceFacadeService implements EvidenceServiceInterface
 
     public function update(string $evidence_id, UpdateEvidenceRequest $request): void
     {
-        $found = $this->findById($evidence_id);
+        $found = $this->findOrFail($evidence_id)->toArray();
 
         $evidence = new Evidence();
 
@@ -102,49 +111,33 @@ class EvidenceFacadeService implements EvidenceServiceInterface
         $this->evidenceRepository->linkMinestoneToEvidence($evidence_id, $milestone_id);
     }
 
-    public function findAll(int $start_from, int $result_per_page): array
+    public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO
     {
-        $evidences = $this->evidenceQueryService->findAll($start_from, $result_per_page);
-
-        return $evidences->toArray();
+        return $this->evidenceQueryService->findAll($start_from, $result_per_page);
     }
 
-    public function find(string $search, int $start_from, int $result_per_page): array
+    public function find(string $search, int $start_from, int $result_per_page): EvidenceCollectionDTO
     {
-        $evidences = $this->evidenceQueryService->find($search, $start_from, $result_per_page);
-
-        return $evidences->toArray();
+        return $this->evidenceQueryService->find($search, $start_from, $result_per_page);
     }
 
-    public function findAllWithoutMilestone(): array
+    public function findAllWithoutMilestone(): EvidenceCollectionDTO
     {
-        $evidences = $this->evidenceQueryService->findAllWithoutMilestone();
-
-        return $evidences->toArray();
+        return $this->evidenceQueryService->findAllWithoutMilestone();
     }
 
-    public function filterEvidences(int $start_from, int $result_per_page, array $filter): array
+    public function filterEvidences(int $start_from, int $result_per_page, array $filter): EvidenceCollectionDTO
     {
-        $evidences = $this->evidenceQueryService->filterEvidences($start_from, $result_per_page, $filter);
-
-        return $evidences->toArray();
+        return $this->evidenceQueryService->filterEvidences($start_from, $result_per_page, $filter);
     }
 
-    private function findOrFail(string $evidence_id): array
+    public function findOrFail(string $evidence_id): EvidenceCollectionDTO
     {
-        $evidence = $this->evidenceQueryService->findOrFail($evidence_id);
-
-        return $evidence->toArray();
+        return $this->evidenceQueryService->findOrFail($evidence_id);
     }
 
     public function count(?string $search = null): int
     {
         return $this->evidenceQueryService->count($search);
-    }
-
-    private function filterArray(array $filter): array
-    {
-        // Return true values only
-        return array_filter($filter, fn($value) => !empty($value));
     }
 }

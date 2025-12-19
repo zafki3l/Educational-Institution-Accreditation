@@ -16,6 +16,7 @@ use App\Services\Implementations\StandardService;
 use App\Services\Implementations\User\HandleLogUserService;
 use App\Services\Implementations\User\HandleUserErrorService;
 use App\Services\Implementations\User\UserCommandService;
+use App\Services\Implementations\User\UserDTOMapperService;
 use App\Services\Implementations\User\UserQueryService;
 use App\Services\Implementations\User\UserFacadeService;
 use App\Services\Interfaces\AuthServiceInterface;
@@ -35,6 +36,7 @@ use App\Services\Interfaces\StandardServiceInterface;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
+use App\Services\Interfaces\User\UserDTOMapperServiceInterface;
 use App\Services\Interfaces\User\UserQueryServiceInterface;
 use App\Services\Interfaces\User\UserFacadeServiceInterface;
 
@@ -45,6 +47,7 @@ return [
     UserFacadeServiceInterface::class => autowire(UserFacadeService::class),
     UserQueryServiceInterface::class => autowire(UserQueryService::class),
     UserCommandServiceInterface::class => autowire(UserCommandService::class),
+    UserDTOMapperServiceInterface::class => autowire(UserDTOMapperService::class),
     HandleUserErrorServiceInterface::class => autowire(HandleUserErrorService::class),
     HandleLogUserServiceInterface::class => autowire(HandleLogUserService::class),
     DepartmentServiceInterface::class => autowire(DepartmentService::class),

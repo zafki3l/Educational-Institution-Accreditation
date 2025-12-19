@@ -9,6 +9,10 @@ use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
 use App\Services\Interfaces\User\UserQueryServiceInterface;
 
+/**
+ * This service handles state-changing operations such as
+ * creating, updating, and deleting users. 
+ */
 class UserCommandService implements UserCommandServiceInterface
 {
     public function __construct(private UserRepositoryInterface $userRepository,

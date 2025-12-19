@@ -3,7 +3,6 @@
 namespace App\Services\Implementations\User;
 
 use App\DTO\CommandResult;
-use App\DTO\UserDTO\UserByIdDTO;
 use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -16,6 +15,22 @@ use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Paginator;
 use MongoDB\InsertOneResult;
 
+/**
+ * High-level application service responsible for orchestrating
+ * user-related use cases.
+ *
+ * This service acts as a Facade:
+ * - Coordinates Query Services and Command Services
+ * - Delegates logging and error handling to dedicated services
+ * - Encapsulates complex workflows into simple public methods
+ *
+ * It hides internal business logic and interaction details from
+ * controllers, providing a clean and stable interface for the
+ * presentation layer.
+ *
+ * The Facade does NOT contain business rules or persistence logic.
+ * Its sole responsibility is orchestration and flow control.
+ */
 class UserFacadeService implements UserFacadeServiceInterface
 {
     public function __construct(private HandleUserErrorServiceInterface $handleUserErrorService,
@@ -25,13 +40,13 @@ class UserFacadeService implements UserFacadeServiceInterface
 
     public function list(?string $search, int $current_page): array
     {
-        $total_records = $this->userQueryService->count($search);
+        $total_records = $this->count($search);
 
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
         $users = $search 
-            ? $this->userQueryService->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
-            : $this->userQueryService->findAll($start_from, Paginator::RESULT_PER_PAGE);
+            ? $this->find($search, $start_from, Paginator::RESULT_PER_PAGE) 
+            : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
             'users' => $users->toArray(),
@@ -47,7 +62,7 @@ class UserFacadeService implements UserFacadeServiceInterface
 
         $created_id = $this->userCommandService->create($user);
 
-        $created_data = $this->userQueryService->findOrFail($created_id);
+        $created_data = $this->findOrFail($created_id);
 
         $result = new CommandResult(
             $created_id,
@@ -60,7 +75,7 @@ class UserFacadeService implements UserFacadeServiceInterface
 
     public function update(int $id, UpdateUserRequest $request): InsertOneResult
     {
-        $update_data = $this->userQueryService->findOrFail($id);
+        $update_data = $this->findOrFail($id);
 
         $user = $this->userCommandService->setUpdateUser($request);
 
@@ -77,7 +92,7 @@ class UserFacadeService implements UserFacadeServiceInterface
 
     public function delete(int $id): InsertOneResult
     {
-        $delete_data = $this->userQueryService->findOrFail($id);
+        $delete_data = $this->findOrFail($id);
 
         $deleted_rows = $this->userCommandService->delete($id);
 
@@ -105,7 +120,7 @@ class UserFacadeService implements UserFacadeServiceInterface
         return $this->userQueryService->find($search, $start_from, $result_per_page);
     }
 
-    public function findOrFail(int $id): UserByIdDTO
+    public function findOrFail(int $id): UserCollectionDTO
     {
         return $this->userQueryService->findOrFail($id);
     }

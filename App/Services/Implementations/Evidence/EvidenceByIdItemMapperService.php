@@ -5,7 +5,7 @@ namespace App\Services\Implementations\Evidence;
 use App\DTO\EvidenceDTO\EvidenceByIdDTO;
 use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
 
-class EvidenceByIdItemMapper implements EvidenceItemMapperServiceInterface
+class EvidenceByIdItemMapperService implements EvidenceItemMapperServiceInterface
 {
     public function mapItem(array $evidence): EvidenceByIdDTO
     {   

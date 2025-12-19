@@ -81,7 +81,7 @@ class UserController extends Controller
 
     public function edit(int $user_id): mixed
     {
-        $users = $this->userService->findById($user_id);
+        $user = $this->userService->findOrFail($user_id)->toArray();
         $departments = $this->departmentService->findAll();
         $roles = $this->roleService->findAll();
 
@@ -90,7 +90,7 @@ class UserController extends Controller
             'admin.layouts',
             [
                 'title' => 'Edit user',
-                'user' => $users->toArray(),
+                'user' => $user[0],
                 'departments' => $departments,
                 'roles' => $roles
             ]

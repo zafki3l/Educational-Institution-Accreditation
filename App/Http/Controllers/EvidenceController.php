@@ -35,6 +35,7 @@ class EvidenceController extends Controller
 
         $data = $this->evidenceService->list($search, $current_page, $filter);
 
+        $evidences = $data['evidences'];
         $evidencesWithoutMilestone = $this->evidenceService->findAllWithoutMilestone();
 
         return $this->view(
@@ -42,7 +43,7 @@ class EvidenceController extends Controller
             'staff.layouts',
             [
                 'title' => 'QUẢN LÝ MINH CHỨNG',
-                'evidences' => $data['evidences'],
+                'evidences' => $evidences->toArray(),
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
                 'result_per_page' => $data['result_per_page'],
@@ -76,14 +77,14 @@ class EvidenceController extends Controller
 
     public function edit(string $evidence_id): mixed
     {
-        $evidences = $this->evidenceService->findById($evidence_id);
+        $evidences = $this->evidenceService->findOrFail($evidence_id);
         
         return $this->view(
             'staff/evidences/edit',
             'staff.layouts',
             [
                 'title' => 'Chỉnh sửa minh chứng',
-                'evidence' => $evidences
+                'evidence' => $evidences->toArray()
             ]
         );
     }

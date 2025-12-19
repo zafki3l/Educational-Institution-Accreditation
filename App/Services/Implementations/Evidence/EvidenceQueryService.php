@@ -49,7 +49,7 @@ class EvidenceQueryService implements EvidenceQueryServiceInterface
             throw new EvidenceNotFoundException($evidence_id);
         }
 
-        return $this->evidenceDTOMapper->map($found, new EvidenceByIdItemMapper());
+        return $this->evidenceDTOMapper->map($found, new EvidenceByIdItemMapperService());
     }
 
     public function count(?string $search = null): int
