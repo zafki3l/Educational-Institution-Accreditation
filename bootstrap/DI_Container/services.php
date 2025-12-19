@@ -3,10 +3,9 @@
 use App\Services\Implementations\AuthService;
 use App\Services\Implementations\CriteriaService;
 use App\Services\Implementations\DepartmentService;
-use App\Services\Implementations\Evidence\EvidenceDTOMapper;
+use App\Services\Implementations\Evidence\EvidenceDTOMapperService;
 use App\Services\Implementations\Evidence\EvidenceFacadeService;
 use App\Services\Implementations\Evidence\EvidenceQueryService;
-use App\Services\Implementations\EvidenceService;
 use App\Services\Implementations\FileUploadService;
 use App\Services\Implementations\LockService;
 use App\Services\Implementations\LogService;
@@ -22,7 +21,7 @@ use App\Services\Implementations\User\UserFacadeService;
 use App\Services\Interfaces\AuthServiceInterface;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\DepartmentServiceInterface;
-use App\Services\Interfaces\Evidence\EvidenceDTOMapperInterface;
+use App\Services\Interfaces\Evidence\EvidenceDTOMapperServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
 use App\Services\Interfaces\EvidenceServiceInterface;
@@ -53,7 +52,7 @@ return [
     EvidenceServiceInterface::class => autowire(EvidenceFacadeService::class),
     EvidenceQueryServiceInterface::class => autowire(EvidenceQueryService::class),
     EvidenceFacadeServiceInterface::class => autowire(EvidenceFacadeService::class),
-    EvidenceDTOMapperInterface::class => autowire(EvidenceDTOMapper::class),
+    EvidenceDTOMapperServiceInterface::class => autowire(EvidenceDTOMapperService::class),
     CriteriaServiceInterface::class => autowire(CriteriaService::class),
     StandardServiceInterface::class => autowire(StandardService::class),
     MilestoneServiceInterface::class => autowire(MilestoneService::class),

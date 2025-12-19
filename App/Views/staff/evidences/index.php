@@ -31,7 +31,7 @@
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <select name="evidence_id" id="evidence_id">
                         <?php foreach ($evidencesWithoutMilestone as $evidence): ?>
-                            <option value="<?= htmlspecialchars($evidence['evidence_id']) ?>"><?= $evidence['evidence_name'] ?></option>
+                            <option value="<?= htmlspecialchars($evidence['id']) ?>"><?= $evidence['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
 

@@ -3,10 +3,10 @@
 namespace App\Services\Implementations\Evidence;
 
 use App\DTO\EvidenceDTO\EvidenceListDTO;
-use App\Services\Interfaces\Evidence\EvidenceItemMapperInterface;
+use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
 use DateTimeImmutable;
 
-class EvidenceListItemMapper implements EvidenceItemMapperInterface
+class EvidenceListItemMapperService implements EvidenceItemMapperServiceInterface
 {
     public function mapItem(array $evidence): EvidenceListDTO
     {   

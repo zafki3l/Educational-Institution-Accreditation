@@ -3,9 +3,9 @@
 namespace App\Services\Implementations\Evidence;
 
 use App\DTO\EvidenceDTO\EvidenceWithoutMilestoneDTO;
-use App\Services\Interfaces\Evidence\EvidenceItemMapperInterface;
+use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
 
-class EvidenceWithoutMilestoneItemMapper implements EvidenceItemMapperInterface
+class EvidenceWithoutMilestoneItemMapperService implements EvidenceItemMapperServiceInterface
 {
     public function mapItem(array $evidence): EvidenceWithoutMilestoneDTO
     {   
