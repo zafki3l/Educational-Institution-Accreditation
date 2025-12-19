@@ -87,42 +87,42 @@
                     <tbody>
                         <?php foreach ($evidences as $evidence): ?>
                             <tr>
-                                <td><?= htmlspecialchars($evidence['evidence_id']) ?></td>
-                                <td><?= htmlspecialchars($evidence['evidence_name']) ?></td>
+                                <td><?= htmlspecialchars($evidence['id']) ?></td>
+                                <td><?= htmlspecialchars($evidence['name']) ?></td>
                                 <td><?= htmlspecialchars($evidence['evaluation_milestone']) ?></td>
                                 <td><?= htmlspecialchars($evidence['decision']) ?></td>
                                 <td><?= htmlspecialchars($evidence['document_date']) ?></td>
                                 <td><?= htmlspecialchars($evidence['issue_place']) ?></td>
                                 <td><a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['link']) ?>">Xem minh chứng</a></td>
                                 <td>
-                                    <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/milestones">Xem chi tiết</a>
+                                    <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['id']) ?>/milestones">Xem chi tiết</a>
                                 </td>
                                 <td>
                                     <?php if (App\Models\User::isAdmin($_SESSION['user']['role_id']) ||
                                             $_SESSION['user']['department_id'] == $evidence['department_id']): ?>
-                                        <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>/edit" 
+                                        <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['id']) ?>/edit" 
                                             class="edit-btn"><i class="fa-solid fa-pen"></i></a>
 
-                                        <button onclick="showConfirm('<?php echo htmlspecialchars($evidence['evidence_id']) ?>')" class="delete-btn">
+                                        <button onclick="showConfirm('<?php echo htmlspecialchars($evidence['id']) ?>')" class="delete-btn">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
 
                                         <!-- Delete Modal -->
-                                        <div id="confirmModal-<?php echo htmlspecialchars($evidence['evidence_id']) ?>" class="modal">
+                                        <div id="confirmModal-<?php echo htmlspecialchars($evidence['id']) ?>" class="modal">
                                             <div class="modal-content">
                                                 <h2>Delete</h2>
                                                 <hr>
                                                 <p>Click confirm to delete</p>
-                                                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['evidence_id']) ?>"
-                                                    method="post" id="deleteForm-<?php echo htmlspecialchars($evidence['evidence_id']) ?>">
+                                                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['id']) ?>"
+                                                    method="post" id="deleteForm-<?php echo htmlspecialchars($evidence['id']) ?>">
                                                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     
-                                                    <input type="hidden" name="evidence_id" value="<?php echo htmlspecialchars($evidence['evidence_id']) ?>">
+                                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($evidence['id']) ?>">
 
                                                     <button type="submit" class="submit-modal">Confirm</button>
                                                     <button type="button" class="cancel-modal" 
-                                                    onclick="closeModal('<?php echo htmlspecialchars($evidence['evidence_id']) ?>')">Cancel</button>
+                                                    onclick="closeModal('<?php echo htmlspecialchars($evidence['id']) ?>')">Cancel</button>
                                                 </form>
                                             </div>
                                         </div>
