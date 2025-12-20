@@ -25,7 +25,6 @@ use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceDTOMapperServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
-use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use App\Services\Interfaces\LockServiceInterface;
 use App\Services\Interfaces\LogServiceInterface;
@@ -52,7 +51,7 @@ return [
     HandleLogUserServiceInterface::class => autowire(HandleLogUserService::class),
     DepartmentServiceInterface::class => autowire(DepartmentService::class),
     FileUploadServiceInterface::class => autowire(FileUploadService::class),
-    EvidenceServiceInterface::class => autowire(EvidenceFacadeService::class),
+    EvidenceFacadeServiceInterface::class => autowire(EvidenceFacadeService::class),
     EvidenceQueryServiceInterface::class => autowire(EvidenceQueryService::class),
     EvidenceFacadeServiceInterface::class => autowire(EvidenceFacadeService::class),
     EvidenceDTOMapperServiceInterface::class => autowire(EvidenceDTOMapperService::class),

@@ -31,13 +31,14 @@ class UserController extends Controller
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
         $data = $this->userService->list($search, $current_page);
+        $users = $data['users'];
 
         return $this->view(
             'admin/users/index',
             'admin.layouts',
             [
                 'title' => 'Quản lý người dùng',
-                'users' => $data['users'],
+                'users' => $users->toArray(),
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
                 'result_per_page' => $data['result_per_page']

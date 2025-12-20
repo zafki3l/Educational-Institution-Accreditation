@@ -16,5 +16,7 @@ interface EvidenceQueryServiceInterface
 
     public function findOrFail(string $evidence_id): EvidenceCollectionDTO;
 
+    public function evidenceByMilestone(string $id): EvidenceCollectionDTO;
+
     public function count(?string $search = null): int;
 }

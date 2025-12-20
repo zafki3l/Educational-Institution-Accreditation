@@ -6,7 +6,7 @@ use App\Http\Requests\Evidence\AddMilestoneRequest;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\EvidenceServiceInterface;
+use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
@@ -16,7 +16,7 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private EvidenceServiceInterface $evidenceService,
+    public function __construct(private EvidenceFacadeServiceInterface $evidenceService,
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService) {}
@@ -116,14 +116,14 @@ class EvidenceController extends Controller
 
     public function milestones(string $evidence_id): mixed
     {
-        $evidences = $this->evidenceService->evidenceMilestone($evidence_id);
+        $evidences = $this->evidenceService->evidenceByMilestone($evidence_id);
         $milestones = $this->milestoneService->findAll();
 
         return $this->view(
             'staff/evidences/milestones',
             'staff.layouts',
             [
-                'evidences' => $evidences,
+                'evidences' => $evidences->toArray(),
                 'evidence_id' => $evidence_id,
                 'milestones' => $milestones
             ]

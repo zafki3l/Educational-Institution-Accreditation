@@ -8,6 +8,9 @@ use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Interfaces\Evidence\EvidenceDTOMapperServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
 
+/**
+ * Application service responsible for querying evidence's data
+ */
 class EvidenceQueryService implements EvidenceQueryServiceInterface
 {
     public function __construct(private EvidenceRepositoryInterface $evidenceRepository,
@@ -41,15 +44,26 @@ class EvidenceQueryService implements EvidenceQueryServiceInterface
         return $this->evidenceDTOMapper->map($evidences, new EvidenceListItemMapperService());
     }
 
-    public function findOrFail(string $evidence_id): EvidenceCollectionDTO
+    public function findOrFail(string $id): EvidenceCollectionDTO
     {
-        $found = $this->evidenceRepository->findById($evidence_id);
+        $found = $this->evidenceRepository->findById($id);
 
         if (!$found) {
-            throw new EvidenceNotFoundException($evidence_id);
+            throw new EvidenceNotFoundException($id);
         }
 
         return $this->evidenceDTOMapper->map($found, new EvidenceByIdItemMapperService());
+    }
+
+    public function evidenceByMilestone(string $id): EvidenceCollectionDTO
+    {
+        $evidences = $this->evidenceRepository->evidenceManyToManyMilestone($id);
+
+        if (!$evidences) {
+            throw new EvidenceNotFoundException($id);
+        }
+
+        return $this->evidenceDTOMapper->map($evidences, new EvidenceByMilestoneItemMapperService());
     }
 
     public function count(?string $search = null): int

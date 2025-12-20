@@ -141,6 +141,7 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
     {
         try {
             $sql = "SELECT em.evidence_id as 'evidence_id',
+                            e.name as 'evidence_name',
                             em.milestone_id as 'milestone_id',
                             m.name as 'milestone_name'
                     FROM evidences e

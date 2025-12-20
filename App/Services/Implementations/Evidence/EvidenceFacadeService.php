@@ -3,13 +3,12 @@
 namespace App\Services\Implementations\Evidence;
 
 use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
-use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
+use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
-use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;
 use Traits\FilterHelperTrait;
@@ -31,7 +30,7 @@ use Traits\FilterHelperTrait;
  * The Facade does NOT contain business rules or persistence logic.
  * Its sole responsibility is orchestration and flow control.
  */
-class EvidenceFacadeService implements EvidenceServiceInterface
+class EvidenceFacadeService implements EvidenceFacadeServiceInterface
 {
     use FilterHelperTrait;
 
@@ -79,14 +78,9 @@ class EvidenceFacadeService implements EvidenceServiceInterface
         $this->evidenceRepository->create($evidence);
     }
 
-    public function evidenceMilestone(string $evidence_id): array
+    public function update(string $id, UpdateEvidenceRequest $request): void
     {
-        return $this->evidenceRepository->evidenceManyToManyMilestone($evidence_id);
-    }
-
-    public function update(string $evidence_id, UpdateEvidenceRequest $request): void
-    {
-        $found = $this->findOrFail($evidence_id)->toArray();
+        $found = $this->findOrFail($id)->toArray();
 
         $evidence = new Evidence();
 
@@ -96,19 +90,19 @@ class EvidenceFacadeService implements EvidenceServiceInterface
                 ->setIssuePlace($request->getIssuePlace())
                 ->setLink($this->fileUploadService->evidenceUpload($request->getFile(), $found[0]['link']));
 
-        $this->evidenceRepository->updateById($evidence_id, $evidence);
+        $this->evidenceRepository->updateById($id, $evidence);
     }
 
-    public function delete(string $evidence_id): void
+    public function delete(string $id): void
     {
-        $this->findOrFail($evidence_id);
+        $this->findOrFail($id);
 
-        $this->evidenceRepository->deleteById($evidence_id);
+        $this->evidenceRepository->deleteById($id);
     }
 
-    public function addMilestone($evidence_id, $milestone_id): void
+    public function addMilestone($id, $milestone_id): void
     {
-        $this->evidenceRepository->linkMinestoneToEvidence($evidence_id, $milestone_id);
+        $this->evidenceRepository->linkMinestoneToEvidence($id, $milestone_id);
     }
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO
@@ -131,9 +125,14 @@ class EvidenceFacadeService implements EvidenceServiceInterface
         return $this->evidenceQueryService->filterEvidences($start_from, $result_per_page, $filter);
     }
 
-    public function findOrFail(string $evidence_id): EvidenceCollectionDTO
+    public function findOrFail(string $id): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->findOrFail($evidence_id);
+        return $this->evidenceQueryService->findOrFail($id);
+    }
+
+    public function evidenceByMilestone(string $id): EvidenceCollectionDTO
+    {
+        return $this->evidenceQueryService->evidenceByMilestone($id);
     }
 
     public function count(?string $search = null): int

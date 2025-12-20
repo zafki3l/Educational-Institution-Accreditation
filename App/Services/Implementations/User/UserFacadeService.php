@@ -49,7 +49,7 @@ class UserFacadeService implements UserFacadeServiceInterface
             : $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
 
         return [
-            'users' => $users->toArray(),
+            'users' => $users,
             'current_page' => $current_page,
             'total_pages' => $total_pages,
             'result_per_page' => Paginator::RESULT_PER_PAGE

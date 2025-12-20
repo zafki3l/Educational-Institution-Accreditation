@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\EvidenceServiceInterface;
+use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use App\Services\Interfaces\User\UserFacadeServiceInterface;
@@ -21,7 +21,7 @@ class AdminController extends Controller
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService,
-                                private EvidenceServiceInterface $evidenceService) {}
+                                private EvidenceFacadeServiceInterface $evidenceService) {}
 
     public function dashboard(): mixed
     {
