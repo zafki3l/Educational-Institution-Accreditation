@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Repositories\Sql\Implementations;
+namespace App\Repositories\Sql;
 
 use App\Models\Evidence;
-use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInterface
+class EvidenceRepository extends SqlRepository
 {
     use QueryClauseHelperTrait;
 
@@ -101,32 +100,26 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
         }
     }
 
-    public function create(Evidence $evidence): int
+    public function create(array $evidence): int
     {
         try {
-            return $this->insert('evidences', [
-                'id' => $evidence->getId(),
-                'name' => $evidence->getName(),
-                'decision' => $evidence->getDecision(),
-                'document_date' => $evidence->getDocumentDate(),
-                'issue_place' => $evidence->getIssuePlace(),
-                'link' => $evidence->getLink()
-            ]);
+            return $this->insert('evidences', $evidence);
         } catch (PDOException $e) {
             print $e->getMessage();
             return 0;
         }
     }
 
-    public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): void
+    public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): int
     {
         try {
-            $this->insert('milestone_evidence', [
+            return $this->insert('milestone_evidence', [
                 'milestone_id' => $milestone_id,
                 'evidence_id' => $evidence_id
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
@@ -182,7 +175,7 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
         }
     }
 
-    public function updateById(string $evidence_id, Evidence $evidence): int
+    public function updateById(string $id, array $evidence): int
     {   
         try {
             $sql = "UPDATE evidences
@@ -193,14 +186,7 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
                         link = ?
                     WHERE id = ?";
 
-            return parent::update($sql, [
-                'name' => $evidence->getName(),
-                'decision' => $evidence->getDecision(),
-                'document_date' => $evidence->getDocumentDate(),
-                'issue_place' => $evidence->getIssuePlace(),
-                'link' => $evidence->getLink(),
-                'where' => $evidence_id
-            ]);
+            return parent::update($sql, array_merge($evidence, ['where' => $id]));
         } catch (PDOException $e) {
             print $e->getMessage();
             return 0;

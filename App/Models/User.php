@@ -12,7 +12,7 @@ class User
     public const ROLE_ADMIN = 3;
 
     // Attributes
-    private string $id;
+    private int $id;
     private string $first_name;
     private string $last_name;
     private string $email;
@@ -33,7 +33,7 @@ class User
         return in_array($role_id, [self::ROLE_BUSINESS_STAFF, self::ROLE_ADMIN]);
     }
 
-    public function getId(): string {return $this->id;}
+    public function getId(): int {return $this->id;}
 
 	public function getFirstName(): string {return $this->first_name;}
 
@@ -53,7 +53,7 @@ class User
 
 	public function getUpdatedAt(): DateTime {return $this->updated_at;}
 
-	public function setId(string $id): self {$this->id = $id; return $this;}
+	public function setId(int $id): self {$this->id = $id; return $this;}
 
 	public function setFirstName(string $first_name): self {$this->first_name = $first_name; return $this;}
 

@@ -12,7 +12,7 @@ interface EvidenceRepositoryInterface
     
     public function countAll(): int;
     
-    public function create(Evidence $evidence): void;
+    public function create(Evidence $evidence): int;
 
     public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): void;
     

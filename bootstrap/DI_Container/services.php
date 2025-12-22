@@ -6,6 +6,7 @@ use App\Services\Implementations\DepartmentService;
 use App\Services\Implementations\Evidence\EvidenceDTOMapperService;
 use App\Services\Implementations\Evidence\EvidenceFacadeService;
 use App\Services\Implementations\Evidence\EvidenceQueryService;
+use App\Services\Implementations\Evidence\Query\EvidenceQuery;
 use App\Services\Implementations\FileUploadService;
 use App\Services\Implementations\LockService;
 use App\Services\Implementations\LogService;

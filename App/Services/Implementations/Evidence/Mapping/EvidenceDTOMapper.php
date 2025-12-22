@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Implementations\Evidence;
+namespace App\Services\Implementations\Evidence\Mapping;
 
 use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
-use App\Services\Interfaces\Evidence\EvidenceDTOMapperServiceInterface;
-use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
+use App\Services\Implementations\Evidence\Mapping\Factory\EvidenceItemFactory;
+use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
 
 /**
  * Application-level mapper responsible for transforming
@@ -13,11 +13,15 @@ use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
  * This service encapsulates mapping logic and decouples
  * data sources from DTO construction.
  */
-class EvidenceDTOMapperService implements EvidenceDTOMapperServiceInterface
+class EvidenceDTOMapper
 {
-    public function map(array $evidences, EvidenceItemMapperServiceInterface $itemMapper): EvidenceCollectionDTO
+    public function __construct(private EvidenceItemFactory $factory) {}
+
+    public function map(array $evidences, EvidenceItemType $type): mixed
     {
         $collection = new EvidenceCollectionDTO();
+
+        $itemMapper = $this->factory->createItemMapper($type);
 
         foreach ($evidences as $evidence) {
             $collection->append($itemMapper->mapItem($evidence));

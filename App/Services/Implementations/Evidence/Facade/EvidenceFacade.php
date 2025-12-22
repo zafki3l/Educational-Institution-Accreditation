@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Implementations\Evidence;
+namespace App\Services\Implementations\Evidence\Facade;
 
 use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
-use App\Services\Interfaces\Evidence\EvidenceFacadeServiceInterface;
+use App\Services\Implementations\Evidence\Command\EvidenceCommand;
+use App\Services\Implementations\Evidence\Query\EvidenceQuery;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;
@@ -30,13 +31,14 @@ use Traits\FilterHelperTrait;
  * The Facade does NOT contain business rules or persistence logic.
  * Its sole responsibility is orchestration and flow control.
  */
-class EvidenceFacadeService implements EvidenceFacadeServiceInterface
+class EvidenceFacade
 {
     use FilterHelperTrait;
 
     public function __construct(private EvidenceRepositoryInterface $evidenceRepository,
                                 private FileUploadServiceInterface $fileUploadService,
-                                private EvidenceQueryServiceInterface $evidenceQueryService) {}
+                                private EvidenceQuery $evidenceQuery,
+                                private EvidenceCommand $evidenceCommand) {}
 
     public function list(?string $search, int $current_page, array $filter): array
     {
@@ -66,77 +68,64 @@ class EvidenceFacadeService implements EvidenceFacadeServiceInterface
     
     public function create(CreateEvidenceRequest $request): void
     {
-        $evidence = new Evidence();
+        $evidence = $this->evidenceCommand->setCreate($request);
 
-        $evidence->setId($request->getId())
-                ->setName($request->getName())
-                ->setDecision($request->getDecision())
-                ->setDocumentDate($request->getDocumentDate())
-                ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUploadService->evidenceUpload($request->getFile()));
-
-        $this->evidenceRepository->create($evidence);
+        $created_id = $this->evidenceCommand->create($evidence);
     }
 
     public function update(string $id, UpdateEvidenceRequest $request): void
     {
-        $found = $this->findOrFail($id)->toArray();
+        $found = $this->evidenceQuery->findOrFail($id)->toArray();
 
-        $evidence = new Evidence();
+        $evidence = $this->evidenceCommand->setUpdate($found, $request);
 
-        $evidence->setName($request->getName())
-                ->setDecision($request->getDecision())
-                ->setDocumentDate($request->getDocumentDate())
-                ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUploadService->evidenceUpload($request->getFile(), $found[0]['link']));
-
-        $this->evidenceRepository->updateById($id, $evidence);
+        $updated_id = $this->evidenceCommand->update($id, $evidence);
     }
 
     public function delete(string $id): void
     {
         $this->findOrFail($id);
 
-        $this->evidenceRepository->deleteById($id);
+        $deleted_rows = $this->evidenceCommand->delete($id);
     }
 
-    public function addMilestone($id, $milestone_id): void
+    public function addMilestone($id, $milestone_id): int
     {
-        $this->evidenceRepository->linkMinestoneToEvidence($id, $milestone_id);
+        return $this->evidenceCommand->addMilestone($id, $milestone_id);
     }
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->findAll($start_from, $result_per_page);
+        return $this->evidenceQuery->findAll($start_from, $result_per_page);
     }
 
     public function find(string $search, int $start_from, int $result_per_page): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->find($search, $start_from, $result_per_page);
+        return $this->evidenceQuery->find($search, $start_from, $result_per_page);
     }
 
     public function findAllWithoutMilestone(): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->findAllWithoutMilestone();
+        return $this->evidenceQuery->findAllWithoutMilestone();
     }
 
     public function filterEvidences(int $start_from, int $result_per_page, array $filter): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->filterEvidences($start_from, $result_per_page, $filter);
+        return $this->evidenceQuery->filterEvidences($start_from, $result_per_page, $filter);
     }
 
     public function findOrFail(string $id): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->findOrFail($id);
+        return $this->evidenceQuery->findOrFail($id);
     }
 
     public function evidenceByMilestone(string $id): EvidenceCollectionDTO
     {
-        return $this->evidenceQueryService->evidenceByMilestone($id);
+        return $this->evidenceQuery->evidenceByMilestone($id);
     }
 
     public function count(?string $search = null): int
     {
-        return $this->evidenceQueryService->count($search);
+        return $this->evidenceQuery->count($search);
     }
 }

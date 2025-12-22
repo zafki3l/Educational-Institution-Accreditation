@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Implementations\Evidence;
+namespace App\Services\Implementations\Evidence\Mapping\ItemMappers;
 
 use App\DTO\EvidenceDTO\EvidenceByIdDTO;
-use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
+use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 
 /**
  * Application-level mapper responsible for transforming
@@ -12,7 +12,7 @@ use App\Services\Interfaces\Evidence\EvidenceItemMapperServiceInterface;
  * This service encapsulates mapping logic and decouples
  * data sources from DTO construction.
  */
-class EvidenceByIdItemMapperService implements EvidenceItemMapperServiceInterface
+class EvidenceByIdItemMapper implements EvidenceItemMapperInterface
 {
     public function mapItem(array $evidence): EvidenceByIdDTO
     {   
