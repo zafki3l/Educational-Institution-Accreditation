@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Repositories\Sql;
+namespace App\Repositories\Sql\Implementations\Evidence;
 
-use App\Models\Evidence;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class EvidenceRepository extends SqlRepository
+class MySqlEvidenceRepository extends SqlRepository
 {
     use QueryClauseHelperTrait;
 

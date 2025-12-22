@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Mapping\ItemMappers;
 
-use App\DTO\EvidenceDTO\EvidenceWithoutMilestoneDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceWithoutMilestoneDTO;
 use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 
 /**

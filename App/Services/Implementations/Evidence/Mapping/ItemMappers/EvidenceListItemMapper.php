@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Mapping\ItemMappers;
 
-use App\DTO\EvidenceDTO\EvidenceListDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceListDTO;
 use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 use DateTimeImmutable;
 

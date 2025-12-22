@@ -2,13 +2,12 @@
 
 namespace App\Services\Implementations\Evidence\Mapping\ItemMappers;
 
-use App\DTO\EvidenceDTO\BaseEvidenceDTO;
-use App\DTO\EvidenceDTO\EvidenceByMilestoneDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceByMilestoneDTO;
 use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 
 class EvidenceByMilestoneItemMapper implements EvidenceItemMapperInterface
 {
-    public function mapItem(array $evidence): BaseEvidenceDTO
+    public function mapItem(array $evidence): EvidenceByMilestoneDTO
     {
         return new EvidenceByMilestoneDTO(
             $evidence['evidence_id'],

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Implementations\Evidence\FileUpload;
+namespace App\Services\Implementations\Evidence\EvidenceUpload;
 
-use App\Services\Implementations\FileUpload;
+use App\Services\Implementations\FileUpload\FileUpload;
 
 class EvidenceFileUpload extends FileUpload
 {

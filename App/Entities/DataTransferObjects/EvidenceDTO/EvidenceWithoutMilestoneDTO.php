@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\EvidenceDTO;
+namespace App\Entities\DataTransferObjects\EvidenceDTO;
 
 class EvidenceWithoutMilestoneDTO extends BaseEvidenceDTO
 {

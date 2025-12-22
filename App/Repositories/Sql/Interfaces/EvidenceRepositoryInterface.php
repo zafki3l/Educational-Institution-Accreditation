@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Sql\Interfaces;
 
-use App\Models\Evidence;
+use App\Entities\Models\Evidence;
 
 interface EvidenceRepositoryInterface
 {
@@ -12,7 +12,6 @@ interface EvidenceRepositoryInterface
     
     public function countAll(): int;
     
-    public function create(Evidence $evidence): int;
 
     public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): void;
     

@@ -2,9 +2,9 @@
 
 namespace App\Services\Implementations\Evidence\Query;
 
-use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
-use App\Repositories\Sql\EvidenceRepository;
+use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 use App\Services\Implementations\Evidence\Mapping\EvidenceDTOMapper;
 use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
 
@@ -13,7 +13,7 @@ use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
  */
 class EvidenceQuery
 {
-    public function __construct(private EvidenceRepository $repository,
+    public function __construct(private MySqlEvidenceRepository $repository,
                                 private EvidenceDTOMapper $dtoMapper) {}
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO

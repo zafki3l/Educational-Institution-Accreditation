@@ -2,16 +2,12 @@
 
 namespace App\Services\Implementations\Evidence\Command;
 
-use App\Http\Requests\Evidence\CreateEvidenceRequest;
-use App\Http\Requests\Evidence\UpdateEvidenceRequest;
-use App\Models\Evidence;
-use App\Repositories\Sql\EvidenceRepository;
-use App\Services\Implementations\Evidence\FileUpload\EvidenceFileUpload;
+use App\Entities\Models\Evidence;
+use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 
 class EvidenceCommand
 {
-    public function __construct(private EvidenceRepository $repository,
-                                private EvidenceFileUpload $fileUpload) {}
+    public function __construct(private MySqlEvidenceRepository $repository) {}
 
     public function create(Evidence $evidence): int
     {
@@ -27,20 +23,6 @@ class EvidenceCommand
         return $created_id;
     }
 
-    public function setCreate(CreateEvidenceRequest $request): Evidence
-    {
-        $evidence = new Evidence();
-
-        $evidence->setId($request->getId())
-                ->setName($request->getName())
-                ->setDecision($request->getDecision())
-                ->setDocumentDate($request->getDocumentDate())
-                ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUpload->upload($request->getFile()));
-        
-        return $evidence;
-    }
-
     public function update(string $id, Evidence $evidence): int
     {
         $updated_id = $this->repository->updateById($id, [
@@ -52,19 +34,6 @@ class EvidenceCommand
         ]);
 
         return $updated_id;
-    }
-
-    public function setUpdate(array $found, UpdateEvidenceRequest $request): Evidence
-    {
-        $evidence = new Evidence();
-
-        $evidence->setName($request->getName())
-                ->setDecision($request->getDecision())
-                ->setDocumentDate($request->getDocumentDate())
-                ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUpload->upload($request->getFile(), $found[0]['link']));
-
-        return $evidence;
     }
 
     public function delete(string $id): int

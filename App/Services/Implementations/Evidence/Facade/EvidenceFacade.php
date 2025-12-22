@@ -2,16 +2,12 @@
 
 namespace App\Services\Implementations\Evidence\Facade;
 
-use App\DTO\EvidenceDTO\EvidenceCollectionDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
-use App\Models\Evidence;
-use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Implementations\Evidence\Command\EvidenceCommand;
-use App\Services\Implementations\Evidence\FileUpload\EvidenceFileUpload;
+use App\Services\Implementations\Evidence\Command\Factory\EvidenceFromRequestFactory;
 use App\Services\Implementations\Evidence\Query\EvidenceQuery;
-use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
-use App\Services\Interfaces\FileUploadServiceInterface;
 use Core\Paginator;
 use Traits\FilterHelperTrait;
 
@@ -37,6 +33,7 @@ class EvidenceFacade
     use FilterHelperTrait;
 
     public function __construct(private EvidenceQuery $evidenceQuery,
+                                private EvidenceFromRequestFactory $fromRequestFactory,
                                 private EvidenceCommand $evidenceCommand) {}
 
     public function list(?string $search, int $current_page, array $filter): array
@@ -67,7 +64,7 @@ class EvidenceFacade
     
     public function create(CreateEvidenceRequest $request): void
     {
-        $evidence = $this->evidenceCommand->setCreate($request);
+        $evidence = $this->fromRequestFactory->fromCreateRequest($request);
 
         $created_id = $this->evidenceCommand->create($evidence);
     }
@@ -76,7 +73,7 @@ class EvidenceFacade
     {
         $found = $this->evidenceQuery->findOrFail($id)->toArray();
 
-        $evidence = $this->evidenceCommand->setUpdate($found, $request);
+        $evidence = $this->fromRequestFactory->fromUpdateRequest($found, $request);
 
         $updated_id = $this->evidenceCommand->update($id, $evidence);
     }

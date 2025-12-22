@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Sql\Implementations;
 
-use App\Models\Evidence;
+use App\Entities\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;

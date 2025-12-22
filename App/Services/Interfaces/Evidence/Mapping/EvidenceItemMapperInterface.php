@@ -2,7 +2,7 @@
 
 namespace App\Services\Interfaces\Evidence\Mapping;
 
-use App\DTO\EvidenceDTO\BaseEvidenceDTO;
+use App\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
 
 interface EvidenceItemMapperInterface
 {
