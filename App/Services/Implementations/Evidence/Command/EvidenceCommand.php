@@ -6,12 +6,12 @@ use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\EvidenceRepository;
-use App\Services\Interfaces\FileUploadServiceInterface;
+use App\Services\Implementations\Evidence\FileUpload\EvidenceFileUpload;
 
 class EvidenceCommand
 {
     public function __construct(private EvidenceRepository $repository,
-                                private FileUploadServiceInterface $fileUploadService) {}
+                                private EvidenceFileUpload $fileUpload) {}
 
     public function create(Evidence $evidence): int
     {
@@ -36,7 +36,7 @@ class EvidenceCommand
                 ->setDecision($request->getDecision())
                 ->setDocumentDate($request->getDocumentDate())
                 ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUploadService->evidenceUpload($request->getFile()));
+                ->setLink($this->fileUpload->upload($request->getFile()));
         
         return $evidence;
     }
@@ -62,7 +62,7 @@ class EvidenceCommand
                 ->setDecision($request->getDecision())
                 ->setDocumentDate($request->getDocumentDate())
                 ->setIssuePlace($request->getIssuePlace())
-                ->setLink($this->fileUploadService->evidenceUpload($request->getFile(), $found[0]['link']));
+                ->setLink($this->fileUpload->upload($request->getFile(), $found[0]['link']));
 
         return $evidence;
     }

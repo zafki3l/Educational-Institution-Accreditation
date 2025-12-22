@@ -8,6 +8,7 @@ use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use App\Services\Implementations\Evidence\Command\EvidenceCommand;
+use App\Services\Implementations\Evidence\FileUpload\EvidenceFileUpload;
 use App\Services\Implementations\Evidence\Query\EvidenceQuery;
 use App\Services\Interfaces\Evidence\EvidenceQueryServiceInterface;
 use App\Services\Interfaces\FileUploadServiceInterface;
@@ -35,9 +36,7 @@ class EvidenceFacade
 {
     use FilterHelperTrait;
 
-    public function __construct(private EvidenceRepositoryInterface $evidenceRepository,
-                                private FileUploadServiceInterface $fileUploadService,
-                                private EvidenceQuery $evidenceQuery,
+    public function __construct(private EvidenceQuery $evidenceQuery,
                                 private EvidenceCommand $evidenceCommand) {}
 
     public function list(?string $search, int $current_page, array $filter): array
