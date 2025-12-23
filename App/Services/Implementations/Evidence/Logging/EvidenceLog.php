@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Logging;
 
-use App\DTO\CommandResult;
+use App\Entities\DataTransferObjects\CommandResult;
 use App\Services\Implementations\LogService;
 use MongoDB\InsertOneResult;
 

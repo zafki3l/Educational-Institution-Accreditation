@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Facade;
 
-use App\DTO\CommandResult;
+use App\Entities\DataTransferObjects\CommandResult;
 use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
