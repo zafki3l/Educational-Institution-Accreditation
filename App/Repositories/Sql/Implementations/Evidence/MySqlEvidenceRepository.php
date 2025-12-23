@@ -174,7 +174,7 @@ class MySqlEvidenceRepository extends SqlRepository
         }
     }
 
-    public function updateById(string $id, array $evidence): int
+    public function updateById(string $id, array $evidence): string
     {   
         try {
             $sql = "UPDATE evidences
@@ -185,7 +185,9 @@ class MySqlEvidenceRepository extends SqlRepository
                         link = ?
                     WHERE id = ?";
 
-            return parent::update($sql, array_merge($evidence, ['where' => $id]));
+            parent::update($sql, array_merge($evidence, ['where' => $id]));
+
+            return $id;
         } catch (PDOException $e) {
             print $e->getMessage();
             return 0;

@@ -2,13 +2,16 @@
 
 namespace App\Services\Implementations\Evidence\Facade;
 
+use App\DTO\CommandResult;
 use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Implementations\Evidence\Command\EvidenceCommand;
 use App\Services\Implementations\Evidence\Command\Factory\EvidenceFromRequestFactory;
+use App\Services\Implementations\Evidence\Logging\EvidenceLog;
 use App\Services\Implementations\Evidence\Query\EvidenceQuery;
 use Core\Paginator;
+use MongoDB\InsertOneResult;
 use Traits\FilterHelperTrait;
 
 /**
@@ -34,7 +37,8 @@ class EvidenceFacade
 
     public function __construct(private EvidenceQuery $evidenceQuery,
                                 private EvidenceFromRequestFactory $fromRequestFactory,
-                                private EvidenceCommand $evidenceCommand) {}
+                                private EvidenceCommand $evidenceCommand,
+                                private EvidenceLog $log) {}
 
     public function list(?string $search, int $current_page, array $filter): array
     {
@@ -62,32 +66,66 @@ class EvidenceFacade
         ];
     }
     
-    public function create(CreateEvidenceRequest $request): void
+    public function create(CreateEvidenceRequest $request): InsertOneResult
     {
         $evidence = $this->fromRequestFactory->fromCreateRequest($request);
 
         $created_id = $this->evidenceCommand->create($evidence);
+
+        $result = new CommandResult(
+            $created_id,
+            $this->evidenceQuery->findOrFail($created_id)->toArray(),
+            $created_id ? true : false
+        );
+
+        return $this->log->createLog($result);
     }
 
-    public function update(string $id, UpdateEvidenceRequest $request): void
+    public function update(string $id, UpdateEvidenceRequest $request): InsertOneResult
     {
         $found = $this->evidenceQuery->findOrFail($id)->toArray();
 
         $evidence = $this->fromRequestFactory->fromUpdateRequest($found, $request);
 
         $updated_id = $this->evidenceCommand->update($id, $evidence);
+
+        $result = new CommandResult(
+            $updated_id,
+            $found,
+            $updated_id ? true : false
+        );
+
+        return $this->log->updateLog($result);
     }
 
-    public function delete(string $id): void
+    public function delete(string $id): InsertOneResult
     {
-        $this->findOrFail($id);
+        $found = $this->findOrFail($id)->toArray();
 
         $deleted_rows = $this->evidenceCommand->delete($id);
+
+        $result = new CommandResult(
+            $id,
+            $found,
+            $deleted_rows > 0 ? true : false
+        );
+
+        return $this->log->deleteLog($result);
     }
 
-    public function addMilestone($id, $milestone_id): int
+    public function addMilestone($id, $milestone_id): InsertOneResult
     {
-        return $this->evidenceCommand->addMilestone($id, $milestone_id);
+        $found = $this->findOrFail($id);
+
+        $update_id = $this->evidenceCommand->addMilestone($id, $milestone_id);
+
+        $result = new CommandResult(
+            $id,
+            $found->toArray(),
+            $update_id ? true : false
+        );
+
+        return $this->log->addMilestoneLog($milestone_id, $result);
     }
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO

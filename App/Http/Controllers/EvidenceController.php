@@ -50,7 +50,7 @@ class EvidenceController extends Controller
                 'standards' => $this->standardService->findAll(),
                 'criterias' => $this->criteriaService->findAll(),
                 'milestones' => $this->milestoneService->findAll(),
-                'evidencesWithoutMilestone' => $evidencesWithoutMilestone
+                'evidencesWithoutMilestone' => $evidencesWithoutMilestone->toArray()
             ]
         );
     }

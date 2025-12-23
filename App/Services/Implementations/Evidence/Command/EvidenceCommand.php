@@ -9,7 +9,7 @@ class EvidenceCommand
 {
     public function __construct(private MySqlEvidenceRepository $repository) {}
 
-    public function create(Evidence $evidence): int
+    public function create(Evidence $evidence): string
     {
         $created_id = $this->repository->create([
             'id' => $evidence->getId(),
@@ -23,7 +23,7 @@ class EvidenceCommand
         return $created_id;
     }
 
-    public function update(string $id, Evidence $evidence): int
+    public function update(string $id, Evidence $evidence): string
     {
         $updated_id = $this->repository->updateById($id, [
             'name' => $evidence->getName(),
@@ -36,12 +36,12 @@ class EvidenceCommand
         return $updated_id;
     }
 
-    public function delete(string $id): int
+    public function delete(string $id): string
     {
         return $this->repository->deleteById($id);
     }
 
-    public function addMilestone($id, $milestone_id): int
+    public function addMilestone($id, $milestone_id): string
     {
         return $this->repository->linkMinestoneToEvidence($id, $milestone_id);
     }
