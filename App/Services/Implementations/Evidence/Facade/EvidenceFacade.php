@@ -85,7 +85,7 @@ class EvidenceFacade
     {
         $found = $this->evidenceQuery->findOrFail($id)->toArray();
 
-        $evidence = $this->fromRequestFactory->fromUpdateRequest($found, $request);
+        $evidence = $this->fromRequestFactory->fromUpdateRequest($id, $found, $request);
 
         $updated_id = $this->evidenceCommand->update($id, $evidence);
 

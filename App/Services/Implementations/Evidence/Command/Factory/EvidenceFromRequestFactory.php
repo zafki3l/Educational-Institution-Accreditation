@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Command\Factory;
 
+use App\Entities\Builders\EvidenceBuilder;
 use App\Entities\Models\Evidence;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
@@ -13,27 +14,30 @@ class EvidenceFromRequestFactory
 
     public function fromCreateRequest(CreateEvidenceRequest $request): Evidence
     {
-        $evidence = new Evidence();
+        $builder = new EvidenceBuilder();
 
-        $evidence->setId($request->getId())
-                 ->setName($request->getName())
-                 ->setDecision($request->getDecision())
-                 ->setDocumentDate($request->getDocumentDate())
-                 ->setIssuePlace($request->getIssuePlace())
-                 ->setLink($this->fileUpload->upload($request->getFile()));
+        $evidence = $builder->setId($request->getId())
+                            ->setName($request->getName())
+                            ->setDecision($request->getDecision())
+                            ->setDocumentDate($request->getDocumentDate())
+                            ->setIssuePlace($request->getIssuePlace())
+                            ->setLink($this->fileUpload->upload($request->getFile()))
+                            ->build();
 
         return $evidence;
     }
 
-    public function fromUpdateRequest(array $found, UpdateEvidenceRequest $request): Evidence
+    public function fromUpdateRequest(string $request_id, array $data, UpdateEvidenceRequest $request): Evidence
     {
-        $evidence = new Evidence();
+        $builder = new EvidenceBuilder();
 
-        $evidence->setName($request->getName())
-                 ->setDecision($request->getDecision())
-                 ->setDocumentDate($request->getDocumentDate())
-                 ->setIssuePlace($request->getIssuePlace())
-                 ->setLink($this->fileUpload->upload($request->getFile(), $found[0]['link']));
+        $evidence = $builder->setId($request_id)
+                            ->setName($request->getName())
+                            ->setDecision($request->getDecision())
+                            ->setDocumentDate($request->getDocumentDate())
+                            ->setIssuePlace($request->getIssuePlace())
+                            ->setLink($this->fileUpload->upload($request->getFile(), $data[0]['link']))
+                            ->build();
                  
         return $evidence;
     }
