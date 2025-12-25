@@ -31,11 +31,11 @@ class EvidenceFromRequestFactory
         return $evidence;
     }
 
-    public function fromUpdateRequest(string $request_id, array $data, UpdateEvidenceRequest $request): Evidence
+    public function fromUpdateRequest(string $requested_id, array $data, UpdateEvidenceRequest $request): Evidence
     {
         $builder = new EvidenceBuilder();
 
-        $evidence = $builder->setId($request_id)
+        $evidence = $builder->setId($requested_id)
                             ->setName($request->getName())
                             ->setDecision($request->getDecision())
                             ->setDocumentDate($request->getDocumentDate())

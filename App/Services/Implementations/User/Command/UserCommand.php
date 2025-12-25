@@ -2,9 +2,7 @@
 
 namespace App\Services\Implementations\User\Command;
 
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Models\User;
+use App\Entities\Models\User;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 /**
@@ -22,27 +20,12 @@ class UserCommand
             'last_name' => $user->getLastName(),
             'email' => $user->getEmail(),
             'gender' => $user->getGender(),
-            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'password' => $user->getPassword(),
             'department_id' => $user->getDepartmentId(),
             'role_id' => $user->getRoleId()
         ]);
 
         return $created_id;
-    }
-
-    public function setCreateUser(CreateUserRequest $request): User
-    {
-        $user = new User();
-
-        $user->setFirstName($request->getFirstName())
-            ->setLastName($request->getLastName())
-            ->setEmail($request->getEmail())
-            ->setGender($request->getGender())
-            ->setPassword($request->getPassword())
-            ->setDepartmentId($request->getDepartmentId())
-            ->setRoleId($request->getRoleId());
-        
-        return $user;
     }
 
     public function update(int $user_id, User $user): int
@@ -58,20 +41,6 @@ class UserCommand
         ]);
 
         return $updated_id;
-    }
-
-    public function setUpdateUser(UpdateUserRequest $request): User
-    {
-        $user = new User();
-
-        $user->setFirstName($request->getFirstName())
-            ->setLastName($request->getLastName())
-            ->setEmail($request->getEmail())
-            ->setGender($request->getGender())
-            ->setDepartmentId($request->getDepartmentId())
-            ->setRoleId($request->getRoleId());
-        
-        return $user;
     }
 
     public function delete(int $id): int

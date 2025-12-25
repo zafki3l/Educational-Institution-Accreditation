@@ -8,10 +8,11 @@ use App\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
+use App\Services\Implementations\User\Command\Factory\UserFromRequestFactory;
+use App\Services\Implementations\User\Command\UserCommand;
 use App\Services\Implementations\User\Query\UserQuery;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
-use App\Services\Interfaces\User\UserCommandServiceInterface;
 use Core\Paginator;
 use MongoDB\InsertOneResult;
 
@@ -34,7 +35,8 @@ class UserFacade
 {
     public function __construct(private HandleUserErrorServiceInterface $handleUserErrorService,
                                 private UserQuery $userQuery,
-                                private UserCommandServiceInterface $userCommandService,
+                                private UserCommand $userCommand,
+                                private UserFromRequestFactory $fromRequestFactory,
                                 private HandleLogUserServiceInterface $handleLogUserService) {}
 
     public function list(?string $search, int $current_page): array
@@ -57,9 +59,9 @@ class UserFacade
 
     public function create(CreateUserRequest $request): InsertOneResult
     {
-        $user = $this->userCommandService->setCreateUser($request);
+        $user = $this->fromRequestFactory->fromCreateRequest($request);
 
-        $created_id = $this->userCommandService->create($user);
+        $created_id = $this->userCommand->create($user);
 
         $created_data = $this->findOrFail($created_id);
 
@@ -76,9 +78,9 @@ class UserFacade
     {
         $update_data = $this->findOrFail($id);
 
-        $user = $this->userCommandService->setUpdateUser($request);
+        $user = $this->fromRequestFactory->fromUpdateRequest($id, $request);
 
-        $updated_id = $this->userCommandService->update($id, $user);
+        $updated_id = $this->userCommand->update($id, $user);
 
         $result = new CommandResult(
             $updated_id,
@@ -93,7 +95,7 @@ class UserFacade
     {
         $delete_data = $this->findOrFail($id);
 
-        $deleted_rows = $this->userCommandService->delete($id);
+        $deleted_rows = $this->userCommand->delete($id);
 
         $result = new CommandResult(
             $id,
