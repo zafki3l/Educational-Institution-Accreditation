@@ -18,6 +18,13 @@ class EvidenceDTOMapper
 {
     public function __construct(private EvidenceItemFactory $factory) {}
 
+    /**
+     * Map all evidences
+     * 
+     * @param array $evidences
+     * @param EvidenceItemType $type
+     * @return EvidenceCollectionDTO
+     */
     public function map(array $evidences, EvidenceItemType $type): EvidenceCollectionDTO
     {
         $collection = new EvidenceCollectionDTO();
@@ -31,6 +38,12 @@ class EvidenceDTOMapper
         return $collection;
     }
 
+    /**
+     * Map one evidence
+     * @param array $evidence
+     * @param EvidenceItemType $type
+     * @return BaseEvidenceDTO
+     */
     public function mapOne(array $evidence, EvidenceItemType $type): BaseEvidenceDTO
     {
         return $this->factory->createItemMapper($type)->mapItem($evidence);

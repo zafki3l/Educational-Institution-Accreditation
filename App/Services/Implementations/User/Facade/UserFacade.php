@@ -3,11 +3,12 @@
 namespace App\Services\Implementations\User\Facade;
 
 use App\DTO\CommandResult;
+use App\DTO\UserDTO\UserByIdDTO;
 use App\DTO\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
-use App\Services\Implementations\User\UserQuery;
+use App\Services\Implementations\User\Query\UserQuery;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
@@ -118,7 +119,7 @@ class UserFacade
         return $this->userQuery->find($search, $start_from, $result_per_page);
     }
 
-    public function findOrFail(int $id): UserCollectionDTO
+    public function findOrFail(int $id): UserByIdDTO
     {
         return $this->userQuery->findOrFail($id);
     }

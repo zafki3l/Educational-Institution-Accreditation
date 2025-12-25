@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Implementations\User;
+namespace App\Services\Implementations\User\Mapping\ItemMappers;
 
 use App\DTO\UserDTO\BaseUserDTO;
 use App\DTO\UserDTO\UserByIdDTO;
-use App\Services\Interfaces\User\UserItemMapperServiceInterface;
+use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 
 /**
  * Application-level mapper responsible for transforming
@@ -13,7 +13,7 @@ use App\Services\Interfaces\User\UserItemMapperServiceInterface;
  * This service encapsulates mapping logic and decouples
  * data sources from DTO construction.
  */
-class UserByIdItemMapperService implements UserItemMapperServiceInterface
+class UserByIdItemMapper implements UserItemMapperInterface
 {
     public function mapItem(array $user): BaseUserDTO
     {

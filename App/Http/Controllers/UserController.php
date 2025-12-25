@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Services\Implementations\User\Facade\UserFacade;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
-use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private UserFacadeServiceInterface $userService,
+    public function __construct(private UserFacade $userService,
                                 private RoleServiceInterface $roleService,
                                 private DepartmentServiceInterface $departmentService) {}
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             'admin.layouts',
             [
                 'title' => 'Edit user',
-                'user' => $user[0],
+                'user' => $user,
                 'departments' => $departments,
                 'roles' => $roles
             ]
