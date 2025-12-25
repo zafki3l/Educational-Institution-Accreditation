@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Sql\Implementations;
 
-use App\Models\Evidence;
+use App\Entities\Models\Evidence;
 use App\Repositories\Sql\Interfaces\EvidenceRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
@@ -28,7 +28,9 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
                         e.document_date,
                         e.issue_place,
                         e.link,
-                        s.department_id as 'department_id'
+                        s.department_id as 'department_id',
+                        e.created_at as 'created_at',
+                        e.updated_at as 'updated_at'
                     FROM evidences e
                     JOIN milestone_evidence me
                         ON me.evidence_id = e.id
@@ -65,7 +67,9 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
                         e.document_date,
                         e.issue_place,
                         e.link,
-                        es.department_id as 'department_id'
+                        es.department_id as 'department_id',
+                        e.created_at as 'created_at',
+                        e.updated_at as 'updated_at'
                     FROM evidences e
                     JOIN milestone_evidence me
                         ON me.evidence_id = e.id
@@ -97,10 +101,10 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
         }
     }
 
-    public function create(Evidence $evidence): void
+    public function create(Evidence $evidence): int
     {
         try {
-            $this->insert('evidences', [
+            return $this->insert('evidences', [
                 'id' => $evidence->getId(),
                 'name' => $evidence->getName(),
                 'decision' => $evidence->getDecision(),
@@ -110,6 +114,7 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
             ]);
         } catch (PDOException $e) {
             print $e->getMessage();
+            return 0;
         }
     }
 
@@ -141,6 +146,7 @@ class EvidenceRepository extends SqlRepository implements EvidenceRepositoryInte
     {
         try {
             $sql = "SELECT em.evidence_id as 'evidence_id',
+                            e.name as 'evidence_name',
                             em.milestone_id as 'milestone_id',
                             m.name as 'milestone_name'
                     FROM evidences e

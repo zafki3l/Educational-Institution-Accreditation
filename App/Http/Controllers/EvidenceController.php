@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Evidence\AddMilestoneRequest;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
+use App\Services\Implementations\Evidence\Facade\EvidenceFacade;
 use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\EvidenceServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
@@ -16,7 +16,7 @@ class EvidenceController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private EvidenceServiceInterface $evidenceService,
+    public function __construct(private EvidenceFacade $evidenceFacade,
                                 private StandardServiceInterface $standardService,
                                 private CriteriaServiceInterface $criteriaService,
                                 private MilestoneServiceInterface $milestoneService) {}
@@ -33,23 +33,24 @@ class EvidenceController extends Controller
 
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
-        $data = $this->evidenceService->list($search, $current_page, $filter);
+        $data = $this->evidenceFacade->list($search, $current_page, $filter);
 
-        $evidencesWithoutMilestone = $this->evidenceService->findAllWithoutMilestone();
+        $evidences = $data['evidences'];
+        $evidencesWithoutMilestone = $this->evidenceFacade->findAllWithoutMilestone();
 
         return $this->view(
             'staff/evidences/index',
             'staff.layouts',
             [
                 'title' => 'QUẢN LÝ MINH CHỨNG',
-                'evidences' => $data['evidences'],
+                'evidences' => $evidences->toArray(),
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
                 'result_per_page' => $data['result_per_page'],
                 'standards' => $this->standardService->findAll(),
                 'criterias' => $this->criteriaService->findAll(),
                 'milestones' => $this->milestoneService->findAll(),
-                'evidencesWithoutMilestone' => $evidencesWithoutMilestone
+                'evidencesWithoutMilestone' => $evidencesWithoutMilestone->toArray()
             ]
         );
     }
@@ -69,21 +70,21 @@ class EvidenceController extends Controller
     {
         $request = new CreateEvidenceRequest($_POST);
 
-        $this->evidenceService->create($request);
+        $this->evidenceFacade->create($request);
 
         $this->redirect('/staff/evidences');
     }
 
     public function edit(string $evidence_id): mixed
     {
-        $evidences = $this->evidenceService->findById($evidence_id);
+        $evidences = $this->evidenceFacade->findOrFail($evidence_id);
         
         return $this->view(
             'staff/evidences/edit',
             'staff.layouts',
             [
                 'title' => 'Chỉnh sửa minh chứng',
-                'evidence' => $evidences
+                'evidence' => $evidences->toArray()
             ]
         );
     }
@@ -92,14 +93,14 @@ class EvidenceController extends Controller
     {
         $request = new UpdateEvidenceRequest($_POST);
 
-        $this->evidenceService->update($evidence_id, $request);
+        $this->evidenceFacade->update($evidence_id, $request);
 
         $this->redirect('/staff/evidences');
     }
 
     public function destroy(string $evidence_id): void
     {
-        $this->evidenceService->delete($evidence_id);
+        $this->evidenceFacade->delete($evidence_id);
 
         $this->redirect('/staff/evidences');
     }
@@ -115,14 +116,14 @@ class EvidenceController extends Controller
 
     public function milestones(string $evidence_id): mixed
     {
-        $evidences = $this->evidenceService->evidenceMilestone($evidence_id);
+        $evidences = $this->evidenceFacade->evidenceByMilestone($evidence_id);
         $milestones = $this->milestoneService->findAll();
 
         return $this->view(
             'staff/evidences/milestones',
             'staff.layouts',
             [
-                'evidences' => $evidences,
+                'evidences' => $evidences->toArray(),
                 'evidence_id' => $evidence_id,
                 'milestones' => $milestones
             ]
@@ -133,7 +134,7 @@ class EvidenceController extends Controller
     {
         $request = new AddMilestoneRequest($_POST);
 
-        $this->evidenceService->addMilestone($evidence_id, $request->getMilestoneId());
+        $this->evidenceFacade->addMilestone($evidence_id, $request->getMilestoneId());
 
         $this->redirect("/staff/evidences/{$evidence_id}/milestones");
     }

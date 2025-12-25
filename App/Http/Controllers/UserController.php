@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Services\Implementations\User\Facade\UserFacade;
 use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\RoleServiceInterface;
-use App\Services\Interfaces\User\UserFacadeServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private UserFacadeServiceInterface $userService,
+    public function __construct(private UserFacade $userService,
                                 private RoleServiceInterface $roleService,
                                 private DepartmentServiceInterface $departmentService) {}
 
@@ -31,13 +31,14 @@ class UserController extends Controller
         $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 
         $data = $this->userService->list($search, $current_page);
+        $users = $data['users'];
 
         return $this->view(
             'admin/users/index',
             'admin.layouts',
             [
                 'title' => 'Quản lý người dùng',
-                'users' => $data['users'],
+                'users' => $users->toArray(),
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
                 'result_per_page' => $data['result_per_page']
@@ -81,7 +82,7 @@ class UserController extends Controller
 
     public function edit(int $user_id): mixed
     {
-        $users = $this->userService->findById($user_id);
+        $user = $this->userService->findOrFail($user_id)->toArray();
         $departments = $this->departmentService->findAll();
         $roles = $this->roleService->findAll();
 
@@ -90,7 +91,7 @@ class UserController extends Controller
             'admin.layouts',
             [
                 'title' => 'Edit user',
-                'user' => $users->toArray(),
+                'user' => $user,
                 'departments' => $departments,
                 'roles' => $roles
             ]

@@ -2,11 +2,21 @@
 
 namespace App\Services\Implementations\User;
 
-use App\DTO\CommandResult;
+use App\Entities\DataTransferObjects\CommandResult;
 use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use MongoDB\InsertOneResult;
 
+/**
+ * Application service responsible for handling
+ * user-related audit logging.
+ *
+ * This service builds contextual log messages and
+ * delegates persistence to the generic LogService.
+ *
+ * It isolates logging concerns from business logic
+ * and ensures consistent audit logs for user commands.
+ */
 class HandleLogUserService implements HandleLogUserServiceInterface
 {
     public function __construct(private LogServiceInterface $logService) {}

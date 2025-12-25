@@ -7,6 +7,10 @@ use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use App\Validations\Interfaces\UserValidatorInterface;
 
+/**
+ * This service delegates validation logic to validators
+ * and returns normalized error data for upper layers. 
+ */
 class HandleUserErrorService implements HandleUserErrorServiceInterface
 {
     public function __construct(private UserValidatorInterface $userValidator,

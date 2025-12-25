@@ -7,12 +7,14 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use App\Services\Interfaces\User\UserCommandServiceInterface;
-use App\Services\Interfaces\User\UserQueryServiceInterface;
 
+/**
+ * This service handles state-changing operations such as
+ * creating, updating, and deleting users. 
+ */
 class UserCommandService implements UserCommandServiceInterface
 {
-    public function __construct(private UserRepositoryInterface $userRepository,
-                                private UserQueryServiceInterface $userQueryService) {}
+    public function __construct(private UserRepositoryInterface $userRepository) {}
 
     public function create(User $user): int
     {
