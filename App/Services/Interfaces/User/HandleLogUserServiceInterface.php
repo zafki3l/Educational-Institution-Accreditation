@@ -2,7 +2,7 @@
 
 namespace App\Services\Interfaces\User;
 
-use App\DTO\CommandResult;
+use App\Entities\DataTransferObjects\CommandResult;
 use MongoDB\InsertOneResult;
 
 /**

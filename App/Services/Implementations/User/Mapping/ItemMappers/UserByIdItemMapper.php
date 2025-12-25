@@ -2,8 +2,7 @@
 
 namespace App\Services\Implementations\User\Mapping\ItemMappers;
 
-use App\DTO\UserDTO\BaseUserDTO;
-use App\DTO\UserDTO\UserByIdDTO;
+use App\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 
 /**
@@ -15,7 +14,7 @@ use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
  */
 class UserByIdItemMapper implements UserItemMapperInterface
 {
-    public function mapItem(array $user): BaseUserDTO
+    public function mapItem(array $user): UserByIdDTO
     {
         return new UserByIdDTO(
             $user['id'],

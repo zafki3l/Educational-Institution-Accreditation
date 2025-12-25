@@ -8,6 +8,10 @@ use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Implementations\Evidence\EvidenceUpload\EvidenceFileUpload;
 
+/**
+ * Create new Evidence object from request
+ * Example: CreateEvidenceRequest, UpdateEvidenceRequest
+ */
 class EvidenceFromRequestFactory
 {
     public function __construct(private EvidenceFileUpload $fileUpload) {}

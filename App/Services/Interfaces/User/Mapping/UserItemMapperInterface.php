@@ -2,7 +2,7 @@
 
 namespace App\Services\Interfaces\User\Mapping;
 
-use App\DTO\UserDTO\BaseUserDTO;
+use App\Entities\DataTransferObjects\UserDTO\BaseUserDTO;
 
 /**
  * Application-level mapper responsible for transforming

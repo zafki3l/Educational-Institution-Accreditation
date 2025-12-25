@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Services\Implementations\User;
+namespace App\Services\Implementations\User\Command;
 
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
-use App\Services\Interfaces\User\UserCommandServiceInterface;
+use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 /**
  * This service handles state-changing operations such as
  * creating, updating, and deleting users. 
  */
-class UserCommandService implements UserCommandServiceInterface
+class UserCommand
 {
-    public function __construct(private UserRepositoryInterface $userRepository) {}
+    public function __construct(private MySqlUserRepository $repository) {}
 
     public function create(User $user): int
     {
-        $created_id = $this->userRepository->create([
+        $created_id = $this->repository->create([
             'first_name' => $user->getFirstName(),
             'last_name' => $user->getLastName(),
             'email' => $user->getEmail(),
@@ -48,7 +47,7 @@ class UserCommandService implements UserCommandServiceInterface
 
     public function update(int $user_id, User $user): int
     {
-        $updated_id = $this->userRepository->updateById([
+        $updated_id = $this->repository->updateById([
             'first_name' => $user->getFirstName(),
             'last_name' => $user->getLastName(),
             'email' => $user->getEmail(),
@@ -77,7 +76,7 @@ class UserCommandService implements UserCommandServiceInterface
 
     public function delete(int $id): int
     {
-        $deleted_rows = $this->userRepository->deleteById($id);
+        $deleted_rows = $this->repository->deleteById($id);
 
         return $deleted_rows;
     }

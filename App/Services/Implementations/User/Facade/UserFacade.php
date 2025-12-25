@@ -2,9 +2,9 @@
 
 namespace App\Services\Implementations\User\Facade;
 
-use App\DTO\CommandResult;
-use App\DTO\UserDTO\UserByIdDTO;
-use App\DTO\UserDTO\UserCollectionDTO;
+use App\Entities\DataTransferObjects\CommandResult;
+use App\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
+use App\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;

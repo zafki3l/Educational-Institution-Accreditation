@@ -2,8 +2,7 @@
 
 namespace App\Services\Implementations\User\Mapping\ItemMappers;
 
-use App\DTO\UserDTO\BaseUserDTO;
-use App\DTO\UserDTO\UserListDTO;
+use App\Entities\DataTransferObjects\UserDTO\UserListDTO;
 use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 use DateTimeImmutable;
 
@@ -16,7 +15,7 @@ use DateTimeImmutable;
  */
 class UserListItemMapper implements UserItemMapperInterface
 {
-    public function mapItem(array $user): BaseUserDTO
+    public function mapItem(array $user): UserListDTO
     {
         return new UserListDTO(
             $user['id'],

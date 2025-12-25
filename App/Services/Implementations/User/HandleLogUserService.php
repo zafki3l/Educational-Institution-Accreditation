@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\User;
 
-use App\DTO\CommandResult;
+use App\Entities\DataTransferObjects\CommandResult;
 use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use MongoDB\InsertOneResult;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\UserDTO;
+namespace App\Entities\DataTransferObjects\UserDTO;
 
 use Core\BaseDTO;
 
