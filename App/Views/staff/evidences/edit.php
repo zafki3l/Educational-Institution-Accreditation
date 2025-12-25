@@ -21,38 +21,38 @@
             </div>
 
             <div class="container-content">
-                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence[0]['id']) ?>" method="post" enctype="multipart/form-data">
+                <form action="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['id']) ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                     <input type="hidden" name="_method" value="PUT">
 
                     <div class="form-group">
                         <label for="evidence_id">Mã minh chứng:</label>
                         <input type="text" id="evidence_id" name="evidence_id" placeholder="H1.01.01.01"
-                            value="<?= htmlspecialchars($evidence[0]['id']) ?>">
+                            value="<?= htmlspecialchars($evidence['id']) ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="evidence_name">Tên minh chứng:</label>
                         <input type="text" id="evidence_name" name="evidence_name" placeholder="Tên minh chứng"
-                            value="<?= htmlspecialchars($evidence[0]['name']) ?>">
+                            value="<?= htmlspecialchars($evidence['name']) ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="decision">Quyết định:</label>
                         <input type="text" id="decision" name="decision" placeholder="Quyết định"
-                            value="<?= htmlspecialchars($evidence[0]['decision']) ?>">
+                            value="<?= htmlspecialchars($evidence['decision']) ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="document_date">Ngày văn bản:</label>
                         <input type="date" id="document_date" name="document_date" placeholder="Ngày văn bản"
-                            value="<?= htmlspecialchars($evidence[0]['document_date']) ?>">
+                            value="<?= htmlspecialchars($evidence['document_date']) ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="issue_place">Nơi phát hành:</label>
                         <input type="text" id="issue_place" name="issue_place" placeholder="Phát hành"
-                            value="<?= htmlspecialchars($evidence[0]['issue_place']) ?>">
+                            value="<?= htmlspecialchars($evidence['issue_place']) ?>">
                     </div>
 
                     <div class="form-group">

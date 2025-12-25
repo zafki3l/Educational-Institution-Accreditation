@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Mapping;
 
+use App\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
 use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Services\Implementations\Evidence\Mapping\Factory\EvidenceItemFactory;
 use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
@@ -17,7 +18,7 @@ class EvidenceDTOMapper
 {
     public function __construct(private EvidenceItemFactory $factory) {}
 
-    public function map(array $evidences, EvidenceItemType $type): mixed
+    public function map(array $evidences, EvidenceItemType $type): EvidenceCollectionDTO
     {
         $collection = new EvidenceCollectionDTO();
 
@@ -28,5 +29,10 @@ class EvidenceDTOMapper
         }
         
         return $collection;
+    }
+
+    public function mapOne(array $evidence, EvidenceItemType $type): BaseEvidenceDTO
+    {
+        return $this->factory->createItemMapper($type)->mapItem($evidence);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Query;
 
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Exceptions\EvidenceException\EvidenceNotFoundException;
 use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
@@ -44,7 +45,7 @@ class EvidenceQuery
         return $this->dtoMapper->map($evidences, EvidenceItemType::LIST);
     }
 
-    public function findOrFail(string $id): EvidenceCollectionDTO
+    public function findOrFail(string $id): EvidenceByIdDTO
     {
         $found = $this->repository->findById($id);
 
@@ -52,7 +53,7 @@ class EvidenceQuery
             throw new EvidenceNotFoundException($id);
         }
 
-        return $this->dtoMapper->map($found, EvidenceItemType::BY_ID);
+        return $this->dtoMapper->mapOne($found[0], EvidenceItemType::BY_ID);
     }
 
     public function evidenceByMilestone(string $id): EvidenceCollectionDTO

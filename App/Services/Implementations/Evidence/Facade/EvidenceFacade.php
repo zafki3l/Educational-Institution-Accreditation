@@ -3,6 +3,7 @@
 namespace App\Services\Implementations\Evidence\Facade;
 
 use App\Entities\DataTransferObjects\CommandResult;
+use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
@@ -148,7 +149,7 @@ class EvidenceFacade
         return $this->evidenceQuery->filterEvidences($start_from, $result_per_page, $filter);
     }
 
-    public function findOrFail(string $id): EvidenceCollectionDTO
+    public function findOrFail(string $id): EvidenceByIdDTO
     {
         return $this->evidenceQuery->findOrFail($id);
     }
