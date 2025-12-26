@@ -1,14 +1,13 @@
 <?php 
 
-namespace App\Repositories\Sql\Implementations;
+namespace App\Repositories\Sql\Implementations\Criteria;
 
-use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class CriteriaRepository extends SqlRepository implements CriteriaRepositoryInterface
+class MySqlCriteriaRepository extends SqlRepository
 {
     use QueryClauseHelperTrait;
 

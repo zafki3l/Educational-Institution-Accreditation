@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Milestone;
 
 use App\Exceptions\MilestoneException\MilestoneNotFoundException;
 use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\Milestone;
-use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
+use App\Repositories\Sql\Implementations\Milestone\MySqlMilestoneRepository;
 use App\Services\Implementations\Logging\LogService;
-use App\Services\Interfaces\LogServiceInterface;
-use App\Services\Interfaces\MilestoneServiceInterface;
 
-class MilestoneService implements MilestoneServiceInterface
+class MilestoneService
 {
-    public function __construct(private MilestoneRepositoryInterface $milestoneRepository,
+    public function __construct(private MySqlMilestoneRepository $milestoneRepository,
                                 private LogService $logService) {}
 
     public function list(?string $search, array $filter): array

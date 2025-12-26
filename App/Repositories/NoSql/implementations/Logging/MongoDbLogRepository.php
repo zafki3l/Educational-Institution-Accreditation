@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Repositories\NoSql\Implementations;
+namespace App\Repositories\NoSql\Implementations\Logging;
 
-use App\Repositories\NoSql\Interfaces\LogRepositoryInterface;
 use Configs\Database\Interfaces\MongoDatabaseInterface;
 use MongoDB\InsertOneResult;
 
-class LogRepository implements LogRepositoryInterface
+class MongoDbLogRepository
 {
     private const COLLECTION_NAME = 'logs';
 

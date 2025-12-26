@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Repositories\Sql\Implementations;
+namespace App\Repositories\Sql\Implementations\Milestone;
 
-use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
 use Configs\Database\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class MilestoneRepository extends SqlRepository implements MilestoneRepositoryInterface
+class MySqlMilestoneRepository extends SqlRepository
 {
     use QueryClauseHelperTrait;
 

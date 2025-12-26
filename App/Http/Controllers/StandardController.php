@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Standard\CreateStandardRequest;
 use App\Models\User;
 use App\Services\Implementations\Department\DepartmentService;
-use App\Services\Interfaces\StandardServiceInterface;
+use App\Services\Implementations\Standard\StandardService;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
 class StandardController extends Controller
 {
     use HttpResponseTrait;
-    public function __construct(private StandardServiceInterface $standardService,
+    public function __construct(private StandardService $standardService,
                                 private DepartmentService $departmentService) {}
 
     public function index()

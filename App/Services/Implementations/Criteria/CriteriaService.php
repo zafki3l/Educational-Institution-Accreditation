@@ -1,17 +1,16 @@
 <?php 
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Criteria;
 
 use App\Exceptions\CriteriaException\CriteriaNotFoundException;
 use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\Criteria;
-use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
+use App\Repositories\Sql\Implementations\Criteria\MySqlCriteriaRepository;
 use App\Services\Implementations\Logging\LogService;
-use App\Services\Interfaces\CriteriaServiceInterface;
 
-class CriteriaService implements CriteriaServiceInterface
+class CriteriaService
 {
-    public function __construct(private CriteriaRepositoryInterface $criteriaRepository,
+    public function __construct(private MySqlCriteriaRepository $criteriaRepository,
                                 private LogService $logService){}
 
     public function list(?string $search, array $filter): array

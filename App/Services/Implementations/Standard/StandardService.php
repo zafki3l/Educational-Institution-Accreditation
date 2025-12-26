@@ -1,17 +1,16 @@
 <?php 
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Standard;
 
 use App\Exceptions\StandardException\StandardNotFoundException;
 use App\Http\Requests\Standard\CreateStandardRequest;
 use App\Models\Standard;
-use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
+use App\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 use App\Services\Implementations\Logging\LogService;
-use App\Services\Interfaces\StandardServiceInterface;
 
-class StandardService implements StandardServiceInterface
+class StandardService
 {
-    public function __construct(private StandardRepositoryInterface $standardRepository,
+    public function __construct(private MysqlStandardRepository $standardRepository,
                                 private LogService $logService) {}
 
     public function list(): array

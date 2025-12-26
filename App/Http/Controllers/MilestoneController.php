@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\User;
+use App\Services\Implementations\Criteria\CriteriaService;
+use App\Services\Implementations\Milestone\MilestoneService;
+use App\Services\Implementations\Standard\StandardService;
 use App\Services\Interfaces\CriteriaServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
-use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -14,9 +16,9 @@ class MilestoneController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private StandardServiceInterface $standardService,
-                                private CriteriaServiceInterface $criteriaService,
-                                private MilestoneServiceInterface $milestoneService) {}
+    public function __construct(private StandardService $standardService,
+                                private CriteriaService $criteriaService,
+                                private MilestoneService $milestoneService) {}
                                 
     public function index()
     {
