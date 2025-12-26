@@ -3,8 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\User;
+use App\Services\Implementations\Department\DepartmentService;
 use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\DepartmentServiceInterface;
 use App\Services\Interfaces\StandardServiceInterface;
 use Core\Controller;
 use Traits\HttpResponseTrait;
@@ -15,7 +15,7 @@ class CriteriaController extends Controller
 
     public function __construct(private CriteriaServiceInterface $criteriaService,
                                 private StandardServiceInterface $standardService,
-                                private DepartmentServiceInterface $departmentService) {}
+                                private DepartmentService $departmentService) {}
 
     public function index(): mixed
     {
