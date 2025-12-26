@@ -3,9 +3,9 @@
 namespace App\Validations\Interfaces;
 
 use App\Http\Requests\Auth\LoginRequest;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 interface AuthValidatorInterface
 {
-    public function loginErrorHandling(UserRepositoryInterface $userRepository, LoginRequest $request): array;
+    public function loginErrorHandling(MySqlUserRepository $userRepository, LoginRequest $request): array;
 }

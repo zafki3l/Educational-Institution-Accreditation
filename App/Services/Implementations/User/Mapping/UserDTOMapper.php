@@ -23,7 +23,7 @@ class UserDTOMapper
      * Map all users
      * 
      * @param array $users
-     * @param UserItemMapperServiceInterface $itemMapper
+     * @param UserItemType $type
      * @return UserCollectionDTO
      */
     public function map(array $users, UserItemType $type): UserCollectionDTO

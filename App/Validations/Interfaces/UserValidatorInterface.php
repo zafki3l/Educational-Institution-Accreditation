@@ -3,9 +3,9 @@
 namespace App\Validations\Interfaces;
 
 use App\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 interface UserValidatorInterface
 {
-    public function handleUserError(UserRepositoryInterface $userRepository, UserRequest $request, bool $isUpdated): array;
+    public function handleUserError(MySqlUserRepository $userRepository, UserRequest $request, bool $isUpdated): array;
 }

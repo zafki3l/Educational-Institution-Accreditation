@@ -10,6 +10,8 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Services\Implementations\User\Command\Factory\UserFromRequestFactory;
 use App\Services\Implementations\User\Command\UserCommand;
+use App\Services\Implementations\User\ErrorHandler\UserErrorHandler;
+use App\Services\Implementations\User\Logging\UserLog;
 use App\Services\Implementations\User\Query\UserQuery;
 use App\Services\Interfaces\User\HandleLogUserServiceInterface;
 use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
@@ -33,11 +35,11 @@ use MongoDB\InsertOneResult;
  */
 class UserFacade
 {
-    public function __construct(private HandleUserErrorServiceInterface $handleUserErrorService,
+    public function __construct(private UserErrorHandler $errorHandler,
                                 private UserQuery $userQuery,
                                 private UserCommand $userCommand,
                                 private UserFromRequestFactory $fromRequestFactory,
-                                private HandleLogUserServiceInterface $handleLogUserService) {}
+                                private UserLog $userLog) {}
 
     public function list(?string $search, int $current_page): array
     {
@@ -71,7 +73,7 @@ class UserFacade
             $created_id ? true : false
         );
 
-        return $this->handleLogUserService->createLog($result);
+        return $this->userLog->createLog($result);
     }
 
     public function update(int $id, UpdateUserRequest $request): InsertOneResult
@@ -88,7 +90,7 @@ class UserFacade
             $updated_id ? true : false
         );
 
-        return $this->handleLogUserService->updateLog($result);   
+        return $this->userLog->updateLog($result);   
     }
 
     public function delete(int $id): InsertOneResult
@@ -103,12 +105,12 @@ class UserFacade
             $deleted_rows > 0 ? true : false
         );
         
-        return $this->handleLogUserService->deleteLog($result);
+        return $this->userLog->deleteLog($result);
     }
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
     {
-        return $this->handleUserErrorService->handleError($request, $isUpdated);
+        return $this->errorHandler->handleError($request, $isUpdated);
     }
 
     public function findAll(int $start_from, int $result_per_page): UserCollectionDTO

@@ -5,13 +5,13 @@ namespace App\Validations\Implement;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Validator;
 
 class UserValidator extends Validator implements UserValidatorInterface
 {
-    public function handleUserError(UserRepositoryInterface $userRepository, UserRequest $request, bool $isUpdated): array
+    public function handleUserError(MySqlUserRepository $userRepository, UserRequest $request, bool $isUpdated): array
     {
         $errors = [];
 
@@ -52,7 +52,7 @@ class UserValidator extends Validator implements UserValidatorInterface
     }
 
     // Check is email exist
-    private function isEmailExist(string $email, UserRepositoryInterface $userRepository): bool
+    private function isEmailExist(string $email, MySqlUserRepository $userRepository): bool
     {
         $result = $userRepository->findByEmail($email);
 
