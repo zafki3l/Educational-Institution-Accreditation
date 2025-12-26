@@ -13,8 +13,6 @@ use App\Services\Implementations\User\Command\UserCommand;
 use App\Services\Implementations\User\ErrorHandler\UserErrorHandler;
 use App\Services\Implementations\User\Logging\UserLog;
 use App\Services\Implementations\User\Query\UserQuery;
-use App\Services\Interfaces\User\HandleLogUserServiceInterface;
-use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
 use Core\Paginator;
 use MongoDB\InsertOneResult;
 
@@ -78,7 +76,7 @@ class UserFacade
 
     public function update(int $id, UpdateUserRequest $request): InsertOneResult
     {
-        $update_data = $this->findOrFail($id);
+        $requested_data = $this->findOrFail($id);
 
         $user = $this->fromRequestFactory->fromUpdateRequest($id, $request);
 
@@ -86,7 +84,7 @@ class UserFacade
 
         $result = new CommandResult(
             $updated_id,
-            $update_data->toArray(),
+            $requested_data->toArray(),
             $updated_id ? true : false
         );
 

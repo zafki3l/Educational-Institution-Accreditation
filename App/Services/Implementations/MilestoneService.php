@@ -6,13 +6,14 @@ use App\Exceptions\MilestoneException\MilestoneNotFoundException;
 use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\Milestone;
 use App\Repositories\Sql\Interfaces\MilestoneRepositoryInterface;
+use App\Services\Implementations\Logging\LogService;
 use App\Services\Interfaces\LogServiceInterface;
 use App\Services\Interfaces\MilestoneServiceInterface;
 
 class MilestoneService implements MilestoneServiceInterface
 {
     public function __construct(private MilestoneRepositoryInterface $milestoneRepository,
-                                private LogServiceInterface $logService) {}
+                                private LogService $logService) {}
 
     public function list(?string $search, array $filter): array
     {

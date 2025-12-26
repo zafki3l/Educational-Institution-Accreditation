@@ -6,13 +6,13 @@ use App\Exceptions\CriteriaException\CriteriaNotFoundException;
 use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\Criteria;
 use App\Repositories\Sql\Interfaces\CriteriaRepositoryInterface;
+use App\Services\Implementations\Logging\LogService;
 use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\LogServiceInterface;
 
 class CriteriaService implements CriteriaServiceInterface
 {
     public function __construct(private CriteriaRepositoryInterface $criteriaRepository,
-                                private LogServiceInterface $logService){}
+                                private LogService $logService){}
 
     public function list(?string $search, array $filter): array
     {

@@ -6,7 +6,7 @@ use App\Exceptions\FileUploadException\FileSizeException;
 use App\Exceptions\FileUploadException\FileUploadException;
 use App\Exceptions\FileUploadException\NoFileException;
 use App\Exceptions\FileUploadException\NotAllowedFileException;
-use App\Validations\Interfaces\FileUploadValidatorInterface;
+use App\Validations\Implement\FileUploadValidator;
 
 abstract class FileUpload
 {
@@ -14,7 +14,7 @@ abstract class FileUpload
     protected const ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'pdf'];
     protected const BASE_UPLOAD_PATH = __DIR__ . '/../../../public/assets/';
 
-    public function __construct(private FileUploadValidatorInterface $fileUploadValidator) {}
+    public function __construct(private FileUploadValidator $fileUploadValidator) {}
 
     abstract protected function getUploadPath(): string;
 
@@ -61,7 +61,7 @@ abstract class FileUpload
     /**
      * Ensure there is a valid file to process before continuing.
      */
-    private function validateUpload(array $file, FileUploadValidatorInterface $validator): void
+    private function validateUpload(array $file, FileUploadValidator $validator): void
     {
         if (!$validator->isUpload($file)) {
             throw new NoFileException();
@@ -85,7 +85,7 @@ abstract class FileUpload
     /**
      * Keep file rules in one place to make changes easy and consistent.
      */
-    private function validateFile(FileUploadValidatorInterface $validator, string $file_extension, int $size): void
+    private function validateFile(FileUploadValidator $validator, string $file_extension, int $size): void
     {
         if (!$validator->isAllowedFile($file_extension, self::ALLOWED_EXTENSIONS)) {
             throw new NotAllowedFileException();

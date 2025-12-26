@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
-use App\Services\Implementations\LockService;
+use App\Services\Implementations\Auth\AuthService;
+use App\Services\Implementations\Auth\LockService;
+use App\Services\Implementations\Auth\SessionService;
 use Core\Controller;
-use App\Services\Interfaces\AuthServiceInterface;
-use App\Services\Interfaces\SessionServiceInterface;
 use Traits\HttpResponseTrait;
 
 /**
@@ -19,8 +19,8 @@ class AuthController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private AuthServiceInterface $authService,
-                                private SessionServiceInterface $sessionService) {}
+    public function __construct(private AuthService $authService,
+                                private SessionService $sessionService) {}
 
     public function showLogin(): mixed
     {
