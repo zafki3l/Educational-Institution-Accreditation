@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Logging;
 
 use App\Repositories\NoSql\Interfaces\LogRepositoryInterface;
-use App\Services\Interfaces\LogServiceInterface;
 use MongoDB\InsertOneResult;
 use Supports\MongoUTCDateTime;
 
-class LogService implements LogServiceInterface
+class LogService
 {
     public function __construct(private LogRepositoryInterface $logRepository) {}
 

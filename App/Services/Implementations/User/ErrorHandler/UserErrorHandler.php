@@ -4,7 +4,7 @@ namespace App\Services\Implementations\User\ErrorHandler;
 
 use App\Http\Requests\User\UserRequest;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Validations\Interfaces\UserValidatorInterface;
+use App\Validations\Implement\UserValidator;
 
 /**
  * This service delegates validation logic to validators
@@ -12,7 +12,7 @@ use App\Validations\Interfaces\UserValidatorInterface;
  */
 class UserErrorHandler
 {
-    public function __construct(private UserValidatorInterface $userValidator,
+    public function __construct(private UserValidator $userValidator,
                                 private MySqlUserRepository $repository) {}
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Services\Interfaces\AuthServiceInterface;
-use App\Validations\Interfaces\AuthValidatorInterface;
+use App\Validations\Implement\AuthValidator;
 
-class AuthService implements AuthServiceInterface
+class AuthService
 {
     public const LOCK_TIME = 60;
 
     public function __construct(private MySqlUserRepository $userRepository,
-                                private AuthValidatorInterface $authValidator) {}
+                                private AuthValidator $authValidator) {}
 
     public function handleLogin(LoginRequest $request): array
     {

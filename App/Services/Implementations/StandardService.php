@@ -6,13 +6,13 @@ use App\Exceptions\StandardException\StandardNotFoundException;
 use App\Http\Requests\Standard\CreateStandardRequest;
 use App\Models\Standard;
 use App\Repositories\Sql\Interfaces\StandardRepositoryInterface;
-use App\Services\Interfaces\LogServiceInterface;
+use App\Services\Implementations\Logging\LogService;
 use App\Services\Interfaces\StandardServiceInterface;
 
 class StandardService implements StandardServiceInterface
 {
     public function __construct(private StandardRepositoryInterface $standardRepository,
-                                private LogServiceInterface $logService) {}
+                                private LogService $logService) {}
 
     public function list(): array
     {

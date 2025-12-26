@@ -2,10 +2,9 @@
 
 namespace App\Validations\Implement;
 
-use App\Validations\Interfaces\FileUploadValidatorInterface;
 use Core\Validator;
 
-class FileUploadValidator extends Validator implements FileUploadValidatorInterface
+class FileUploadValidator extends Validator
 {
     public function isUpload(array $file): bool
     {

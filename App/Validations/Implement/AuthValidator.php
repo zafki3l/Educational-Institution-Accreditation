@@ -4,11 +4,10 @@ namespace App\Validations\Implement;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Services\Implementations\AuthService;
-use App\Validations\Interfaces\AuthValidatorInterface;
+use App\Services\Implementations\Auth\AuthService;
 use Core\Validator;
 
-class AuthValidator extends Validator implements AuthValidatorInterface
+class AuthValidator extends Validator
 {
     public function loginErrorHandling(MySqlUserRepository $userRepository, LoginRequest $request): array
     {

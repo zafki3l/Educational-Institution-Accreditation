@@ -6,10 +6,9 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Validations\Interfaces\UserValidatorInterface;
 use Core\Validator;
 
-class UserValidator extends Validator implements UserValidatorInterface
+class UserValidator extends Validator
 {
     public function handleUserError(MySqlUserRepository $userRepository, UserRequest $request, bool $isUpdated): array
     {

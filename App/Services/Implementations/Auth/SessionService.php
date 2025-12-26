@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Auth;
 
-use App\Services\Interfaces\SessionServiceInterface;
-
-class SessionService implements SessionServiceInterface 
+class SessionService
 {
     public static function generate(): bool
     {

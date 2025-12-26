@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Services\Implementations;
+namespace App\Services\Implementations\Auth;
 
-use App\Services\Interfaces\LockServiceInterface;
-
-class LockService implements LockServiceInterface
+class LockService
 {
     public static function isLocked(): bool
     {
