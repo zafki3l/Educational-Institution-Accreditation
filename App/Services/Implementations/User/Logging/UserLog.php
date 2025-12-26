@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\Implementations\User;
+namespace App\Services\Implementations\User\Logging;
 
 use App\Entities\DataTransferObjects\CommandResult;
-use App\Services\Interfaces\LogServiceInterface;
-use App\Services\Interfaces\User\HandleLogUserServiceInterface;
+use App\Services\Implementations\LogService;
 use MongoDB\InsertOneResult;
 
 /**
@@ -17,9 +16,9 @@ use MongoDB\InsertOneResult;
  * It isolates logging concerns from business logic
  * and ensures consistent audit logs for user commands.
  */
-class HandleLogUserService implements HandleLogUserServiceInterface
+class UserLog
 {
-    public function __construct(private LogServiceInterface $logService) {}
+    public function __construct(private LogService $logService) {}
 
     public function createLog(CommandResult $result): InsertOneResult
     {

@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Services\Implementations\User;
+namespace App\Services\Implementations\User\ErrorHandler;
 
 use App\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Interfaces\UserRepositoryInterface;
-use App\Services\Interfaces\User\HandleUserErrorServiceInterface;
+use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Validations\Interfaces\UserValidatorInterface;
 
 /**
  * This service delegates validation logic to validators
  * and returns normalized error data for upper layers. 
  */
-class HandleUserErrorService implements HandleUserErrorServiceInterface
+class UserErrorHandler
 {
     public function __construct(private UserValidatorInterface $userValidator,
-                                private UserRepositoryInterface $userRepository) {}
+                                private MySqlUserRepository $repository) {}
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
     {
-        $errors = $this->userValidator->handleUserError($this->userRepository, $request, $isUpdated);
+        $errors = $this->userValidator->handleUserError($this->repository, $request, $isUpdated);
 
         return !empty($errors) ? $errors : null;
     }
