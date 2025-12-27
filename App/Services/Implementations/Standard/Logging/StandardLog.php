@@ -6,6 +6,16 @@ use App\Entities\DataTransferObjects\CommandResult;
 use App\Services\Implementations\Logging\LogService;
 use MongoDB\InsertOneResult;
 
+/**
+ * Application service responsible for handling
+ * standard-related audit logging.
+ *
+ * This service builds contextual log messages and
+ * delegates persistence to the generic LogService.
+ *
+ * It isolates logging concerns from business logic
+ * and ensures consistent audit logs for standard commands.
+ */
 class StandardLog
 {
     public function __construct(private LogService $log) {}

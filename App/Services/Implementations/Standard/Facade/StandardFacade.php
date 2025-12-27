@@ -12,6 +12,21 @@ use App\Services\Implementations\Standard\Logging\StandardLog;
 use App\Services\Implementations\Standard\Query\StandardQuery;
 use MongoDB\InsertOneResult;
 
+/**
+ * High-level application service responsible for orchestrating
+ * standard-related use cases.
+ *
+ * This service acts as a Facade:
+ * - Coordinates Query Services and Command Services
+ * - Delegates logging and error handling to dedicated services
+ * - Encapsulates complex workflows into simple public methods
+ *
+ * It hides internal business logic and interaction details from
+ * controllers.
+ *
+ * The Facade does NOT contain business rules or persistence logic.
+ * Its sole responsibility is orchestration and flow control.
+ */
 class StandardFacade
 {
     public function __construct(private StandardFromRequestFactory $fromRequestFactory,

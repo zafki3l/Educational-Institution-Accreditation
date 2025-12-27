@@ -8,6 +8,10 @@ use App\Exceptions\FileUploadException\NoFileException;
 use App\Exceptions\FileUploadException\NotAllowedFileException;
 use App\Validations\Implement\FileUploadValidator;
 
+/**
+ * Abstract base class for handling file uploads with validation and secure storage.
+ * Supports keeping old files, unique naming, and custom upload paths.
+ */
 abstract class FileUpload
 {
     protected const ALLOWED_SIZE = 20_000_000;

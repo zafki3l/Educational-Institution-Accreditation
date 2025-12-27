@@ -5,6 +5,10 @@ namespace App\Services\Implementations\Evidence\Command;
 use App\Entities\Models\Evidence;
 use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 
+/**
+ * This service handles state-changing operations such as
+ * creating, updating, and deleting evidences. 
+ */
 class EvidenceCommand
 {
     public function __construct(private MySqlEvidenceRepository $repository) {}

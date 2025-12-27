@@ -5,6 +5,10 @@ namespace App\Services\Implementations\Standard\Command;
 use App\Entities\Models\Standard;
 use App\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 
+/**
+ * This service handles state-changing operations such as
+ * creating, updating, and deleting standards. 
+ */
 class StandardCommand
 {
     public function __construct(private MysqlStandardRepository $repository) {}

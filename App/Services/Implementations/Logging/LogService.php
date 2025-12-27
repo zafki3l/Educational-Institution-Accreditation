@@ -6,6 +6,10 @@ use App\Repositories\NoSql\Implementations\Logging\MongoDbLogRepository;
 use MongoDB\InsertOneResult;
 use Supports\MongoUTCDateTime;
 
+/**
+ * Service for creating audit logs in MongoDB.
+ * Logs user actions with target data, message, and success status.
+ */
 class LogService
 {
     public function __construct(private MongoDbLogRepository $logRepository) {}

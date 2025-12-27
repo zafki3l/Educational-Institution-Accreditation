@@ -8,6 +8,10 @@ use App\Services\Implementations\User\Mapping\ItemMappers\UserListItemMapper;
 use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 use Exception;
 
+/**
+ * Factory for creating user item mappers based on the specified type.
+ * Supports base and department-aware mapping implementations.
+ */
 class UserItemFactory
 {
     public function createItemMapper(UserItemType $type): UserItemMapperInterface

@@ -7,6 +7,13 @@ use App\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
 use App\Services\Implementations\Standard\Mapping\Factory\StandardItemMapperFactory;
 use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
 
+/**
+ * Application-level mapper responsible for transforming
+ * raw user data into User DTO representations.
+ *
+ * This service encapsulates mapping logic and decouples
+ * data sources from DTO construction.
+ */
 class StandardDTOMapper
 {
     public function __construct(private StandardItemMapperFactory $factory) {}

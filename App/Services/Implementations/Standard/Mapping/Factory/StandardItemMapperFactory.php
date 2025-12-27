@@ -7,6 +7,10 @@ use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
 use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardWithDepartmentItemMapper;
 use App\Services\Interfaces\Standard\Mapping\StandardItemMapperInterface;
 
+/**
+ * Factory for creating standard item mappers based on the specified type.
+ * Supports base and department-aware mapping implementations.
+ */
 class StandardItemMapperFactory
 {
     public function createItemMapper(StandardItemType $type): StandardItemMapperInterface
