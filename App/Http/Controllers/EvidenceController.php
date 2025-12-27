@@ -8,7 +8,7 @@ use App\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Evidence\Facade\EvidenceFacade;
 use App\Services\Implementations\Milestone\MilestoneService;
-use App\Services\Implementations\Standard\StandardService;
+use App\Services\Implementations\Standard\Facade\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -17,7 +17,7 @@ class EvidenceController extends Controller
     use HttpResponseTrait;
 
     public function __construct(private EvidenceFacade $evidenceFacade,
-                                private StandardService $standardService,
+                                private StandardFacade $standardService,
                                 private CriteriaService $criteriaService,
                                 private MilestoneService $milestoneService) {}
 

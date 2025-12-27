@@ -5,7 +5,7 @@ use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\User;
 use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Department\DepartmentService;
-use App\Services\Implementations\Standard\StandardService;
+use App\Services\Implementations\Standard\Facade\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -14,7 +14,7 @@ class CriteriaController extends Controller
     use HttpResponseTrait;
 
     public function __construct(private CriteriaService $criteriaService,
-                                private StandardService $standardService,
+                                private StandardFacade $standardService,
                                 private DepartmentService $departmentService) {}
 
     public function index(): mixed

@@ -52,7 +52,7 @@ class MysqlStandardRepository extends SqlRepository
     public function findById(string $standard_id): array
     {
         try {
-            return $this->getByParams([$standard_id], "SELECT id FROM evaluation_standards WHERE id = ?");
+            return $this->getByParams([$standard_id], "SELECT id, name FROM evaluation_standards WHERE id = ?");
         } catch (PDOException $e) {
             print $e->getMessage();
             return [];
