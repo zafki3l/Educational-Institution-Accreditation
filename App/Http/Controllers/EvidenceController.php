@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Evidence\AddMilestoneRequest;
 use App\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Http\Requests\Evidence\UpdateEvidenceRequest;
+use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Evidence\Facade\EvidenceFacade;
-use App\Services\Interfaces\CriteriaServiceInterface;
-use App\Services\Interfaces\MilestoneServiceInterface;
-use App\Services\Interfaces\StandardServiceInterface;
+use App\Services\Implementations\Milestone\MilestoneService;
+use App\Services\Implementations\Standard\Facade\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -17,9 +17,9 @@ class EvidenceController extends Controller
     use HttpResponseTrait;
 
     public function __construct(private EvidenceFacade $evidenceFacade,
-                                private StandardServiceInterface $standardService,
-                                private CriteriaServiceInterface $criteriaService,
-                                private MilestoneServiceInterface $milestoneService) {}
+                                private StandardFacade $standardService,
+                                private CriteriaService $criteriaService,
+                                private MilestoneService $milestoneService) {}
 
     public function index()
     {

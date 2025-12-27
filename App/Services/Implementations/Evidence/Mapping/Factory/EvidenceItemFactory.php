@@ -9,6 +9,10 @@ use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceListItemMa
 use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceWithoutMilestoneItemMapper;
 use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 
+/**
+ * Factory for creating evidence item mappers based on the specified type.
+ * Supports base and department-aware mapping implementations.
+ */
 class EvidenceItemFactory
 {   
     public function createItemMapper(EvidenceItemType $type): EvidenceItemMapperInterface

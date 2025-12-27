@@ -6,6 +6,16 @@ use App\Entities\DataTransferObjects\CommandResult;
 use App\Services\Implementations\Logging\LogService;
 use MongoDB\InsertOneResult;
 
+/**
+ * Application service responsible for handling
+ * evidence-related audit logging.
+ *
+ * This service builds contextual log messages and
+ * delegates persistence to the generic LogService.
+ *
+ * It isolates logging concerns from business logic
+ * and ensures consistent audit logs for evidence commands.
+ */
 class EvidenceLog
 {
     public function __construct(private LogService $log) {}
