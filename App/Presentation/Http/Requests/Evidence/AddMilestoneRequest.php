@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Presentation\Http\Requests\Evidence;
+
+class AddMilestoneRequest extends EvidenceRequest
+{
+    private string $milestone_id;
+
+    public function __construct(array $input)
+    {
+        $this->milestone_id = trim($input['milestone_id']);
+    }
+
+    public function getMilestoneId(): string {return $this->milestone_id;}
+}

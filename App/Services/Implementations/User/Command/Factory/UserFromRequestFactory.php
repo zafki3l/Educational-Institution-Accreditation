@@ -4,8 +4,8 @@ namespace App\Services\Implementations\User\Command\Factory;
 
 use App\Domain\Entities\Builders\UserBuilder;
 use App\Domain\Entities\Models\User;
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Presentation\Http\Requests\User\CreateUserRequest;
+use App\Presentation\Http\Requests\User\UpdateUserRequest;
 
 /**
  * Create new User object from request

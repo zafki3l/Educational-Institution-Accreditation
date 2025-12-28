@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CriteriaController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\MilestoneController;
-use App\Http\Controllers\StandardController;
-use App\Http\Controllers\UserController;
-use App\Http\Middlewares\EnsureAdmin;
-use App\Http\Middlewares\EnsureAuth;
+use App\Presentation\Http\Controllers\AdminController;
+use App\Presentation\Http\Controllers\CriteriaController;
+use App\Presentation\Http\Controllers\DepartmentController;
+use App\Presentation\Http\Controllers\MilestoneController;
+use App\Presentation\Http\Controllers\StandardController;
+use App\Presentation\Http\Controllers\UserController;
+use App\Presentation\Http\Middlewares\EnsureAdmin;
+use App\Presentation\Http\Middlewares\EnsureAuth;
 
 // Dashboard
 $router->middleware([EnsureAuth::class, EnsureAdmin::class])

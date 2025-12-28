@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Auth;
 
-use App\Http\Requests\Auth\LoginRequest;
+use App\Presentation\Http\Requests\Auth\LoginRequest;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Validations\Implement\AuthValidator;
 

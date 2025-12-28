@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\EvidenceController;
-use App\Http\Controllers\CriteriaController;
-use App\Http\Controllers\MilestoneController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\StandardController;
-use App\Http\Middlewares\EnsureAuth;
-use App\Http\Middlewares\EnsureStaff;
+use App\Presentation\Http\Controllers\EvidenceController;
+use App\Presentation\Http\Controllers\CriteriaController;
+use App\Presentation\Http\Controllers\MilestoneController;
+use App\Presentation\Http\Controllers\StaffController;
+use App\Presentation\Http\Controllers\StandardController;
+use App\Presentation\Http\Middlewares\EnsureAuth;
+use App\Presentation\Http\Middlewares\EnsureStaff;
 
 // Dashboard
 $router->middleware([EnsureAuth::class, EnsureStaff::class])

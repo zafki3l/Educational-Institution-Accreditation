@@ -4,8 +4,8 @@ namespace App\Services\Implementations\Evidence\Command\Factory;
 
 use App\Domain\Entities\Builders\EvidenceBuilder;
 use App\Domain\Entities\Models\Evidence;
-use App\Http\Requests\Evidence\CreateEvidenceRequest;
-use App\Http\Requests\Evidence\UpdateEvidenceRequest;
+use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
+use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Implementations\Evidence\EvidenceUpload\EvidenceFileUpload;
 
 /**

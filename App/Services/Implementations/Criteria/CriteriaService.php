@@ -3,7 +3,7 @@
 namespace App\Services\Implementations\Criteria;
 
 use App\Domain\Exceptions\CriteriaException\CriteriaNotFoundException;
-use App\Http\Requests\Criteria\CreateCriteriaRequest;
+use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\Criteria;
 use App\Repositories\Sql\Implementations\Criteria\MySqlCriteriaRepository;
 use App\Services\Implementations\Logging\LogService;

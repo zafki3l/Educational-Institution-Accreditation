@@ -5,7 +5,7 @@ namespace App\Services\Implementations\Standard\Facade;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
-use App\Http\Requests\Standard\CreateStandardRequest;
+use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
 use App\Services\Implementations\Standard\Command\Factory\StandardFromRequestFactory;
 use App\Services\Implementations\Standard\Command\StandardCommand;
 use App\Services\Implementations\Standard\Logging\StandardLog;
