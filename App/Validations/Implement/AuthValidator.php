@@ -3,7 +3,7 @@
 namespace App\Validations\Implement;
 
 use App\Presentation\Http\Requests\Auth\LoginRequest;
-use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
+use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Services\Implementations\Auth\AuthService;
 use Core\Validator;
 

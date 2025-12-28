@@ -3,7 +3,7 @@
 namespace App\Services\Implementations\User\ErrorHandler;
 
 use App\Presentation\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
+use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Validations\Implement\UserValidator;
 
 /**

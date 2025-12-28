@@ -5,7 +5,7 @@ namespace App\Services\Implementations\Standard\Query;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
 use App\Domain\Exceptions\StandardException\StandardNotFoundException;
-use App\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
+use App\Persistent\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
 use App\Services\Implementations\Standard\Mapping\StandardDTOMapper;
 
