@@ -2,10 +2,10 @@
 
 namespace App\Services\Implementations\Milestone;
 
-use App\Exceptions\MilestoneException\MilestoneNotFoundException;
-use App\Http\Requests\Milestone\CreateMilestoneRequest;
-use App\Models\Milestone;
-use App\Repositories\Sql\Implementations\Milestone\MySqlMilestoneRepository;
+use App\Domain\Exceptions\MilestoneException\MilestoneNotFoundException;
+use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
+use App\Persistent\Models\Milestone;
+use App\Persistent\Repositories\Sql\Implementations\Milestone\MySqlMilestoneRepository;
 use App\Services\Implementations\Logging\LogService;
 
 class MilestoneService

@@ -2,10 +2,10 @@
 
 namespace App\Validations\Implement;
 
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\UserRequest;
-use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
+use App\Presentation\Http\Requests\User\CreateUserRequest;
+use App\Presentation\Http\Requests\User\UpdateUserRequest;
+use App\Presentation\Http\Requests\User\UserRequest;
+use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use Core\Validator;
 
 class UserValidator extends Validator

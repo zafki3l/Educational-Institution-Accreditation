@@ -2,12 +2,12 @@
 
 namespace App\Services\Implementations\User\Facade;
 
-use App\Entities\DataTransferObjects\CommandResult;
-use App\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
-use App\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
-use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\UserRequest;
+use App\Domain\Entities\DataTransferObjects\CommandResult;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
+use App\Presentation\Http\Requests\User\CreateUserRequest;
+use App\Presentation\Http\Requests\User\UpdateUserRequest;
+use App\Presentation\Http\Requests\User\UserRequest;
 use App\Services\Implementations\User\Command\Factory\UserFromRequestFactory;
 use App\Services\Implementations\User\Command\UserCommand;
 use App\Services\Implementations\User\ErrorHandler\UserErrorHandler;

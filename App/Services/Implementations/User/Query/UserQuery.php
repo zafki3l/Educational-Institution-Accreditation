@@ -2,10 +2,10 @@
 
 namespace App\Services\Implementations\User\Query;
 
-use App\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
-use App\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
-use App\Exceptions\UserException\UserNotFoundException;
-use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
+use App\Domain\Exceptions\UserException\UserNotFoundException;
+use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Services\Implementations\User\Mapping\ItemMappers\UserItemType;
 use App\Services\Implementations\User\Mapping\UserDTOMapper;
 

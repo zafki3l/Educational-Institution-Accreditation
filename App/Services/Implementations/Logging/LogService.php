@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Logging;
 
-use App\Repositories\NoSql\Implementations\Logging\MongoDbLogRepository;
+use App\Persistent\Repositories\NoSql\Implementations\Logging\MongoDbLogRepository;
 use MongoDB\InsertOneResult;
 use Supports\MongoUTCDateTime;
 

@@ -2,10 +2,10 @@
 
 namespace App\Services\Implementations\FileUpload;
 
-use App\Exceptions\FileUploadException\FileSizeException;
-use App\Exceptions\FileUploadException\FileUploadException;
-use App\Exceptions\FileUploadException\NoFileException;
-use App\Exceptions\FileUploadException\NotAllowedFileException;
+use App\Domain\Exceptions\FileUploadException\FileSizeException;
+use App\Domain\Exceptions\FileUploadException\FileUploadException;
+use App\Domain\Exceptions\FileUploadException\NoFileException;
+use App\Domain\Exceptions\FileUploadException\NotAllowedFileException;
 use App\Validations\Implement\FileUploadValidator;
 
 /**

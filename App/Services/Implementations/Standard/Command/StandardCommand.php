@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\Standard\Command;
 
-use App\Entities\Models\Standard;
-use App\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
+use App\Domain\Entities\Models\Standard;
+use App\Persistent\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 
 /**
  * This service handles state-changing operations such as

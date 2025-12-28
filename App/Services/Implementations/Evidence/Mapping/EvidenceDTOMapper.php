@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\Evidence\Mapping;
 
-use App\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
-use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
+use App\Domain\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
+use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Services\Implementations\Evidence\Mapping\Factory\EvidenceItemFactory;
 use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
 

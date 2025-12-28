@@ -2,10 +2,10 @@
 
 namespace App\Services\Implementations\Evidence\Query;
 
-use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
-use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
-use App\Exceptions\EvidenceException\EvidenceNotFoundException;
-use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
+use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
+use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
+use App\Domain\Exceptions\EvidenceException\EvidenceNotFoundException;
+use App\Persistent\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 use App\Services\Implementations\Evidence\Mapping\EvidenceDTOMapper;
 use App\Services\Implementations\Evidence\Mapping\ItemMappers\EvidenceItemType;
 

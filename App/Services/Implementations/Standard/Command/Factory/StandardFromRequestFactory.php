@@ -2,9 +2,9 @@
 
 namespace App\Services\Implementations\Standard\Command\Factory;
 
-use App\Entities\Builders\StandardBuilder;
-use App\Entities\Models\Standard;
-use App\Http\Requests\Standard\CreateStandardRequest;
+use App\Domain\Entities\Builders\StandardBuilder;
+use App\Domain\Entities\Models\Standard;
+use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
 
 /**
  * Create new Standard object from request

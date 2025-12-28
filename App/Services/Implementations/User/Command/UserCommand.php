@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\User\Command;
 
-use App\Entities\Models\User;
-use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
+use App\Domain\Entities\Models\User;
+use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 /**
  * This service handles state-changing operations such as

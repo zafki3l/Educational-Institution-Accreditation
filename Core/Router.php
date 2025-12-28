@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use App\Exceptions\HttpException\PageNotFoundException;
-use App\Http\Middlewares\CSRF_Authenticator;
+use App\Domain\Exceptions\HttpException\PageNotFoundException;
+use App\Presentation\Http\Middlewares\CSRF_Authenticator;
 
 /**
  * Class Router

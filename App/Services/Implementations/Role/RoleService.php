@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Role;
 
-use App\Repositories\Sql\Implementations\Role\MySqlRoleRepository;
+use App\Persistent\Repositories\Sql\Implementations\Role\MySqlRoleRepository;
 
 class RoleService
 {

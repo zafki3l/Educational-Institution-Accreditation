@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\User\Mapping;
 
-use App\Entities\DataTransferObjects\UserDTO\BaseUserDTO;
-use App\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\BaseUserDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Services\Implementations\User\Mapping\Factory\UserItemFactory;
 use App\Services\Implementations\User\Mapping\ItemMappers\UserItemType;
 use App\Services\Interfaces\User\UserItemMapperServiceInterface;

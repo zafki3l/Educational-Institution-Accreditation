@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Department;
 
-use App\Repositories\Sql\Implementations\Department\MySqlDepartmentRepository;
+use App\Persistent\Repositories\Sql\Implementations\Department\MySqlDepartmentRepository;
 
 class DepartmentService
 {

@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Mapping\ItemMappers;
 
-use App\Entities\DataTransferObjects\EvidenceDTO\EvidenceByMilestoneDTO;
+use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByMilestoneDTO;
 use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
 
 class EvidenceByMilestoneItemMapper implements EvidenceItemMapperInterface

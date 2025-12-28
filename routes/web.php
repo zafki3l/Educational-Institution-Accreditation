@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
-use App\Http\Middlewares\EnsureAuth;
+use App\Presentation\Http\Controllers\AuthController;
+use App\Presentation\Http\Controllers\HomeController;
+use App\Presentation\Http\Middlewares\EnsureAuth;
 
 // Homepage
 $router->middleware([EnsureAuth::class])
