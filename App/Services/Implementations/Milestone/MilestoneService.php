@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Milestone;
 
-use App\Exceptions\MilestoneException\MilestoneNotFoundException;
+use App\Domain\Exceptions\MilestoneException\MilestoneNotFoundException;
 use App\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Models\Milestone;
 use App\Repositories\Sql\Implementations\Milestone\MySqlMilestoneRepository;

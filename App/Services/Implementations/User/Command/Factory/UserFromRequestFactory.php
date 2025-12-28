@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\User\Command\Factory;
 
-use App\Entities\Builders\UserBuilder;
-use App\Entities\Models\User;
+use App\Domain\Entities\Builders\UserBuilder;
+use App\Domain\Entities\Models\User;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Middlewares;
 
-use App\Exceptions\AuthException\PermissionDeniedException;
-use App\Models\User;
+use App\Domain\Entities\Models\User;
+use App\Domain\Exceptions\AuthException\PermissionDeniedException;
 
 class EnsureStaff
 {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Standard\CreateStandardRequest;
-use App\Models\User;
+use App\Domain\Entities\Models\User;
 use App\Services\Implementations\Department\DepartmentService;
 use App\Services\Implementations\Standard\Facade\StandardFacade;
 use Core\Controller;

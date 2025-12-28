@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Criteria;
 
-use App\Exceptions\CriteriaException\CriteriaNotFoundException;
+use App\Domain\Exceptions\CriteriaException\CriteriaNotFoundException;
 use App\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Models\Criteria;
 use App\Repositories\Sql\Implementations\Criteria\MySqlCriteriaRepository;

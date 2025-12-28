@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\User\Mapping\ItemMappers;
 
-use App\Entities\DataTransferObjects\UserDTO\UserListDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserListDTO;
 use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 use DateTimeImmutable;
 

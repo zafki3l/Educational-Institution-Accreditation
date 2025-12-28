@@ -2,8 +2,8 @@
 
 namespace App\Services\Implementations\Standard\Mapping;
 
-use App\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
-use App\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
+use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
+use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
 use App\Services\Implementations\Standard\Mapping\Factory\StandardItemMapperFactory;
 use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Milestone\CreateMilestoneRequest;
-use App\Models\User;
+use App\Domain\Entities\Models\User;
 use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Milestone\MilestoneService;
 use App\Services\Implementations\Standard\Facade\StandardFacade;

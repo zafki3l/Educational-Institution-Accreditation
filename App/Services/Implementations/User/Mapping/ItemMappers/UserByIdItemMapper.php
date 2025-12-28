@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\User\Mapping\ItemMappers;
 
-use App\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
+use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Services\Interfaces\User\Mapping\UserItemMapperInterface;
 
 /**

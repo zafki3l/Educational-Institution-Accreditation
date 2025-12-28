@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Standard\Command;
 
-use App\Entities\Models\Standard;
+use App\Domain\Entities\Models\Standard;
 use App\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 
 /**

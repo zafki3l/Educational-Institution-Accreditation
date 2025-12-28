@@ -2,7 +2,7 @@
 
 namespace App\Services\Interfaces\Standard\Mapping;
 
-use App\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
+use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 
 interface StandardItemMapperInterface
 {

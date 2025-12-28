@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\Evidence\Command;
 
-use App\Entities\Models\Evidence;
+use App\Domain\Entities\Models\Evidence;
 use App\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 
 /**

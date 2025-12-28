@@ -2,7 +2,7 @@
 
 namespace App\Services\Implementations\User\Command;
 
-use App\Entities\Models\User;
+use App\Domain\Entities\Models\User;
 use App\Repositories\Sql\Implementations\User\MySqlUserRepository;
 
 /**

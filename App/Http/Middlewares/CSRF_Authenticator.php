@@ -2,8 +2,8 @@
 
 namespace App\Http\Middlewares;
 
-use App\Exceptions\AuthException\InvalidTokenException;
-use App\Exceptions\AuthException\MissingCsrfTokenException;
+use App\Domain\Exceptions\AuthException\InvalidTokenException;
+use App\Domain\Exceptions\AuthException\MissingCsrfTokenException;
 
 class CSRF_Authenticator
 {

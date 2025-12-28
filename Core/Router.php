@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use App\Exceptions\HttpException\PageNotFoundException;
+use App\Domain\Exceptions\HttpException\PageNotFoundException;
 use App\Http\Middlewares\CSRF_Authenticator;
 
 /**

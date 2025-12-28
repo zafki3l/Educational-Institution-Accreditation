@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Entities\Models\User;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use App\Services\Implementations\Auth\AuthService;
 use App\Services\Implementations\Auth\LockService;
 use App\Services\Implementations\Auth\SessionService;
