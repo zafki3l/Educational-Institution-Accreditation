@@ -4,7 +4,7 @@ namespace App\Services\Implementations\Auth;
 
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Validations\Implement\AuthValidator;
+use App\Business\Validations\Implementions\AuthValidator;
 
 class AuthService
 {

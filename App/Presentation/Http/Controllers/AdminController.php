@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\Interfaces\UserFacadeInterface;
 use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Evidence\Facade\EvidenceFacade;
 use App\Services\Implementations\Milestone\MilestoneService;
 use App\Services\Implementations\Standard\Facade\StandardFacade;
-use App\Services\Implementations\User\Facade\UserFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private UserFacade $userService,
+    public function __construct(private UserFacadeInterface $userService,
                                 private StandardFacade $standardService,
                                 private CriteriaService $criteriaService,
                                 private MilestoneService $milestoneService,

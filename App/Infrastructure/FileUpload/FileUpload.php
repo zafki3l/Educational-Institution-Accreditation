@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Implementations\FileUpload;
+namespace App\Infrastructure\FileUpload;
 
 use App\Domain\Exceptions\FileUploadException\FileSizeException;
 use App\Domain\Exceptions\FileUploadException\FileUploadException;

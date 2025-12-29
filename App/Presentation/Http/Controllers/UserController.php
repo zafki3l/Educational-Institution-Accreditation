@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\Interfaces\UserFacadeInterface;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
 use App\Services\Implementations\Department\DepartmentService;
 use App\Services\Implementations\Role\RoleService;
-use App\Services\Implementations\User\Facade\UserFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -20,7 +20,7 @@ class UserController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private UserFacade $userService,
+    public function __construct(private UserFacadeInterface $userService,
                                 private RoleService $roleService,
                                 private DepartmentService $departmentService) {}
 

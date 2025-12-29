@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Persistent\Repositories\Sql\Interfaces;
+
+interface UserRepositoryInterface
+{
+    public function all(int $start_from, int $result_per_page): array;
+
+    public function findByEmail(string $email): array;
+
+    public function findById(int $user_id): array;
+
+    public function create(array $user): int;
+
+    public function updateById(array $user): int;
+
+    public function deleteById(int $user_id): int;
+
+    public function search(mixed $search, $start_from, $result_per_page): array;
+
+    public function countAll(): int;
+
+    public function countSearch(string $search): int;
+}
