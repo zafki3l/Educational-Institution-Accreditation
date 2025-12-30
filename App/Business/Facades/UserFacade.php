@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Business\Facades\Implementations;
+namespace App\Business\Facades;
 
 use App\Business\Commands\UserCommand;
 use App\Business\ErrorHandler\UserErrorHandler;
-use App\Business\Facades\Interfaces\UserFacadeInterface;
 use App\Business\FromRequestFactory\UserFromRequestFactory;
 use App\Business\Logging\UserLog;
 use App\Business\Queries\UserQuery;
@@ -32,7 +31,7 @@ use Core\Paginator;
  * The Facade does NOT contain business rules or persistence logic.
  * Its sole responsibility is orchestration and flow control.
  */
-class UserFacade implements UserFacadeInterface
+class UserFacade
 {
     public function __construct(private UserErrorHandler $errorHandler,
                                 private UserQuery $query,
