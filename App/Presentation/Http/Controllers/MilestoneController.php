@@ -2,9 +2,9 @@
 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\CriteriaFacade;
 use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Domain\Entities\Models\User;
-use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Milestone\MilestoneService;
 use App\Business\Facades\StandardFacade;
 use Core\Controller;
@@ -15,7 +15,7 @@ class MilestoneController extends Controller
     use HttpResponseTrait;
 
     public function __construct(private StandardFacade $standardService,
-                                private CriteriaService $criteriaService,
+                                private CriteriaFacade $criteriaService,
                                 private MilestoneService $milestoneService) {}
                                 
     public function index()
