@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Persistent\Repositories\Sql\Implementations\User;
+namespace App\Persistent\Repositories\Sql\User;
 
+use App\Business\Ports\UserRepositoryInterface;
 use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
-use App\Persistent\Repositories\Sql\Interfaces\UserRepositoryInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
