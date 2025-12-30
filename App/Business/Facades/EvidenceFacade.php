@@ -2,6 +2,7 @@
 
 namespace App\Business\Facades;
 
+use App\Business\FromRequestFactory\EvidenceFromRequestFactory;
 use App\Business\Queries\EvidenceQuery;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
@@ -9,7 +10,6 @@ use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Services\Implementations\Evidence\Command\EvidenceCommand;
-use App\Services\Implementations\Evidence\Command\Factory\EvidenceFromRequestFactory;
 use App\Services\Implementations\Evidence\Logging\EvidenceLog;
 use Core\Paginator;
 use MongoDB\InsertOneResult;
@@ -84,7 +84,7 @@ class EvidenceFacade
 
     public function update(string $id, UpdateEvidenceRequest $request): InsertOneResult
     {
-        $found = $this->evidenceQuery->findOrFail($id)->toArray();
+        $found = $this->evidenceQuery->findOrFail($id);
 
         $evidence = $this->fromRequestFactory->fromUpdateRequest($id, $found, $request);
 
@@ -92,7 +92,7 @@ class EvidenceFacade
 
         $result = new CommandResult(
             $updated_id,
-            $found,
+            $found->toArray(),
             $updated_id ? true : false
         );
 
