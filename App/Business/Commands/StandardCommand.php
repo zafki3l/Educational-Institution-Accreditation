@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Command;
+namespace App\Business\Commands;
 
+use App\Business\Ports\StandardRepositoryInterface;
 use App\Domain\Entities\Models\Standard;
-use App\Persistent\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
 
 /**
  * This service handles state-changing operations such as
@@ -11,7 +11,7 @@ use App\Persistent\Repositories\Sql\Implementations\Standard\MysqlStandardReposi
  */
 class StandardCommand
 {
-    public function __construct(private MysqlStandardRepository $repository) {}
+    public function __construct(private StandardRepositoryInterface $repository) {}
 
     public function create(Standard $standard): int
     {        

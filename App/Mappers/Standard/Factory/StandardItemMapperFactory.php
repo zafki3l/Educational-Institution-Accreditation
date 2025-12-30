@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Mapping\Factory;
+namespace App\Mappers\Standard\Factory;
 
-use App\Services\Implementations\Standard\Mapping\ItemMappers\BaseStandardItemMapper;
-use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
-use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardWithDepartmentItemMapper;
-use App\Services\Interfaces\Standard\Mapping\StandardItemMapperInterface;
+use App\Mappers\Standard\ItemMappers\BaseStandardItemMapper;
+use App\Mappers\Standard\ItemMappers\Interfaces\StandardItemMapperInterface;
+use App\Mappers\Standard\ItemMappers\StandardItemType;
+use App\Mappers\Standard\ItemMappers\StandardWithDepartmentItemMapper;
 
 /**
  * Factory for creating standard item mappers based on the specified type.

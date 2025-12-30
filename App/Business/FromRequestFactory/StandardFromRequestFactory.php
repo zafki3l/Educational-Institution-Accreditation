@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Command\Factory;
+namespace App\Business\FromRequestFactory;
 
 use App\Domain\Entities\Builders\StandardBuilder;
 use App\Domain\Entities\Models\Standard;

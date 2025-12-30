@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Mapping\ItemMappers;
+namespace App\Mappers\Standard\ItemMappers;
 
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardWithDepartmentDTO;
-use App\Services\Interfaces\Standard\Mapping\StandardItemMapperInterface;
+use App\Mappers\Standard\ItemMappers\Interfaces\StandardItemMapperInterface;
 
 /**
  * Application-level mapper responsible for transforming

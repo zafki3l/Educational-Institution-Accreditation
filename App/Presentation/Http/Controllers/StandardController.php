@@ -5,7 +5,7 @@ namespace App\Presentation\Http\Controllers;
 use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
 use App\Domain\Entities\Models\User;
 use App\Services\Implementations\Department\DepartmentService;
-use App\Services\Implementations\Standard\Facade\StandardFacade;
+use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 

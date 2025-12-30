@@ -1,16 +1,16 @@
 <?php 
 
-namespace App\Services\Implementations\Standard\Facade;
+namespace App\Business\Facades;
 
+use App\Business\Commands\StandardCommand;
+use App\Business\FromRequestFactory\StandardFromRequestFactory;
+use App\Business\Logging\StandardLog;
+use App\Business\Queries\StandardQuery;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
+use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
-use App\Services\Implementations\Standard\Command\Factory\StandardFromRequestFactory;
-use App\Services\Implementations\Standard\Command\StandardCommand;
-use App\Services\Implementations\Standard\Logging\StandardLog;
-use App\Services\Implementations\Standard\Query\StandardQuery;
-use MongoDB\InsertOneResult;
 
 /**
  * High-level application service responsible for orchestrating
@@ -39,7 +39,7 @@ class StandardFacade
         return $this->allWithDepartment()->toArray();
     }
 
-    public function create(CreateStandardRequest $request): InsertOneResult
+    public function create(CreateStandardRequest $request): void
     {
         $standard = $this->fromRequestFactory->fromCreateRequest($request);
 
@@ -51,10 +51,12 @@ class StandardFacade
             $created_id ? true : false
         );
 
-        return $this->standardLog->createLog($result);
+        $actor = new HttpActorContext($_SESSION['user']);
+
+        $this->standardLog->createLog($result, $actor);
     }
 
-    public function delete(string $standard_id): InsertOneResult
+    public function delete(string $standard_id): void
     {
         $found = $this->findOrFail($standard_id);
 
@@ -65,8 +67,10 @@ class StandardFacade
             $found->toArray(),
             $deleted_rows > 0 ? true : false
         );
+
+        $actor = new HttpActorContext($_SESSION['user']);
                 
-        return $this->standardLog->deleteLog($result);
+        $this->standardLog->deleteLog($result, $actor);
     }
 
     public function allWithDepartment(): StandardCollectionDTO

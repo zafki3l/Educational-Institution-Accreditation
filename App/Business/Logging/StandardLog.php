@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Logging;
+namespace App\Business\Logging;
 
+use App\Business\Contexts\ActorContextInterface;
+use App\Business\Logging\Interfaces\LogServiceInterface;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
-use App\Services\Implementations\Logging\LogService;
-use MongoDB\InsertOneResult;
 
 /**
  * Application service responsible for handling
@@ -18,13 +18,14 @@ use MongoDB\InsertOneResult;
  */
 class StandardLog
 {
-    public function __construct(private LogService $log) {}
+    public function __construct(private LogServiceInterface $log) {}
 
-    public function createLog(CommandResult $result): InsertOneResult
+    public function createLog(CommandResult $result, ActorContextInterface $actor): void
     {
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã thêm 1 tiêu chuẩn mới";
+        $message = "Người dùng {$actor->fullName()} đã thêm 1 tiêu chuẩn mới";
 
-        return $this->log->createLog(
+        $this->log->createLog(
+            $actor,
             'standard', 
             $result->data, 
             'create', 
@@ -33,11 +34,12 @@ class StandardLog
         );
     }
 
-    public function deleteLog(CommandResult $result): InsertOneResult
+    public function deleteLog(CommandResult $result, ActorContextInterface $actor): void
     {
-        $message = "Người dùng {$_SESSION['user']['first_name']} {$_SESSION['user']['last_name']} đã xóa tiêu chuẩn {$result->id}";
+        $message = "Người dùng {$actor->fullName()} đã xóa tiêu chuẩn {$result->id}";
 
-        return $this->log->createLog(
+        $this->log->createLog(
+            $actor,
             'standard', 
             $result->data, 
             'delete', 

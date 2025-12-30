@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Mapping\ItemMappers;
+namespace App\Mappers\Standard\ItemMappers;
 
 enum StandardItemType: string
 {

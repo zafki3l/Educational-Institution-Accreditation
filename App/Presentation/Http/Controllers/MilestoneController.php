@@ -6,7 +6,7 @@ use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Domain\Entities\Models\User;
 use App\Services\Implementations\Criteria\CriteriaService;
 use App\Services\Implementations\Milestone\MilestoneService;
-use App\Services\Implementations\Standard\Facade\StandardFacade;
+use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 

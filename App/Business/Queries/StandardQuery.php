@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Services\Implementations\Standard\Query;
+namespace App\Business\Queries;
 
+use App\Business\Ports\StandardRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
 use App\Domain\Exceptions\StandardException\StandardNotFoundException;
-use App\Persistent\Repositories\Sql\Implementations\Standard\MysqlStandardRepository;
-use App\Services\Implementations\Standard\Mapping\ItemMappers\StandardItemType;
-use App\Services\Implementations\Standard\Mapping\StandardDTOMapper;
+use App\Mappers\Standard\ItemMappers\StandardItemType;
+use App\Mappers\Standard\StandardDTOMapper;
 
 class StandardQuery
 {
-    public function __construct(private MysqlStandardRepository $repository,
+    public function __construct(private StandardRepositoryInterface $repository,
                                 private StandardDTOMapper $dtoMapper) {}
 
     public function allWithDepartment(): StandardCollectionDTO
