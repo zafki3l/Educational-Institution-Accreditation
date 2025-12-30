@@ -12,10 +12,10 @@ class UserListDTO extends BaseUserDTO
         string $last_name,
         string $email,
         string $gender,
-        protected readonly string $department_name,
-        protected readonly string $role_name,
-        protected readonly DateTimeImmutable $created_at,
-        protected readonly DateTimeImmutable $updated_at
+        public readonly string $department_name,
+        public readonly string $role_name,
+        public readonly DateTimeImmutable $created_at,
+        public readonly DateTimeImmutable $updated_at
     ) {
         parent::__construct($id, $first_name, $last_name, $email, $gender);
     }

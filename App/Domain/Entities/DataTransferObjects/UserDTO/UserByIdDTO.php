@@ -10,8 +10,8 @@ class UserByIdDTO extends BaseUserDTO
         string $last_name,
         string $email,
         string $gender,
-        protected readonly int $department_id,
-        protected readonly int $role_id
+        public readonly int $department_id,
+        public readonly int $role_id
     ) {
         parent::__construct($id, $first_name, $last_name, $email, $gender);
     }
