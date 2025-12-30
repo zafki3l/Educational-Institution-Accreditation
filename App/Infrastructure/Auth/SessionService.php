@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Implementations\Auth;
+namespace App\Infrastructure\Auth;
 
 class SessionService
 {

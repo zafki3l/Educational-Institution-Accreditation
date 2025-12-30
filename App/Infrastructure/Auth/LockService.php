@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Services\Implementations\Auth;
+namespace App\Infrastructure\Auth;
 
 class LockService
 {
+    public const LOCK_TIME = 60;
+    
     public static function isLocked(): bool
     {
         $isLocked = time() < $_SESSION['lock_time'];

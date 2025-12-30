@@ -2,20 +2,17 @@
 
 namespace App\Business\Validations\Implementions;
 
-use App\Business\Ports\UserRepositoryInterface;
+use App\Infrastructure\Auth\LockService;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
-use App\Services\Implementations\Auth\AuthService;
 use Core\Validator;
 
 class AuthValidator extends Validator
 {
-    public function loginErrorHandling(UserRepositoryInterface $userRepository, LoginRequest $request): array
+    public function loginErrorHandling(array $user, LoginRequest $request): array
     {
         $errors = [];
 
-        $userData = $userRepository->findByEmail($request->getEmail());
-
-        $isEmailExist = $this->isEmailExist($request->getEmail(), $userRepository);
+        $isEmailExist = $this->isEmailExist($user);
         if (!$isEmailExist) {
             $errors['email-not-existed'] = 'Email is not exist! create a new account!';
         }
@@ -24,7 +21,7 @@ class AuthValidator extends Validator
             $errors['empty-email'] = 'Email can not be empty!';
         }
 
-        $user_password = $userData[0]['password'];
+        $user_password = $user[0]['password'];
         $isPasswordCorrect = $this->isPasswordCorrect($user_password, $request->getPassword());
         if ($isEmailExist && !$isPasswordCorrect) {
             $errors['incorrect-password'] = 'Password incorrect!';
@@ -39,7 +36,7 @@ class AuthValidator extends Validator
         $_SESSION['attempt_failed']++;
 
         if ($_SESSION['attempt_failed'] > 5) {
-            $_SESSION['lock_time'] = time() + AuthService::LOCK_TIME;
+            $_SESSION['lock_time'] = time() + LockService::LOCK_TIME;
             $_SESSION['attempt_failed'] = 0;
 
             return 'Too many failed attempts. Please try again in 10 minutes.';
@@ -49,10 +46,8 @@ class AuthValidator extends Validator
         }
     }
 
-    private function isEmailExist(string $email, UserRepositoryInterface $userRepository): bool
+    private function isEmailExist(array $result): bool
     {
-        $result = $userRepository->findByEmail($email);
-
         return !empty($result);
     }
 
