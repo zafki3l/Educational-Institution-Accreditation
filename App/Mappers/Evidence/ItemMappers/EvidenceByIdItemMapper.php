@@ -3,7 +3,7 @@
 namespace App\Mappers\Evidence\ItemMappers;
 
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
-use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
+use App\Mappers\Evidence\ItemMappers\Interfaces\EvidenceItemMapperInterface;
 
 /**
  * Application-level mapper responsible for transforming

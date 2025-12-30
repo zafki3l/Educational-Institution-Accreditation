@@ -2,17 +2,17 @@
 
 namespace App\Business\Facades;
 
+use App\Business\Commands\EvidenceCommand;
 use App\Business\FromRequestFactory\EvidenceFromRequestFactory;
+use App\Business\Logging\EvidenceLog;
 use App\Business\Queries\EvidenceQuery;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
+use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
-use App\Services\Implementations\Evidence\Command\EvidenceCommand;
-use App\Services\Implementations\Evidence\Logging\EvidenceLog;
 use Core\Paginator;
-use MongoDB\InsertOneResult;
 use Traits\FilterHelperTrait;
 
 /**
@@ -67,7 +67,7 @@ class EvidenceFacade
         ];
     }
     
-    public function create(CreateEvidenceRequest $request): InsertOneResult
+    public function create(CreateEvidenceRequest $request): void
     {
         $evidence = $this->fromRequestFactory->fromCreateRequest($request);
 
@@ -79,10 +79,12 @@ class EvidenceFacade
             $created_id ? true : false
         );
 
-        return $this->log->createLog($result);
+        $actor = new HttpActorContext($_SESSION['user']);
+
+        $this->log->createLog($result, $actor);
     }
 
-    public function update(string $id, UpdateEvidenceRequest $request): InsertOneResult
+    public function update(string $id, UpdateEvidenceRequest $request): void
     {
         $found = $this->evidenceQuery->findOrFail($id);
 
@@ -96,10 +98,12 @@ class EvidenceFacade
             $updated_id ? true : false
         );
 
-        return $this->log->updateLog($result);
+        $actor = new HttpActorContext($_SESSION['user']);
+
+        $this->log->updateLog($result, $actor);
     }
 
-    public function delete(string $id): InsertOneResult
+    public function delete(string $id): void
     {
         $found = $this->findOrFail($id)->toArray();
 
@@ -111,10 +115,12 @@ class EvidenceFacade
             $deleted_rows > 0 ? true : false
         );
 
-        return $this->log->deleteLog($result);
+        $actor = new HttpActorContext($_SESSION['user']);
+
+        $this->log->deleteLog($result, $actor);
     }
 
-    public function addMilestone($id, $milestone_id): InsertOneResult
+    public function addMilestone($id, $milestone_id): void
     {
         $found = $this->findOrFail($id);
 
@@ -126,7 +132,9 @@ class EvidenceFacade
             $update_id ? true : false
         );
 
-        return $this->log->addMilestoneLog($milestone_id, $result);
+        $actor = new HttpActorContext($_SESSION['user']);
+
+        $this->log->addMilestoneLog($milestone_id, $result, $actor);
     }
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO

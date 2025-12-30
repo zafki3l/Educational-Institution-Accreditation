@@ -3,7 +3,7 @@
 namespace App\Mappers\Evidence\ItemMappers;
 
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByMilestoneDTO;
-use App\Services\Interfaces\Evidence\Mapping\EvidenceItemMapperInterface;
+use App\Mappers\Evidence\ItemMappers\Interfaces\EvidenceItemMapperInterface;
 
 class EvidenceByMilestoneItemMapper implements EvidenceItemMapperInterface
 {

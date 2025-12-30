@@ -1,9 +1,9 @@
 <?php 
 
-namespace App\Services\Implementations\Evidence\Command;
+namespace App\Business\Commands;
 
+use App\Business\Ports\EvidenceRepositoryInterface;
 use App\Domain\Entities\Models\Evidence;
-use App\Persistent\Repositories\Sql\Implementations\Evidence\MySqlEvidenceRepository;
 
 /**
  * This service handles state-changing operations such as
@@ -11,7 +11,7 @@ use App\Persistent\Repositories\Sql\Implementations\Evidence\MySqlEvidenceReposi
  */
 class EvidenceCommand
 {
-    public function __construct(private MySqlEvidenceRepository $repository) {}
+    public function __construct(private EvidenceRepositoryInterface $repository) {}
 
     public function create(Evidence $evidence): string
     {
