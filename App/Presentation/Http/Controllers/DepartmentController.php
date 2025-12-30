@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Services\Implementations\Department\DepartmentService;
+use App\Business\Facades\DepartmentFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -10,7 +10,7 @@ class DepartmentController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private DepartmentService $departmentService) {}
+    public function __construct(private DepartmentFacade $departmentService) {}
 	
     public function index()
     {

@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\DepartmentFacade;
+use App\Business\Facades\RoleFacade;
 use App\Business\Facades\UserFacade;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
-use App\Services\Implementations\Department\DepartmentService;
-use App\Services\Implementations\Role\RoleService;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -21,8 +21,8 @@ class UserController extends Controller
 
     // Constructor
     public function __construct(private UserFacade $userService,
-                                private RoleService $roleService,
-                                private DepartmentService $departmentService) {}
+                                private RoleFacade $roleService,
+                                private DepartmentFacade $departmentService) {}
 
     public function index(): mixed
     {

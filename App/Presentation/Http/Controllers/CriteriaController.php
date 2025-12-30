@@ -1,10 +1,10 @@
 <?php 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\DepartmentFacade;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Domain\Entities\Models\User;
 use App\Services\Implementations\Criteria\CriteriaService;
-use App\Services\Implementations\Department\DepartmentService;
 use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
@@ -15,7 +15,7 @@ class CriteriaController extends Controller
 
     public function __construct(private CriteriaService $criteriaService,
                                 private StandardFacade $standardService,
-                                private DepartmentService $departmentService) {}
+                                private DepartmentFacade $departmentService) {}
 
     public function index(): mixed
     {
