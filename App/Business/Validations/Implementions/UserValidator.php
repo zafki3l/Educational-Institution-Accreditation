@@ -5,7 +5,7 @@ namespace App\Business\Validations\Implementions;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
 use App\Presentation\Http\Requests\User\UserRequest;
-use App\Persistent\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Business\Ports\UserRepositoryInterface;
 use Core\Validator;
 
 class UserValidator extends Validator
