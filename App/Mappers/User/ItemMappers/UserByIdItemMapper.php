@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mappers\User\ItemMappers\Implementations;
+namespace App\Mappers\User\ItemMappers;
 
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Mappers\User\ItemMappers\Interfaces\UserItemMapperInterface;

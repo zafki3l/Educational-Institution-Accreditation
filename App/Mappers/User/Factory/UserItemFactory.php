@@ -2,9 +2,9 @@
 
 namespace App\Mappers\User\Factory;
 
-use App\Mappers\User\ItemMappers\Implementations\UserByIdItemMapper;
-use App\Mappers\User\ItemMappers\Implementations\UserItemType;
-use App\Mappers\User\ItemMappers\Implementations\UserListItemMapper;
+use App\Mappers\User\ItemMappers\UserByIdItemMapper;
+use App\Mappers\User\ItemMappers\UserItemType;
+use App\Mappers\User\ItemMappers\UserListItemMapper;
 use App\Mappers\User\ItemMappers\Interfaces\UserItemMapperInterface;
 use Exception;
 

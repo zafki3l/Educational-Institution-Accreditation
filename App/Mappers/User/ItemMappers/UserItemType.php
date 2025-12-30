@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mappers\User\ItemMappers\Implementations;
+namespace App\Mappers\User\ItemMappers;
 
 enum UserItemType: string
 {
