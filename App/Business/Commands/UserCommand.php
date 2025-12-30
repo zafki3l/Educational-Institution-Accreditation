@@ -2,9 +2,8 @@
 
 namespace App\Business\Commands;
 
+use App\Business\Ports\UserRepositoryInterface;
 use App\Domain\Entities\Models\User;
-use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
-use App\Persistent\Repositories\Sql\Interfaces\UserRepositoryInterface;
 
 /**
  * This service handles state-changing operations such as
