@@ -2,15 +2,15 @@
 
 namespace App\Services\Implementations\Auth;
 
+use App\Business\Ports\UserRepositoryInterface;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
-use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Business\Validations\Implementions\AuthValidator;
 
 class AuthService
 {
     public const LOCK_TIME = 60;
 
-    public function __construct(private MySqlUserRepository $userRepository,
+    public function __construct(private UserRepositoryInterface $userRepository,
                                 private AuthValidator $authValidator) {}
 
     public function handleLogin(LoginRequest $request): array

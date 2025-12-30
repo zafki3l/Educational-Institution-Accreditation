@@ -10,7 +10,6 @@ $builder->useAttributes(true);
 
 $builder->addDefinitions(__DIR__ . '/database.php');
 $builder->addDefinitions(__DIR__ . '/repository.php');
-$builder->addDefinitions(__DIR__ . '/facades.php');
 $builder->addDefinitions(__DIR__ . '/business.php');
 
 $container = $builder->build();

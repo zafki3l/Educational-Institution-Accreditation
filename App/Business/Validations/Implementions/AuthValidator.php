@@ -2,14 +2,14 @@
 
 namespace App\Business\Validations\Implementions;
 
+use App\Business\Ports\UserRepositoryInterface;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
-use App\Persistent\Repositories\Sql\Implementations\User\MySqlUserRepository;
 use App\Services\Implementations\Auth\AuthService;
 use Core\Validator;
 
 class AuthValidator extends Validator
 {
-    public function loginErrorHandling(MySqlUserRepository $userRepository, LoginRequest $request): array
+    public function loginErrorHandling(UserRepositoryInterface $userRepository, LoginRequest $request): array
     {
         $errors = [];
 
@@ -49,7 +49,7 @@ class AuthValidator extends Validator
         }
     }
 
-    private function isEmailExist(string $email, MySqlUserRepository $userRepository): bool
+    private function isEmailExist(string $email, UserRepositoryInterface $userRepository): bool
     {
         $result = $userRepository->findByEmail($email);
 

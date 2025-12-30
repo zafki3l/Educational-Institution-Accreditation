@@ -5,7 +5,7 @@ namespace App\Mappers\User;
 use App\Domain\Entities\DataTransferObjects\UserDTO\BaseUserDTO;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Mappers\User\Factory\UserItemFactory;
-use App\Mappers\User\ItemMappers\Implementations\UserItemType;
+use App\Mappers\User\ItemMappers\UserItemType;
 
 class UserDTOMapper
 {

@@ -5,9 +5,9 @@ namespace App\Business\Queries;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Domain\Exceptions\UserException\UserNotFoundException;
-use App\Mappers\User\ItemMappers\Implementations\UserItemType;
+use App\Mappers\User\ItemMappers\UserItemType;
 use App\Mappers\User\UserDTOMapper;
-use App\Persistent\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Business\Ports\UserRepositoryInterface;
 
 /**
  * Application service responsible for querying user's data
