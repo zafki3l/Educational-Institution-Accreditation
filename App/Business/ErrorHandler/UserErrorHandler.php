@@ -4,7 +4,7 @@ namespace App\Business\ErrorHandler;
 
 use App\Presentation\Http\Requests\User\UserRequest;
 use App\Business\Validations\Implementions\UserValidator;
-use App\Persistent\Repositories\Sql\Interfaces\UserRepositoryInterface;
+use App\Business\Ports\UserRepositoryInterface;
 
 /**
  * This service delegates validation logic to validators
