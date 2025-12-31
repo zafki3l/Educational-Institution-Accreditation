@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace App\Domain\Entities\DataTransferObjects;
 
 abstract class BaseDTO
 {

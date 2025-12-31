@@ -2,7 +2,7 @@
 
 namespace App\Domain\Entities\DataTransferObjects\EvidenceDTO;
 
-use Core\BaseDTO;
+use App\Domain\Entities\DataTransferObjects\BaseDTO;
 
 class BaseEvidenceDTO extends BaseDTO
 {
