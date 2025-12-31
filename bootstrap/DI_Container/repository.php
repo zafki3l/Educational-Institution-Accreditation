@@ -3,12 +3,14 @@
 use App\Business\Ports\CriteriaRepositoryInterface;
 use App\Business\Ports\DepartmentRepositoryInterface;
 use App\Business\Ports\EvidenceRepositoryInterface;
+use App\Business\Ports\MilestoneRepositoryInterface;
 use App\Business\Ports\RoleRepositoryInterface;
 use App\Business\Ports\StandardRepositoryInterface;
 use App\Business\Ports\UserRepositoryInterface;
 use App\Persistent\Repositories\Sql\Criteria\MySqlCriteriaRepository;
 use App\Persistent\Repositories\Sql\Department\MySqlDepartmentRepository;
 use App\Persistent\Repositories\Sql\Evidence\MySqlEvidenceRepository;
+use App\Persistent\Repositories\Sql\Milestone\MySqlMilestoneRepository;
 use App\Persistent\Repositories\Sql\Role\MySqlRoleRepository;
 use App\Persistent\Repositories\Sql\Standard\MysqlStandardRepository;
 use App\Persistent\Repositories\Sql\User\MySqlUserRepository;
@@ -21,5 +23,6 @@ return [
     StandardRepositoryInterface::class => autowire(MysqlStandardRepository::class),
     RoleRepositoryInterface::class => autowire(MySqlRoleRepository::class),
     DepartmentRepositoryInterface::class => autowire(MySqlDepartmentRepository::class),
-    CriteriaRepositoryInterface::class => autowire(MySqlCriteriaRepository::class)
+    CriteriaRepositoryInterface::class => autowire(MySqlCriteriaRepository::class),
+    MilestoneRepositoryInterface::class => autowire(MySqlMilestoneRepository::class)
 ];

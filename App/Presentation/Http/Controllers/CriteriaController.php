@@ -43,7 +43,7 @@ class CriteriaController extends Controller
 
     public function create(): mixed
     {
-        $standards = $this->standardService->findAll();
+        $standards = $this->standardService->findAll()->toArray();
         $departments = $this->departmentService->findAll();
         
         return $this->view(

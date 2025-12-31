@@ -2,7 +2,7 @@
 
 namespace App\Domain\Entities\DataTransferObjects\StandardDTO;
 
-use Core\BaseDTO;
+use App\Domain\Entities\DataTransferObjects\BaseDTO;
 
 class BaseStandardDTO extends BaseDTO
 {

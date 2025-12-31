@@ -4,10 +4,10 @@ namespace App\Presentation\Http\Controllers;
 
 use App\Business\Facades\CriteriaFacade;
 use App\Business\Facades\EvidenceFacade;
+use App\Business\Facades\MilestoneFacade;
 use App\Presentation\Http\Requests\Evidence\AddMilestoneRequest;
 use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
-use App\Services\Implementations\Milestone\MilestoneService;
 use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
@@ -19,7 +19,7 @@ class EvidenceController extends Controller
     public function __construct(private EvidenceFacade $evidenceFacade,
                                 private StandardFacade $standardService,
                                 private CriteriaFacade $criteriaService,
-                                private MilestoneService $milestoneService) {}
+                                private MilestoneFacade $milestoneService) {}
 
     public function index()
     {
@@ -49,7 +49,7 @@ class EvidenceController extends Controller
                 'result_per_page' => $data['result_per_page'],
                 'standards' => $this->standardService->findAll(),
                 'criterias' => $this->criteriaService->findAll(),
-                'milestones' => $this->milestoneService->findAll(),
+                'milestones' => $this->milestoneService->findAll()->toArray(),
                 'evidencesWithoutMilestone' => $evidencesWithoutMilestone->toArray()
             ]
         );
@@ -117,7 +117,7 @@ class EvidenceController extends Controller
     public function milestones(string $evidence_id): mixed
     {
         $evidences = $this->evidenceFacade->evidenceByMilestone($evidence_id);
-        $milestones = $this->milestoneService->findAll();
+        $milestones = $this->milestoneService->findAll()->toArray();
 
         return $this->view(
             'staff/evidences/milestones',
