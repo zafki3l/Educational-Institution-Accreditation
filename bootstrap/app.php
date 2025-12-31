@@ -5,9 +5,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Configs/config.php';
 require_once __DIR__ . '/../helper.php';
 
+use App\Infrastructure\Auth\SessionService;
 use Dotenv\Dotenv;
 use App\Presentation\Http\Middlewares\CSRF_Authenticator;
-use App\Services\Implementations\Auth\SessionService;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();

@@ -2,11 +2,10 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Domain\Entities\Models\User;
+use App\Business\Facades\AuthFacade;
+use App\Infrastructure\Auth\LockService;
+use App\Infrastructure\Auth\SessionService;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
-use App\Services\Implementations\Auth\AuthService;
-use App\Services\Implementations\Auth\LockService;
-use App\Services\Implementations\Auth\SessionService;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -19,7 +18,7 @@ class AuthController extends Controller
     use HttpResponseTrait;
 
     // Constructor
-    public function __construct(private AuthService $authService,
+    public function __construct(private AuthFacade $authFacade,
                                 private SessionService $sessionService) {}
 
     public function showLogin(): mixed
@@ -45,16 +44,17 @@ class AuthController extends Controller
         $request = new LoginRequest($_POST);
 
         // Handles errors
-        $errors = $this->authService->handleError($request);
+        $errors = $this->authFacade->handleError($request);
         if (!empty($errors)) {
             $_SESSION['errors'] = $errors;
             $this->back();
         }
 
-        $db_user = $this->authService->handleLogin($request);
-        $_SESSION['user'] = $this->sessionService->setUserSession($db_user);
+        $login_user = $this->authFacade->storeLoginUser($request);
 
-        $this->redirectUserBasedOnRole($_SESSION['user']['role_id']);
+        $_SESSION['user'] = $this->sessionService->setUserSession($login_user);
+
+        $this->redirect($this->authFacade->afterLogin($_SESSION['user']['role_id']));
         
         unset($_SESSION['attempt_failed'], $_SESSION['lock_time']);
     }
@@ -66,16 +66,5 @@ class AuthController extends Controller
 
             $this->redirect('/login');
         }
-    }
-
-    private function redirectUserBasedOnRole(int $role_id): void 
-    {
-        $routes = [
-            User::ROLE_ADMIN => '/admin/dashboard',
-            User::ROLE_BUSINESS_STAFF => '/staff/dashboard',
-            User::ROLE_USER => '/'
-        ];
-
-        $this->redirect($routes[$role_id] ?? '/');
     }
 }

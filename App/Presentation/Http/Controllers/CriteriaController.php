@@ -1,11 +1,11 @@
 <?php 
 namespace App\Presentation\Http\Controllers;
 
+use App\Business\Facades\CriteriaFacade;
+use App\Business\Facades\DepartmentFacade;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Domain\Entities\Models\User;
-use App\Services\Implementations\Criteria\CriteriaService;
-use App\Services\Implementations\Department\DepartmentService;
-use App\Services\Implementations\Standard\Facade\StandardFacade;
+use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -13,9 +13,9 @@ class CriteriaController extends Controller
 {
     use HttpResponseTrait;
 
-    public function __construct(private CriteriaService $criteriaService,
+    public function __construct(private CriteriaFacade $criteriaService,
                                 private StandardFacade $standardService,
-                                private DepartmentService $departmentService) {}
+                                private DepartmentFacade $departmentService) {}
 
     public function index(): mixed
     {
@@ -36,7 +36,7 @@ class CriteriaController extends Controller
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
                 'departments' => $this->departmentService->findAll(),
                 'standards' => $this->standardService->findAll(),
-                'criterias' => $this->criteriaService->list($search, $filter)
+                'criterias' => $this->criteriaService->list($search, $filter)->toArray()
             ]
         );
     }
