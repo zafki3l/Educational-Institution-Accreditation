@@ -3,9 +3,9 @@
 namespace App\Presentation\Http\Controllers;
 
 use App\Business\Facades\CriteriaFacade;
+use App\Business\Facades\MilestoneFacade;
 use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Domain\Entities\Models\User;
-use App\Services\Implementations\Milestone\MilestoneService;
 use App\Business\Facades\StandardFacade;
 use Core\Controller;
 use Traits\HttpResponseTrait;
@@ -16,7 +16,7 @@ class MilestoneController extends Controller
 
     public function __construct(private StandardFacade $standardService,
                                 private CriteriaFacade $criteriaService,
-                                private MilestoneService $milestoneService) {}
+                                private MilestoneFacade $milestoneService) {}
                                 
     public function index()
     {
@@ -42,7 +42,7 @@ class MilestoneController extends Controller
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
                 'criterias' => $criterias,
                 'standards' => $standards,
-                'milestones' => $milestones
+                'milestones' => $milestones->toArray()
             ]
         );
     }

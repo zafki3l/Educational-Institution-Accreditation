@@ -4,9 +4,9 @@ namespace App\Presentation\Http\Controllers;
 
 use App\Business\Facades\CriteriaFacade;
 use App\Business\Facades\EvidenceFacade;
+use App\Business\Facades\MilestoneFacade;
 use App\Business\Facades\StandardFacade;
 use App\Business\Facades\UserFacade;
-use App\Services\Implementations\Milestone\MilestoneService;
 use Core\Controller;
 use Traits\HttpResponseTrait;
 
@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function __construct(private UserFacade $userService,
                                 private StandardFacade $standardService,
                                 private CriteriaFacade $criteriaService,
-                                private MilestoneService $milestoneService,
+                                private MilestoneFacade $milestoneService,
                                 private EvidenceFacade $evidenceService) {}
 
     public function dashboard(): mixed

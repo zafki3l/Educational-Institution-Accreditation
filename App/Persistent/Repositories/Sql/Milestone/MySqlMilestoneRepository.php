@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Persistent\Repositories\Sql\Implementations\Milestone;
+namespace App\Persistent\Repositories\Sql\Milestone;
 
+use App\Business\Ports\MilestoneRepositoryInterface;
 use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
 use Core\SqlRepository;
 use PDOException;
 use Traits\QueryClauseHelperTrait;
 
-class MySqlMilestoneRepository extends SqlRepository
+class MySqlMilestoneRepository extends SqlRepository implements MilestoneRepositoryInterface
 {
     use QueryClauseHelperTrait;
 
@@ -60,6 +61,12 @@ class MySqlMilestoneRepository extends SqlRepository
             print $e->getMessage();
             return [];
         }
+    }
+
+    public function find(?string $search): array
+    {
+        // TODO:
+        throw new \Exception('Not implemented');
     }
 
     public function findById(string $milestone_id): array
