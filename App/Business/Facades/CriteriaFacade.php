@@ -7,6 +7,8 @@ use App\Business\FromRequestFactory\CriteriaFromRequestFactory;
 use App\Business\Logging\CriteriaLog;
 use App\Business\Queries\CriteriaQuery;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
+use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaByIdDTO;
+use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaCollectionDTO;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use Traits\FilterHelperTrait;
@@ -20,7 +22,7 @@ class CriteriaFacade
                                 private CriteriaLog $log,
                                 private CriteriaQuery $query){}
 
-    public function list(?string $search, array $filter): array
+    public function list(?string $search, array $filter): CriteriaCollectionDTO
     {
         $filter = $this->filterArray($filter);
 
@@ -39,7 +41,7 @@ class CriteriaFacade
 
         $result = new CommandResult(
             $criteria->getId(),
-            $this->findOrFail($criteria->getId()),
+            $this->findOrFail($criteria->getId())->toArray(),
             $created_id ? true : false
         );
 
@@ -54,29 +56,33 @@ class CriteriaFacade
 
         $deleted_rows = $this->command->delete($id);
 
-        $result = new CommandResult($id, $found, $deleted_rows > 0 ? true : false);
+        $result = new CommandResult(
+            $id, 
+            $found->toArray(), 
+            $deleted_rows > 0 ? true : false
+        );
 
         $actor = new HttpActorContext($_SESSION['user']);
 
         $this->log->deleteLog($result, $actor);
     }
 
-    public function filter(array $filter): array
+    public function filter(array $filter): CriteriaCollectionDTO
     {
         return $this->query->filter($filter);
     }
 
-    public function findAll(): array
+    public function findAll(): CriteriaCollectionDTO
     {
         return $this->query->findAll();
     }
 
-    public function find(?string $search): array
+    public function find(?string $search): CriteriaCollectionDTO
     {
         return $this->query->find($search);
     }
     
-    public function findOrFail(string $id): array
+    public function findOrFail(string $id): CriteriaByIdDTO
     {
         return $this->query->findOrFail($id);
     }

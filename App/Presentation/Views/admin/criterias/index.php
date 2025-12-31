@@ -63,33 +63,33 @@
                     <tbody>
                         <?php foreach ($criterias as $criteria): ?>
                             <tr>
-                                <td><?= htmlspecialchars($criteria['criteria_id']) ?></td>
-                                <td><?= htmlspecialchars($criteria['criteria_name']) ?></td>
+                                <td><?= htmlspecialchars($criteria['id']) ?></td>
+                                <td><?= htmlspecialchars($criteria['name']) ?></td>
                                 <td><?= htmlspecialchars($criteria['department_name']) ?></td>
                                 <td><?= htmlspecialchars($criteria['created_at']) ?></td>
                                 <td><?= htmlspecialchars($criteria['updated_at']) ?></td>
                                 <td>
                                     <div class="action-btn">
-                                        <button onclick="showConfirm('<?php echo htmlspecialchars($criteria['criteria_id']) ?>')" class="delete-btn">
+                                        <button onclick="showConfirm('<?php echo htmlspecialchars($criteria['id']) ?>')" class="delete-btn">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
 
                                         <!-- Delete Modal -->
-                                        <div id="confirmModal-<?php echo htmlspecialchars($criteria['criteria_id']) ?>" class="modal">
+                                        <div id="confirmModal-<?php echo htmlspecialchars($criteria['id']) ?>" class="modal">
                                             <div class="modal-content">
                                                 <h2>Delete</h2>
                                                 <hr>
                                                 <p>Click confirm to delete</p>
-                                                <form action="/<?= PROJECT_NAME ?>/admin/criterias/<?= htmlspecialchars($criteria['criteria_id']) ?>"
+                                                <form action="/<?= PROJECT_NAME ?>/admin/criterias/<?= htmlspecialchars($criteria['id']) ?>"
                                                     method="post" id="deleteForm">
                                                     <input type="hidden" name="CSRF-token" value="<?= $_SESSION['CSRF-token'] ?>">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     
-                                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($criteria['criteria_id']) ?>">
+                                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($criteria['id']) ?>">
 
                                                     <button type="submit" class="submit-modal">Confirm</button>
                                                     <button type="button" class="cancel-modal" 
-                                                    onclick="closeModal('<?php echo htmlspecialchars($criteria['criteria_id']) ?>')">Cancel</button>
+                                                    onclick="closeModal('<?php echo htmlspecialchars($criteria['id']) ?>')">Cancel</button>
                                                 </form>
                                             </div>
                                         </div>

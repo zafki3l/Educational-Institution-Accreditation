@@ -3,28 +3,39 @@
 namespace App\Business\Queries;
 
 use App\Business\Ports\CriteriaRepositoryInterface;
+use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaByIdDTO;
+use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaCollectionDTO;
 use App\Domain\Exceptions\CriteriaException\CriteriaNotFoundException;
+use App\Mappers\Criteria\CriteriaDTOMapper;
+use App\Mappers\Criteria\ItemMappers\CriteriaItemType;
 
 class CriteriaQuery
 {
-    public function __construct(private CriteriaRepositoryInterface $repository) {}
+    public function __construct(private CriteriaRepositoryInterface $repository,
+                                private CriteriaDTOMapper $dtoMapper) {}
 
-    public function filter(array $filter): array
+    public function filter(array $filter): CriteriaCollectionDTO
     {
-        return $this->repository->filter($filter);
+        $criterias = $this->repository->filter($filter);
+
+        return $this->dtoMapper->map($criterias, CriteriaItemType::WITH_DEPARTMENT);
     }
 
-    public function findAll(): array
+    public function findAll(): CriteriaCollectionDTO
     {
-        return $this->repository->allWithDepartment();
+        $criterias = $this->repository->allWithDepartment();
+
+        return $this->dtoMapper->map($criterias, CriteriaItemType::WITH_DEPARTMENT);
     }
 
-    public function find(?string $search): array
+    public function find(?string $search): CriteriaCollectionDTO
     {
-        return $this->repository->search($search);
+        $criterias = $this->repository->search($search);
+
+        return $this->dtoMapper->map($criterias, CriteriaItemType::WITH_DEPARTMENT);
     }
     
-    public function findOrFail(string $id): array
+    public function findOrFail(string $id): CriteriaByIdDTO
     {
         $found = $this->repository->findById($id);
 
@@ -32,7 +43,7 @@ class CriteriaQuery
             throw new CriteriaNotFoundException($id);
         }
 
-        return $found[0];
+        return $this->dtoMapper->mapOne($found[0], CriteriaItemType::BY_ID);
     }
 
     public function count(): int
