@@ -4,9 +4,9 @@ namespace App\Infrastructure\Logging;
 
 use App\Business\Contexts\ActorContextInterface;
 use App\Business\Logging\Interfaces\LogServiceInterface;
+use App\Infrastructure\UTCDateTime\MongoUTCDateTime;
 use App\Persistent\Repositories\NoSql\Implementations\Logging\MongoDbLogRepository;
 use MongoDB\InsertOneResult;
-use Supports\MongoUTCDateTime;
 
 /**
  * Service for creating audit logs in MongoDB.

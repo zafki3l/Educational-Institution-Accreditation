@@ -4,13 +4,13 @@ namespace App\Persistent\Repositories\Sql\User;
 
 use App\Business\Ports\UserRepositoryInterface;
 use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
+use App\Persistent\Repositories\Traits\QueryClauseHelper;
 use Core\SqlRepository;
 use PDOException;
-use Traits\QueryClauseHelperTrait;
 
 class MySqlUserRepository extends SqlRepository implements UserRepositoryInterface
 {
-    use QueryClauseHelperTrait;
+    use QueryClauseHelper;
 
     public function __construct(DatabaseInterface $db) 
     {

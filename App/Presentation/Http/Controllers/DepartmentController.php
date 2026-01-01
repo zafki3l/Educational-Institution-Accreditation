@@ -3,12 +3,12 @@
 namespace App\Presentation\Http\Controllers;
 
 use App\Business\Facades\DepartmentFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 class DepartmentController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     public function __construct(private DepartmentFacade $departmentService) {}
 	

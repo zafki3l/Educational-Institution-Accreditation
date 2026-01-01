@@ -6,12 +6,12 @@ use App\Business\Facades\DepartmentFacade;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Domain\Entities\Models\User;
 use App\Business\Facades\StandardFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 class CriteriaController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     public function __construct(private CriteriaFacade $criteriaService,
                                 private StandardFacade $standardService,

@@ -11,6 +11,7 @@ use Core\Controller;
 class StaffController extends Controller
 {
     public function __construct() {}
+    
     /**
      * Shows staff dashboard view
      * @return mixed

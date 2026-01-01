@@ -6,8 +6,8 @@ use App\Business\Facades\AuthFacade;
 use App\Infrastructure\Auth\LockService;
 use App\Infrastructure\Auth\SessionService;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 /**
  * Class AuthController
@@ -15,7 +15,7 @@ use Traits\HttpResponseTrait;
  */
 class AuthController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     // Constructor
     public function __construct(private AuthFacade $authFacade,

@@ -1,8 +1,8 @@
 <?php
 
-namespace Traits;
+namespace App\Business\Traits;
 
-trait FilterHelperTrait
+trait FilterHelper
 {
     public function filterArray(array $filter): array
     {

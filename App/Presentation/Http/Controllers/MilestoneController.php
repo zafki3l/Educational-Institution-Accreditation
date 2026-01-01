@@ -7,12 +7,12 @@ use App\Business\Facades\MilestoneFacade;
 use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
 use App\Domain\Entities\Models\User;
 use App\Business\Facades\StandardFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 class MilestoneController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     public function __construct(private StandardFacade $standardService,
                                 private CriteriaFacade $criteriaService,

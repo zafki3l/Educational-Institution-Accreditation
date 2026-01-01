@@ -9,12 +9,12 @@ use App\Presentation\Http\Requests\Evidence\AddMilestoneRequest;
 use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
 use App\Business\Facades\StandardFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 class EvidenceController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     public function __construct(private EvidenceFacade $evidenceFacade,
                                 private StandardFacade $standardService,

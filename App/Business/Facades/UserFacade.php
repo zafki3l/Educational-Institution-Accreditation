@@ -10,11 +10,11 @@ use App\Business\Queries\UserQuery;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
+use App\Infrastructure\Paginator\Paginator;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
 use App\Presentation\Http\Requests\User\UserRequest;
-use Core\Paginator;
 
 /**
  * High-level application service responsible for orchestrating

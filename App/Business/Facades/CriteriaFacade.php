@@ -6,16 +6,16 @@ use App\Business\Commands\CriteriaCommand;
 use App\Business\FromRequestFactory\CriteriaFromRequestFactory;
 use App\Business\Logging\CriteriaLog;
 use App\Business\Queries\CriteriaQuery;
+use App\Business\Traits\FilterHelper;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaByIdDTO;
 use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaCollectionDTO;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
-use Traits\FilterHelperTrait;
 
 class CriteriaFacade
 {
-    use FilterHelperTrait;
+    use FilterHelper;
 
     public function __construct(private CriteriaCommand $command,
                                 private CriteriaFromRequestFactory $fromRequestFactory,

@@ -4,13 +4,13 @@ namespace App\Persistent\Repositories\Sql\Milestone;
 
 use App\Business\Ports\MilestoneRepositoryInterface;
 use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
+use App\Persistent\Repositories\Traits\QueryClauseHelper;
 use Core\SqlRepository;
 use PDOException;
-use Traits\QueryClauseHelperTrait;
 
 class MySqlMilestoneRepository extends SqlRepository implements MilestoneRepositoryInterface
 {
-    use QueryClauseHelperTrait;
+    use QueryClauseHelper;
 
     public function __construct(DatabaseInterface $db)
     {

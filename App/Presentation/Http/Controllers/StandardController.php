@@ -6,12 +6,12 @@ use App\Business\Facades\DepartmentFacade;
 use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
 use App\Domain\Entities\Models\User;
 use App\Business\Facades\StandardFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 class StandardController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
     public function __construct(private StandardFacade $standardService,
                                 private DepartmentFacade $departmentService) {}
 

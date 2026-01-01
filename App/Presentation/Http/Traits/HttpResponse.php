@@ -1,8 +1,8 @@
 <?php
 
-namespace Traits;
+namespace App\Presentation\Http\Traits;
 
-trait HttpResponseTrait
+trait HttpResponse
 {
     /**
      * To send user to new page safely, using project name to avoid wrong paths.

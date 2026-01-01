@@ -6,16 +6,16 @@ use App\Business\Commands\MilestoneCommand;
 use App\Business\FromRequestFactory\MilestoneFromRequestFactory;
 use App\Business\Logging\MilestoneLog;
 use App\Business\Queries\MilestoneQuery;
+use App\Business\Traits\FilterHelper;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\MilestoneDTO\BaseMilestoneDTO;
 use App\Domain\Entities\DataTransferObjects\MilestoneDTO\MilestoneCollectionDTO;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Milestone\CreateMilestoneRequest;
-use Traits\FilterHelperTrait;
 
 class MilestoneFacade
 {
-    use FilterHelperTrait;
+    use FilterHelper;
 
     public function __construct(private MilestoneQuery $query,
                                 private MilestoneFromRequestFactory $fromRequestFactory,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Supports;
+namespace App\Infrastructure\UTCDateTime;
 
 use MongoDB\BSON\UTCDateTime;
 
