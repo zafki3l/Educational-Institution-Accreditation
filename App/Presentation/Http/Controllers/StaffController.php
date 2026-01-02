@@ -11,6 +11,7 @@ use Core\Controller;
 class StaffController extends Controller
 {
     public function __construct() {}
+
     /**
      * Shows staff dashboard view
      * @return mixed
@@ -18,7 +19,7 @@ class StaffController extends Controller
     public function index(): mixed
     {
         return $this->view(
-            'staff/dashboard', 
+            'staff/dashboard',
             'staff.layouts',
             ['title' => 'Staff Dashboard']
         );

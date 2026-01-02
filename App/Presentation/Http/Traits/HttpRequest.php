@@ -1,8 +1,8 @@
 <?php
 
-namespace Traits;
+namespace App\Presentation\Http\Traits;
 
-trait HttpRequestTrait
+trait HttpRequest
 {
     /**
      * To get request type fast, avoid repeat code from server.

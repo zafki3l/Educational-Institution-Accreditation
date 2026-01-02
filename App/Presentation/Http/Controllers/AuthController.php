@@ -6,8 +6,8 @@ use App\Business\Facades\AuthFacade;
 use App\Infrastructure\Auth\LockService;
 use App\Infrastructure\Auth\SessionService;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 /**
  * Class AuthController
@@ -15,11 +15,13 @@ use Traits\HttpResponseTrait;
  */
 class AuthController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     // Constructor
-    public function __construct(private AuthFacade $authFacade,
-                                private SessionService $sessionService) {}
+    public function __construct(
+        private AuthFacade $authFacade,
+        private SessionService $sessionService
+    ) {}
 
     public function showLogin(): mixed
     {
@@ -55,7 +57,7 @@ class AuthController extends Controller
         $_SESSION['user'] = $this->sessionService->setUserSession($login_user);
 
         $this->redirect($this->authFacade->afterLogin($_SESSION['user']['role_id']));
-        
+
         unset($_SESSION['attempt_failed'], $_SESSION['lock_time']);
     }
 

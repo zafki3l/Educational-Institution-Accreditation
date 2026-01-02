@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Business\Facades;
 
@@ -29,10 +29,12 @@ use App\Presentation\Http\Requests\Standard\CreateStandardRequest;
  */
 class StandardFacade
 {
-    public function __construct(private StandardFromRequestFactory $fromRequestFactory,
-                                private StandardCommand $standardCommand,
-                                private StandardQuery $standardQuery,
-                                private StandardLog $standardLog) {}
+    public function __construct(
+        private StandardFromRequestFactory $fromRequestFactory,
+        private StandardCommand $standardCommand,
+        private StandardQuery $standardQuery,
+        private StandardLog $standardLog
+    ) {}
 
     public function list(): array
     {
@@ -69,7 +71,7 @@ class StandardFacade
         );
 
         $actor = new HttpActorContext($_SESSION['user']);
-                
+
         $this->standardLog->deleteLog($result, $actor);
     }
 

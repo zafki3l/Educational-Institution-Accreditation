@@ -4,13 +4,13 @@ namespace App\Persistent\Repositories\Sql\Criteria;
 
 use App\Business\Ports\CriteriaRepositoryInterface;
 use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
+use App\Persistent\Repositories\Traits\QueryClauseHelper;
 use Core\SqlRepository;
 use PDOException;
-use Traits\QueryClauseHelperTrait;
 
 class MySqlCriteriaRepository extends SqlRepository implements CriteriaRepositoryInterface
 {
-    use QueryClauseHelperTrait;
+    use QueryClauseHelper;
 
     public function __construct(DatabaseInterface $db)
     {

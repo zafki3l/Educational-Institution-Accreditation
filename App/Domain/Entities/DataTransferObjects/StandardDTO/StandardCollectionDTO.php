@@ -14,7 +14,7 @@ class StandardCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (BaseStandardDTO $dto) => $dto->toArray(), 
+            fn(BaseStandardDTO $dto) => $dto->toArray(),
             $this->items
         );
     }

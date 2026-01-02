@@ -14,7 +14,7 @@ class CriteriaCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (BaseCriteriaDTO $dto) => $dto->toArray(), 
+            fn(BaseCriteriaDTO $dto) => $dto->toArray(),
             $this->items
         );
     }

@@ -7,21 +7,23 @@ use App\Business\Facades\EvidenceFacade;
 use App\Business\Facades\MilestoneFacade;
 use App\Business\Facades\StandardFacade;
 use App\Business\Facades\UserFacade;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 /**
  * Class Admin Controller
  */
 class AdminController extends Controller
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
-    public function __construct(private UserFacade $userService,
-                                private StandardFacade $standardService,
-                                private CriteriaFacade $criteriaService,
-                                private MilestoneFacade $milestoneService,
-                                private EvidenceFacade $evidenceService) {}
+    public function __construct(
+        private UserFacade $userService,
+        private StandardFacade $standardService,
+        private CriteriaFacade $criteriaService,
+        private MilestoneFacade $milestoneService,
+        private EvidenceFacade $evidenceService
+    ) {}
 
     public function dashboard(): mixed
     {

@@ -1,4 +1,4 @@
-<div class="header">
+<header>
     <ul type="none" class="nav-menu">
         <div class="nav-left">
             <li><a href="/<?= PROJECT_NAME ?>">Homepage</a></li>
@@ -27,4 +27,4 @@
             <?php endif; ?>
         </div>
     </ul>
-</div>
+</header>

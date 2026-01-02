@@ -14,8 +14,10 @@ use App\Mappers\Evidence\ItemMappers\EvidenceItemType;
  */
 class EvidenceQuery
 {
-    public function __construct(private EvidenceRepositoryInterface $repository,
-                                private EvidenceDTOMapper $dtoMapper) {}
+    public function __construct(
+        private EvidenceRepositoryInterface $repository,
+        private EvidenceDTOMapper $dtoMapper
+    ) {}
 
     public function findAll(int $start_from, int $result_per_page): EvidenceCollectionDTO
     {
@@ -69,8 +71,8 @@ class EvidenceQuery
 
     public function count(?string $search = null): int
     {
-        return $search 
-            ? $this->repository->countSearch($search) 
+        return $search
+            ? $this->repository->countSearch($search)
             : $this->repository->countAll();
     }
 }

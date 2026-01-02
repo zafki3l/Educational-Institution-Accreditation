@@ -14,7 +14,7 @@ class UserCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (BaseUserDTO $dto) => $dto->toArray(), 
+            fn(BaseUserDTO $dto) => $dto->toArray(),
             $this->items
         );
     }

@@ -14,8 +14,10 @@ use App\Business\Ports\UserRepositoryInterface;
  */
 class UserQuery
 {
-    public function __construct(private UserRepositoryInterface $repository,
-                                private UserDTOMapper $mapper) {}
+    public function __construct(
+        private UserRepositoryInterface $repository,
+        private UserDTOMapper $mapper
+    ) {}
 
     public function findAll(int $start_from, int $result_per_page): UserCollectionDTO
     {
@@ -44,8 +46,8 @@ class UserQuery
 
     public function count(?string $search = null): int
     {
-        return $search 
-            ? $this->repository->countSearch($search) 
+        return $search
+            ? $this->repository->countSearch($search)
             : $this->repository->countAll();
     }
 }

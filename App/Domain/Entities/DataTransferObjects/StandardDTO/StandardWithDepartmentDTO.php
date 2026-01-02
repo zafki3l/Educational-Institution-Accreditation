@@ -5,7 +5,7 @@ namespace App\Domain\Entities\DataTransferObjects\StandardDTO;
 class StandardWithDepartmentDTO extends BaseStandardDTO
 {
     public function __construct(
-        string $id, 
+        string $id,
         string $name,
         public readonly string $department_name
     ) {

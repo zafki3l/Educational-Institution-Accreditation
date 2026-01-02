@@ -11,8 +11,10 @@ use App\Mappers\Standard\StandardDTOMapper;
 
 class StandardQuery
 {
-    public function __construct(private StandardRepositoryInterface $repository,
-                                private StandardDTOMapper $dtoMapper) {}
+    public function __construct(
+        private StandardRepositoryInterface $repository,
+        private StandardDTOMapper $dtoMapper
+    ) {}
 
     public function allWithDepartment(): StandardCollectionDTO
     {

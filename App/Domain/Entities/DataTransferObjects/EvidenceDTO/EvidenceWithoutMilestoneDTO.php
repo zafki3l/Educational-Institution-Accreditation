@@ -5,7 +5,7 @@ namespace App\Domain\Entities\DataTransferObjects\EvidenceDTO;
 class EvidenceWithoutMilestoneDTO extends BaseEvidenceDTO
 {
     public function __construct(
-        string $id, 
+        string $id,
         string $name,
     ) {
         parent::__construct($id, $name);

@@ -1,4 +1,4 @@
-<div class="header">
+<header>
     <ul type="none" class="user-menu">
         <!-- Search bar -->
         <li class="search-bar">
@@ -8,4 +8,4 @@
             </form>
         </li>
     </ul>
-</div>
+</header>

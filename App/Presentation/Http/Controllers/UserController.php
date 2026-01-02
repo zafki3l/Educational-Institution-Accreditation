@@ -7,8 +7,8 @@ use App\Business\Facades\RoleFacade;
 use App\Business\Facades\UserFacade;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
+use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
-use Traits\HttpResponseTrait;
 
 /**
  * Class UserController
@@ -17,12 +17,14 @@ use Traits\HttpResponseTrait;
 class UserController extends Controller
 {
     // Traits
-    use HttpResponseTrait;
+    use HttpResponse;
 
     // Constructor
-    public function __construct(private UserFacade $userService,
-                                private RoleFacade $roleService,
-                                private DepartmentFacade $departmentService) {}
+    public function __construct(
+        private UserFacade $userService,
+        private RoleFacade $roleService,
+        private DepartmentFacade $departmentService
+    ) {}
 
     public function index(): mixed
     {

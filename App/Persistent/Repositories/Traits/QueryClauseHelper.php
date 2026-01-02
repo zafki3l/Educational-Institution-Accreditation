@@ -1,8 +1,8 @@
 <?php
 
-namespace Traits;
+namespace App\Persistent\Repositories\Traits;
 
-trait QueryClauseHelperTrait
+trait QueryClauseHelper
 {
     /**
      * To build safe WHERE parts from filters, avoiding hard-coded names and SQL injection risks.

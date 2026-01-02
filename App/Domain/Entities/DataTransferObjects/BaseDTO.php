@@ -5,7 +5,7 @@ namespace App\Domain\Entities\DataTransferObjects;
 abstract class BaseDTO
 {
     abstract protected function fields(): array;
-    
+
     public function toArray(): array
     {
         $data = [];
@@ -13,7 +13,7 @@ abstract class BaseDTO
         foreach ($this->fields() as $field) {
             $value = $this->{$field};
 
-            $data[$field] = ($value instanceof \DateTimeInterface) 
+            $data[$field] = ($value instanceof \DateTimeInterface)
                 ? $value->format('Y-m-d H:i:s')
                 : $value;
         }
