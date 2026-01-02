@@ -11,8 +11,10 @@ use App\Mappers\Milestone\MilestoneDTOMapper;
 
 class MilestoneQuery
 {
-    public function __construct(private MilestoneRepositoryInterface $repository,
-                                private MilestoneDTOMapper $dtoMapper) {}
+    public function __construct(
+        private MilestoneRepositoryInterface $repository,
+        private MilestoneDTOMapper $dtoMapper
+    ) {}
 
     public function filter(array $filter): MilestoneCollectionDTO
     {

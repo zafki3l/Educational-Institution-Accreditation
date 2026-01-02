@@ -12,8 +12,10 @@ use App\Business\Ports\UserRepositoryInterface;
  */
 class UserErrorHandler
 {
-    public function __construct(private UserValidator $userValidator,
-                                private UserRepositoryInterface $repository) {}
+    public function __construct(
+        private UserValidator $userValidator,
+        private UserRepositoryInterface $repository
+    ) {}
 
     public function handleError(UserRequest $request, $isUpdated = false): ?array
     {

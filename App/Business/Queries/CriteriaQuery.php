@@ -11,8 +11,10 @@ use App\Mappers\Criteria\ItemMappers\CriteriaItemType;
 
 class CriteriaQuery
 {
-    public function __construct(private CriteriaRepositoryInterface $repository,
-                                private CriteriaDTOMapper $dtoMapper) {}
+    public function __construct(
+        private CriteriaRepositoryInterface $repository,
+        private CriteriaDTOMapper $dtoMapper
+    ) {}
 
     public function filter(array $filter): CriteriaCollectionDTO
     {
@@ -34,7 +36,7 @@ class CriteriaQuery
 
         return $this->dtoMapper->map($criterias, CriteriaItemType::WITH_DEPARTMENT);
     }
-    
+
     public function findOrFail(string $id): CriteriaByIdDTO
     {
         $found = $this->repository->findById($id);
