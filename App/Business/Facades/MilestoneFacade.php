@@ -17,10 +17,12 @@ class MilestoneFacade
 {
     use FilterHelper;
 
-    public function __construct(private MilestoneQuery $query,
-                                private MilestoneFromRequestFactory $fromRequestFactory,
-                                private MilestoneCommand $command,
-                                private MilestoneLog $log) {}
+    public function __construct(
+        private MilestoneQuery $query,
+        private MilestoneFromRequestFactory $fromRequestFactory,
+        private MilestoneCommand $command,
+        private MilestoneLog $log
+    ) {}
 
     public function list(?string $search, array $filter): MilestoneCollectionDTO
     {
@@ -36,7 +38,7 @@ class MilestoneFacade
     public function create(CreateMilestoneRequest $request): void
     {
         $milestone = $this->fromRequestFactory->fromCreateRequest($request);
-    
+
         $created_id = $this->command->create($milestone);
 
         $result = new CommandResult(
@@ -53,7 +55,7 @@ class MilestoneFacade
     public function delete(string $id): void
     {
         $found = $this->findOrFail($id);
-        
+
         $deleted_rows = $this->command->delete($id);
 
         $result = new CommandResult(

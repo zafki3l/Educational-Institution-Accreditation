@@ -36,10 +36,12 @@ class EvidenceFacade
 {
     use FilterHelper;
 
-    public function __construct(private EvidenceQuery $evidenceQuery,
-                                private EvidenceFromRequestFactory $fromRequestFactory,
-                                private EvidenceCommand $evidenceCommand,
-                                private EvidenceLog $log) {}
+    public function __construct(
+        private EvidenceQuery $evidenceQuery,
+        private EvidenceFromRequestFactory $fromRequestFactory,
+        private EvidenceCommand $evidenceCommand,
+        private EvidenceLog $log
+    ) {}
 
     public function list(?string $search, int $current_page, array $filter): array
     {
@@ -50,11 +52,11 @@ class EvidenceFacade
         [$total_pages, $current_page, $start_from] = Paginator::paginate($total_records, Paginator::RESULT_PER_PAGE, $current_page);
 
         $evidences = $this->findAll($start_from, Paginator::RESULT_PER_PAGE);
-        
+
         if ($search) {
             $evidences = $this->find($search, $start_from, Paginator::RESULT_PER_PAGE);
         }
-        
+
         if ($filter) {
             $evidences = $this->filterEvidences($start_from, Paginator::RESULT_PER_PAGE, $filter);
         }
@@ -66,7 +68,7 @@ class EvidenceFacade
             'result_per_page' => Paginator::RESULT_PER_PAGE
         ];
     }
-    
+
     public function create(CreateEvidenceRequest $request): void
     {
         $evidence = $this->fromRequestFactory->fromCreateRequest($request);

@@ -9,8 +9,10 @@ use App\Presentation\Http\Requests\Auth\LoginRequest;
 
 class AuthFacade
 {
-    public function __construct(private AuthQuery $query,
-                                private AuthErrorHandler $errorHandler) {}
+    public function __construct(
+        private AuthQuery $query,
+        private AuthErrorHandler $errorHandler
+    ) {}
 
     public function storeLoginUser(LoginRequest $request): array
     {
@@ -26,7 +28,7 @@ class AuthFacade
         return $this->errorHandler->handleError($user, $request);
     }
 
-    public function afterLogin(int $role_id): string 
+    public function afterLogin(int $role_id): string
     {
         $routes = [
             User::ROLE_ADMIN => '/admin/dashboard',
@@ -35,5 +37,5 @@ class AuthFacade
         ];
 
         return $routes[$role_id] ?? '/';
-    }   
+    }
 }
