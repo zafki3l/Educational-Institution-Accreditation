@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Presentation\Http\Controllers;
 
@@ -12,8 +12,10 @@ use Core\Controller;
 class StandardController extends Controller
 {
     use HttpResponse;
-    public function __construct(private StandardFacade $standardService,
-                                private DepartmentFacade $departmentService) {}
+    public function __construct(
+        private StandardFacade $standardService,
+        private DepartmentFacade $departmentService
+    ) {}
 
     public function index()
     {
@@ -22,10 +24,10 @@ class StandardController extends Controller
 
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
-        
+
         return $this->view(
-            (string) $viewPrefix . '/standards/index', 
-            (string) $viewPrefix .'.layouts', 
+            (string) $viewPrefix . '/standards/index',
+            (string) $viewPrefix . '.layouts',
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chuẩn' : 'Danh sách tiêu chuẩn',
                 'standards' => $standards,

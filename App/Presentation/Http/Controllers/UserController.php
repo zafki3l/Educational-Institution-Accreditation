@@ -20,9 +20,11 @@ class UserController extends Controller
     use HttpResponse;
 
     // Constructor
-    public function __construct(private UserFacade $userService,
-                                private RoleFacade $roleService,
-                                private DepartmentFacade $departmentService) {}
+    public function __construct(
+        private UserFacade $userService,
+        private RoleFacade $roleService,
+        private DepartmentFacade $departmentService
+    ) {}
 
     public function index(): mixed
     {

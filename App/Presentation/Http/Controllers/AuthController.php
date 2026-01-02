@@ -18,8 +18,10 @@ class AuthController extends Controller
     use HttpResponse;
 
     // Constructor
-    public function __construct(private AuthFacade $authFacade,
-                                private SessionService $sessionService) {}
+    public function __construct(
+        private AuthFacade $authFacade,
+        private SessionService $sessionService
+    ) {}
 
     public function showLogin(): mixed
     {
@@ -55,7 +57,7 @@ class AuthController extends Controller
         $_SESSION['user'] = $this->sessionService->setUserSession($login_user);
 
         $this->redirect($this->authFacade->afterLogin($_SESSION['user']['role_id']));
-        
+
         unset($_SESSION['attempt_failed'], $_SESSION['lock_time']);
     }
 

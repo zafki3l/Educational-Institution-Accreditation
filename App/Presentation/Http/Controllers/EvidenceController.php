@@ -16,10 +16,12 @@ class EvidenceController extends Controller
 {
     use HttpResponse;
 
-    public function __construct(private EvidenceFacade $evidenceFacade,
-                                private StandardFacade $standardService,
-                                private CriteriaFacade $criteriaService,
-                                private MilestoneFacade $milestoneService) {}
+    public function __construct(
+        private EvidenceFacade $evidenceFacade,
+        private StandardFacade $standardService,
+        private CriteriaFacade $criteriaService,
+        private MilestoneFacade $milestoneService
+    ) {}
 
     public function index()
     {
@@ -78,7 +80,7 @@ class EvidenceController extends Controller
     public function edit(string $evidence_id): mixed
     {
         $evidences = $this->evidenceFacade->findOrFail($evidence_id);
-        
+
         return $this->view(
             'staff/evidences/edit',
             'staff.layouts',

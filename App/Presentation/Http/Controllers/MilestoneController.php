@@ -14,10 +14,12 @@ class MilestoneController extends Controller
 {
     use HttpResponse;
 
-    public function __construct(private StandardFacade $standardService,
-                                private CriteriaFacade $criteriaService,
-                                private MilestoneFacade $milestoneService) {}
-                                
+    public function __construct(
+        private StandardFacade $standardService,
+        private CriteriaFacade $criteriaService,
+        private MilestoneFacade $milestoneService
+    ) {}
+
     public function index()
     {
         $filter = [
@@ -36,8 +38,8 @@ class MilestoneController extends Controller
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';
 
         return $this->view(
-            (string) $viewPrefix . '/milestones/index', 
-            (string) $viewPrefix .'.layouts', 
+            (string) $viewPrefix . '/milestones/index',
+            (string) $viewPrefix . '.layouts',
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
                 'criterias' => $criterias,
@@ -50,7 +52,7 @@ class MilestoneController extends Controller
     public function create()
     {
         $criterias = $this->criteriaService->findAll();
-        
+
         return $this->view(
             'admin/milestones/create',
             'admin.layouts',

@@ -17,11 +17,13 @@ class AdminController extends Controller
 {
     use HttpResponse;
 
-    public function __construct(private UserFacade $userService,
-                                private StandardFacade $standardService,
-                                private CriteriaFacade $criteriaService,
-                                private MilestoneFacade $milestoneService,
-                                private EvidenceFacade $evidenceService) {}
+    public function __construct(
+        private UserFacade $userService,
+        private StandardFacade $standardService,
+        private CriteriaFacade $criteriaService,
+        private MilestoneFacade $milestoneService,
+        private EvidenceFacade $evidenceService
+    ) {}
 
     public function dashboard(): mixed
     {

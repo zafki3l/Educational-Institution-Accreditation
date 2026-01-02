@@ -11,7 +11,7 @@ class DepartmentController extends Controller
     use HttpResponse;
 
     public function __construct(private DepartmentFacade $departmentService) {}
-	
+
     public function index()
     {
         return $this->view(
