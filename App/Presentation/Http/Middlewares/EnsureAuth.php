@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Middlewares;
 
-use Traits\HttpResponseTrait;
+use App\Presentation\Http\Traits\HttpResponse;
 
 class EnsureAuth
 {
-    use HttpResponseTrait;
+    use HttpResponse;
 
     public function handle(): void
     {

@@ -5,8 +5,8 @@ namespace App\Domain\Entities\DataTransferObjects\EvidenceDTO;
 class EvidenceByIdDTO extends BaseEvidenceDTO
 {
     public function __construct(
-        string $id, 
-        string $name, 
+        string $id,
+        string $name,
         public readonly string $decision,
         public readonly string $document_date,
         public readonly string $issue_place,

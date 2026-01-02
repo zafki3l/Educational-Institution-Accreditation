@@ -14,7 +14,7 @@ class MilestoneCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (BaseMilestoneDTO $dto) => $dto->toArray(), 
+            fn(BaseMilestoneDTO $dto) => $dto->toArray(),
             $this->items
         );
     }

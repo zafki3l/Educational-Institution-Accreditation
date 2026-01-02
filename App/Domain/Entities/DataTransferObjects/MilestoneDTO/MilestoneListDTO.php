@@ -7,10 +7,12 @@ use DateTimeImmutable;
 class MilestoneListDTO extends BaseMilestoneDTO
 {
     public function __construct(
-        string $id, string $criteria_id, string $name,
+        string $id,
+        string $criteria_id,
+        string $name,
         public readonly DateTimeImmutable $created_at,
-        public readonly DateTimeImmutable $updated_at)
-    {
+        public readonly DateTimeImmutable $updated_at
+    ) {
         parent::__construct($id, $criteria_id, $name);
     }
 

@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Domain\Entities\DataTransferObjects\EvidenceDTO;
+
 class EvidenceByMilestoneDTO extends BaseEvidenceDTO
 {
     public function __construct(
-        string $id, 
+        string $id,
         string $name,
         public readonly string $milestone_id,
         public readonly string $milestone_name

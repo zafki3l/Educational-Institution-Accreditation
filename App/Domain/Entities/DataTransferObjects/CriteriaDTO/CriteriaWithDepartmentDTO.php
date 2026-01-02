@@ -7,7 +7,8 @@ use DateTimeImmutable;
 class CriteriaWithDepartmentDTO extends BaseCriteriaDTO
 {
     public function __construct(
-        string $id, string $name,
+        string $id,
+        string $name,
         public readonly string $standard_name,
         public readonly string $department_name,
         public readonly DateTimeImmutable $created_at,
@@ -21,9 +22,9 @@ class CriteriaWithDepartmentDTO extends BaseCriteriaDTO
         return array_merge(
             parent::fields(),
             [
-                'standard_name', 
-                'department_name', 
-                'created_at', 
+                'standard_name',
+                'department_name',
+                'created_at',
                 'updated_at'
             ]
         );

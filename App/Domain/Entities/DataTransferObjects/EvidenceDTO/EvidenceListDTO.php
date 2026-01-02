@@ -7,7 +7,7 @@ use DateTimeImmutable;
 class EvidenceListDTO extends BaseEvidenceDTO
 {
     public function __construct(
-        string $id, 
+        string $id,
         string $name,
         public readonly string $evaluation_milestone,
         public readonly string $decision,

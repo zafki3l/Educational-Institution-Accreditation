@@ -14,7 +14,7 @@ class EvidenceCollectionDTO
     public function toArray(): array
     {
         return array_map(
-            fn (BaseEvidenceDTO $dto) => $dto->toArray(), 
+            fn(BaseEvidenceDTO $dto) => $dto->toArray(),
             $this->items
         );
     }

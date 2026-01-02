@@ -6,11 +6,11 @@ use App\Domain\Entities\Models\Criteria;
 
 class CriteriaBuilder
 {
-    private string $id;
-    private string $standard_id;
-    private string $name;
+	private string $id;
+	private string $standard_id;
+	private string $name;
 
-    public function setId(string $id): self
+	public function setId(string $id): self
 	{
 		$this->id = $id;
 		return $this;
@@ -28,8 +28,8 @@ class CriteriaBuilder
 		return $this;
 	}
 
-    public function build(): Criteria
-    {
-        return new Criteria($this->id, $this->standard_id, $this->name);
-    }
+	public function build(): Criteria
+	{
+		return new Criteria($this->id, $this->standard_id, $this->name);
+	}
 }
