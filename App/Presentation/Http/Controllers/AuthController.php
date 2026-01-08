@@ -52,11 +52,12 @@ class AuthController extends Controller
             $this->back();
         }
 
-        $login_user = $this->authFacade->storeLoginUser($request);
+        $login_user = $this->authFacade->getLoginUser($request);
 
         $_SESSION['user'] = $this->sessionService->setUserSession($login_user);
 
-        $this->redirect($this->authFacade->afterLogin($_SESSION['user']['role_id']));
+        $afterLoginRoute = $this->authFacade->afterLogin($_SESSION['user']['role_id']);
+        $this->redirect($afterLoginRoute);
 
         unset($_SESSION['attempt_failed'], $_SESSION['lock_time']);
     }

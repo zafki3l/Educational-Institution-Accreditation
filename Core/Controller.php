@@ -2,6 +2,11 @@
 
 namespace Core;
 
+use App\Business\RoleBasedAccess\ShowAdminDashboard;
+use App\Business\RoleBasedAccess\ShowHomepage;
+use App\Business\RoleBasedAccess\ShowStaffDashboard;
+use App\Business\Security\RoleBasedAccess;
+
 /**
  * Class Controller
  * 
@@ -35,11 +40,24 @@ abstract class Controller
         ob_start();
         $this->render($view, $data);
 
+        $isAuth = isset($_SESSION['user']);
+
         $view_data = [
+            'isAuth' => $isAuth,
+            'permission' => $this->checkPermission($_SESSION['user']['role_id'] ?? null),
             'title' => $data['title'] ?? 'Document',
             'content' => ob_get_clean(),
         ];
 
         return $this->render('layouts/main-layouts/' . $layout, $view_data);
+    }
+
+    private function checkPermission(?int $role_id)
+    {
+        return [
+            'canShowHomepage' => ShowHomepage::can($role_id),
+            'canShowAdminDashboard' => ShowAdminDashboard::can($role_id),
+            'canShowStaffDashboard' => ShowStaffDashboard::can($role_id)
+        ];
     }
 }

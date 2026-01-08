@@ -1,19 +1,21 @@
 <header>
     <ul type="none" class="nav-menu">
         <div class="nav-left">
-            <li><a href="/<?= PROJECT_NAME ?>">Homepage</a></li>
-            <?php if (isset($_SESSION['user'])): ?>
-                <?php if ($_SESSION['user']['role_id'] == App\Domain\Entities\Models\User::ROLE_ADMIN): ?> <!--admin-->
-                        <li><a href="/<?= PROJECT_NAME ?>/admin/dashboard">Admin Dashboard</a></li> <!--show dashboard for admin-->
-                        <li><a href="/<?= PROJECT_NAME ?>/staff/dashboard">Staff Dashboard</a></li>
-                <?php elseif ($_SESSION['user']['role_id'] == App\Domain\Entities\Models\User::ROLE_BUSINESS_STAFF): ?>
-                        <li><a href="/<?= PROJECT_NAME ?>/staff/dashboard">Staff Dashboard</a></li> <!--Show dashboard for staff-->
-                <?php endif; ?>
+            <?php if ($permission['canShowHomepage']): ?>
+                <li><a href="/<?= PROJECT_NAME ?>">Homepage</a></li>
+            <?php endif; ?>
+
+            <?php if ($permission['canShowAdminDashboard']): ?> <!--admin-->
+                    <li><a href="/<?= PROJECT_NAME ?>/admin/dashboard">Admin Dashboard</a></li> <!--show dashboard for admin-->
+            <?php endif; ?>
+
+            <?php if ($permission['canShowStaffDashboard']): ?>
+                <li><a href="/<?= PROJECT_NAME ?>/staff/dashboard">Staff Dashboard</a></li> <!--Show dashboard for staff-->
             <?php endif; ?>
         </div>
 
         <div class="nav-right">
-            <?php if(isset($_SESSION['user'])): ?>
+            <?php if($isAuth): ?>
                 <li><a href="">Account</a></li>
                 <li>
                     <a href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
