@@ -14,6 +14,6 @@ class ShowAdminDashboard extends RoleBasedAccess
 
     public static function key(): string
     {
-        return 'show_admin_dashboard';
+        return array_keys(self::PERMISSIONS)[0];
     }
 }
