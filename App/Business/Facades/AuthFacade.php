@@ -14,7 +14,7 @@ class AuthFacade
         private AuthErrorHandler $errorHandler
     ) {}
 
-    public function storeLoginUser(LoginRequest $request): array
+    public function getLoginUser(LoginRequest $request): array
     {
         $email = $request->getEmail();
 
@@ -23,7 +23,7 @@ class AuthFacade
 
     public function handleError(LoginRequest $request): ?array
     {
-        $user = $this->storeLoginUser($request);
+        $user = $this->getLoginUser($request);
 
         return $this->errorHandler->handleError($user, $request);
     }

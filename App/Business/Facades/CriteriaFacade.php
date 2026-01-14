@@ -4,6 +4,7 @@ namespace App\Business\Facades;
 
 use App\Business\Commands\CriteriaCommand;
 use App\Business\FromRequestFactory\CriteriaFromRequestFactory;
+use App\Business\Grouping\CriteriaGrouping;
 use App\Business\Logging\CriteriaLog;
 use App\Business\Queries\CriteriaQuery;
 use App\Business\Traits\FilterHelper;
@@ -92,5 +93,12 @@ class CriteriaFacade
     public function count(): int
     {
         return $this->query->count();
+    }
+
+    public function groupCriteriaWithStandard(): array
+    {
+        $criterias = $this->query->criteriaByStandard();
+
+        return (new CriteriaGrouping())->groupByStandard($criterias->toArray());
     }
 }

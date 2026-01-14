@@ -1,0 +1,1 @@
+The `App/` directory is the core of the application.

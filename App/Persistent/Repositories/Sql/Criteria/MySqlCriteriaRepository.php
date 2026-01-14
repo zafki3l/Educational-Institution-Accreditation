@@ -20,7 +20,21 @@ class MySqlCriteriaRepository extends SqlRepository implements CriteriaRepositor
     public function all(): array
     {
         try {
-            $sql = "SELECT id, standard_id, name FROM evaluation_standards";
+            $sql = "SELECT id, standard_id, name FROM evaluation_criterias";
+            
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
+    public function criteriaByStandard(): array
+    {
+        try {
+            $sql = "SELECT id, standard_id, name
+                    FROM evaluation_criterias
+                    ORDER BY standard_id";
             
             return $this->getAll($sql);
         } catch (PDOException $e) {

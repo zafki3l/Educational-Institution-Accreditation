@@ -4,6 +4,7 @@ namespace App\Business\Facades;
 
 use App\Business\Commands\MilestoneCommand;
 use App\Business\FromRequestFactory\MilestoneFromRequestFactory;
+use App\Business\Grouping\MilestoneGrouping;
 use App\Business\Logging\MilestoneLog;
 use App\Business\Queries\MilestoneQuery;
 use App\Business\Traits\FilterHelper;
@@ -92,5 +93,12 @@ class MilestoneFacade
     public function count(): int
     {
         return $this->query->count();
+    }
+
+    public function groupMilestoneWithCriteria(): array
+    {
+        $milestones = $this->query->milestoneByCriteria();
+
+        return (new MilestoneGrouping())->groupByCriteria($milestones->toArray());
     }
 }

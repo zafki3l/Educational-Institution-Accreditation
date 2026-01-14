@@ -6,11 +6,6 @@ use App\Domain\Entities\Models\User;
 
 class UserBuilder
 {
-    //Constants
-    public const ROLE_USER = 1;
-    public const ROLE_BUSINESS_STAFF = 2;
-    public const ROLE_ADMIN = 3;
-
     // Attributes
     private ?int $id;
     private string $first_name;
@@ -53,7 +48,7 @@ class UserBuilder
 
     public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
         return $this;
     }
 

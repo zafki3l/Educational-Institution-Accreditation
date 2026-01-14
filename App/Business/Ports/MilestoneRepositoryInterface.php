@@ -12,6 +12,8 @@ interface MilestoneRepositoryInterface
 
     public function find(?string $search): array;
     
+    public function mileStoneByCriteria(): array;
+    
     public function create(array $milestone): string;
 
     public function deleteById(string $milestone_id): int;

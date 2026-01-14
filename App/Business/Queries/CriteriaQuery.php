@@ -30,6 +30,13 @@ class CriteriaQuery
         return $this->dtoMapper->map($criterias, CriteriaItemType::WITH_DEPARTMENT);
     }
 
+    public function criteriaByStandard(): CriteriaCollectionDTO
+    {
+        $criterias = $this->repository->criteriaByStandard();
+
+        return $this->dtoMapper->map($criterias, CriteriaItemType::BY_STANDARD);
+    }
+
     public function find(?string $search): CriteriaCollectionDTO
     {
         $criterias = $this->repository->search($search);
