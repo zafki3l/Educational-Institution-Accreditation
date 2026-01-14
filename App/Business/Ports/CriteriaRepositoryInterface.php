@@ -7,6 +7,8 @@ interface CriteriaRepositoryInterface
     public function all(): array;
 
     public function allWithDepartment(): array;
+    
+    public function criteriaByStandard(): array;
 
     public function findById(string $criteria_id): array;
 

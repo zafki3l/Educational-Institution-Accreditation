@@ -30,6 +30,13 @@ class MilestoneQuery
         return $this->dtoMapper->map($milestones, MilestoneItemType::LIST);
     }
 
+    public function milestoneByCriteria(): MilestoneCollectionDTO
+    {
+        $milestones = $this->repository->mileStoneByCriteria();
+
+        return $this->dtoMapper->map($milestones, MilestoneItemType::BASE);
+    }
+
     public function find(?string $search): MilestoneCollectionDTO
     {
         $milestones = $this->repository->find($search);

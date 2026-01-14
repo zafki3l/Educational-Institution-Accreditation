@@ -22,7 +22,7 @@ class UserFromRequestFactory
                         ->setLastName($request->getLastName())
                         ->setEmail($request->getEmail())
                         ->setGender($request->getGender())
-                        ->setPassword(password_hash($request->getPassword(), PASSWORD_DEFAULT))
+                        ->setPassword($request->getPassword())
                         ->setDepartmentId($request->getDepartmentId())
                         ->setRoleId($request->getRoleId())
                         ->build();

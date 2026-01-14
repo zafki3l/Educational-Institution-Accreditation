@@ -63,6 +63,20 @@ class MySqlMilestoneRepository extends SqlRepository implements MilestoneReposit
         }
     }
 
+    public function mileStoneByCriteria(): array
+    {
+        try {
+            $sql = "SELECT id, criteria_id, name
+                    FROM evaluation_milestones
+                    ORDER BY criteria_id";
+            
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
     public function find(?string $search): array
     {
         // TODO:
