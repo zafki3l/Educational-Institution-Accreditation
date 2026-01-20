@@ -27,11 +27,11 @@
                                 <li>
                                     📁 <?= htmlspecialchars($criteria['name']) ?>
 
-                                    <?php if (!empty($milestoneByCriteria[$criteria['id']])): ?>
+                                    <?php if (!empty($evidenceByCriteria[$criteria['id']])): ?>
                                         <ul>
-                                            <?php foreach ($milestoneByCriteria[$criteria['id']] as $milestone): ?>
+                                            <?php foreach ($evidenceByCriteria[$criteria['id']] as $evidence): ?>
                                                 <li>
-                                                    📁 <?= htmlspecialchars($milestone['name']) ?>
+                                                    📁 <?= htmlspecialchars("{$evidence['id']} - {$evidence['name']}") ?>
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>

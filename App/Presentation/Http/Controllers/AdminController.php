@@ -34,7 +34,7 @@ class AdminController extends Controller
         $evidences = $this->evidenceService->count();
 
         return $this->view(
-            'admin/dashboard',
+            'admin/dashboard/main',
             'admin.layouts',
             [
                 'title' => 'Admin Dashboard',

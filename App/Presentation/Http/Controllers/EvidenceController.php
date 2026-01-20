@@ -49,8 +49,8 @@ class EvidenceController extends Controller
                 'current_page' => $data['current_page'],
                 'total_pages' => $data['total_pages'],
                 'result_per_page' => $data['result_per_page'],
-                'standards' => $this->standardService->findAll(),
-                'criterias' => $this->criteriaService->findAll(),
+                'standards' => $this->standardService->findAll()->toArray(),
+                'criterias' => $this->criteriaService->findAll()->toArray(),
                 'milestones' => $this->milestoneService->findAll()->toArray(),
                 'evidencesWithoutMilestone' => $evidencesWithoutMilestone->toArray()
             ]
