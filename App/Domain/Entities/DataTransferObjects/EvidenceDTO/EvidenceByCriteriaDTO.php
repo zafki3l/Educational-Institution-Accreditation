@@ -7,7 +7,8 @@ class EvidenceByCriteriaDTO extends BaseEvidenceDTO
     public function __construct(
         string $id,
         string $name,
-        public readonly string $criteria_id
+        public readonly string $criteria_id,
+        public readonly string $link
     ) {
         parent::__construct($id, $name);
     }
@@ -17,7 +18,8 @@ class EvidenceByCriteriaDTO extends BaseEvidenceDTO
         return array_merge(
             parent::fields(),
             [
-                'criteria_id'
+                'criteria_id',
+                'link'
             ]
         );
     }

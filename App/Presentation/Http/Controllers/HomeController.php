@@ -26,7 +26,7 @@ class HomeController extends Controller
         $evidenceByCriteria = $this->evidenceService->groupByCriteria();
 
         return $this->view(
-            'homepage',
+            'homepage/main',
             'homepage.layouts',
             [
                 'title' => 'Homepage',

@@ -17,8 +17,6 @@
             <?php include 'components/standard_evaluation_management.php' ?>
 
             <?php include 'components/user_management.php' ?>
-
-            <?php include 'components/report_section.php' ?>
         </div>
     </div>
 

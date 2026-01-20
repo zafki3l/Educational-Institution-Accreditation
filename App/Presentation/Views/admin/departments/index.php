@@ -9,7 +9,7 @@
     <div class="main-content">
         <!--Sidebar-->
         <div class="sidebar">
-            <?php include_once VIEW_PATH . '/layouts/parts/admin/sidebar.admin.php' ?>
+            <?php include_once VIEW_PATH . '/layouts/parts/admin/sidebar.user_management.php' ?>
         </div>
         <div class="dashboard-container">
             <!-- DASHBOARD HEADER -->
