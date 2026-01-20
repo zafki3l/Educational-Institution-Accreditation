@@ -38,7 +38,7 @@ class CriteriaController extends Controller
             [
                 'title' => User::isAdmin($role) ? 'Cập nhật tiêu chí' : 'Danh sách tiêu chí',
                 'departments' => $this->departmentService->findAll(),
-                'standards' => $this->standardService->findAll()->toArray(),
+                'standards' => $this->standardService->findAll(),
                 'criterias' => $this->criteriaService->list($search, $filter)->toArray()
             ]
         );

@@ -20,8 +20,6 @@ interface EvidenceRepositoryInterface
 
     public function evidenceWithoutMilestone(): array;
 
-    public function byCriteria(): array;
-
     public function updateById(string $id, array $evidence): string;
 
     public function deleteById(string $evidence_id): int;

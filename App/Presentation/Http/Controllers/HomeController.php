@@ -3,7 +3,6 @@
 namespace App\Presentation\Http\Controllers;
 
 use App\Business\Facades\CriteriaFacade;
-use App\Business\Facades\EvidenceFacade;
 use App\Business\Facades\MilestoneFacade;
 use App\Business\Facades\StandardFacade;
 use Core\Controller;
@@ -17,13 +16,13 @@ class HomeController extends Controller
     public function __construct(
         private StandardFacade $standardService,
         private CriteriaFacade $criteriaService,
-        private EvidenceFacade $evidenceService
+        private MilestoneFacade $milestoneService
     ) {}
     public function index(): mixed
     {
         $standards = $this->standardService->findAll();
         $criteriaByStandard = $this->criteriaService->groupCriteriaWithStandard();
-        $evidenceByCriteria = $this->evidenceService->groupByCriteria();
+        $milestoneByCriteria = $this->milestoneService->groupMilestoneWithCriteria();
 
         return $this->view(
             'homepage',
@@ -32,7 +31,7 @@ class HomeController extends Controller
                 'title' => 'Homepage',
                 'standards' => $standards->toArray(),
                 'criteriaByStandard' => $criteriaByStandard,
-                'evidenceByCriteria' => $evidenceByCriteria
+                'milestoneByCriteria' => $milestoneByCriteria
             ]
         );
     }

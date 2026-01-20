@@ -75,11 +75,4 @@ class EvidenceQuery
             ? $this->repository->countSearch($search)
             : $this->repository->countAll();
     }
-
-    public function byCriteria(): EvidenceCollectionDTO
-    {
-        $evidences = $this->repository->byCriteria();
-
-        return $this->dtoMapper->map($evidences, EvidenceItemType::BY_CRITERIA);
-    }
 }
