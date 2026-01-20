@@ -4,6 +4,7 @@ namespace App\Business\Facades;
 
 use App\Business\Commands\EvidenceCommand;
 use App\Business\FromRequestFactory\EvidenceFromRequestFactory;
+use App\Business\Grouping\EvidenceGrouping;
 use App\Business\Logging\EvidenceLog;
 use App\Business\Queries\EvidenceQuery;
 use App\Business\Traits\FilterHelper;
@@ -172,5 +173,12 @@ class EvidenceFacade
     public function count(?string $search = null): int
     {
         return $this->evidenceQuery->count($search);
+    }
+
+    public function groupByCriteria(): array
+    {
+        $evidences = $this->evidenceQuery->byCriteria();
+
+        return (new EvidenceGrouping())->groupByCriteria($evidences->toArray());
     }
 }

@@ -37,7 +37,7 @@
                 <select name="criteria_id" id="criteria_id">
                     <option value="">Chọn 1 tiêu chí để lọc</option>
                     <?php foreach ($criterias as $criteria): ?>
-                        <option value="<?= htmlspecialchars($criteria['criteria_id']) ?>"><?= htmlspecialchars($criteria['criteria_name']) ?></option>
+                        <option value="<?= htmlspecialchars($criteria['id']) ?>"><?= htmlspecialchars($criteria['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
 

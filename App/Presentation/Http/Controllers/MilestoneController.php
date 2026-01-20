@@ -31,8 +31,8 @@ class MilestoneController extends Controller
 
         $milestones = $this->milestoneService->list($search, $filter);
 
-        $standards = $this->standardService->findAll();
-        $criterias = $this->criteriaService->findAll();
+        $standards = $this->standardService->findAll()->toArray();
+        $criterias = $this->criteriaService->findAll()->toArray();
 
         $role = $_SESSION['user']['role_id'];
         $viewPrefix = User::isAdmin($role) ? 'admin' : 'staff';

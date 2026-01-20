@@ -110,6 +110,29 @@ class MySqlEvidenceRepository extends SqlRepository implements EvidenceRepositor
         }
     }
 
+    public function byCriteria(): array
+    {
+        try {
+            $sql = "SELECT 
+                        e.id as 'id',
+                        e.name as 'name',
+                        m.criteria_id as 'criteria_id'
+                    FROM evidences e
+                    JOIN milestone_evidence me 
+                        ON e.id = me.evidence_id
+                    JOIN evaluation_milestones m 
+                        ON m.id = me.milestone_id
+                    JOIN evaluation_criterias c 
+                        ON c.id = m.criteria_id
+                    ORDER BY m.criteria_id";
+        
+            return $this->getAll($sql);
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            return [];
+        }
+    }
+
     public function linkMinestoneToEvidence(string $evidence_id, string $milestone_id): int
     {
         try {

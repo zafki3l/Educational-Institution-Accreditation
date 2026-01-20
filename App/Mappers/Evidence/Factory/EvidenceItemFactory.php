@@ -2,6 +2,8 @@
 
 namespace App\Mappers\Evidence\Factory;
 
+use App\Mappers\Evidence\ItemMappers\EvidenceBaseItemMapper;
+use App\Mappers\Evidence\ItemMappers\EvidenceByCriteriaItemMapper;
 use App\Mappers\Evidence\ItemMappers\EvidenceByIdItemMapper;
 use App\Mappers\Evidence\ItemMappers\EvidenceByMilestoneItemMapper;
 use App\Mappers\Evidence\ItemMappers\EvidenceItemType;
@@ -25,9 +27,11 @@ class EvidenceItemFactory
     private function resolveItemMapper(EvidenceItemType $type): string
     {
         return match ($type) {
-            EvidenceItemType::BY_ID => EvidenceByIdItemMapper::class,
+            EvidenceItemType::BASE => EvidenceBaseItemMapper::class,
             EvidenceItemType::LIST => EvidenceListItemMapper::class,
+            EvidenceItemType::BY_ID => EvidenceByIdItemMapper::class,
             EvidenceItemType::BY_MILESTONE => EvidenceByMilestoneItemMapper::class,
+            EvidenceItemType::BY_CRITERIA => EvidenceByCriteriaItemMapper::class,
             EvidenceItemType::WITHOUT_MILESTONE => EvidenceWithoutMilestoneItemMapper::class
         };
     }
