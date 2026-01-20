@@ -16,6 +16,6 @@ class ShowHomepage extends RoleBasedAccess
 
     public static function key(): string
     {
-        return 'show_homepage';
+        return array_keys(self::PERMISSIONS)[0];
     }
 }

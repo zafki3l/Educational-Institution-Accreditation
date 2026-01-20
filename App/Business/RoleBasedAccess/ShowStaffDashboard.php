@@ -15,6 +15,6 @@ class ShowStaffDashboard extends RoleBasedAccess
 
     public static function key(): string
     {
-        return 'show_staff_dashboard';
+        return array_keys(self::PERMISSIONS)[0];
     }
 }
