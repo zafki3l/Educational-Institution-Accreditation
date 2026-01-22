@@ -36,4 +36,22 @@ class HomeController extends Controller
             ]
         );
     }
+
+    public function show2(string $link): mixed
+    {
+        $standards = $this->standardService->findAll();
+        $criteriaByStandard = $this->criteriaService->groupCriteriaWithStandard();
+        $evidenceByCriteria = $this->evidenceService->groupByCriteria();
+
+        return $this->view(
+            'homepage/show',
+            'homepage.layouts',
+            [
+                'link' => $link,
+                'standards' => $standards->toArray(),
+                'criteriaByStandard' => $criteriaByStandard,
+                'evidenceByCriteria' => $evidenceByCriteria
+            ]
+        );
+    }
 }

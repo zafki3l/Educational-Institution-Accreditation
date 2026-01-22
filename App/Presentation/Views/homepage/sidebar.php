@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="sidebar-header">
         <h2>
-            HỆ THỐNG KIỂM ĐỊNH CHẤT LƯỢNG CƠ SỞ GIÁO DỤC
+            DANH SÁCH MINH CHỨNG
         </h2>
     </div>
 
@@ -47,7 +47,7 @@
                                 <?php if (!empty($evidenceByCriteria[$criteria['id']])): ?>
                                     <div class="nav-children" id="criteria-<?= $criteria['id'] ?>">
                                         <?php foreach ($evidenceByCriteria[$criteria['id']] as $evidence): ?>
-                                            <a href="/<?= PROJECT_NAME ?>/staff/evidences/<?= htmlspecialchars($evidence['link']) ?>"
+                                            <a href="/<?= PROJECT_NAME ?>/evidences/<?= htmlspecialchars($evidence['link']) ?>"
                                                 class="nav-item nav-item-evidence">
                                                 <span class="nav-icon">
                                                     <i class="fas fa-file-alt"></i>
