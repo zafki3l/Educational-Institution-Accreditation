@@ -47,7 +47,6 @@
 }
 
 .sidebar-content {
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -55,7 +54,6 @@
 
 .menu-sidebar{
     display: flex;
-    margin-top: 10px;
 }
 
 .menu-sidebar i{

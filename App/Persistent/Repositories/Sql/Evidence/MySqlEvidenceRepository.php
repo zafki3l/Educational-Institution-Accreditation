@@ -116,7 +116,8 @@ class MySqlEvidenceRepository extends SqlRepository implements EvidenceRepositor
             $sql = "SELECT 
                         e.id as 'id',
                         e.name as 'name',
-                        m.criteria_id as 'criteria_id'
+                        m.criteria_id as 'criteria_id',
+                        e.link as 'link'
                     FROM evidences e
                     JOIN milestone_evidence me 
                         ON e.id = me.evidence_id

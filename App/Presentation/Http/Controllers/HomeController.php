@@ -26,10 +26,28 @@ class HomeController extends Controller
         $evidenceByCriteria = $this->evidenceService->groupByCriteria();
 
         return $this->view(
-            'homepage',
+            'homepage/main',
             'homepage.layouts',
             [
                 'title' => 'Homepage',
+                'standards' => $standards->toArray(),
+                'criteriaByStandard' => $criteriaByStandard,
+                'evidenceByCriteria' => $evidenceByCriteria
+            ]
+        );
+    }
+
+    public function show2(string $link): mixed
+    {
+        $standards = $this->standardService->findAll();
+        $criteriaByStandard = $this->criteriaService->groupCriteriaWithStandard();
+        $evidenceByCriteria = $this->evidenceService->groupByCriteria();
+
+        return $this->view(
+            'homepage/show',
+            'homepage.layouts',
+            [
+                'link' => $link,
                 'standards' => $standards->toArray(),
                 'criteriaByStandard' => $criteriaByStandard,
                 'evidenceByCriteria' => $evidenceByCriteria

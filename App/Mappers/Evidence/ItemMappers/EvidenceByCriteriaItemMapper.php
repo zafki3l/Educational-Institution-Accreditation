@@ -20,7 +20,8 @@ class EvidenceByCriteriaItemMapper implements EvidenceItemMapperInterface
         return new EvidenceByCriteriaDTO(
             $evidence['id'],
             $evidence['name'],
-            $evidence['criteria_id']
+            $evidence['criteria_id'],
+            $evidence['link']
         );
     }
 }
