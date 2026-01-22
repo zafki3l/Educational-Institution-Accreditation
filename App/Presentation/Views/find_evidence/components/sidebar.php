@@ -9,7 +9,9 @@
         <?php foreach ($standards as $standard): ?>
             <div class="nav-group">
                 <!-- Standard -->
-                <button class="nav-item nav-item-standard" data-toggle="standard-<?= $standard['id'] ?>">
+                <button type="button"
+                        class="nav-item nav-item-standard"
+                        data-toggle="standard-<?= $standard['id'] ?>">
                     <span class="nav-toggle">
                         <i class="fas fa-chevron-right"></i>
                     </span>
@@ -29,7 +31,9 @@
                         <?php foreach ($criteriaByStandard[$standard['id']] as $criteria): ?>
                             <div class="nav-group nav-group-level-2">
                                 <!-- Criteria -->
-                                <button class="nav-item nav-item-criteria" data-toggle="criteria-<?= $criteria['id'] ?>">
+                                <button type="button"
+                                        class="nav-item nav-item-criteria"
+                                        data-toggle="criteria-<?= $criteria['id'] ?>">
                                     <span class="nav-toggle">
                                         <i class="fas fa-chevron-right"></i>
                                     </span>

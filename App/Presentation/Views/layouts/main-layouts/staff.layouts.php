@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/layouts/homepage/header.css">
+    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/layouts/homepage/header.homepage.css">
     <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/layouts/homepage/searchbar.css">
-    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/rule.css">
+    <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/index.css">
     <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/noti.css">
     <link rel="stylesheet" href="/<?= PROJECT_NAME ?>/public/css/error.css">
     <link rel="shortcut icon" href="/<?= PROJECT_NAME ?>/public/images/icon/crow.png" type="image/x-icon">

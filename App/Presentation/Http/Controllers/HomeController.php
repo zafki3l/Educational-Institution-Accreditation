@@ -19,14 +19,28 @@ class HomeController extends Controller
         private CriteriaFacade $criteriaService,
         private EvidenceFacade $evidenceService
     ) {}
+
     public function index(): mixed
+    {
+        $isAuth = isset($_SESSION['user']);
+        return $this->view(
+            'homepage/main',
+            'homepage.layouts',
+            [
+                'isAuth' => $isAuth,
+                'title' => 'Trang chủ'
+            ]
+        );
+    }
+
+    public function evidenceList(): mixed
     {
         $standards = $this->standardService->findAll();
         $criteriaByStandard = $this->criteriaService->groupCriteriaWithStandard();
         $evidenceByCriteria = $this->evidenceService->groupByCriteria();
 
         return $this->view(
-            'homepage/main',
+            'find_evidence/main',
             'homepage.layouts',
             [
                 'title' => 'Homepage',
@@ -37,14 +51,14 @@ class HomeController extends Controller
         );
     }
 
-    public function show2(string $link): mixed
+    public function showEvidence(string $link): mixed
     {
         $standards = $this->standardService->findAll();
         $criteriaByStandard = $this->criteriaService->groupCriteriaWithStandard();
         $evidenceByCriteria = $this->evidenceService->groupByCriteria();
 
         return $this->view(
-            'homepage/show',
+            'find_evidence/show',
             'homepage.layouts',
             [
                 'link' => $link,

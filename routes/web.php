@@ -1,13 +1,14 @@
 <?php
 
 use App\Presentation\Http\Controllers\AuthController;
-use App\Presentation\Http\Controllers\EvidenceController;
 use App\Presentation\Http\Controllers\HomeController;
 use App\Presentation\Http\Middlewares\EnsureAuth;
 
 // Homepage
+$router->get('/', [HomeController::class, 'index']);
+
 $router->middleware([EnsureAuth::class])
-    ->get('/', [HomeController::class, 'index']);
+    ->get('/evidences', [HomeController::class, 'evidenceList']);
 
 // Auth Routes
 $router->get('/login', [AuthController::class, 'showLogin']);
@@ -18,4 +19,4 @@ $router->middleware([EnsureAuth::class])
     ->post('/logout', [AuthController::class, 'logout']);
 
 $router->middleware([EnsureAuth::class])
-    ->get('/evidences/{link}', [HomeController::class, 'show2']);
+    ->get('/evidences/{link}', [HomeController::class, 'showEvidence']);
