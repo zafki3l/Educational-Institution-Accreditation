@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Infrastructure\FileUpload;
-
-use App\Business\FileUpload\EvidenceFileUploadInterface;
-use App\Infrastructure\FileUpload\FileUpload;
+namespace App\Business\Modules\FileUpload;
 
 /**
  * Extends FileUpload for evidence-specific file handling.
  * Uploads to the 'evidences/' subdirectory.
  */
-class EvidenceFileUpload extends FileUpload implements EvidenceFileUploadInterface
+class EvidenceFileUpload extends FileUpload
 {
     protected function getUploadPath(): string
     {

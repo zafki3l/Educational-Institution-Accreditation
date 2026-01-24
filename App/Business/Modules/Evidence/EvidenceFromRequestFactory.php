@@ -2,7 +2,7 @@
 
 namespace App\Business\Modules\Evidence;
 
-use App\Business\FileUpload\EvidenceFileUploadInterface;
+use App\Business\Modules\FileUpload\EvidenceFileUpload;
 use App\Domain\Entities\Builders\EvidenceBuilder;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Domain\Entities\Models\Evidence;
@@ -14,7 +14,7 @@ use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;
  */
 class EvidenceFromRequestFactory
 {
-    public function __construct(private EvidenceFileUploadInterface $fileUpload) {}
+    public function __construct(private EvidenceFileUpload $fileUpload) {}
 
     /**
      * @param CreateEvidenceRequest $request

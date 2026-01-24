@@ -2,11 +2,11 @@
 
 namespace App\Business\Modules\Evidence;
 
+use App\Business\Modules\Paginator\Paginator;
 use App\Business\Traits\FilterHelper;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
-use App\Infrastructure\Paginator\Paginator;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\Evidence\CreateEvidenceRequest;
 use App\Presentation\Http\Requests\Evidence\UpdateEvidenceRequest;

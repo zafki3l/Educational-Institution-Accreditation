@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Infrastructure\FileUpload;
+namespace App\Business\Modules\FileUpload;
 
-use App\Business\Modules\FileUpload\FileUploadValidator;
 use App\Domain\Exceptions\FileUploadException\FileSizeException;
 use App\Domain\Exceptions\FileUploadException\FileUploadException;
 use App\Domain\Exceptions\FileUploadException\NoFileException;

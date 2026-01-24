@@ -2,10 +2,10 @@
 
 namespace App\Business\Modules\User;
 
+use App\Business\Modules\Paginator\Paginator;
 use App\Domain\Entities\DataTransferObjects\CommandResult;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
-use App\Infrastructure\Paginator\Paginator;
 use App\Presentation\Http\Contexts\HttpActorContext;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
