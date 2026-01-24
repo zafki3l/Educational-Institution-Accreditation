@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Auth;
+namespace App\Business\Modules\Auth;
 
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 use Core\Validator;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Auth;
+namespace App\Business\Modules\Auth;
 
 class SessionProcessor
 {

@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Configs/config.php';
 require_once __DIR__ . '/../helper.php';
 
-use App\Business\Auth\SessionProcessor;
+use App\Business\Modules\Auth\SessionProcessor;
 use Dotenv\Dotenv;
 use App\Presentation\Http\Middlewares\CSRF_Authenticator;
 

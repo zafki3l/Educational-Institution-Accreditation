@@ -2,9 +2,9 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Auth\AuthFacade;
-use App\Business\Auth\LockTimeProcessor;
-use App\Business\Auth\SessionProcessor;
+use App\Business\Modules\Auth\AuthFacade;
+use App\Business\Modules\Auth\LockTimeProcessor;
+use App\Business\Modules\Auth\SessionProcessor;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;

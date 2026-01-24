@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Auth;
+namespace App\Business\Modules\Auth;
 
 use App\Domain\Entities\Models\User;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
