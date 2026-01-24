@@ -12,38 +12,6 @@
     </style>
 </head>
 <body>
-    <!-- SEARCH BAR -->
-    <?php include VIEW_PATH . "/layouts/parts/homepage/searchbar.homepage.php" ?>
-
-    <div class="main-content">
-        <ul>
-            <?php foreach ($standards as $standard): ?>
-                <li>
-                    📁 <?= htmlspecialchars($standard['name']) ?>
-
-                    <?php if (!empty($criteriaByStandard[$standard['id']])): ?>
-                        <ul>
-                            <?php foreach ($criteriaByStandard[$standard['id']] as $criteria): ?>
-                                <li>
-                                    📁 <?= htmlspecialchars($criteria['name']) ?>
-
-                                    <?php if (!empty($evidenceByCriteria[$criteria['id']])): ?>
-                                        <ul>
-                                            <?php foreach ($evidenceByCriteria[$criteria['id']] as $evidence): ?>
-                                                <li>
-                                                    📁 <?= htmlspecialchars("{$evidence['id']} - {$evidence['name']}") ?>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif; ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-
-    </div>
+    <h1>HELLO</h1>
 </body>
 </html>

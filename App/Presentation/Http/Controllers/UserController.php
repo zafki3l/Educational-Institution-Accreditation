@@ -2,9 +2,9 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\DepartmentFacade;
-use App\Business\Facades\RoleFacade;
-use App\Business\Facades\UserFacade;
+use App\Business\Modules\Department\DepartmentFacade;
+use App\Business\Modules\Role\RoleFacade;
+use App\Business\Modules\User\UserFacade;
 use App\Presentation\Http\Requests\User\CreateUserRequest;
 use App\Presentation\Http\Requests\User\UpdateUserRequest;
 use App\Presentation\Http\Traits\HttpResponse;

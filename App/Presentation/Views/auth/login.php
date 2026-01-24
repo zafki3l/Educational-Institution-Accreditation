@@ -35,16 +35,14 @@
                     <br>
                     
                     <div class="error-msg">
-                        <?php if (!empty($_SESSION['errors']['incorrect-password'])): ?>
-                            <p><?= error('incorrect-password') ?></p>
+                        <?php if (!empty($_SESSION['errors']['auth'])): ?>
+                            <p><?= error('auth') ?></p>
+                        <?php elseif (!empty($_SESSION['errors']['email'])): ?>
+                            <p><?= error('email') ?></p>
                         <?php endif; ?>
 
-                        <?php if (!empty($_SESSION['errors']['failed_login'])): ?>
-                            <p><?= error('failed_login') ?></p>
-                        <?php endif; ?>
-
-                        <?php if (!empty($_SESSION['locked'])): ?>
-                            <p><?= $_SESSION['locked'] ?></p>
+                        <?php if (!empty($_SESSION['lockout'])): ?>
+                            <p><?= $_SESSION['lockout'] ?></p>
                         <?php endif; ?>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\DepartmentFacade;
+use App\Business\Modules\Department\DepartmentFacade;
 use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
 
