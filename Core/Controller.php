@@ -2,10 +2,9 @@
 
 namespace Core;
 
-use App\Business\RoleBasedAccess\ShowAdminDashboard;
-use App\Business\RoleBasedAccess\ShowHomepage;
-use App\Business\RoleBasedAccess\ShowStaffDashboard;
-use App\Business\Security\RoleBasedAccess;
+use App\Business\Modules\RoleBasedAccess\ShowAdminDashboard;
+use App\Business\Modules\RoleBasedAccess\ShowHomepage;
+use App\Business\Modules\RoleBasedAccess\ShowStaffDashboard;
 
 /**
  * Class Controller

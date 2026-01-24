@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\CriteriaFacade;
-use App\Business\Facades\DepartmentFacade;
+use App\Business\Modules\Criteria\CriteriaFacade;
 use App\Presentation\Http\Requests\Criteria\CreateCriteriaRequest;
 use App\Domain\Entities\Models\User;
-use App\Business\Facades\StandardFacade;
+use App\Business\Modules\Department\DepartmentFacade;
+use App\Business\Modules\Standard\StandardFacade;
 use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
 

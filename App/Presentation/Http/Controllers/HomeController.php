@@ -2,10 +2,9 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\CriteriaFacade;
-use App\Business\Facades\EvidenceFacade;
-use App\Business\Facades\MilestoneFacade;
-use App\Business\Facades\StandardFacade;
+use App\Business\Modules\Criteria\CriteriaFacade;
+use App\Business\Modules\Evidence\EvidenceFacade;
+use App\Business\Modules\Standard\StandardFacade;
 use Core\Controller;
 
 /**

@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure\FileUpload;
 
+use App\Business\Modules\FileUpload\FileUploadValidator;
 use App\Domain\Exceptions\FileUploadException\FileSizeException;
 use App\Domain\Exceptions\FileUploadException\FileUploadException;
 use App\Domain\Exceptions\FileUploadException\NoFileException;
 use App\Domain\Exceptions\FileUploadException\NotAllowedFileException;
-use App\Business\Validations\Implementions\FileUploadValidator;
 
 /**
  * Abstract base class for handling file uploads with validation and secure storage.

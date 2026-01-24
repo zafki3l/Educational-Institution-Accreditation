@@ -2,11 +2,11 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\CriteriaFacade;
-use App\Business\Facades\EvidenceFacade;
-use App\Business\Facades\MilestoneFacade;
-use App\Business\Facades\StandardFacade;
-use App\Business\Facades\UserFacade;
+use App\Business\Modules\Criteria\CriteriaFacade;
+use App\Business\Modules\Evidence\EvidenceFacade;
+use App\Business\Modules\Milestone\MilestoneFacade;
+use App\Business\Modules\Standard\StandardFacade;
+use App\Business\Modules\User\UserFacade;
 use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
 
