@@ -4,11 +4,20 @@ namespace App\Business\Auth;
 
 class SessionProcessor
 {
+    /**
+     * Regenerate session if it isn't active
+     * @return bool
+     */
     public static function generate(): bool
     {
         return session_status() == PHP_SESSION_NONE ? session_start() : true;
     }
 
+    /**
+     * Set the login user when they are successfully log-in
+     * @param array $db_user
+     * @return array{department_id: mixed, email: mixed, first_name: mixed, gender: mixed, last_name: mixed, role_id: mixed, user_id: mixed}
+     */
     public function setUserSession(array $db_user): array
     {
         return [

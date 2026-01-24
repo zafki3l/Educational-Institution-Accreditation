@@ -2,8 +2,7 @@
 
 namespace App\Business\ErrorHandler;
 
-use App\Business\Ports\UserRepositoryInterface;
-use App\Business\Validations\Implementions\AuthValidator;
+use App\Business\Auth\AuthValidator;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 
 class AuthErrorHandler

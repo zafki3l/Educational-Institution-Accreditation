@@ -2,6 +2,11 @@
 
 namespace App\Business\Auth;
 
+/**
+ * This class handles the "Cooldown" period. 
+ * It prevents the server from even attempting to validate credentials 
+ * if the user is currently under a lockout penalty.
+ */
 class LockTimeProcessor
 {
     public const LOCK_TIME = 60;
