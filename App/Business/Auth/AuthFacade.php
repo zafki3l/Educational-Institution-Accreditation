@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Business\Facades;
+namespace App\Business\Auth;
 
 use App\Business\ErrorHandler\AuthErrorHandler;
-use App\Business\Queries\AuthQuery;
 use App\Domain\Entities\Models\User;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 

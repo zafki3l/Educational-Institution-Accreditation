@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Business\Validations\Implementions;
+namespace App\Business\Auth;
 
-use App\Infrastructure\Auth\LockService;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 use Core\Validator;
 
@@ -36,7 +35,7 @@ class AuthValidator extends Validator
         $_SESSION['attempt_failed']++;
 
         if ($_SESSION['attempt_failed'] > 5) {
-            $_SESSION['lock_time'] = time() + LockService::LOCK_TIME;
+            $_SESSION['lock_time'] = time() + LockTimeProcessor::LOCK_TIME;
             $_SESSION['attempt_failed'] = 0;
 
             return 'Too many failed attempts. Please try again in 10 minutes.';

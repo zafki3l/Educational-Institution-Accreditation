@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infrastructure\Auth;
+namespace App\Business\Auth;
 
-class SessionService
+class SessionProcessor
 {
     public static function generate(): bool
     {

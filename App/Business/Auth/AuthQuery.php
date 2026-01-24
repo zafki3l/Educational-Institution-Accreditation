@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Queries;
+namespace App\Business\Auth;
 
 use App\Business\Ports\UserRepositoryInterface;
 

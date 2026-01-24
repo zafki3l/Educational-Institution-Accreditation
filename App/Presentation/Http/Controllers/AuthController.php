@@ -2,9 +2,9 @@
 
 namespace App\Presentation\Http\Controllers;
 
-use App\Business\Facades\AuthFacade;
-use App\Infrastructure\Auth\LockService;
-use App\Infrastructure\Auth\SessionService;
+use App\Business\Auth\AuthFacade;
+use App\Business\Auth\LockTimeProcessor;
+use App\Business\Auth\SessionProcessor;
 use App\Presentation\Http\Requests\Auth\LoginRequest;
 use App\Presentation\Http\Traits\HttpResponse;
 use Core\Controller;
@@ -20,7 +20,7 @@ class AuthController extends Controller
     // Constructor
     public function __construct(
         private AuthFacade $authFacade,
-        private SessionService $sessionService
+        private SessionProcessor $sessionProcessor
     ) {}
 
     public function showLogin(): mixed
@@ -38,7 +38,7 @@ class AuthController extends Controller
         $_SESSION['lock_time'] = isset($_SESSION['lock_time']) ? $_SESSION['lock_time'] : 0;
 
         //Handle lock
-        if (LockService::isLocked()) {
+        if (LockTimeProcessor::isLocked()) {
             $this->back();
         }
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         $login_user = $this->authFacade->getLoginUser($request);
 
-        $_SESSION['user'] = $this->sessionService->setUserSession($login_user);
+        $_SESSION['user'] = $this->sessionProcessor->setUserSession($login_user);
 
         $afterLoginRoute = $this->authFacade->afterLogin($_SESSION['user']['role_id']);
         $this->redirect($afterLoginRoute);
