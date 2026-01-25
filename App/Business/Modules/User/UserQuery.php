@@ -2,11 +2,11 @@
 
 namespace App\Business\Modules\User;
 
+use App\Business\Modules\User\Mappers\ItemMappers\UserItemType;
+use App\Business\Modules\User\Mappers\UserDTOMapper;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserByIdDTO;
 use App\Domain\Entities\DataTransferObjects\UserDTO\UserCollectionDTO;
 use App\Domain\Exceptions\UserException\UserNotFoundException;
-use App\Mappers\User\ItemMappers\UserItemType;
-use App\Mappers\User\UserDTOMapper;
 use App\Business\Ports\UserRepositoryInterface;
 
 /**

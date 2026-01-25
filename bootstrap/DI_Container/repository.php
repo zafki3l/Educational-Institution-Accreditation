@@ -7,20 +7,20 @@ use App\Business\Ports\MilestoneRepositoryInterface;
 use App\Business\Ports\RoleRepositoryInterface;
 use App\Business\Ports\StandardRepositoryInterface;
 use App\Business\Ports\UserRepositoryInterface;
-use App\Persistent\Repositories\Sql\Criteria\MySqlCriteriaRepository;
-use App\Persistent\Repositories\Sql\Department\MySqlDepartmentRepository;
-use App\Persistent\Repositories\Sql\Evidence\MySqlEvidenceRepository;
-use App\Persistent\Repositories\Sql\Milestone\MySqlMilestoneRepository;
-use App\Persistent\Repositories\Sql\Role\MySqlRoleRepository;
-use App\Persistent\Repositories\Sql\Standard\MySqlStandardRepository;
-use App\Persistent\Repositories\Sql\User\MySqlUserRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlCriteriaRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlDepartmentRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlEvidenceRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlMilestoneRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlRoleRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MysqlStandardRepository;
+use App\Infrastructure\Persistent\Repositories\Sql\MySqlUserRepository;
 
 use function DI\autowire;
 
 return [
     UserRepositoryInterface::class => autowire(MySqlUserRepository::class),
     EvidenceRepositoryInterface::class => autowire(MySqlEvidenceRepository::class),
-    StandardRepositoryInterface::class => autowire(MySqlStandardRepository::class),
+    StandardRepositoryInterface::class => autowire(MysqlStandardRepository::class),
     RoleRepositoryInterface::class => autowire(MySqlRoleRepository::class),
     DepartmentRepositoryInterface::class => autowire(MySqlDepartmentRepository::class),
     CriteriaRepositoryInterface::class => autowire(MySqlCriteriaRepository::class),

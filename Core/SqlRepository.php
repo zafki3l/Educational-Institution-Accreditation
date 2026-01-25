@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use App\Persistent\Databases\Interfaces\Core\DatabaseInterface;
+use App\Infrastructure\Persistent\Databases\Interfaces\Core\DatabaseInterface;
 use PDO;
 use PDOStatement;
 
