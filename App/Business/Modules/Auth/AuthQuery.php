@@ -8,7 +8,7 @@ class AuthQuery
 {
     public function __construct(private UserRepositoryInterface $repository) {}
 
-    public function getLoginUser(string $email): array
+    public function getLoginUser(string $email)
     {
         // If the user is sucessfully login
         return $this->repository->findByEmail($email);

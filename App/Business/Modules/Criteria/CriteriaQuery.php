@@ -2,12 +2,12 @@
 
 namespace App\Business\Modules\Criteria;
 
+use App\Business\Modules\Criteria\Mappers\CriteriaDTOMapper;
+use App\Business\Modules\Criteria\Mappers\ItemMappers\CriteriaItemType;
 use App\Business\Ports\CriteriaRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaByIdDTO;
 use App\Domain\Entities\DataTransferObjects\CriteriaDTO\CriteriaCollectionDTO;
 use App\Domain\Exceptions\CriteriaException\CriteriaNotFoundException;
-use App\Mappers\Criteria\CriteriaDTOMapper;
-use App\Mappers\Criteria\ItemMappers\CriteriaItemType;
 
 /**
  * Application service responsible for querying standard's data

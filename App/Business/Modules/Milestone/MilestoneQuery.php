@@ -2,12 +2,12 @@
 
 namespace App\Business\Modules\Milestone;
 
+use App\Business\Modules\Milestone\Mappers\ItemMappers\MilestoneItemType;
+use App\Business\Modules\Milestone\Mappers\MilestoneDTOMapper;
 use App\Business\Ports\MilestoneRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\MilestoneDTO\BaseMilestoneDTO;
 use App\Domain\Entities\DataTransferObjects\MilestoneDTO\MilestoneCollectionDTO;
 use App\Domain\Exceptions\MilestoneException\MilestoneNotFoundException;
-use App\Mappers\Milestone\ItemMappers\MilestoneItemType;
-use App\Mappers\Milestone\MilestoneDTOMapper;
 
 /**
  * Application service responsible for querying standard's data

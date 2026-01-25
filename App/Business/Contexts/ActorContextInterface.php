@@ -7,7 +7,7 @@ interface ActorContextInterface
     public function id(): int;
 
     public function firstName(): string;
-
+    
     public function lastName(): string;
 
     public function fullName(): string;

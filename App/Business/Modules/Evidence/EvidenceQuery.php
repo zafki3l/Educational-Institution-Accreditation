@@ -2,12 +2,12 @@
 
 namespace App\Business\Modules\Evidence;
 
+use App\Business\Modules\Evidence\Evidence\EvidenceDTOMapper;
+use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceItemType;
 use App\Business\Ports\EvidenceRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 use App\Domain\Exceptions\EvidenceException\EvidenceNotFoundException;
-use App\Mappers\Evidence\EvidenceDTOMapper;
-use App\Mappers\Evidence\ItemMappers\EvidenceItemType;
 
 /**
  * Application service responsible for querying evidence's data

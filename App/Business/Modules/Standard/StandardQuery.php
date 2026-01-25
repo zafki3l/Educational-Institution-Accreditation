@@ -2,12 +2,12 @@
 
 namespace App\Business\Modules\Standard;
 
+use App\Business\Modules\Standard\Mappers\ItemMappers\StandardItemType;
+use App\Business\Modules\Standard\Mappers\StandardDTOMapper;
 use App\Business\Ports\StandardRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\BaseStandardDTO;
 use App\Domain\Entities\DataTransferObjects\StandardDTO\StandardCollectionDTO;
 use App\Domain\Exceptions\StandardException\StandardNotFoundException;
-use App\Mappers\Standard\ItemMappers\StandardItemType;
-use App\Mappers\Standard\StandardDTOMapper;
 
 /**
  * Application service responsible for querying standard's data
