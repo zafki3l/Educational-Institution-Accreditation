@@ -2,8 +2,8 @@
 
 namespace App\Business\Modules\Evidence;
 
-use App\Business\Modules\Evidence\Evidence\EvidenceDTOMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceItemType;
+use App\Business\Modules\Evidence\Mappers\EvidenceDTOMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceItemType;
 use App\Business\Ports\EvidenceRepositoryInterface;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByIdDTO;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;

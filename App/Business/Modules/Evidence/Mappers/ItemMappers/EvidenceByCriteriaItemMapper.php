@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Business\Modules\Evidence\Evidence\ItemMappers;
+namespace App\Business\Modules\Evidence\Mappers\ItemMappers;
 
-use App\Business\Modules\Evidence\Evidence\ItemMappers\Interfaces\EvidenceItemMapperInterface;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\Interfaces\EvidenceItemMapperInterface;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceByCriteriaDTO;
 
 /**

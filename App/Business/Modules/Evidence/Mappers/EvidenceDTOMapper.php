@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Business\Modules\Evidence\Evidence;
+namespace App\Business\Modules\Evidence\Mappers;
 
-use App\Business\Modules\Evidence\Evidence\Factory\EvidenceItemFactory;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceItemType;
+use App\Business\Modules\Evidence\Mappers\Factory\EvidenceItemFactory;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceItemType;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\EvidenceCollectionDTO;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Modules\Evidence\Evidence\ItemMappers;
+namespace App\Business\Modules\Evidence\Mappers\ItemMappers;
 
 enum EvidenceItemType: string
 {

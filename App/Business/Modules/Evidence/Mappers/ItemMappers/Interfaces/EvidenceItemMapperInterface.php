@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Modules\Evidence\Evidence\ItemMappers\Interfaces;
+namespace App\Business\Modules\Evidence\Mappers\ItemMappers\Interfaces;
 
 use App\Domain\Entities\DataTransferObjects\EvidenceDTO\BaseEvidenceDTO;
 

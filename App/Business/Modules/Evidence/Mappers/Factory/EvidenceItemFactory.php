@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Business\Modules\Evidence\Evidence\Factory;
+namespace App\Business\Modules\Evidence\Mappers\Factory;
 
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceBaseItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceByCriteriaItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceByIdItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceByMilestoneItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceItemType;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceListItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\EvidenceWithoutMilestoneItemMapper;
-use App\Business\Modules\Evidence\Evidence\ItemMappers\Interfaces\EvidenceItemMapperInterface;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceBaseItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceByCriteriaItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceByIdItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceByMilestoneItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceItemType;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceListItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\EvidenceWithoutMilestoneItemMapper;
+use App\Business\Modules\Evidence\Mappers\ItemMappers\Interfaces\EvidenceItemMapperInterface;
 
 /**
  * Factory for creating evidence item mappers based on the specified type.
